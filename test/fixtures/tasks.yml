@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  developer_id: 1
+  project_id: 1
+  completed: 2014-02-10 13:10:43
+
+two:
+  description: MyString
+  developer_id: 1
+  project_id: 1
+  completed: 2014-02-10 13:10:43
