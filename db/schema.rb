@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210211042) do
+ActiveRecord::Schema.define(version: 20140210212654) do
 
   create_table "developers", force: true do |t|
     t.string   "name"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20140210211042) do
 
   create_table "projects", force: true do |t|
     t.string   "name"
-    t.integer  "status"
+    t.integer  "status",     default: 0
     t.date     "began"
     t.date     "finished"
-    t.integer  "priority"
+    t.integer  "priority",   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
