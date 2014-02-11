@@ -1,20 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
     <title><%= content_for?(:title) ? yield(:title) : "Devboard" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Devboard" %>">
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
     <header>
-      <%= render 'layouts/navigation' %>
+        <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
+        <%= render 'layouts/messages' %>
+        
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+              <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">Overview</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Developers</a></li>
+                <li><a href="#">Export</a></li>
+              </ul>
+              <ul class="nav nav-sidebar">
+                <li><a href="">Meeting Notes</a></li>
+                <li><a href="">Design Documents</a></li>
+              </ul>
+              <ul class="nav nav-sidebar">
+                <li><a href="">Best Practices</a></li>
+                <li><a href="">Useful Links</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <%= yield %>
+            </div>
+          </div>
+        </div>
     </main>
   </body>
 </html>

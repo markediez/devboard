@@ -44,4 +44,4 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 # For easy Bootstrap integration
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.1.0'

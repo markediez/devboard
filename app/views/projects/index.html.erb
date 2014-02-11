@@ -1,31 +1,97 @@
-<h1>Projects</h1>
+<h1 class="page-header">Dashboard</h1>
 
-<table>
+<div class="row placeholders">
+<div class="col-xs-6 col-sm-3 placeholder">
+  <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+  <h4>Christopher</h4>
+  <span class="text-muted">Roles Management</span>
+</div>
+<div class="col-xs-6 col-sm-3 placeholder">
+  <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+  <h4>Obada</h4>
+  <span class="text-muted">Staff Scheduler</span>
+</div>
+<div class="col-xs-6 col-sm-3 placeholder">
+  <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+  <h4>Lloyd</h4>
+  <span class="text-muted">Staff Scheduler</span>
+</div>
+<div class="col-xs-6 col-sm-3 placeholder">
+  <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+  <h4>Jacob</h4>
+  <span class="text-muted">DSS Wayfinding</span>
+</div>
+</div>
+
+<h2 class="sub-header">Active Projects</h2>
+<div class="table-responsive">
+<table class="table table-striped">
   <thead>
     <tr>
+      <th>#</th>
       <th>Name</th>
+      <th>Age</th>
       <th>Status</th>
-      <th>Began</th>
-      <th>Finished</th>
-      <th>Priority</th>
-      <th></th>
+      <th>Link</th>
     </tr>
   </thead>
-
   <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= link_to project.name, project %></td>
-        <td><%= project.status %></td>
-        <td><%= project.began %></td>
-        <td><%= project.finished %></td>
-        <td><%= project.priority %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <tr>
+      <td>1</td>
+      <td>NYTD</td>
+      <td>4 years</td>
+      <td>Cancelled</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Roles Management</td>
+      <td>3 years</td>
+      <td>In Production</td>
+      <td><a href="https://roles.dss.ucdavis.edu/">roles.dss.ucdavis.edu</a></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>DSS Portal</td>
+      <td>1 year</td>
+      <td>On Hold</td>
+      <td><a href="https://portal.dss.ucdavis.edu/">portal.dss.ucdavis.edu</a></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>DSS Messenger</td>
+      <td>1 year</td>
+      <td>In Production</td>
+      <td><a href="https://messenger.dss.ucdavis.edu/">messenger.dss.ucdavis.edu</a></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>IPA</td>
+      <td>4 months</td>
+      <td>Planning</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Staff Scheduler</td>
+      <td>2 months</td>
+      <td>In Development</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Chekhov</td>
+      <td>2 months</td>
+      <td>Pilot Testing</td>
+      <td><a href="https://chekhov.dss.ucdavis.edu/">chekhov.dss.ucdavis.edu</a></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>DSS Wayfinding</td>
+      <td>1 week</td>
+      <td>In Development</td>
+      <td></td>
+    </tr>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Project', new_project_path %>
+</div>
