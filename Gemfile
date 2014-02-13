@@ -47,4 +47,10 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass', '~> 3.1.0'
 
 # For image attachments
-gem "paperclip", "~> 3.0"
+gem 'paperclip', '~> 3.0'
+
+# For CAS authentication
+gem 'rubycas-client'
+
+# For authorization
+gem 'cancan'

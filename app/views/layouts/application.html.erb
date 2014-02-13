@@ -28,22 +28,24 @@
         
         <div class="container-fluid">
           <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-              <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Developers</a></li>
-                <li><a href="#">Export</a></li>
-              </ul>
-              <ul class="nav nav-sidebar">
-                <li><a href="">Meeting Notes</a></li>
-                <li><a href="">Design Documents</a></li>
-              </ul>
-              <ul class="nav nav-sidebar">
-                <li><a href="">Best Practices</a></li>
-                <li><a href="">Useful Links</a></li>
-              </ul>
-            </div>
+            <% if authenticated? %>
+              <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                  <li class="active"><a href="#">Overview</a></li>
+                  <li><a href="#">Projects</a></li>
+                  <li><a href="#">Developers</a></li>
+                  <li><a href="#">Export</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                  <li><a href="">Meeting Notes</a></li>
+                  <li><a href="">Design Documents</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                  <li><a href="">Best Practices</a></li>
+                  <li><a href="">Useful Links</a></li>
+                </ul>
+              </div>
+            <% end %>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <%= yield %>
             </div>
