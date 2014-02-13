@@ -113,9 +113,14 @@ module Authentication
         @user.logged_in_at = DateTime.now()
         @user.save
         #Authorization.ignore_access_control(false)
-
+        
         logger.info "Valid CAS user is in our database. Passes authentication."
-
+        
+        if params[:ticket].include? "cas"
+          # This is a session-initiating CAS login, so remove the damn GET parameter from the URL for UX
+          redirect_to :controller => params[:controller], :action => params[:action]
+        end
+        
         return
       else
         # Proper CAS request but user not in our database.

@@ -38,7 +38,13 @@ gem 'spring',        group: :development
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano', '< 3.0.0', group: :development
+
+# Use PostgreSQL in production
+gem 'pg', group: :production
+
+# E-mail exceptions in production
+gem 'exception_notification', group: :production
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

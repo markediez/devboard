@@ -77,4 +77,12 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  
+  # Send e-mail on exceptions
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[Devboard] ",
+      :sender_address => %{no-reply@roles.dss.ucdavis.edu},
+      :exception_recipients => %w{dssit-devs-exceptions@ucdavis.edu}
+    }
 end
