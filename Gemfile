@@ -45,3 +45,6 @@ gem 'spring',        group: :development
 
 # For easy Bootstrap integration
 gem 'bootstrap-sass', '~> 3.1.0'
+
+# For image attachments
+gem "paperclip", "~> 3.0"

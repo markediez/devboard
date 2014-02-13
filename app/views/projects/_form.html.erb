@@ -17,7 +17,14 @@
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.text_field :status %>
+    <select name="project[status]">
+        <option value="planning" <%= 'selected' if @project.planning? %>>Planning</option>
+        <option value="in_development" <%= 'selected' if @project.in_development? %>>In Development</option>
+        <option value="pilot_testing" <%= 'selected' if @project.pilot_testing? %>>Pilot Testing</option>
+        <option value="in_production" <%= 'selected' if @project.in_production? %>>In Production</option>
+        <option value="cancelled" <%= 'selected' if @project.cancelled? %>>Cancelled</option>
+        <option value="on_hold" <%= 'selected' if @project.on_hold? %>>On Hold</option>
+    </select>
   </div>
   <div class="field">
     <%= f.label :began %><br>
@@ -25,11 +32,19 @@
   </div>
   <div class="field">
     <%= f.label :finished %><br>
-    <%= f.date_select :finished %>
+    <%= f.date_select :finished, {:include_blank => true, :default => nil}  %>
   </div>
   <div class="field">
     <%= f.label :priority %><br>
-    <%= f.text_field :priority %>
+    <select name="project[priority]">
+        <option value="low_priority" <%= 'selected' if @project.low_priority? %>>Low Priority</option>
+        <option value="normal_priority" <%= 'selected' if @project.normal_priority? %>>Normal Priority</option>
+        <option value="high_priority" <%= 'selected' if @project.high_priority? %>>High Priority</option>
+    </select>
+  </div>
+  <div class="field">
+    <%= f.label :link %><br>
+    <%= f.text_field :link %>
   </div>
   <div class="actions">
     <%= f.submit %>

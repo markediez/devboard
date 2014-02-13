@@ -1,0 +1,48 @@
+<!--<h1 class="page-header">Overview</h1>-->
+
+<h2 class="sub-header">Developers</h2>
+<div class="row placeholders">
+    <% @developers.each do |developer| %>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <%= link_to image_tag(developer.avatar.url, :alt => "Avatar for #{developer.name}"), developer %>
+          <h4><%= developer.name %></h4>
+          <span class="text-muted">
+            <% if developer.tasks.active.count > 0 %>
+            <%= developer.tasks.active.first.project.name %>
+            <% else %>
+            No assignments
+            <% end %>
+          </span>
+        </div>
+    <% end %>
+</div>
+
+<h2 class="sub-header">Active Projects</h2>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Status</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.active.each do |project| %>
+        <tr>
+          <td style="color: #666;">
+             <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if project.low_priority? %>
+             <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if project.normal_priority? %>
+             <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if project.high_priority? %>
+          </td>
+          <td><%= link_to project.name, project %></td>
+          <td><%= time_ago_in_words(project.began) %></td>
+          <td><%= project.status.to_s.gsub(/_/, ' ').capitalize %></td>
+          <td><%= link_to(project.link) unless project.link.blank? %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
