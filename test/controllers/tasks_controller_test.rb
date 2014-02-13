@@ -2,7 +2,8 @@ require 'test_helper'
 
 class TasksControllerTest < ActionController::TestCase
   setup do
-    @task = tasks(:one)
+    @task = tasks(:devboard_task_1)
+    CASClient::Frameworks::Rails::Filter.fake('casuser')
   end
 
   test "should get index" do
@@ -10,7 +11,7 @@ class TasksControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:tasks)
   end
-
+  
   test "should get new" do
     get :new
     assert_response :success
@@ -28,22 +29,22 @@ class TasksControllerTest < ActionController::TestCase
     get :show, id: @task
     assert_response :success
   end
-
+  
   test "should get edit" do
     get :edit, id: @task
     assert_response :success
   end
-
+  
   test "should update task" do
     patch :update, id: @task, task: { completed: @task.completed, description: @task.description, developer_id: @task.developer_id, project_id: @task.project_id }
     assert_redirected_to task_path(assigns(:task))
   end
-
+  
   test "should destroy task" do
     assert_difference('Task.count', -1) do
       delete :destroy, id: @task
     end
-
+  
     assert_redirected_to tasks_path
   end
 end

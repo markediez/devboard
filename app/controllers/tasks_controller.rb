@@ -29,9 +29,13 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        logger.debug "create success"
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render action: 'show', status: :created, location: @task }
       else
+        logger.debug "create failure"
+        logger.debug @task.errors.full_messages
+        
         format.html { render action: 'new' }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -43,9 +47,13 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        logger.debug "update success"
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
+        logger.debug "update failure"
+        logger.debug @task.errors.full_messages
+        
         format.html { render action: 'edit' }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end

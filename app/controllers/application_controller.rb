@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
   include Authentication
   before_filter :authenticate
   
+  # Workaround for Can Can / Rails 4.0 bug (https://github.com/ryanb/cancan/issues/835)
+  before_filter do
+    resource = controller_path.singularize.gsub('/', '_').to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end
+  
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to access_denied_path, :alert => exception.message
   end

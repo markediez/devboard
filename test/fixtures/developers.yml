@@ -1,11 +1,11 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+picard:
+  id: 1
+  name: Picard
+  loginid: picardz
+  email: picard2154@yahoo.com
 
-one:
-  name: MyString
-  loginid: MyString
-  email: MyString
-
-two:
-  name: MyString
-  loginid: MyString
-  email: MyString
+riker:
+  id: 2
+  name: Riker
+  loginid: rikes
+  email: rikes4life@altavista.co.uk

@@ -2,7 +2,8 @@ require 'test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
   setup do
-    @project = projects(:one)
+    @project = projects(:devboard)
+    CASClient::Frameworks::Rails::Filter.fake('casuser')
   end
 
   test "should get index" do
