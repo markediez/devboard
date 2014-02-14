@@ -1,11 +1,9 @@
-<h1 class="page-header">Active Projects</h1>
-
-<h2 class="sub-header">Active Projects</h2>
+<h2 class="sub-header">Active</h2>
 <div class="table-responsive">
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>#</th>
+      <th></th>
       <th>Name</th>
       <th>Age</th>
       <th>Status</th>
@@ -13,62 +11,51 @@
     </tr>
   </thead>
   <tbody>
+    <% @projects.active.each do |project| %>
+        <tr>
+          <td style="color: #666;">
+             <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if project.low_priority? %>
+             <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if project.normal_priority? %>
+             <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if project.high_priority? %>
+          </td>
+          <td><%= link_to project.name, project %></td>
+          <td><%= time_ago_in_words(project.began) %></td>
+          <td><%= project.status.to_s.gsub(/_/, ' ').capitalize %></td>
+          <td><%= link_to(project.link) unless project.link.blank? %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<%= link_to 'New Project', new_project_path, :class => 'btn btn-default' %>
+
+<h2 class="sub-header">Inactive</h2>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
     <tr>
-      <td>1</td>
-      <td>NYTD</td>
-      <td>4 years</td>
-      <td>Cancelled</td>
-      <td></td>
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Status</th>
+      <th>Link</th>
     </tr>
-    <tr>
-      <td>2</td>
-      <td>Roles Management</td>
-      <td>3 years</td>
-      <td>In Production</td>
-      <td><a href="https://roles.dss.ucdavis.edu/">roles.dss.ucdavis.edu</a></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>DSS Portal</td>
-      <td>1 year</td>
-      <td>On Hold</td>
-      <td><a href="https://portal.dss.ucdavis.edu/">portal.dss.ucdavis.edu</a></td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>DSS Messenger</td>
-      <td>1 year</td>
-      <td>In Production</td>
-      <td><a href="https://messenger.dss.ucdavis.edu/">messenger.dss.ucdavis.edu</a></td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>IPA</td>
-      <td>4 months</td>
-      <td>Planning</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Staff Scheduler</td>
-      <td>2 months</td>
-      <td>In Development</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Chekhov</td>
-      <td>2 months</td>
-      <td>Pilot Testing</td>
-      <td><a href="https://chekhov.dss.ucdavis.edu/">chekhov.dss.ucdavis.edu</a></td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>DSS Wayfinding</td>
-      <td>1 week</td>
-      <td>In Development</td>
-      <td></td>
-    </tr>
+  </thead>
+  <tbody>
+    <% @projects.inactive.each do |project| %>
+        <tr>
+          <td style="color: #666;">
+             <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if project.low_priority? %>
+             <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if project.normal_priority? %>
+             <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if project.high_priority? %>
+          </td>
+          <td><%= link_to project.name, project %></td>
+          <td><%= time_ago_in_words(project.began) %></td>
+          <td><%= project.status.to_s.gsub(/_/, ' ').capitalize %></td>
+          <td><%= link_to(project.link) unless project.link.blank? %></td>
+        </tr>
+    <% end %>
   </tbody>
 </table>
 </div>

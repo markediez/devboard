@@ -1,10 +1,98 @@
-<p id="notice"><%= notice %></p>
-
+<div class="pull-right" style="padding-top: 5px;">
+  <%= link_to 'Edit', edit_project_path(@project), :class => 'btn btn-default' %>
+</div>
+<h1 class="page-header"><%= @project.name %></h1>
+<h3>Description</h3>
+<% unless @project.link.blank? %>
+  <p>
+    <%= link_to @project.link, @project.link %>
+  </p>
+<% end %>
 <p>
-  <strong>Name:</strong>
-  <%= @project.name %>
+  <%= @project.description %>
 </p>
 
+<h2 class="sub-header">Tasks</h2>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Summary</th>
+      <th>Assigned To</th>
+      <th>Due</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="color: #666;"><span class="glyphicon glyphicon-chevron-up"></span></td>
+      <td>Convert Group-OUs to Organizations</td>
+      <td><a href="#">Christopher Thielen</a></td>
+      <td>tomorrow</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td style="color: #666;"><span class="glyphicon glyphicon-minus"></span></td>
+      <td>Implement Design Version 2</td>
+      <td><a href="#">Christopher Thielen</a></td>
+      <td>this month</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 class="sub-header">Meeting Notes</h2>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Summary</th>
+      <th>Taken</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td><a href="#">Organization/OU Problem</a></td>
+      <td>Friday, February 14, 2014</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><a href="#">Initial Design Meeting</a></td>
+      <td>Friday, February 7, 2014</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 class="sub-header">Documents</h2>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td><a href="#">Dogbert PDF</a></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><a href="#">Design sketch</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<!--
 <p>
   <strong>Status:</strong>
   <%= @project.status %>
@@ -24,6 +112,4 @@
   <strong>Priority:</strong>
   <%= @project.priority %>
 </p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+-->

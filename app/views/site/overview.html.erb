@@ -1,5 +1,3 @@
-<!--<h1 class="page-header">Overview</h1>-->
-
 <h2 class="sub-header">Developers</h2>
 <div class="row placeholders">
     <% @developers.each do |developer| %>
@@ -17,10 +15,10 @@
     <% end %>
 </div>
 
-<h2 class="sub-header">Active Projects</h2>
+<h2 class="sub-header">Activity</h2>
 <div class="table-responsive">
 <table class="table table-striped">
-  <thead>
+  <!-- <thead>
     <tr>
       <th></th>
       <th>Name</th>
@@ -28,21 +26,48 @@
       <th>Status</th>
       <th>Link</th>
     </tr>
-  </thead>
+  </thead> -->
   <tbody>
-    <% @projects.active.each do |project| %>
-        <tr>
-          <td style="color: #666;">
-             <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if project.low_priority? %>
-             <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if project.normal_priority? %>
-             <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if project.high_priority? %>
-          </td>
-          <td><%= link_to project.name, project %></td>
-          <td><%= time_ago_in_words(project.began) %></td>
-          <td><%= project.status.to_s.gsub(/_/, ' ').capitalize %></td>
-          <td><%= link_to(project.link) unless project.link.blank? %></td>
-        </tr>
-    <% end %>
+    <tr>
+      <td><a href="#">Christopher Thielen</a> <b>deployed</b> a revision of <a href="#">roles-management</a> to <a href="#">roles.dss.ucdavis.edu</a></td>
+      <td>5 minutes ago</td>
+    </tr>
+    <tr>
+      <td><a href="#">Lloyd Wheeler</a> <b>commited</b> 3 revisions to <a href="#">staff-scheduler</a></td>
+      <td>3 hours ago</td>
+    </tr>
+    <tr>
+      <td><a href="#">Obada Kadri</a> <b>uploaded</b> the document <a href="#">Design Requirements</a> to the project <a href="#">IPA</a></td>
+      <td>5 hours ago</td>
+    </tr>
+    <tr>
+      <td><a href="#">Christopher Thielen</a> <b>added</b> the meeting notes <a href="#">Bi-Weekly Developer Meeting for February 14, 2014</a></td>
+      <td>yesterday</td>
+    </tr>
+    <tr>
+      <td><a href="#">Jacob Saporito</a> was <b>assigned</b> the task <a href="#">Implement DSS SVG maps</a> for the project <a href="#">DSS Wayfinding</a></td>
+      <td>yesterday</td>
+    </tr>
+    <tr>
+      <td><a href="#">Christopher Thielen</a> <b>completed</b> the task <a href="#">Implement Activity Log</a> for the project <a href="#">Devboard</a></td>
+      <td>two days ago</td>
+    </tr>
+    <tr>
+      <td><a href="#">Obada Kadri</a> <b>committed</b> 1 revision to <a href="#">Staff Scheduler</a></td>
+      <td>three days ago</td>
+    </tr>
+    <tr>
+      <td><a href="#">Christopher Thielen</a> <b>deployed</b> a revision of <a href="#">roles-management</a> to <a href="#">roles.dss.ucdavis.edu</a></td>
+      <td>three days ago</td>
+    </tr>
+    <tr>
+      <td><a href="#">Jacob Saporito</a> was added as a developer</td>
+      <td>four days ago</td>
+    </tr>
+    <tr>
+      <td><a href="#">Lloyd Wheeler</a> <b>completed</b> the task <a href="#">Algorithm to detect schedule gaps</a> for the project <a href="#">Staff Scheduler</a></td>
+      <td>four days ago</td>
+    </tr>
   </tbody>
 </table>
 </div>

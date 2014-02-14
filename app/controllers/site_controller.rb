@@ -4,9 +4,9 @@ class SiteController < ApplicationController
   # GET /overview
   def overview
     @developers = Developer.all
-    @projects = Project.all
+    @activity = nil
     authorize! :manage, @developers
-    authorize! :manage, @projects
+    authorize! :manage, @activity
   end
   
   # GET /access_denied
