@@ -16,12 +16,12 @@
 
 <p>
   <strong>Due:</strong>
-  <%= @task.due.nil? ? 'No due date' : @task.due.in_words %>
+  <%= @task.due.nil? ? 'No due date' : time_ago_in_words(@task.due) %>
 </p>
 
 <p>
   <strong>Completed:</strong>
-  <%= @task.completed.nil? ? 'In progress' : @task.completed.in_words %>
+  <%= @task.completed.nil? ? 'In progress' : time_ago_in_words(@task.completed) %>
 </p>
 
 <p>

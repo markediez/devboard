@@ -34,7 +34,7 @@
       </td>
       <td><%= link_to task.description, task %></td>
       <td><%= link_to task.developer.name, task.developer %></td>
-      <td><%= task.due.nil? ? 'No Due Date' : task.due.in_words %></td>
+      <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
       <td></td>
     </tr>
     <% end %>

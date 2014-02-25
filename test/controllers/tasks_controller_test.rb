@@ -13,7 +13,7 @@ class TasksControllerTest < ActionController::TestCase
   end
   
   test "should get new" do
-    get :new
+    get :new, {:project_id => 1}
     assert_response :success
   end
 
@@ -21,10 +21,10 @@ class TasksControllerTest < ActionController::TestCase
     assert_difference('Task.count') do
       post :create, task: { completed: @task.completed, description: @task.description, developer_id: @task.developer_id, project_id: @task.project_id }
     end
-
-    assert_redirected_to task_path(assigns(:task))
+  
+    assert_redirected_to project_path(assigns(:task).project)
   end
-
+  
   test "should show task" do
     get :show, id: @task
     assert_response :success
