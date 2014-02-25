@@ -25,20 +25,19 @@
     </tr>
   </thead>
   <tbody>
+    <% @project.tasks.each do |task| %>
     <tr>
-      <td style="color: #666;"><span class="glyphicon glyphicon-chevron-up"></span></td>
-      <td>Convert Group-OUs to Organizations</td>
-      <td><a href="#">Christopher Thielen</a></td>
-      <td>tomorrow</td>
+      <td style="color: #666;">
+        <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
+        <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
+        <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
+      </td>
+      <td><%= link_to task.description, task %></td>
+      <td><%= link_to task.developer.name, task.developer %></td>
+      <td><%= task.due.nil? ? 'No Due Date' : task.due.in_words %></td>
       <td></td>
     </tr>
-    <tr>
-      <td style="color: #666;"><span class="glyphicon glyphicon-minus"></span></td>
-      <td>Implement Design Version 2</td>
-      <td><a href="#">Christopher Thielen</a></td>
-      <td>this month</td>
-      <td></td>
-    </tr>
+    <% end %>
     <tr>
       <td colspan="5">
         <%= link_to 'New Task', new_task_path(:project_id => @project.id), :class => 'btn btn-default' %>

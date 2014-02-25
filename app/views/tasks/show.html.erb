@@ -1,24 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="pull-right" style="padding-top: 5px;">
+  <%= link_to 'Edit', edit_task_path(@task), :class => 'btn btn-default' %>
+</div>
+<h1><%= @task.description %></h1>
+<h2 class="page-header" style="color: #666;"><%= link_to @task.project.name, @task.project %></h2>
 
 <p>
-  <strong>Description:</strong>
-  <%= @task.description %>
+  <strong>Assigned to:</strong>
+  <%= link_to @task.developer.name, @task.developer %>
 </p>
 
 <p>
-  <strong>Developer:</strong>
-  <%= @task.developer_id %>
+  <strong>Priority:</strong>
+  <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>
 </p>
 
 <p>
-  <strong>Project:</strong>
-  <%= @task.project_id %>
+  <strong>Due:</strong>
+  <%= @task.due.nil? ? 'No due date' : @task.due.in_words %>
 </p>
 
 <p>
   <strong>Completed:</strong>
-  <%= @task.completed %>
+  <%= @task.completed.nil? ? 'In progress' : @task.completed.in_words %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<p>
+  <strong>Link:</strong>
+  <%= @task.link %>
+</p>
