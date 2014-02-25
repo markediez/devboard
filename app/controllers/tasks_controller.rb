@@ -16,6 +16,13 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    
+    if params[:project_id] and (Project.find_by_id(params[:project_id]) != nil)
+      @task.project_id = params[:project_id]
+    else
+      flash[:alert] = "Invalid Project ID."
+      redirect_to projects_url
+    end
   end
 
   # GET /tasks/1/edit
@@ -29,11 +36,9 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        logger.debug "create success"
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to @task.project, notice: 'Task was successfully created.' }
         format.json { render action: 'show', status: :created, location: @task }
       else
-        logger.debug "create failure"
         logger.debug @task.errors.full_messages
         
         format.html { render action: 'new' }
@@ -47,11 +52,9 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        logger.debug "update success"
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
-        logger.debug "update failure"
         logger.debug @task.errors.full_messages
         
         format.html { render action: 'edit' }
