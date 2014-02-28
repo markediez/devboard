@@ -32,7 +32,11 @@
   </div>
   <div class="form-group">
     <%= f.label :due %><br>
-    <%= f.datetime_select :due %>
+    <%= f.datetime_select :due, :include_blank => true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :completed %><br>
+    <%= f.datetime_select :completed, :include_blank => true %>
   </div>
   <div class="actions">
     <%= f.submit :class => 'btn btn-primary' %>
