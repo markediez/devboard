@@ -1,4 +1,4 @@
-<%= form_for(@project) do |f| %>
+<%= form_for(@project, html: {role: "form"}) do |f| %>
   <% if @project.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
@@ -11,13 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <select name="project[status]">
+  
+  <div class="form-group">
+    <label for="project[status]">Status</label>
+    <select name="project[status]" id="project[status]" class="form-control">
         <option value="planning" <%= 'selected' if @project.planning? %>>Planning</option>
         <option value="in_development" <%= 'selected' if @project.in_development? %>>In Development</option>
         <option value="pilot_testing" <%= 'selected' if @project.pilot_testing? %>>Pilot Testing</option>
@@ -26,32 +27,33 @@
         <option value="on_hold" <%= 'selected' if @project.on_hold? %>>On Hold</option>
     </select>
   </div>
-  <div class="field">
-    <%= f.label :began %><br>
+  <div class="form-group">
+    <%= f.label :began %>
     <%= f.date_select :began %>
   </div>
-  <div class="field">
-    <%= f.label :finished %><br>
-    <%= f.date_select :finished, {:include_blank => true, :default => nil}  %>
+  <div class="form-group">
+    <%= f.label :finished %>
+    <%= f.date_select :finished, { :include_blank => true, :default => nil } %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :priority %><br>
-    <select name="project[priority]">
+    <select name="project[priority]" class="form-control">
         <option value="low_priority" <%= 'selected' if @project.low_priority? %>>Low Priority</option>
         <option value="normal_priority" <%= 'selected' if @project.normal_priority? %>>Normal Priority</option>
         <option value="high_priority" <%= 'selected' if @project.high_priority? %>>High Priority</option>
     </select>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :description %><br>
-    <%= f.text_area :description, size: "65x8" %>
+    <%= f.text_area :description, size: "65x8", class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :link %><br>
-    <%= f.text_field :link %>
+    <%= f.text_field :link, class: "form-control" %>
   </div>
-  <br />
+  
   <div class="actions">
-    <%= f.submit :class => 'btn btn-default'%>
+    <%= f.submit :class => 'btn btn-primary' %>
+    <%= link_to 'Cancel', projects_path, :class => 'btn btn-default' %>
   </div>
 <% end %>
