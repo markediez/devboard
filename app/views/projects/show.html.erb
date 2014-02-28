@@ -33,7 +33,13 @@
         <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
       </td>
       <td><%= link_to task.description, task %></td>
-      <td><%= link_to task.developer.name, task.developer %></td>
+      <td>
+        <% if task.developer.nil? %>
+          No one assigned
+        <% else %>
+          <%= link_to task.developer.name, task.developer %>
+        <% end %>
+      </td>
       <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
       <td></td>
     </tr>

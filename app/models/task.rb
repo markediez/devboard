@@ -6,5 +6,5 @@ class Task < ActiveRecord::Base
   
   enum priority: [ :low_priority, :normal_priority, :high_priority ]
   
-  validates_presence_of :developer, :project
+  validates_presence_of :project
 end
