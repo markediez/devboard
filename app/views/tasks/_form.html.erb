@@ -75,7 +75,7 @@
     <%= f.label :create_github_issue, "Sync with GitHub" %><br>
     <select name="create_github_issue">
       <option value="0">No</option>
-      <option value="1">Yes</option>
+      <option value="1" <%= 'selected' if gh_available %>>Yes</option>
     </select>
   </div>
   <% end %>
