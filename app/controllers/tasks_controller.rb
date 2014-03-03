@@ -38,7 +38,9 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task.project, notice: 'Task was successfully created.' }
+        notice_txt = 'Task was successfully created.'
+        notice_txt += " GitHub issue ##{@task.gh_issue_number}." if @task.gh_issue_number
+        format.html { redirect_to @task.project, notice: notice_txt }
         format.json { render action: 'show', status: :created, location: @task }
       else
         logger.debug @task.errors.full_messages
