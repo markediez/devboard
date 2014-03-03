@@ -6,12 +6,21 @@
 
 <p>
   <strong>Assigned to:</strong>
+  <% if @task.developer %>
   <%= link_to @task.developer.name, @task.developer %>
+  <% else %>
+  Nobody
+  <% end %>
 </p>
 
 <p>
   <strong>Priority:</strong>
   <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>
+</p>
+
+<p>
+  <strong>GitHub Issue Number:</strong>
+  <%= @task.gh_issue_number %>
 </p>
 
 <p>

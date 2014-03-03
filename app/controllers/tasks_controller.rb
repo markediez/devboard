@@ -34,6 +34,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
+    create_github_issue if @task.valid? and params[:create_github_issue] == '1'
+
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task.project, notice: 'Task was successfully created.' }
@@ -81,6 +83,18 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:description, :developer_id, :project_id, :completed, :difficulty, :duration, :gh_issue_id)
+      params.require(:task).permit(:description, :developer_id, :project_id, :completed, :difficulty, :duration)
+    end
+    
+    # Uses the GitHub API to create a GitHub issue
+    def create_github_issue
+      github = Github.new oauth_token: current_user.developer.gh_personal_token
+      
+      ret = github.issues.create @task.project.gh_repo_url_parse(:user), @task.project.gh_repo_url_parse(:project), { "title" => @task.description,
+        #"body" => "",
+        #"assignee" => current_user.developer.gh_username
+      }
+      
+      @task.gh_issue_number = ret[:number]
     end
 end

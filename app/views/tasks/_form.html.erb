@@ -70,13 +70,15 @@
     <%= f.label :completed %><br>
     <%= f.datetime_select :completed, :include_blank => true %>
   </div>
+  <% if @task.new_record? and gh_available and not @task.project.gh_repo_url.blank? %>
   <div class="form-group">
-    <%= f.label :gh_sync, "Sync with GitHub" %><br>
-    <select name="task[gh_sync]">
+    <%= f.label :create_github_issue, "Sync with GitHub" %><br>
+    <select name="create_github_issue">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
   </div>
+  <% end %>
   <div class="actions">
     <%= f.submit :class => 'btn btn-primary' %>
     <%= link_to 'Cancel', @task.project, :class => 'btn btn-default' %>

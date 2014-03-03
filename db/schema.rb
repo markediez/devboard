@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303205252) do
+ActiveRecord::Schema.define(version: 20140303221642) do
 
   create_table "developers", force: true do |t|
     t.string   "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140303205252) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "gh_personal_token"
+    t.string   "gh_username"
   end
 
   create_table "projects", force: true do |t|
@@ -51,7 +52,7 @@ ActiveRecord::Schema.define(version: 20140303205252) do
     t.integer  "priority"
     t.integer  "difficulty"
     t.integer  "duration"
-    t.string   "gh_issue_id"
+    t.string   "gh_issue_number"
   end
 
   create_table "users", force: true do |t|
