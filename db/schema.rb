@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303200210) do
+ActiveRecord::Schema.define(version: 20140303205252) do
 
   create_table "developers", force: true do |t|
     t.string   "name"
@@ -49,6 +49,9 @@ ActiveRecord::Schema.define(version: 20140303200210) do
     t.datetime "due"
     t.string   "link"
     t.integer  "priority"
+    t.integer  "difficulty"
+    t.integer  "duration"
+    t.string   "gh_issue_id"
   end
 
   create_table "users", force: true do |t|

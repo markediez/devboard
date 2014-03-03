@@ -32,12 +32,50 @@
     </select>
   </div>
   <div class="form-group">
+    <%= f.label :difficulty %><br>
+    <select name="task[difficulty]">
+      <option></option>
+      <% (1..10).each do |i| %>
+      <%
+        helper_txt = ""
+        helper_txt = " - Very Easy" if i == 1
+        helper_txt = " - Easy" if i == 3
+        helper_txt = " - Average" if i == 5
+        helper_txt = " - Somewhat Difficult" if i == 7
+        helper_txt = " - Difficult" if i == 8
+        helper_txt = " - Very Difficult" if i == 10
+      %>
+      <option value="<%= i %>" <%= 'selected' if @task.difficulty == i %>><%= i %> <%= helper_txt %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="form-group">
+    <%= f.label :duration, "Time Required (Estimate, hh:mm)" %><br>
+    <select name="task[duration]">
+      <option></option>
+      <% (1..144).each do |i| %>
+      <% hours = (i * 15) / 60 %>
+      <% hours = '0' + hours.to_s if hours < 10 %>
+      <% minutes = (i * 15) % 60 %>
+      <% minutes = '0' + minutes.to_s if minutes < 10 %>
+      <option value="<%= i * 15 %>" <%= 'selected' if @task.duration == (i * 15) %>><%= hours %>:<%= minutes %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="form-group">
     <%= f.label :due %><br>
     <%= f.datetime_select :due, :include_blank => true %>
   </div>
   <div class="form-group">
     <%= f.label :completed %><br>
     <%= f.datetime_select :completed, :include_blank => true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :gh_sync, "Sync with GitHub" %><br>
+    <select name="task[gh_sync]">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select>
   </div>
   <div class="actions">
     <%= f.submit :class => 'btn btn-primary' %>
