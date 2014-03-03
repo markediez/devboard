@@ -40,6 +40,9 @@ class TasksController < ApplicationController
       if @task.save
         notice_txt = 'Task was successfully created.'
         notice_txt += " GitHub issue ##{@task.gh_issue_number}." if @task.gh_issue_number
+        
+        ActivityLog.create!({developer_id: current_user.developer_id, project_id: @task.project_id, task_id: @task.id, activity_type: :created })
+        
         format.html { redirect_to @task.project, notice: notice_txt }
         format.json { render action: 'show', status: :created, location: @task }
       else

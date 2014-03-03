@@ -28,6 +28,13 @@
     </tr>
   </thead> -->
   <tbody>
+    <% ActivityLog.all.each do |activity| %>
+    <tr>
+      <td><%= activity_to_s(activity) %></td>
+      <td><%= time_ago_in_words(activity.when) %></td>
+    </tr>
+    <% end %>
+      
     <tr>
       <td><a href="#">Christopher Thielen</a> <b>deployed</b> a revision of <a href="#">roles-management</a> to <a href="#">roles.dss.ucdavis.edu</a></td>
       <td>5 minutes ago</td>
