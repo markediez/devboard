@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303221642) do
+ActiveRecord::Schema.define(version: 20140303230210) do
 
   create_table "developers", force: true do |t|
     t.string   "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20140303221642) do
     t.string   "link"
     t.text     "description"
     t.string   "gh_repo_url"
+    t.date     "due"
   end
 
   create_table "tasks", force: true do |t|
