@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140228220631) do
+ActiveRecord::Schema.define(version: 20140303200210) do
 
   create_table "developers", force: true do |t|
     t.string   "name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140228220631) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "gh_personal_token"
   end
 
   create_table "projects", force: true do |t|
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20140228220631) do
     t.datetime "updated_at"
     t.string   "link"
     t.text     "description"
+    t.string   "gh_repo_url"
   end
 
   create_table "tasks", force: true do |t|

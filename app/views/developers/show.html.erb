@@ -1,9 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @developer.name %>
-</p>
+<div class="pull-right" style="padding-top: 5px;">
+  <%= link_to 'Edit', edit_developer_path(@developer), :class => 'btn btn-default' %>
+</div>
+<h1><%= @developer.name %></h1>
 
 <p>
   <strong>Loginid:</strong>
@@ -19,6 +17,3 @@
   <strong>Avatar:</strong>
   <%= image_tag @developer.avatar.url %>
 </p>
-
-<%= link_to 'Edit', edit_developer_path(@developer) %> |
-<%= link_to 'Back', developers_path %>

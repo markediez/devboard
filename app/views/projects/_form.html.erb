@@ -51,6 +51,10 @@
     <%= f.label :link %><br>
     <%= f.text_field :link, class: "form-control" %>
   </div>
+  <div class="form-group">
+    <%= f.label :gh_repo_url, "GitHub Repository URL (optional)" %><br>
+    <%= f.text_field :gh_repo_url, class: 'form-control', :placeholder => 'user/repo-name' %>
+  </div>
   
   <div class="actions">
     <%= f.submit :class => 'btn btn-primary' %>

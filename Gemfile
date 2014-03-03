@@ -60,3 +60,6 @@ gem 'rubycas-client'
 
 # For authorization
 gem 'cancan'
+
+# For GitHub integration
+gem 'github_api'
