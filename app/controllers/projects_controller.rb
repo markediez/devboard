@@ -29,6 +29,9 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        
+        ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :created })
+        
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render action: 'show', status: :created, location: @project }
       else

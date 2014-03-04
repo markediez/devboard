@@ -29,6 +29,9 @@ class DevelopersController < ApplicationController
 
     respond_to do |format|
       if @developer.save
+        
+        ActivityLog.create!({developer_id: current_user.developer_id, activity_type: :created })
+        
         format.html { redirect_to @developer, notice: 'Developer was successfully created.' }
         format.json { render action: 'show', status: :created, location: @developer }
       else
