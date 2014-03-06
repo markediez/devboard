@@ -28,7 +28,7 @@
     </tr>
   </thead> -->
   <tbody>
-    <% ActivityLog.all.each do |activity| %>
+    <% @activities.each do |activity| %>
     <tr>
       <td><%= activity_to_s(activity) %></td>
       <td><%= time_ago_in_words(activity.when) %></td>
