@@ -88,15 +88,15 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:description, :developer_id, :project_id, :completed, :difficulty, :duration)
+      params.require(:task).permit(:title, :details, :developer_id, :project_id, :completed, :difficulty, :duration)
     end
     
     # Uses the GitHub API to create a GitHub issue
     def create_github_issue
       github = Github.new oauth_token: current_user.developer.gh_personal_token
       
-      ret = github.issues.create @task.project.gh_repo_url_parse(:user), @task.project.gh_repo_url_parse(:project), { "title" => @task.description,
-        #"body" => "",
+      ret = github.issues.create @task.project.gh_repo_url_parse(:user), @task.project.gh_repo_url_parse(:project), { "title" => @task.title,
+        "body" => @task.details
         #"assignee" => current_user.developer.gh_username
       }
       

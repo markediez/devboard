@@ -32,7 +32,7 @@
         <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
         <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
       </td>
-      <td><%= link_to task.description, task %></td>
+      <td><%= link_to task.title, task %></td>
       <td>
         <% if task.developer.nil? %>
           No one assigned

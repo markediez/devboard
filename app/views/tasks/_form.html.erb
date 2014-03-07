@@ -12,8 +12,13 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :description %><br>
-    <%= f.text_field :description, class: 'form-control' %>
+    <%= f.label :title %><br>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :details %><br>
+    <%= f.text_area :details, class: 'form-control' %>
   </div>
 
   <%= f.hidden_field :project_id %>

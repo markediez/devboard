@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303232313) do
+ActiveRecord::Schema.define(version: 20140307183833) do
 
   create_table "activity_logs", force: true do |t|
     t.integer  "developer_id"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20140303232313) do
   end
 
   create_table "tasks", force: true do |t|
-    t.string   "description"
+    t.string   "title"
     t.integer  "developer_id"
     t.integer  "project_id"
     t.datetime "completed"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20140303232313) do
     t.integer  "difficulty"
     t.integer  "duration"
     t.string   "gh_issue_number"
+    t.text     "details"
   end
 
   create_table "users", force: true do |t|
