@@ -35,7 +35,7 @@
 
 <p>
   <strong>Completed:</strong>
-  <%= @task.completed.nil? ? 'In progress' : time_ago_in_words(@task.completed) %>
+  <%= @task.completed.nil? ? 'Not yet' : time_ago_in_words(@task.completed) %>
 </p>
 
 <p>
