@@ -4,7 +4,7 @@ class SiteController < ApplicationController
   # GET /overview
   def overview
     @developers = Developer.all
-    @activities = ActivityLog.order('\'activity_logs.when\' DESC').limit(30)
+    @activities = ActivityLog.order(when: :desc).limit(30)
     authorize! :manage, @developers
     authorize! :manage, @activity
   end
