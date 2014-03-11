@@ -4,6 +4,8 @@ class TasksControllerTest < ActionController::TestCase
   setup do
     @task = tasks(:devboard_task_1)
     CASClient::Frameworks::Rails::Filter.fake('casuser')
+    session[:auth_via] = :cas
+    session[:user_id] = 1
   end
 
   test "should get index" do

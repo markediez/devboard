@@ -3,6 +3,9 @@ require 'test_helper'
 class MeetingNotesControllerTest < ActionController::TestCase
   setup do
     @meeting_note = meeting_notes(:one)
+    CASClient::Frameworks::Rails::Filter.fake('casuser')
+    session[:auth_via] = :cas
+    session[:user_id] = 1
   end
 
   test "should get index" do

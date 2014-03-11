@@ -4,6 +4,8 @@ class DevelopersControllerTest < ActionController::TestCase
   setup do
     @developer = developers(:picard)
     CASClient::Frameworks::Rails::Filter.fake('casuser')
+    session[:auth_via] = :cas
+    session[:user_id] = 1
   end
 
   test "should get index" do

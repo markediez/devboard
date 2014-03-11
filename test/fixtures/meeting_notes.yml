@@ -4,8 +4,10 @@ one:
   title: MyString
   body: MyText
   project_id: 1
+  taken: 2014-02-10 13:10:43
 
 two:
   title: MyString
   body: MyText
   project_id: 1
+  taken: 2014-02-11 13:10:43

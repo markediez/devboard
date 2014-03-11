@@ -4,6 +4,8 @@ class ProjectsControllerTest < ActionController::TestCase
   setup do
     @project = projects(:devboard)
     CASClient::Frameworks::Rails::Filter.fake('casuser')
+    session[:auth_via] = :cas
+    session[:user_id] = 1
   end
 
   test "should get index" do
