@@ -6,6 +6,7 @@ class ProjectsControllerTest < ActionController::TestCase
     CASClient::Frameworks::Rails::Filter.fake('casuser')
     session[:auth_via] = :cas
     session[:user_id] = 1
+    session[:cas_user] = 'casuser'
   end
 
   test "should get index" do
