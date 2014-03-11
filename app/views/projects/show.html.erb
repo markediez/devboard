@@ -9,7 +9,11 @@
   </p>
 <% end %>
 <p>
+  <% unless @project.description.blank? %>
   <%= @project.description %>
+  <% else %>
+  <i>None given.</i>
+  <% end %>
 </p>
 
 <h2 class="sub-header">Tasks</h2>
@@ -68,22 +72,12 @@
       <tr>
         <td></td>
         <td><%= link_to note.title, note %></td>
-        <td><%= note.taken %></td>
+        <td><%= note.taken.to_time.strftime('%B %e, %Y at %l:%M %p') %></td>
       </tr>
     <% end %>
-    <!--<tr>
-      <td></td>
-      <td><a href="#">Organization/OU Problem</a></td>
-      <td>Friday, February 14, 2014</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><a href="#">Initial Design Meeting</a></td>
-      <td>Friday, February 7, 2014</td>
-    </tr>-->
     <tr>
       <td colspan="3">
-        <%= link_to 'New Notes', '', :class => 'btn btn-default' %>
+        <%= link_to 'New Meeting Note', new_meeting_note_path(:project_id => @project.id), :class => 'btn btn-default' %>
       </td>
     </tr>
   </tbody>

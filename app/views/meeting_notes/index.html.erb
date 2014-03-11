@@ -4,7 +4,8 @@
     <tr>
       <th>Title</th>
       <th>Project</th>
-      <th colspan="2"></th>
+      <th>Taken</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -12,7 +13,7 @@
       <tr>
         <td><%= link_to meeting_note.title, meeting_note %></td>
         <td><%= link_to meeting_note.project.name, meeting_note.project %></td>
-        <td><%= link_to 'Edit', edit_meeting_note_path(meeting_note) %></td>
+        <td><%= time_ago_in_words(meeting_note.taken) %> ago</td>
         <td><%= link_to 'Destroy', meeting_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -20,4 +21,4 @@
 </table>
 </div>
 
-<%= link_to 'New Meeting Note', new_project_path, :class => 'btn btn-default' %>
+<%= link_to 'New Meeting Note', new_meeting_note_path, :class => 'btn btn-default' %>

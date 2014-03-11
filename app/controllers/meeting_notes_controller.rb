@@ -15,6 +15,8 @@ class MeetingNotesController < ApplicationController
   # GET /meeting_notes/new
   def new
     @meeting_note = MeetingNote.new
+    
+    @meeting_note.project_id = params[:project_id] unless params[:project_id].blank?
   end
 
   # GET /meeting_notes/1/edit
@@ -25,6 +27,7 @@ class MeetingNotesController < ApplicationController
   # POST /meeting_notes.json
   def create
     @meeting_note = MeetingNote.new(meeting_note_params)
+    @meeting_note.taken = DateTime.now
 
     respond_to do |format|
       if @meeting_note.save

@@ -40,7 +40,11 @@
                   <% end %>
                 </ul>
                 <ul class="nav nav-sidebar">
-                  <li><%= link_to 'Meeting Notes', meeting_notes_url %></li>
+                  <% if controller_name == 'meeting_notes' %>
+                    <li class="active"><%= link_to 'Meeting Notes', meeting_notes_url %></li>
+                  <% else %>
+                    <li><%= link_to 'Meeting Notes', meeting_notes_url %></li>
+                  <% end %>
                   <li><a href="">Design Documents</a></li>
                 </ul>
                 <ul class="nav nav-sidebar">
