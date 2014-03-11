@@ -37,6 +37,9 @@ gem 'spring',        group: :development
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
+# Use AR Session Store as required by rubycas-client
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+
 # Use Capistrano for deployment
 gem 'capistrano', '< 3.0.0', group: :development
 

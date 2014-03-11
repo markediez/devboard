@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/access_denied' => 'site#access_denied'
   get '/credentials' => 'site#credentials'
   post '/credentials' => 'site#credentials'
+  get '/logout' => 'site#logout'
 
   resources :tasks
   resources :developers

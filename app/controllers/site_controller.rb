@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-  skip_before_filter :authenticate, :only => [:access_denied]
+  skip_before_filter :authenticate, :only => [:access_denied, :logout]
   skip_before_action :verify_authenticity_token, only: [:credentials]
   
   # GET /overview
@@ -13,6 +13,10 @@ class SiteController < ApplicationController
   # GET /access_denied
   # Unauthenticated requests are redirected here
   def access_denied
+  end
+  
+  def logout
+    CASClient::Frameworks::Rails::Filter.logout(self)
   end
   
   def credentials
