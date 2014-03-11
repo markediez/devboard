@@ -39,13 +39,21 @@ module Authentication
       # when :api_key
       #   Authorization.current_user = ApiKeyUser.find_by_name(session[:user_id])
       when :cas
-        if impersonating?
-          @current_user = User.find_by_id(session[:impersonation_id])
+        if session[:cas_user]
+          if impersonating?
+            @current_user = User.find_by_id(session[:impersonation_id])
+          else
+            @current_user = User.find_by_id(session[:user_id])
+          end
+          
+          logger.info "User authentication passed due to existing session: #{session[:auth_via]}, #{session[:user_id]}, #{@current_user}"
         else
-          @current_user = User.find_by_id(session[:user_id])
+          logger.info "Previous CAS session data exists but CAS is not logged in. Expiring this session ..."
+          session.delete(:user_id)
+          session.delete(:auth_via)
         end
       end
-      logger.info "User authentication passed due to existing session: #{session[:auth_via]}, #{session[:user_id]}, #{@current_user}"
+      
       return
     end
 

@@ -22,12 +22,10 @@ class SiteController < ApplicationController
   def credentials
     if params[:logoutRequest]
       logger.debug 'CAS logout.'
+      
+      render nothing: true
     else
       authenticate
-      
-      # if @current_user
-      #   redirect_to :controller => 'site', :action => 'overview'
-      # end
     end
   end
 end
