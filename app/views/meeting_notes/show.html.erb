@@ -1,0 +1,13 @@
+<div class="pull-right" style="padding-top: 5px;">
+  <%= link_to 'Edit', edit_meeting_note_path(@meeting_note), :class => 'btn btn-default' %>
+</div>
+<h1 class="page-header"><%= @meeting_note.title %></h1>
+<h3>For project <%= link_to @meeting_note.project.name, @meeting_note.project %></h3>
+
+<p>
+  <strong>Taken <%= @meeting_note.taken.to_time.strftime('%B %e, %Y at %l:%M %p') %></strong>
+</p>
+
+<p>
+  <%= @meeting_note.body %>
+</p>
