@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-  skip_before_filter :authenticate, :only => [:access_denied, :logout]
+  skip_before_filter :authenticate, :only => [:access_denied, :logout, :credentials]
   skip_before_action :verify_authenticity_token, only: [:credentials]
   
   # GET /overview
@@ -20,8 +20,14 @@ class SiteController < ApplicationController
   end
   
   def credentials
-    if @current_user
-      redirect_to :controller => 'site', :action => 'overview'
+    if params[:logoutRequest]
+      logger.debug 'CAS logout.'
+    else
+      authenticate
+      
+      # if @current_user
+      #   redirect_to :controller => 'site', :action => 'overview'
+      # end
     end
   end
 end

@@ -124,7 +124,8 @@ module Authentication
         
           if params[:ticket] and params[:ticket].include? "cas"
             # This is a session-initiating CAS login, so remove the damn GET parameter from the URL for UX
-            redirect_to :controller => params[:controller], :action => params[:action]
+            #redirect_to :controller => params[:controller], :action => params[:action]
+            redirect_to :controller => 'site', :action => 'overview'
           end
         
           return
