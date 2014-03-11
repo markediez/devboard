@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   end
   
   rescue_from CanCan::AccessDenied do |exception|
+    logger.debug 'CanCan threw AccessDenied. Redirecting to /access_denied ...'
     redirect_to access_denied_path, :alert => exception.message
   end
   

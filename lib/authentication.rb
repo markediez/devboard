@@ -93,44 +93,51 @@ module Authentication
 
     # logger.debug "Passed over HTTP Auth."
 
-    # It's important we do this before checking session[:cas_user] as it
-    # sets that variable. Note that the way before_filters work, this call
-    # will render or redirect but this function will still finish before
-    # the redirect is actually made.
-    CASClient::Frameworks::Rails::Filter.filter(self)
+    unless (params[:controller] == 'site') and (params[:action] == 'credentials')
+      # It's important that CAS sees this request as coming from /credentials so that CAS sends
+      # the single sign _out_ request to it as well. The single sign _out_ request requires we
+      # turn off CSRF protection, so /credentials is the one page where we do so.
+      redirect_to :controller => 'site', :action => 'credentials'
+    else
+      # It's important we do this before checking session[:cas_user] as it
+      # sets that variable. Note that the way before_filters work, this call
+      # will render or redirect but this function will still finish before
+      # the redirect is actually made.
+      CASClient::Frameworks::Rails::Filter.filter(self)
 
-    if session[:cas_user]
-      # CAS session exists. Valid user account?
-      @user = User.find_by_loginid(session[:cas_user])
-      @user = nil if @user and @user.active == false # Don't allow disabled users to log in
+      if session[:cas_user]
+        # CAS session exists. Valid user account?
+        @user = User.find_by_loginid(session[:cas_user])
+        @user = nil if @user and @user.active == false # Don't allow disabled users to log in
 
-      if @user
-        # Valid user found through CAS.
-        session[:user_id] = @user.id
-        session[:auth_via] = :cas
-        @current_user = @user
-        #Authorization.ignore_access_control(true)
-        @user.logged_in_at = DateTime.now()
-        @user.save
-        #Authorization.ignore_access_control(false)
+        if @user
+          # Valid user found through CAS.
+          session[:user_id] = @user.id
+          session[:auth_via] = :cas
+          @current_user = @user
+          #Authorization.ignore_access_control(true)
+          @user.logged_in_at = DateTime.now()
+          @user.save
+          #Authorization.ignore_access_control(false)
         
-        logger.info "Valid CAS user is in our database. Passes authentication."
+          logger.info "Valid CAS user is in our database. Passes authentication."
         
-        if params[:ticket] and params[:ticket].include? "cas"
-          # This is a session-initiating CAS login, so remove the damn GET parameter from the URL for UX
-          redirect_to :controller => params[:controller], :action => params[:action]
+          if params[:ticket] and params[:ticket].include? "cas"
+            # This is a session-initiating CAS login, so remove the damn GET parameter from the URL for UX
+            redirect_to :controller => params[:controller], :action => params[:action]
+          end
+        
+          return
+        else
+          # Proper CAS request but user not in our database.
+          session[:user_id] = nil
+          session[:auth_via] = nil
+
+          logger.warn "Valid CAS user is denied. Not in our local database or is disabled."
+          flash[:error] = 'You have authenticated but are not allowed access.'
+
+          redirect_to :controller => 'site', :action => 'access_denied'
         end
-        
-        return
-      else
-        # Proper CAS request but user not in our database.
-        session[:user_id] = nil
-        session[:auth_via] = nil
-
-        logger.warn "Valid CAS user is denied. Not in our local database or is disabled."
-        flash[:error] = 'You have authenticated but are not allowed access.'
-
-        redirect_to :controller => "site", :action => "access_denied"
       end
     end
   end

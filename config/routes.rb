@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get '/overview' => 'site#overview'
   get '/access_denied' => 'site#access_denied'
+  get '/credentials' => 'site#credentials'
+  post '/credentials' => 'site#credentials'
 
   resources :tasks
   resources :developers
