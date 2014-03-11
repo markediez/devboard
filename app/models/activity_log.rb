@@ -5,10 +5,11 @@ class ActivityLog < ActiveRecord::Base
   belongs_to :developer
   belongs_to :project
   belongs_to :task
+  belongs_to :meeting_note
   
   before_create :set_when
 
-  enum activity_type: [ :unspecified, :created, :completed ]
+  enum activity_type: [ :unspecified, :created, :completed, :edited, :deleted ]
 
   protected
 

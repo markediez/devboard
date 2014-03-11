@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307183833) do
+ActiveRecord::Schema.define(version: 20140311170718) do
 
   create_table "activity_logs", force: true do |t|
     t.integer  "developer_id"
     t.integer  "project_id"
     t.datetime "when"
     t.integer  "task_id"
-    t.integer  "activity_type", default: 0
+    t.integer  "activity_type",   default: 0
+    t.integer  "meeting_note_id"
   end
 
   create_table "developers", force: true do |t|
@@ -33,6 +34,15 @@ ActiveRecord::Schema.define(version: 20140307183833) do
     t.datetime "avatar_updated_at"
     t.string   "gh_personal_token"
     t.string   "gh_username"
+  end
+
+  create_table "meeting_notes", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "taken"
   end
 
   create_table "projects", force: true do |t|

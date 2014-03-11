@@ -46,6 +46,8 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+        ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :edited })
+        
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
@@ -59,6 +61,9 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     @project.destroy
+    
+    ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :deleted })
+    
     respond_to do |format|
       format.html { redirect_to projects_url }
       format.json { head :no_content }

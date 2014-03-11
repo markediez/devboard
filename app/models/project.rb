@@ -5,7 +5,14 @@ class Project < ActiveRecord::Base
   enum status: [ :planning, :in_development, :pilot_testing, :in_production, :cancelled, :on_hold ]
   enum priority: [ :low_priority, :normal_priority, :high_priority ]
   
+  validates_presence_of :name
+  
   has_many :tasks
+  has_many :meeting_notes
+  
+  def to_param
+    [id, name.parameterize].join("-")
+  end
   
   # Parses gh_repo_url and extracts either the username or repo name
   def gh_repo_url_parse(selector)

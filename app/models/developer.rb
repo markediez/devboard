@@ -10,6 +10,10 @@ class Developer < ActiveRecord::Base
   
   has_one :user # may be nil
   
+  def to_param
+    [id, name.parameterize].join("-")
+  end
+  
   protected
   
   # gh_username and gh_personal_token are optional but both must be present if either is specified

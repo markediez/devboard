@@ -64,6 +64,13 @@
     </tr>
   </thead>
   <tbody>
+    <% @project.meeting_notes.each do |note| %>
+      <tr>
+        <td></td>
+        <td><%= link_to note.title, note %></td>
+        <td><%= note.taken %></td>
+      </tr>
+    <% end %>
     <!--<tr>
       <td></td>
       <td><a href="#">Organization/OU Problem</a></td>
