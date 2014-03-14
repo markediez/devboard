@@ -58,9 +58,9 @@ gem 'bootstrap-sass', '~> 3.1.0'
 gem 'paperclip', '~> 3.0'
 
 # For CAS authentication
-gem 'rubycas-client', :git => 'https://github.com/mp-dhorsak/rubycas-client.git'
+#gem 'rubycas-client', :git => 'https://github.com/mp-dhorsak/rubycas-client.git'
 #gem 'rubycas-client', :git => 'https://github.com/rubycas/rubycas-client.git'
-#gem 'rubycas-client', :git => 'https://github.com/cthielen/rubycas-client.git'
+gem 'rubycas-client', :git => 'https://github.com/cthielen/rubycas-client.git'
 
 # For authorization
 gem 'cancan'
