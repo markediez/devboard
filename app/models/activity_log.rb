@@ -9,11 +9,11 @@ class ActivityLog < ActiveRecord::Base
   
   before_create :set_when
 
-  enum activity_type: [ :unspecified, :created, :completed, :edited, :deleted, :reopened, :commit ]
+  enum activity_type: [ :unspecified, :created, :completed, :edited, :deleted, :reopened, :pushed ]
 
   protected
 
   def set_when
-    self.when = Time.now
+    self.when = Time.now if self.when.blank?
   end
 end

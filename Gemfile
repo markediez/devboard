@@ -66,3 +66,6 @@ gem 'cancan'
 
 # For GitHub integration
 gem 'github_api'
+
+# For scheduled tasks
+gem 'whenever', :require => false

@@ -22,7 +22,7 @@
     <% @activities.each do |activity| %>
     <tr>
       <td><%= activity_to_s(activity) %></td>
-      <td><%= time_ago_in_words(activity.when) %></td>
+      <td><%= time_ago_in_words(activity.when) %> ago</td>
     </tr>
     <% end %>
   </tbody>

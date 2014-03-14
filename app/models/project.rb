@@ -15,7 +15,9 @@ class Project < ActiveRecord::Base
   end
   
   # Parses gh_repo_url and extracts either the username or repo name
-  def gh_repo_url_parse(selector)
+  def gh_repo_url_parse(selector = nil)
+    return nil if gh_repo_url.blank?
+    
     user, ignore, project = gh_repo_url.rpartition('/')
     
     case selector
@@ -23,6 +25,8 @@ class Project < ActiveRecord::Base
       return user
     when :project
       return project
+    else
+      return user, project
     end
     
     return nil
