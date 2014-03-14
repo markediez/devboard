@@ -12,7 +12,7 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-every 15.minutes do
+every 30.minutes do
   rake "github:run"
 end
 
