@@ -8,8 +8,8 @@ GIT
       railties (>= 4.0.0, < 5)
 
 GIT
-  remote: https://github.com/rubycas/rubycas-client.git
-  revision: cc35613791d4f6be803ecb0d3bb13363bdd634b0
+  remote: https://github.com/cthielen/rubycas-client.git
+  revision: f68e0d89804dde61b016ebf028fd0201cabdd093
   specs:
     rubycas-client (2.3.10.rc1)
       activesupport
