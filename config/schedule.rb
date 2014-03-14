@@ -13,7 +13,7 @@
 # end
 
 every 30.minutes do
-  rake "github:run"
+  envcommand 'nice -n 10 bundle exec rake github:run --silent'
 end
 
 # Learn more: http://github.com/javan/whenever
