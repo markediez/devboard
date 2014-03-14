@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312080309) do
+ActiveRecord::Schema.define(version: 20140314200356) do
 
   create_table "activity_logs", force: true do |t|
     t.integer  "developer_id"
@@ -61,10 +61,11 @@ ActiveRecord::Schema.define(version: 20140312080309) do
   end
 
   create_table "sessions", force: true do |t|
-    t.string   "session_id", null: false
+    t.string   "session_id",     null: false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "service_ticket"
   end
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
