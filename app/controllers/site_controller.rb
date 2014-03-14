@@ -21,10 +21,11 @@ class SiteController < ApplicationController
   
   def credentials
     if params[:logoutRequest]
-      logger.debug 'CAS logout.'
+      logger.debug 'CAS logout request caught, rendering nothing.'
       
       render nothing: true
     else
+      logger.debug '/credentials is redirecting to authenticate.'
       authenticate
     end
   end

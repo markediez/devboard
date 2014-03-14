@@ -15,7 +15,7 @@
 job_type :envcommand, 'cd :path && RAILS_ENV=:environment :task'
 
 every 30.minutes do
-  envcommand 'nice -n 10 bundle exec rake github:run --silent'
+  envcommand 'nice -n 10 bundle exec "rake github:run --silent"'
 end
 
 # Learn more: http://github.com/javan/whenever
