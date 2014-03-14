@@ -39,7 +39,7 @@ module Authentication
     end
     
     # Disallow sessions older than 1 minute
-    reset_session if (session[:last_seen] + 1.minute) < Time.now
+    reset_session if session[:last_seen] and ((session[:last_seen] + 1.minute) < Time.now)
     
     if session[:auth_via]
       case session[:auth_via]
