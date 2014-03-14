@@ -32,10 +32,14 @@ module Authentication
   # Ensure session[:auth_via] exists.
   # This is populated by a whitelisted IP request, a CAS redirect or a HTTP Auth request
   def authenticate
+    # Check for CAS single sign out requests
     if params[:logoutRequest]
       CASClient::Frameworks::Rails::Filter.before(self)
       return
     end
+    
+    # Disallow sessions older than 1 minute
+    reset_session if (session[:last_seen] + 1.minute) < Time.now
     
     if session[:auth_via]
       case session[:auth_via]
@@ -52,6 +56,7 @@ module Authentication
           end
           
           logger.info "User authentication passed due to existing session: #{session[:auth_via]}, #{session[:user_id]}, #{@current_user}"
+          session[:last_seen] = Time.now
         else
           logger.info "Previous CAS session data exists but CAS is not logged in. Expiring this session ..."
           session.delete(:user_id)
@@ -127,17 +132,17 @@ module Authentication
           # Valid user found through CAS.
           session[:user_id] = @user.id
           session[:auth_via] = :cas
+          session[:last_seen] = Time.now
+
           @current_user = @user
-          #Authorization.ignore_access_control(true)
+
           @user.logged_in_at = DateTime.now()
           @user.save
-          #Authorization.ignore_access_control(false)
         
-          logger.info "Valid CAS user is in our database. Passes authentication."
+          logger.info "CAS user is in our database, passes authentication."
         
           if params[:ticket] and params[:ticket].include? "cas"
             # This is a session-initiating CAS login, so remove the damn GET parameter from the URL for UX
-            #redirect_to :controller => params[:controller], :action => params[:action]
             redirect_to :controller => 'site', :action => 'overview'
           end
         
@@ -146,8 +151,9 @@ module Authentication
           # Proper CAS request but user not in our database.
           session[:user_id] = nil
           session[:auth_via] = nil
+          session[:last_seen] = nil
 
-          logger.warn "Valid CAS user is denied. Not in our local database or is disabled."
+          logger.warn "CAS user is denied. Not in our local database or is disabled."
           flash[:error] = 'You have authenticated but are not allowed access.'
 
           redirect_to :controller => 'site', :action => 'access_denied'
