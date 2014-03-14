@@ -38,8 +38,9 @@ module Authentication
       return
     end
     
-    # Disallow sessions older than 1 minute
-    reset_session if session[:last_seen] and ((session[:last_seen] + 1.minute) < Time.now)
+    # Disallow sessions older than 10 minutes
+    # Note: If they're still authenticated via CAS, their session will restart after a redirect.
+    reset_session if session[:last_seen] and ((session[:last_seen] + 10.minutes) < Time.now)
     
     if session[:auth_via]
       case session[:auth_via]
