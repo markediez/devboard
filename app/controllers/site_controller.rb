@@ -20,15 +20,15 @@ class SiteController < ApplicationController
   end
   
   def credentials
-    if params[:logoutRequest]
-      logger.debug 'CAS logout request caught, rendering nothing.'
-      
-      CASClient::Frameworks::Rails::Filter.before(self)
-      
-      render nothing: true
-    else
-      logger.debug '/credentials is redirecting to authenticate.'
+    # if params[:logoutRequest]
+    #   logger.debug 'CAS logout request caught, rendering nothing.'
+    #   
+    #   CASClient::Frameworks::Rails::Filter.before(self)
+    #   
+    #   #render nothing: true
+    # else
+    #   logger.debug '/credentials is redirecting to authenticate.'
       authenticate
-    end
+      #end
   end
 end

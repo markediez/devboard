@@ -32,6 +32,11 @@ module Authentication
   # Ensure session[:auth_via] exists.
   # This is populated by a whitelisted IP request, a CAS redirect or a HTTP Auth request
   def authenticate
+    if params[:logoutRequest]
+      CASClient::Frameworks::Rails::Filter.before(self)
+      return
+    end
+    
     if session[:auth_via]
       case session[:auth_via]
       # when :whitelisted_ip
