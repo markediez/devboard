@@ -28,19 +28,27 @@ namespace :github do
         next
       end
       
-      developer = Developer.where(gh_username: issue.closed_by.login).first
-      unless developer
-        Rails.logger.warn "Task ##{task.id} (#{task.title}) was found in GitHub but GitHub references unknown developer '#{issue.closed_by.login}'. Skipping sync for this task ..."
-        next
-      end
-      
       if issue.state == 'open' && task.completed != nil
         task.completed = nil
         task.save!
+        
+        developer = Developer.where(gh_username: issue.user.login).first
+        unless developer
+          Rails.logger.warn "Task ##{task.id} (#{task.title}) was found in GitHub but GitHub references unknown developer '#{issue.closed_by.login}'. Skipping sync for this task ..."
+          next
+        end
+        
         ActivityLog.create!({developer_id: developer.id, project_id: task.project_id, task_id: task.id, activity_type: :reopened})
       elsif issue.state == 'closed' && task.completed == nil
         task.completed = issue.closed_at
         task.save!
+        
+        developer = Developer.where(gh_username: issue.closed_by.login).first
+        unless developer
+          Rails.logger.warn "Task ##{task.id} (#{task.title}) was found in GitHub but GitHub references unknown developer '#{issue.closed_by.login}'. Skipping sync for this task ..."
+          next
+        end
+        
         ActivityLog.create!({developer_id: developer.id, project_id: task.project.id, task_id: task.id, activity_type: :completed, when: issue.closed_at})
       end
     end
