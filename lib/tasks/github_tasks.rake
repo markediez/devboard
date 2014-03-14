@@ -73,7 +73,8 @@ namespace :github do
           # Loop through commits from developer
           commits = github.repos.commits.list repo_user, repo_project, :author => repo_user
           commits.each do |c|
-            ActivityLog.find_or_create_by commit_gh_id: c.sha, developer_id: developer.id, project_id: project.id, activity_type: :pushed, when: c.commit.author.date
+            # FIXME: PostgreSQL doesn't like when we used activity_type: :pushed so we resort to array notation. Bug in ActiveRecord enums?
+            ActivityLog.find_or_create_by commit_gh_id: c.sha, developer_id: developer.id, project_id: project.id, activity_type: ActivityLog.activity_types["pushed"], when: c.commit.author.date
           end
         end
       end
