@@ -12,6 +12,8 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
+job_type :envcommand, 'cd :path && RAILS_ENV=:environment :task'
+
 every 30.minutes do
   envcommand 'nice -n 10 bundle exec rake github:run --silent'
 end
