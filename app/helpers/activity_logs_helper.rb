@@ -16,7 +16,7 @@ module ActivityLogsHelper
       return link_to(activity.developer.name, activity.developer) + " was <b>added</b> as a developer".html_safe
     end
     if activity.commit_gh_id
-      return link_to(activity.developer.name, activity.developer) + " <b>".html_safe + activity.activity_type.to_s + " a commit to the project</b> ".html_safe + link_to(activity.project.name, activity.project)
+      return link_to(activity.developer.name, activity.developer) + " <b>".html_safe + activity.activity_type.to_s + " <a href=\"https://github.com/#{activity.project.gh_repo_url}/commit/#{activity.commit_gh_id}\">a commit</a> to the project</b> ".html_safe + link_to(activity.project.name, activity.project)
     end
   end
 end
