@@ -9,7 +9,7 @@ class ActivityLog < ActiveRecord::Base
   
   before_create :set_when
 
-  enum activity_type: [ :unspecified, :created, :completed, :edited, :deleted ]
+  enum activity_type: [ :unspecified, :created, :completed, :edited, :deleted, :reopened, :commit ]
 
   protected
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140311184557) do
+ActiveRecord::Schema.define(version: 20140312080309) do
 
   create_table "activity_logs", force: true do |t|
     t.integer  "developer_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140311184557) do
     t.integer  "task_id"
     t.integer  "activity_type",   default: 0
     t.integer  "meeting_note_id"
+    t.string   "commit_gh_id"
   end
 
   create_table "developers", force: true do |t|
