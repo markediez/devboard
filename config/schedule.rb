@@ -14,7 +14,7 @@
 
 job_type :envcommand, 'cd :path && RAILS_ENV=:environment :task'
 
-every 30.minutes do
+every 60.minutes do
   envcommand 'nice -n 10 bundle exec rake github:run --silent >/dev/null 2>&1'
 end
 
