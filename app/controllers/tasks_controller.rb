@@ -101,7 +101,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :details, :developer_id, :project_id, :completed, :difficulty, :duration)
+      params.require(:task).permit(:title, :details, :developer_id, :project_id, :completed, :difficulty, :duration, :due)
     end
     
     # Uses the GitHub API to create a GitHub issue
