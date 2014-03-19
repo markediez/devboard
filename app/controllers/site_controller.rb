@@ -1,11 +1,12 @@
 class SiteController < ApplicationController
-  skip_before_filter :authenticate, :only => [:access_denied, :logout, :credentials]
-  skip_before_action :verify_authenticity_token, only: [:credentials]
+  skip_before_filter :authenticate, :only => [:access_denied, :logout]
+  skip_before_action :verify_authenticity_token, only: :credentials
   
   # GET /overview
   def overview
-    @developers = Developer.all
-    @activities = ActivityLog.order(when: :desc).limit(30)
+    @developers = Developer.order(created_at: :desc)
+    @activities = ActivityLog.order(when: :desc).limit(15)
+    
     authorize! :manage, @developers
     authorize! :manage, @activity
   end
@@ -18,17 +19,11 @@ class SiteController < ApplicationController
   def logout
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
-  
+
+  # GET /credentials
+  # POST /credentials
+  # Redirects to CAS are made from here so CAS single sign out will then
+  # post back to this URL, giving us one safe URL to disable CSRF protection.
   def credentials
-    # if params[:logoutRequest]
-    #   logger.debug 'CAS logout request caught, rendering nothing.'
-    #   
-    #   CASClient::Frameworks::Rails::Filter.before(self)
-    #   
-    #   #render nothing: true
-    # else
-    #   logger.debug '/credentials is redirecting to authenticate.'
-      authenticate
-      #end
   end
 end

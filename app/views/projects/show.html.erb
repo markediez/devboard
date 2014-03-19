@@ -21,7 +21,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th></th>
+      <th><!-- completed checkbox --></th>
+      <th><!-- priority icon --></th>
       <th>Summary</th>
       <th>Assigned To</th>
       <th>Due</th>
@@ -31,6 +32,9 @@
   <tbody>
     <% @project.tasks.each do |task| %>
     <tr>
+      <td>
+        <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed.blank? %> />
+      </td>
       <td style="color: #666;">
         <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
         <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
