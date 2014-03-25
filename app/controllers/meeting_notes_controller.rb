@@ -10,6 +10,11 @@ class MeetingNotesController < ApplicationController
   # GET /meeting_notes/1
   # GET /meeting_notes/1.json
   def show
+    require 'redcarpet'
+    
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new({hard_wrap: true}), autolink: true, tables: true)
+    
+    @body_rendered = markdown.render(@meeting_note.body)
   end
 
   # GET /meeting_notes/new

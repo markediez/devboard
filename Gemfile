@@ -70,3 +70,6 @@ gem 'github_api'
 
 # For scheduled tasks
 gem 'whenever', :require => false
+
+# For Markdown formatting
+gem 'redcarpet', :require => false

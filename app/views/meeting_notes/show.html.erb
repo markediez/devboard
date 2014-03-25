@@ -8,6 +8,4 @@
   <strong>Taken <%= @meeting_note.taken.to_time.strftime('%B %e, %Y at %l:%M %p') %></strong>
 </p>
 
-<p>
-  <%= @meeting_note.body %>
-</p>
+<%= @body_rendered.html_safe %>
