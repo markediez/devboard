@@ -26,7 +26,8 @@
 <p>
   <strong>GitHub Issue:</strong>
   <% if @task.gh_issue_number %>
-  <%= link_to 'https://github.com/' + @task.project.gh_repo_url_parse(:both) + '/issues/' + @task.gh_issue_number %>
+  <% gh_url = 'https://github.com/' + @task.project.gh_repo_url_parse(:both) + '/issues/' + @task.gh_issue_number %>
+  <%= link_to gh_url, gh_url %>
   <% else %>
   None given
   <% end %>
