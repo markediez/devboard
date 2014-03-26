@@ -26,10 +26,26 @@
       </tr>
     </thead>
     <tbody>
-      <% Task.where(completed: nil).where('due < ?', DateTime.now + 7.days).where('due > ?', DateTime.now).each do |task| %>
+      <% Task.where(completed: nil).where('due < ?', DateTime.now + 10.days).where('due > ?', DateTime.now).each do |task| %>
       <tr>
         <td><%= link_to task.title, task %></td>
         <td><%= time_ago_in_words(task.due) %> from now</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Issues with no Due Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Task.where(completed: nil).where(due: nil).each do |task| %>
+      <tr>
+        <td><%= link_to task.title, task %></td>
       </tr>
       <% end %>
     </tbody>
