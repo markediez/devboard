@@ -8,12 +8,17 @@ padTwoDigits = (n) ->
 window.setTaskDueDate = (days_from_today) ->
   # Obtain the current value of the date selector, if any
   year = $('select#task_due_1i').val()
-  month = $('select#task_due_2i').val() - 1
-  day = $('select#task_due_3i').val()
-  hour = $('select#task_due_4i').val()
-  minute = $('select#task_due_5i').val()
 
-  dueDate = new Date(year, month, day, hour, minute)
+  if year == ""
+    # Use today if no date is set
+    dueDate = new Date()
+  else
+    month = $('select#task_due_2i').val() - 1
+    day = $('select#task_due_3i').val()
+    hour = $('select#task_due_4i').val()
+    minute = $('select#task_due_5i').val()
+
+    dueDate = new Date(year, month, day, hour, minute)
 
   # Add the specified number of days
   dueDate.setDate(dueDate.getDate() + days_from_today)
