@@ -65,11 +65,11 @@ class TasksController < ApplicationController
         # AR Dirty will clear @task.changes in the above update but we need to do this
         # after the update in order to know that the update was successful.
         if @task.gh_issue_number and (completed_val_before != @task.completed) and not @task.completed.blank?
-          Rails.logger.debug "closing a github issue"
+          Rails.logger.debug "Closing a GitHub issue ..."
           close_github_issue
           ActivityLog.create!({developer_id: current_user.developer_id, project_id: @task.project_id, task_id: @task.id, activity_type: :completed })
         else
-          Rails.logger.debug "not closing a github issue"
+          Rails.logger.debug "Not closing a GitHub issue."
         end
         
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
