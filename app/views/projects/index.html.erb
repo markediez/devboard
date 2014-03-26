@@ -20,7 +20,7 @@
           </td>
           <td><%= link_to project.name, project %></td>
           <td><%= time_ago_in_words(project.began) %></td>
-          <td><%= project.status.to_s.gsub(/_/, ' ').capitalize %></td>
+          <td><%= project_status_in_words(project.status) %></td>
           <td><%= link_to(project.link) unless project.link.blank? %></td>
         </tr>
     <% end %>

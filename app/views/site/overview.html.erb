@@ -1,4 +1,81 @@
-<h2 class="sub-header">Developers</h2>
+<h2 class="sub-header">Status</h2>
+<h3 class="sub-header">Tasks</h3>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">Past Due</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Task.where(completed: nil).where('due < ?', DateTime.now).each do |task| %>
+      <tr>
+        <td><%= link_to task.title, task %></td>
+        <td><%= time_ago_in_words(task.due) %> ago</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">Due Soon</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Task.where(completed: nil).where('due < ?', DateTime.now + 7.days).each do |task| %>
+      <tr>
+        <td><%= link_to task.title, task %></td>
+        <td><%= time_ago_in_words(task.due) %> from now</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+
+<h3 class="sub-header">Projects</h3>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Name</th>
+        <th>Task Ratio</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%# [0, 1, 2, 3] are all in progress or in production statuses. Be nice to not have to magic number it up. %>
+      <% Project.where(:status => [0, 1, 2, 3]).order(:status).each do |project| %>
+      <tr>
+        <td><%= project_status_in_words(project.status) %></td>
+        <td><%= link_to project.name, project %></td>
+        <td><%= (project.tasks.count > 0) ? ((project.tasks.where(completed: nil).count / project.tasks.count) * 100).to_s + '%' : 'N/A' %></td>
+        <td><%= time_ago_in_words(project.began) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br /><br /><br />
+
+<h3 class="sub-header">Developers</h3>
+
+number of projects in production, closed
+what each developer is working on
+each developer's commits, task count in the last week
+what's due soon
+what's overdue
+
+
+<!-- <h2 class="sub-header">Developers</h2>
 <div class="row placeholders">
     <% @developers.each do |developer| %>
         <div class="col-xs-6 col-sm-3 placeholder">
@@ -13,18 +90,18 @@
           </span>
         </div>
     <% end %>
-</div>
+</div> -->
 
 <h2 class="sub-header">Activity</h2>
 <div class="table-responsive">
-<table class="table table-striped">
-  <tbody>
-    <% @activities.each do |activity| %>
-    <tr>
-      <td><%= activity_to_s(activity) %></td>
-      <td><%= time_ago_in_words(activity.when) %> ago</td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="table table-striped">
+    <tbody>
+      <% @activities.each do |activity| %>
+      <tr>
+        <td><%= activity_to_s(activity) %></td>
+        <td><%= time_ago_in_words(activity.when) %> ago</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

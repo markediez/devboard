@@ -1,5 +1,10 @@
 @import "bootstrap";
 
+.nav > li > a {
+  font-weight: 400;
+  color: #555;
+}
+
 .nav > li > a:hover {
   color: #fff;
   background-color: #428bca;
