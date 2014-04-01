@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <% Task.where(completed: nil).where('due < ?', DateTime.now).each do |task| %>
+      <% @past_due_tasks.each do |task| %>
       <tr>
         <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
         <td><%= time_ago_in_words(task.due) %> ago</td>
@@ -26,7 +26,7 @@
       </tr>
     </thead>
     <tbody>
-      <% Task.where(completed: nil).where('due < ?', DateTime.now + 10.days).where('due > ?', DateTime.now).each do |task| %>
+      <% @due_soon_tasks.each do |task| %>
       <tr>
         <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
         <td><%= time_ago_in_words(task.due) %> from now</td>
