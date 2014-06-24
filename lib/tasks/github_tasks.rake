@@ -21,10 +21,15 @@ namespace :github do
         next
       end
 
-      issue = github.issues.get(task.project.gh_repo_url_parse(:user), task.project.gh_repo_url_parse(:project), task.gh_issue_number)
+      begin
+        issue = github.issues.get(task.project.gh_repo_url_parse(:user), task.project.gh_repo_url_parse(:project), task.gh_issue_number)
+      rescue Github::Error::NotFound => e
+        Rails.logger.error "GitHub returned a 404 while searching for task ##{task.id} (#{task.title})."
+        next
+      end
 
       unless issue
-        Rails.logger.warn "Could not find GitHub issue referenced by task ##{task.id} (#{task.title})."
+        Rails.logger.error "Could not find GitHub issue referenced by task ##{task.id} (#{task.title})."
         next
       end
 
