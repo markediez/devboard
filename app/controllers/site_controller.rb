@@ -5,7 +5,7 @@ class SiteController < ApplicationController
   # GET /overview
   def overview
     @developers = Developer.order(created_at: :desc)
-    @activities = ActivityLog.order(when: :desc).limit(12)
+    @activities = ActivityLog.order(when: :desc).limit(6)
     @past_due_tasks = Task.where(completed: nil).where('due < ?', DateTime.now).order(due: :asc)
     @due_soon_tasks = Task.where(completed: nil).where('due < ?', DateTime.now + 14.days).where('due > ?', DateTime.now).order(due: :asc)
     @no_due_date_tasks = Task.where(completed: nil).where(due: nil)
