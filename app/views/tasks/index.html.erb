@@ -1,31 +1,67 @@
-<h1>Listing tasks</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Developer</th>
-      <th>Project</th>
-      <th>Completed</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
+<%# Only show 'Past Due' tasks if any exist %>
+<% if @past_due_tasks.length > 0 %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= task.title %></td>
-        <td><%= task.developer_id %></td>
-        <td><%= task.project_id %></td>
-        <td><%= task.completed %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th colspan="2">Past Due</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @past_due_tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
+        <td><%= time_ago_in_words(task.due) %> ago</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
 
-<br>
+<%# Only show 'Due Soon' tasks if any exist %>
+<% if @due_soon_tasks.length > 0 %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">Due Soon</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @due_soon_tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
+        <td><%= time_ago_in_words(task.due) %> from now</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
 
-<%= link_to 'New Task', new_task_path %>
+<%# Only show 'No Due Date' tasks if any exist %>
+<% if @no_due_date_tasks.length > 0 %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Issues with no Due Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @no_due_date_tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+<% if @past_due_tasks.length == 0 and @due_soon_tasks.length == 0 and @no_due_date_tasks.length == 0 %>
+<center><h3>No tasks exist.</h3></center>
+<% end %>
+
+<%= link_to 'New Task', new_task_path, :class => 'btn btn-default' %>

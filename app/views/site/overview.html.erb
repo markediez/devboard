@@ -1,7 +1,7 @@
 <h2 class="sub-header">Status</h2>
 <h3 class="sub-header">Tasks</h3>
 
-<%# Only show past due tasks if any exist %>
+<%# Only show 'Past Due' tasks if any exist %>
 <% if @past_due_tasks.length > 0 %>
 <div class="table-responsive">
   <table class="table table-striped">
@@ -21,6 +21,9 @@
   </table>
 </div>
 <% end %>
+
+<%# Only show 'Due Soon' tasks if any exist %>
+<% if @due_soon_tasks.length > 0 %>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -38,6 +41,10 @@
     </tbody>
   </table>
 </div>
+<% end %>
+
+<%# Only show 'No Due Date' tasks if any exist %>
+<% if @no_due_date_tasks.length > 0 %>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -46,15 +53,21 @@
       </tr>
     </thead>
     <tbody>
-      <% Task.where(completed: nil).where(due: nil).each do |task| %>
+      <% @no_due_date_tasks.each_with_index do |task, i| %>
       <tr>
         <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
       </tr>
+      <% if i == 10 %>
+      <tr>
+        <td><%= link_to tasks_url, 'Show More ...' %></td>
+      </tr>
+      <% break %>
+      <% end %>
       <% end %>
     </tbody>
   </table>
 </div>
-
+<% end %>
 
 
 <h3 class="sub-header">Projects</h3>
