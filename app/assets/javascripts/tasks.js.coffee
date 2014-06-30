@@ -5,6 +5,8 @@
 padTwoDigits = (n) ->
   ("0" + n).slice(-2)
 
+# Updates the multiple selects which comprise the due date to match value
+# represented by 'days_from_today'
 window.setTaskDueDate = (days_from_today) ->
   # Obtain the current value of the date selector, if any
   year = $('select#task_due_1i').val()
@@ -29,3 +31,12 @@ window.setTaskDueDate = (days_from_today) ->
   $('select#task_due_3i').val(dueDate.getDate())
   $('select#task_due_4i').val(padTwoDigits(dueDate.getHours()))
   $('select#task_due_5i').val(padTwoDigits(dueDate.getMinutes()))
+
+# Updates the multiple selects which comprise the due date to clear their value
+window.clearTaskDueDate = () ->
+  # Clear the date selectors
+  $('select#task_due_1i').val('')
+  $('select#task_due_2i').val('')
+  $('select#task_due_3i').val('')
+  $('select#task_due_4i').val('')
+  $('select#task_due_5i').val('')

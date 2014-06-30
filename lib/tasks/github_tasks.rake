@@ -12,7 +12,7 @@ namespace :github do
 
     github = Github.new
 
-    # Check to ensure tasks exist to sync against
+    # Check for updates to local tasks in GitHub
     tasks.each do |task|
       user, project = task.project.gh_repo_url_parse
 
@@ -57,6 +57,9 @@ namespace :github do
         ActivityLog.create!({developer_id: developer.id, project_id: task.project.id, task_id: task.id, activity_type: :completed, when: issue.closed_at})
       end
     end
+
+    # TODO: Check GitHub for tasks which do not already exist locally
+
   end
 
   # Loop through any developers in Devboard who have GitHub credentials and sync their commit history with Devboard's "Activity Log".
