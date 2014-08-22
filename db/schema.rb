@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319013248) do
+ActiveRecord::Schema.define(version: 20140822000424) do
 
   create_table "activity_logs", force: true do |t|
     t.integer  "developer_id"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20140319013248) do
   create_table "projects", force: true do |t|
     t.string   "name"
     t.integer  "status",      default: 0
-    t.date     "began"
+    t.datetime "began"
     t.date     "finished"
     t.integer  "priority",    default: 0
     t.datetime "created_at"

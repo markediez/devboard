@@ -1,4 +1,33 @@
-<h2 class="sub-header">Status</h2>
+<h2 class="sub-header">Overview</h2>
+
+<h3 class="sub-header">Projects</h3>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Name</th>
+        <th>Task Ratio</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%# [0, 1, 2, 3] are all in progress or in production statuses. Be nice to not have to magic number it up. %>
+      <% Project.where(:status => [0, 1, 2, 3]).order(:status).each do |project| %>
+      <tr>
+        <td><%= project_status_in_words(project.status) %></td>
+        <td><%= link_to project.name, project %></td>
+        <td><%= (project.tasks.count > 0) ? ((project.tasks.where(completed: nil).count / project.tasks.count) * 100).to_s + '%' : 'N/A' %></td>
+        <td><%= time_ago_in_words(project.began) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br /><br /><br />
+
 <h3 class="sub-header">Tasks</h3>
 
 <%# Only show 'Past Due' tasks if any exist %>
@@ -68,33 +97,6 @@
   </table>
 </div>
 <% end %>
-
-
-<h3 class="sub-header">Projects</h3>
-
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Status</th>
-        <th>Name</th>
-        <th>Task Ratio</th>
-        <th>Age</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%# [0, 1, 2, 3] are all in progress or in production statuses. Be nice to not have to magic number it up. %>
-      <% Project.where(:status => [0, 1, 2, 3]).order(:status).each do |project| %>
-      <tr>
-        <td><%= project_status_in_words(project.status) %></td>
-        <td><%= link_to project.name, project %></td>
-        <td><%= (project.tasks.count > 0) ? ((project.tasks.where(completed: nil).count / project.tasks.count) * 100).to_s + '%' : 'N/A' %></td>
-        <td><%= time_ago_in_words(project.began) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
 
 <br /><br /><br />
 
