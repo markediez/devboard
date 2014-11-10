@@ -195,7 +195,7 @@ DEPENDENCIES
   jquery-rails
   paperclip (~> 3.0)
   pg
-  rails (~> 4.1.5)
+  rails (~> 4.1.7)
   redcarpet
   rubycas-client!
   sass-rails (~> 4.0.0.rc1)
