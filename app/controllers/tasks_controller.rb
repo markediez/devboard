@@ -42,6 +42,7 @@ class TasksController < ApplicationController
       if @task.save
         notice_txt = 'Task was successfully created.'
         notice_txt += " GitHub issue ##{@task.gh_issue_number}." if @task.gh_issue_number
+        notice_txt += " GitHub issue failed to sync. Check credentials." if @task.valid? and params[:create_github_issue] == '1' and @task.gh_issue_number.nil?
 
         ActivityLog.create!({developer_id: current_user.developer_id, project_id: @task.project_id, task_id: @task.id, activity_type: :created })
 
