@@ -116,14 +116,18 @@ class TasksController < ApplicationController
     def create_github_issue
       github = Github.new oauth_token: current_user.developer.gh_personal_token
 
-      ret = github.issues.create @task.project.gh_repo_url_parse(:user), @task.project.gh_repo_url_parse(:project),
-      {
-        "title" => @task.title,
-        "body" => @task.details
-        #"assignee" => current_user.developer.gh_username
-      }
+      begin
+        ret = github.issues.create @task.project.gh_repo_url_parse(:user), @task.project.gh_repo_url_parse(:project),
+        {
+          "title" => @task.title,
+          "body" => @task.details
+          #"assignee" => current_user.developer.gh_username
+        }
 
-      @task.gh_issue_number = ret[:number]
+        @task.gh_issue_number = ret[:number]
+      rescue Github::Error::Unauthorized
+        Rails.logger.error "Unable to sync issue with GitHub: API credentials rejected by GitHub for #{@task.project.gh_repo_url_parse(:user)}, #{@task.project.gh_repo_url_parse(:project)}."
+      end
     end
 
     # Uses the GitHub API to close a GitHub issue
