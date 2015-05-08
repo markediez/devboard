@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822000424) do
+ActiveRecord::Schema.define(version: 20150508200815) do
 
   create_table "activity_logs", force: true do |t|
     t.integer  "developer_id"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20140822000424) do
     t.integer  "activity_type",   default: 0
     t.integer  "meeting_note_id"
     t.string   "commit_gh_id"
+  end
+
+  create_table "commits", force: true do |t|
+    t.string   "sha"
+    t.integer  "developer_id"
+    t.integer  "project_id"
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "committed_at"
   end
 
   create_table "developers", force: true do |t|

@@ -22,4 +22,5 @@
 # Ignore sensitive files typically set up server-side
 /config/secrets.yml
 /config/database.yml
+/config/github.yml
 

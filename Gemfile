@@ -66,7 +66,7 @@ gem 'rubycas-client', :git => 'https://github.com/cthielen/rubycas-client.git'
 gem 'cancan'
 
 # For GitHub integration
-gem 'github_api'
+gem 'octokit'
 
 # For scheduled tasks
 gem 'whenever', :require => false
