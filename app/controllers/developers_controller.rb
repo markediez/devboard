@@ -11,7 +11,8 @@ class DevelopersController < ApplicationController
   # GET /developers/1
   # GET /developers/1.json
   def show
-    # TODO: Commits per day
+    # TODO: Calculate "commits per week day" and display as bar chart
+    # TODO: Add totals, additions, and deletions to each commit
 
     @recent_activity = Commit.where(:developer_id => @developer.id).where('committed_at >= :date', date: Time.now - 1.week)
 
