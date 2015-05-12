@@ -2,7 +2,7 @@
 <div class="row placeholders">
     <% @developers.each do |developer| %>
         <div class="col-xs-6 col-sm-3 placeholder">
-          <%= link_to image_tag(developer.avatar.url, :alt => "Avatar for #{developer.name}"), developer %>
+          <%= link_to gravatar_image_tag(developer.email, :alt => developer.name, :style => 'border-radius: 50%;'), developer %>
           <h4><%= developer.name %></h4>
           <span class="text-muted">
             <% if developer.tasks.active.count > 0 %>
