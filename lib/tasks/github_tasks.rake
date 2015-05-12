@@ -99,6 +99,9 @@ namespace :github do
     client = Octokit::Client.new(:access_token => @gh_token)
     client.login
 
+    # TODO: Change sync_commits and sync_issues to use DeveloperAccount.
+    #       See if e-mail addresses are more reliable than GH 'login'.
+
     # Check for updates to local tasks in GitHub
     projects.each do |project|
       Rails.logger.debug "Syncing commits for project '#{project.name}'."
@@ -123,26 +126,35 @@ namespace :github do
         if gh_commit[:author]
           developer = Developer.find_by_loginid(gh_commit[:author][:login])
           developer = Developer.find_by_name(gh_commit[:author][:name]) unless developer
+        end
 
-          if developer.nil?
-            Rails.logger.debug "GH commit has developer but could not find developer locally (login ID: #{gh_commit[:author][:login]}). Creating ..."
-            developer = Developer.new
+        if developer.nil? and gh_commit[:commit][:author]
+          developer = Developer.find_by_loginid(gh_commit[:commit][:author][:login])
+          developer = Developer.find_by_name(gh_commit[:commit][:author][:name]) unless developer
+        end
 
-            if gh_commit[:author][:login]
-              developer.loginid = gh_commit[:author][:login]
-              developer.email = (gh_commit[:author][:email] ? gh_commit[:author][:email] : "unknown@unknown.com")
-              developer.name = (gh_commit[:author][:name] ? gh_commit[:author][:name] : "Imported from GitHub")
-            elsif gh_commit[:author][:name]
-              developer.loginid = nil
-              developer.email = (gh_commit[:author][:email] ? gh_commit[:author][:email] : "unknown@unknown.com")
-              developer.name = gh_commit[:author][:name]
-            end
+        if developer.nil?
+          Rails.logger.debug "GitHub commit has developer but they could not be found locally. Creating ..."
+          developer = Developer.new
 
-            developer.save!
+          if gh_commit[:author] && gh_commit[:author][:login]
+            developer.loginid = gh_commit[:author][:login]
+            developer.email = (gh_commit[:author][:email] ? gh_commit[:author][:email] : "unknown@unknown.com")
+            developer.name = (gh_commit[:author][:name] ? gh_commit[:author][:name] : "Imported from GitHub")
+          elsif gh_commit[:author] && gh_commit[:author][:name]
+            developer.loginid = nil
+            developer.email = (gh_commit[:author][:email] ? gh_commit[:author][:email] : "unknown@unknown.com")
+            developer.name = gh_commit[:author][:name]
+          elsif gh_commit[:commit][:author]
+            developer.loginid = gh_commit[:commit][:author][:login]
+            developer.email = (gh_commit[:commit][:author][:email] ? gh_commit[:commit][:author][:email] : "unknown@unknown.com")
+            developer.name = (gh_commit[:commit][:author][:name] ? gh_commit[:commit][:author][:name] : "Imported from GitHub")
           end
 
-          commit.developer = developer
+          developer.save!
         end
+
+        commit.developer = developer
 
         commit.message = gh_commit[:commit][:message]
 

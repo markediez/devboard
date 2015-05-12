@@ -1,19 +1,83 @@
+<%= javascript_include_tag "Chart.js" %>
+
 <div class="pull-right" style="padding-top: 5px;">
-  <%= link_to 'Edit', edit_developer_path(@developer), :class => 'btn btn-default' %>
+  <%= link_to 'Edit', edit_developer_path(@developer), :class => 'btn btn-default' %><br />
+  <br />
+  <%= gravatar_image_tag(@developer.email, :alt => @developer.name, :style => 'border-radius: 50%;') %>
 </div>
-<h1><%= @developer.name %></h1>
+<h1><%= @developer.name %><br />
+<small><a href="mailto:<%= @developer.email %>"><%= @developer.email %></a> (<%= @developer.loginid %>)</small>
+</h1>
 
-<p>
-  <strong>Loginid:</strong>
-  <%= @developer.loginid %>
-</p>
+<h3 class="sub-header">Statistics</h3>
+<ul>
+  <li>Average commits / week (lifetime): <%= @avg_commits_per_week %></li>
+  <li>Average commits / week (graph): <%= @avg_commits_last_12_weeks %></li>
+</ul>
 
-<p>
-  <strong>Email:</strong>
-  <%= @developer.email %>
-</p>
+<div style="width: 80%; text-align: center;">
+  <div>
+		<canvas id="canvas" height="175" width="500"></canvas>
+  </div>
+</div>
 
-<p>
-  <strong>Avatar:</strong>
-  <%= image_tag @developer.avatar.url %>
-</p>
+<script type="text/javascript">
+  var lineChartData = {
+			labels : [
+        <%= @last_12_weeks.map{ |timestamp, commits| timestamp }.join(",") %>
+      ],
+			datasets : [
+				{
+					label: "Commits",
+					fillColor : "rgba(220,220,220,0.2)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : [<%= @last_12_weeks.map{ |timestamp, commits| commits }.join(",") %>]
+				}
+			]
+		}
+
+    ready = function() {
+  		var ctx = document.getElementById("canvas").getContext("2d");
+
+  		window.myLine = new Chart(ctx).Line(lineChartData, {
+  			responsive: true
+  		});
+  	};
+
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+</script>
+
+Most Active Projects:
+<ul>
+  <% @projects.each do |project| %>
+  <li><b><%= project[0] %></b> (<%= project[1] %> commits total)</li>
+  <% end %>
+</ul>
+
+<h3 class="sub-header">Recent Activity</h3>
+
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>When</th>
+      <th>Project</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @recent_activity.each do |activity| %>
+    <tr>
+      <td><%= time_ago_in_words(activity.committed_at) %></td>
+      <td><%= activity.project.name %></td>
+      <td><%= activity.message %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

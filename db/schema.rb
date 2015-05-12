@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508200815) do
+ActiveRecord::Schema.define(version: 20150508221420) do
 
   create_table "activity_logs", force: true do |t|
     t.integer  "developer_id"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20150508200815) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "committed_at"
+  end
+
+  create_table "developer_accounts", force: true do |t|
+    t.integer  "developer_id"
+    t.string   "email"
+    t.string   "account_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "developers", force: true do |t|

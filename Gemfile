@@ -73,3 +73,6 @@ gem 'whenever', :require => false
 
 # For Markdown formatting
 gem 'redcarpet', :require => false
+
+# For Gravatar profile images
+gem 'gravatar_image_tag'

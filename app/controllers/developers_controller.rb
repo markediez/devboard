@@ -11,6 +11,55 @@ class DevelopersController < ApplicationController
   # GET /developers/1
   # GET /developers/1.json
   def show
+    # TODO: Commits per day
+
+    @recent_activity = Commit.where(:developer_id => @developer.id).where('committed_at >= :date', date: Time.now - 1.week)
+
+    # Set up data for the last 12 weeks (3 months) of commits (for Chart.js)
+    @last_12_weeks = {}
+    for i in 0..11
+      @last_12_weeks[(Time.now - i.week).strftime("%Y%U").to_i] = 0
+    end
+
+    @projects = {}
+
+    # Calculate the developer's average commits per week
+    years = {}
+    num_active_weeks = 0
+
+    commits = Commit.where(:developer_id => @developer.id)
+    commits.each do |commit|
+      commit_year = commit.committed_at.strftime("%Y").to_i
+      commit_week = commit.committed_at.strftime("%U").to_i
+
+      years[commit_year] = [] if years[commit_year] == nil
+      if years[commit_year][commit_week] == nil
+        years[commit_year][commit_week] = 0
+        num_active_weeks += 1
+      end
+
+      years[commit_year][commit_week] += 1
+
+      if @last_12_weeks[commit.committed_at.strftime("%Y%U").to_i] != nil
+        @last_12_weeks[commit.committed_at.strftime("%Y%U").to_i] += 1
+      end
+
+      if commit.project
+        if @projects[commit.project.name] == nil
+          @projects[commit.project.name] = 0
+        end
+        @projects[commit.project.name] += 1
+      end
+    end
+
+    @last_12_weeks = @last_12_weeks.sort_by { |timestamp, commits| timestamp }
+
+    @avg_commits_last_12_weeks = ( @last_12_weeks.map { |timestamp, commits| commits }.sum ) / 12
+
+    @avg_commits_per_week = commits.length / num_active_weeks
+
+    @projects = @projects.sort_by { |name, commits| -1 * commits }
+
   end
 
   # GET /developers/new
@@ -29,9 +78,9 @@ class DevelopersController < ApplicationController
 
     respond_to do |format|
       if @developer.save
-        
+
         ActivityLog.create!({developer_id: current_user.developer_id, activity_type: :created })
-        
+
         format.html { redirect_to @developer, notice: 'Developer was successfully created.' }
         format.json { render action: 'show', status: :created, location: @developer }
       else

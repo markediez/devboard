@@ -11,6 +11,7 @@ class Developer < ActiveRecord::Base
 
   has_one :user # may be nil
   has_many :commits
+  has_many :developer_accounts
 
   def to_param
     [id, name.parameterize].join("-")
