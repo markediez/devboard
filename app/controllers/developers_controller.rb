@@ -35,6 +35,7 @@ class DevelopersController < ApplicationController
     end
 
     @recent_commits_by_project = {}
+    @recent_lines_by_project = {}
 
     # Calculate the developer's average commits per week
     @commits.each do |commit|
@@ -47,12 +48,14 @@ class DevelopersController < ApplicationController
 
       if commit.project
         @recent_commits_by_project[commit.project.name] = @recent_commits_by_project[commit.project.name].to_i + 1
+        @recent_lines_by_project[commit.project.name] = @recent_lines_by_project[commit.project.name].to_i + commit.total
       end
     end
 
     @recent_commits_graph = @recent_commits_graph.sort_by { |timestamp, commits| timestamp }
     @recent_lines_graph = @recent_lines_graph.sort_by { |timestamp, lines| timestamp }
     @recent_commits_by_project = @recent_commits_by_project.sort_by { |name, commits| -1 * commits }
+    @recent_lines_by_project = @recent_lines_by_project.sort_by { |name, lines| -1 * lines }
     @total_commit_count = @commits.count
   end
 
