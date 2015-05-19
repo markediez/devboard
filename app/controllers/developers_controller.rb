@@ -25,42 +25,35 @@ class DevelopersController < ApplicationController
 
     # Set up data for the last 12 weeks (3 months) of commits (for Chart.js)
     @recent_commits_graph = {}
-    for i in 0..(@duration - 1)
+    @recent_lines_graph = {}
+
+    # Fill the graph data in with zeroes in case there are no commits that
+    # week. We do not want to handle gaps in data in Chart.js
+    for i in 0..@duration
       @recent_commits_graph[(Time.now - i.week).strftime("%Y%U").to_i] = 0
+      @recent_lines_graph[(Time.now - i.week).strftime("%Y%U").to_i] = 0
     end
 
-    @projects = {}
+    @recent_commits_by_project = {}
 
     # Calculate the developer's average commits per week
     @commits.each do |commit|
-      commit_year = commit.committed_at.strftime("%Y").to_i
-      commit_week = commit.committed_at.strftime("%U").to_i
-
-      # years[commit_year] = [] if years[commit_year] == nil
-      # if years[commit_year][commit_week] == nil
-      #   years[commit_year][commit_week] = 0
-      # end
-      #
-      # years[commit_year][commit_week] += 1
-
-      if @recent_commits_graph[commit.committed_at.strftime("%Y%U").to_i] != nil
-        @recent_commits_graph[commit.committed_at.strftime("%Y%U").to_i] += 1
-      end
+      # strftime("%U") can return week '00' if the date falls in the previous year,
+      # which is not supported by Date.commercial() (*sigh*), so we round those dates up.
+      idx = commit.committed_at.strftime("%Y%U").to_i
+      idx = (commit.committed_at.strftime("%Y") + "01").to_i if(idx.to_s[4..-1] == "00")
+      @recent_commits_graph[idx] += 1
+      @recent_lines_graph[idx] += commit.total
 
       if commit.project
-        if @projects[commit.project.name] == nil
-          @projects[commit.project.name] = 0
-        end
-        @projects[commit.project.name] += 1
+        @recent_commits_by_project[commit.project.name] = @recent_commits_by_project[commit.project.name].to_i + 1
       end
     end
 
     @recent_commits_graph = @recent_commits_graph.sort_by { |timestamp, commits| timestamp }
-
-    @projects = @projects.sort_by { |name, commits| -1 * commits }
-
+    @recent_lines_graph = @recent_lines_graph.sort_by { |timestamp, lines| timestamp }
+    @recent_commits_by_project = @recent_commits_by_project.sort_by { |name, commits| -1 * commits }
     @total_commit_count = @commits.count
-
   end
 
   # GET /developers/new
