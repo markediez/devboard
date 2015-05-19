@@ -10,11 +10,15 @@ class Developer < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   has_one :user # may be nil
-  has_many :commits
-  has_many :developer_accounts
+  has_many :accounts, :class_name => "DeveloperAccount"
 
   def to_param
     [id, name.parameterize].join("-")
+  end
+
+  # Return all commits for all accounts associated with this Developer
+  def commits
+    Commit.find_by developer_account_id: accounts.map{ |a| a.id }
   end
 
   protected

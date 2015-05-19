@@ -6,7 +6,8 @@ class Commit < ActiveRecord::Base
   validates_presence_of :project
   validates_presence_of :message
   validates_presence_of :committed_at
+  validates_presence_of :account
 
-  belongs_to :developer
+  belongs_to :account, :class_name => "DeveloperAccount"
   belongs_to :project
 end

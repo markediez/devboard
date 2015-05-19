@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512233825) do
+ActiveRecord::Schema.define(version: 20150519012754) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 20150512233825) do
   end
 
   create_table "commits", force: :cascade do |t|
-    t.string   "sha",          limit: 255
-    t.integer  "developer_id"
+    t.string   "sha",                  limit: 255
+    t.integer  "developer_account_id"
     t.integer  "project_id"
-    t.string   "message",      limit: 255
+    t.string   "message",              limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "committed_at"
