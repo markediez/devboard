@@ -138,6 +138,17 @@ namespace :github do
 
           Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
         end
+
+        # Fill in commit statistics
+        if commit.total.nil?
+          gh_commit_details = client.commit(project.gh_repo_url, commit.sha)
+
+          commit.total = gh_commit_details[:stats][:total]
+          commit.additions = gh_commit_details[:stats][:additions]
+          commit.deletions = gh_commit_details[:stats][:deletions]
+
+          commit.save!
+        end
       end
     end
   end
