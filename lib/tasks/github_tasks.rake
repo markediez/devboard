@@ -1,31 +1,23 @@
 require 'rake'
 
 namespace :github do
-  desc 'Run all regularly scheduled GitHub tasks.'
-  task :run => :environment do
+  desc 'Sync issues and tasks from GitHub.'
+  task :sync_all => :environment do
     Rails.logger = Logger.new(STDOUT)
 
-    begin
-      gh_config = YAML::load(File.open(Rails.root.join('config', 'github.yml')))
-    rescue Errno::ENOENT
-      Rails.logger.error "Unable to load #{Rails.root.join('config', 'github.yml')}, ensure it exists."
-      abort
-    end
-
-    @gh_token = gh_config['TOKEN']
-
-    sync_tasks
-    sync_commits
+    #Rake::Task["github:sync_tasks"].invoke
+    Rake::Task["github:sync_commits"].invoke
   end
 
   # For each project linked to GitHub, performs a sync (two-way merge) of any
   # tasks/issues.
-  def sync_tasks
+  desc 'Sync tasks (issues) from GitHub.'
+  task :sync_tasks => :environment do
     projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil))
 
     Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
 
-    client = Octokit::Client.new(:access_token => @gh_token)
+    client = Octokit::Client.new(:access_token => github_auth_token)
     client.login
 
     # Check for updates to local tasks in GitHub
@@ -54,21 +46,38 @@ namespace :github do
         task.details = issue[:body]
         task.completed = issue[:closed_at]
 
-        if issue[:assignee]
-          developer = Developer.find_by_loginid(issue[:assignee][:login])
+        if issue[:user]
+          creator = Developer.find_by_loginid(issue[:user][:login])
 
-          if developer.nil?
-            Rails.logger.debug "GH issue has developer but could not find developer locally (login ID: #{issue[:assignee][:login]}). Creating ..."
-            developer = Developer.new
+          if creator.nil?
+            #Rails.logger.debug "GH issue has developer but could not find developer locally (login ID: #{issue[:assignee][:login]}). Creating ..."
+            creator = Developer.new
 
-            developer.loginid = issue[:assignee][:login]
-            developer.email = "unknown@unknown.com"
-            developer.name = "Imported from GitHub"
+            creator.loginid = issue[:user][:login]
+            creator.email = "unknown@unknown.com"
+            creator.name = "Somebody from GitHub"
 
-            developer.save!
+            creator.save!
           end
 
-          task.developer = developer
+          task.creator = creator
+        end
+
+        if issue[:assignee]
+          assignee = Developer.find_by_loginid(issue[:assignee][:login])
+
+          if assignee.nil?
+            #Rails.logger.debug "GH issue has developer but could not find developer locally (login ID: #{issue[:assignee][:login]}). Creating ..."
+            assignee = Developer.new
+
+            assignee.loginid = issue[:assignee][:login]
+            assignee.email = "unknown@unknown.com"
+            assignee.name = "Somebody from GitHub"
+
+            assignee.save!
+          end
+
+          task.assignee = assignee
         end
 
         task.created_at = issue[:created_at]
@@ -76,31 +85,29 @@ namespace :github do
         task.save!
       end
 
-      # Sync any remaining issues back _to_ GitHub
-      unsynced_tasks = project.tasks.where(Task.arel_table[:gh_issue_number].eq(nil))
-      unsynced_tasks.each do |task|
-        issue = client.create_issue(project.gh_repo_url, task.title, task.details)
-
-        Rails.logger.debug "Exporting task ('#{task.title}') to GitHub."
-
-        task.gh_issue_number = issue[:number]
-        task.save!
-      end
+      # # Sync any remaining issues back _to_ GitHub
+      # unsynced_tasks = project.tasks.where(Task.arel_table[:gh_issue_number].eq(nil))
+      # unsynced_tasks.each do |task|
+      #   issue = client.create_issue(project.gh_repo_url, task.title, task.details)
+      #
+      #   Rails.logger.debug "Exporting task ('#{task.title}') to GitHub."
+      #
+      #   task.gh_issue_number = issue[:number]
+      #   task.save!
+      # end
     end
   end
 
   # Loop through GitHub-linked projects and sync the commit history
-  def sync_commits
+  desc 'Sync commits from GitHub.'
+  task :sync_commits => :environment do
     projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil))
 
     Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
 
     Octokit.auto_paginate = true
-    client = Octokit::Client.new(:access_token => @gh_token)
+    client = Octokit::Client.new(:access_token => github_auth_token)
     client.login
-
-    # TODO: Change sync_commits and sync_issues to use DeveloperAccount.
-    #       See if e-mail addresses are more reliable than GH 'login'.
 
     # Check for updates to local tasks in GitHub
     projects.each do |project|
@@ -118,54 +125,70 @@ namespace :github do
           commit.sha = gh_commit[:sha]
           commit.project = project
 
-          Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
-        else
-          Rails.logger.debug "Updating existing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') with GitHub."
-        end
+          commit.account = find_or_create_developer_account_for_commit(gh_commit)
+          commit.message = gh_commit[:commit][:message]
 
-        if gh_commit[:author]
-          developer = Developer.find_by_loginid(gh_commit[:author][:login])
-          developer = Developer.find_by_name(gh_commit[:author][:name]) unless developer
-        end
-
-        if developer.nil? and gh_commit[:commit][:author]
-          developer = Developer.find_by_loginid(gh_commit[:commit][:author][:login])
-          developer = Developer.find_by_name(gh_commit[:commit][:author][:name]) unless developer
-        end
-
-        if developer.nil?
-          Rails.logger.debug "GitHub commit has developer but they could not be found locally. Creating ..."
-          developer = Developer.new
-
-          if gh_commit[:author] && gh_commit[:author][:login]
-            developer.loginid = gh_commit[:author][:login]
-            developer.email = (gh_commit[:author][:email] ? gh_commit[:author][:email] : "unknown@unknown.com")
-            developer.name = (gh_commit[:author][:name] ? gh_commit[:author][:name] : "Imported from GitHub")
-          elsif gh_commit[:author] && gh_commit[:author][:name]
-            developer.loginid = nil
-            developer.email = (gh_commit[:author][:email] ? gh_commit[:author][:email] : "unknown@unknown.com")
-            developer.name = gh_commit[:author][:name]
+          if gh_commit[:commit][:committer]
+            commit.committed_at = gh_commit[:commit][:committer][:date]
           elsif gh_commit[:commit][:author]
-            developer.loginid = gh_commit[:commit][:author][:login]
-            developer.email = (gh_commit[:commit][:author][:email] ? gh_commit[:commit][:author][:email] : "unknown@unknown.com")
-            developer.name = (gh_commit[:commit][:author][:name] ? gh_commit[:commit][:author][:name] : "Imported from GitHub")
+            commit.committed_at = gh_commit[:commit][:author][:date]
           end
 
-          developer.save!
+          commit.save!
+
+          Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
         end
-
-        commit.developer = developer
-
-        commit.message = gh_commit[:commit][:message]
-
-        if gh_commit[:commit][:committer]
-          commit.committed_at = gh_commit[:commit][:committer][:date]
-        elsif gh_commit[:commit][:author]
-          commit.committed_at = gh_commit[:commit][:author][:date]
-        end
-
-        commit.save!
       end
     end
+  end
+
+  private
+
+  # Returns the private GitHub auth token (assuming config/github.yml is configured)
+  def github_auth_token
+    unless @gh_token
+      begin
+        gh_config = YAML::load(File.open(Rails.root.join('config', 'github.yml')))
+      rescue Errno::ENOENT
+        Rails.logger.error "Unable to load #{Rails.root.join('config', 'github.yml')}, ensure it exists."
+        abort
+      end
+    end
+
+    @gh_token ||= gh_config['TOKEN']
+  end
+
+  # Finds or creates a developer account for the given GH commit data ('commit').
+  # Note: The GitHub API provides a few hints as to who a commit belongs. Preferred
+  # is commit[:commit][:author] (signed by git) followed by commit[:author] (probably
+  # signed by GitHub) followed by commit[:commit][:committer] (if it exists).
+  # We assume email is safely unique but do not trust 'name' as two individuals could
+  # share the same name.
+  def find_or_create_developer_account_for_commit(commit)
+    if commit[:commit][:author] and commit[:commit][:author][:email]
+      dev_account = DeveloperAccount.find_or_create_by email: commit[:commit][:author][:email]
+      dev_account.account_type = 'git' if dev_account.new_record?
+    elsif commit[:author] and commit[:author][:login]
+      dev_account = DeveloperAccount.find_or_create_by loginid: commit[:author][:login]
+      dev_account.account_type = 'github' if dev_account.new_record?
+    elsif commit[:commit][:committer] and commit[:commit][:committer][:email]
+      dev_account = DeveloperAccount.find_or_create_by email: [:commit][:committer][:email]
+      dev_account.account_type = 'git' if dev_account.new_record?
+    end
+
+    # Attempt to match the account with a developer
+    unless dev_account.developer
+      dev_account.developer = Developer.find_by_email(dev_account.email) if dev_account.email
+      dev_account.developer = Developer.find_by_loginid(dev_account.loginid) unless dev_account.developer or dev_account.loginid.nil?
+    end
+
+    dev_account.save! if dev_account.new_record? or dev_account.changed?
+
+    if dev_account.nil?
+      STDERR.puts "Could not generate a developer account for GitHub commit #{commit}."
+      abort
+    end
+
+    return dev_account
   end
 end

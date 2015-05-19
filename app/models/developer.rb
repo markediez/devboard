@@ -1,3 +1,5 @@
+# A developer typically owns a task or an issue. Not necessarily able to log into
+# Devboard (that requires a User object).
 class Developer < ActiveRecord::Base
   has_many :tasks
 
@@ -9,7 +11,7 @@ class Developer < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :small => "55x55>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
-  has_one :user # may be nil
+  has_one :user # nullable
   has_many :accounts, :class_name => "DeveloperAccount"
 
   def to_param

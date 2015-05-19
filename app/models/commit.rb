@@ -8,6 +8,6 @@ class Commit < ActiveRecord::Base
   validates_presence_of :committed_at
   validates_presence_of :account
 
-  belongs_to :account, :class_name => "DeveloperAccount"
+  belongs_to :account, class_name: "DeveloperAccount", foreign_key: "developer_account_id"
   belongs_to :project
 end
