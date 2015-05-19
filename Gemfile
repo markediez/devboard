@@ -64,9 +64,6 @@ gem 'exception_notification', group: :production
 # For easy Bootstrap integration
 gem 'bootstrap-sass', '~> 3.1.0'
 
-# For image attachments
-gem 'paperclip', '~> 3.0'
-
 # For CAS authentication
 #gem 'rubycas-client', :git => 'https://github.com/mp-dhorsak/rubycas-client.git'
 #gem 'rubycas-client', :git => 'https://github.com/rubycas/rubycas-client.git'

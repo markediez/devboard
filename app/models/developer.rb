@@ -11,9 +11,6 @@ class Developer < ActiveRecord::Base
   validates_presence_of :name, :email
   validate :github_requires_two_fields
 
-  has_attached_file :avatar, :styles => { :small => "55x55>" }, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-
   has_one :user # nullable
   has_many :accounts, :class_name => "DeveloperAccount"
 

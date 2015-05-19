@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519033709) do
+ActiveRecord::Schema.define(version: 20150519192504) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -52,9 +52,7 @@ ActiveRecord::Schema.define(version: 20150519033709) do
     t.string   "email",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_file_name",    limit: 255
     t.string   "avatar_content_type", limit: 255
-    t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "gh_personal_token",   limit: 255
     t.string   "gh_username",         limit: 255

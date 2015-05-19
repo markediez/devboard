@@ -14,35 +14,37 @@ class DevelopersController < ApplicationController
     # TODO: Calculate "commits per week day" and display as bar chart
     # TODO: Add totals, additions, and deletions to each commit
 
-    @recent_activity = Commit.where(developer_account_id: @developer.accounts.map{ |a| a.id }).where('committed_at >= :date', date: Time.now - 1.week)
+    if params[:duration] and [12, 24, 48, 96].include?(params[:duration].to_i)
+      @duration = params[:duration].to_i
+    else
+      # Default
+      @duration = 24
+    end
+
+    @commits = Commit.where(developer_account_id: @developer.accounts.map{ |a| a.id }).where('committed_at >= :date', date: Time.now - @duration.week).order(committed_at: :desc)
 
     # Set up data for the last 12 weeks (3 months) of commits (for Chart.js)
-    @last_12_weeks = {}
-    for i in 0..11
-      @last_12_weeks[(Time.now - i.week).strftime("%Y%U").to_i] = 0
+    @recent_commits_graph = {}
+    for i in 0..(@duration - 1)
+      @recent_commits_graph[(Time.now - i.week).strftime("%Y%U").to_i] = 0
     end
 
     @projects = {}
 
     # Calculate the developer's average commits per week
-    years = {}
-    num_active_weeks = 0
-
-    commits = @developer.commits
-    commits.each do |commit|
+    @commits.each do |commit|
       commit_year = commit.committed_at.strftime("%Y").to_i
       commit_week = commit.committed_at.strftime("%U").to_i
 
-      years[commit_year] = [] if years[commit_year] == nil
-      if years[commit_year][commit_week] == nil
-        years[commit_year][commit_week] = 0
-        num_active_weeks += 1
-      end
+      # years[commit_year] = [] if years[commit_year] == nil
+      # if years[commit_year][commit_week] == nil
+      #   years[commit_year][commit_week] = 0
+      # end
+      #
+      # years[commit_year][commit_week] += 1
 
-      years[commit_year][commit_week] += 1
-
-      if @last_12_weeks[commit.committed_at.strftime("%Y%U").to_i] != nil
-        @last_12_weeks[commit.committed_at.strftime("%Y%U").to_i] += 1
+      if @recent_commits_graph[commit.committed_at.strftime("%Y%U").to_i] != nil
+        @recent_commits_graph[commit.committed_at.strftime("%Y%U").to_i] += 1
       end
 
       if commit.project
@@ -53,13 +55,11 @@ class DevelopersController < ApplicationController
       end
     end
 
-    @last_12_weeks = @last_12_weeks.sort_by { |timestamp, commits| timestamp }
-
-    @avg_commits_last_12_weeks = ( @last_12_weeks.map { |timestamp, commits| commits }.sum ) / 12
-
-    @avg_commits_per_week = num_active_weeks > 0 ? commits.length / num_active_weeks : 0
+    @recent_commits_graph = @recent_commits_graph.sort_by { |timestamp, commits| timestamp }
 
     @projects = @projects.sort_by { |name, commits| -1 * commits }
+
+    @total_commit_count = @commits.count
 
   end
 
