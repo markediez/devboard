@@ -7,4 +7,5 @@ class DeveloperAccount < ActiveRecord::Base
   validates_inclusion_of :account_type, :in => %w( git github )
 
   belongs_to :developer
+  has_many :commits
 end
