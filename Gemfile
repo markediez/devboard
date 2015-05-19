@@ -43,7 +43,14 @@ gem 'web-console', '~> 2.0', group: :development
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 # Use Capistrano for deployment
-gem 'capistrano-rails', group: :development
+#gem 'capistrano-rails', group: :development
+group :development do
+  gem 'capistrano', '~> 3.1', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-passenger', require: false
+  gem 'capistrano-npm', require: false
+end
 
 # Use PostgreSQL in production
 gem 'pg', group: :production
