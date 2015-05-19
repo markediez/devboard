@@ -57,7 +57,7 @@ class DevelopersController < ApplicationController
 
     @avg_commits_last_12_weeks = ( @last_12_weeks.map { |timestamp, commits| commits }.sum ) / 12
 
-    @avg_commits_per_week = commits.length / num_active_weeks
+    @avg_commits_per_week = num_active_weeks > 0 ? commits.length / num_active_weeks : 0
 
     @projects = @projects.sort_by { |name, commits| -1 * commits }
 
