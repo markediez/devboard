@@ -5,8 +5,8 @@
           <%= link_to gravatar_image_tag(developer.email, :alt => developer.name, :style => 'border-radius: 50%;'), developer %>
           <h4><%= developer.name %></h4>
           <span class="text-muted">
-            <% if developer.tasks.active.count > 0 %>
-            <%= developer.tasks.active.first.project.name %>
+            <% if developer.assigned_tasks.active.count > 0 %>
+            <%= developer.assigned_tasks.active.first.project.name %>
             <% else %>
             No assignments
             <% end %>

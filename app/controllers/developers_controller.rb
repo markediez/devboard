@@ -14,7 +14,7 @@ class DevelopersController < ApplicationController
     # TODO: Calculate "commits per week day" and display as bar chart
     # TODO: Add totals, additions, and deletions to each commit
 
-    @recent_activity = Commit.where(:developer_id => @developer.id).where('committed_at >= :date', date: Time.now - 1.week)
+    @recent_activity = Commit.where(developer_account_id: @developer.accounts.map{ |a| a.id }).where('committed_at >= :date', date: Time.now - 1.week)
 
     # Set up data for the last 12 weeks (3 months) of commits (for Chart.js)
     @last_12_weeks = {}
@@ -28,7 +28,7 @@ class DevelopersController < ApplicationController
     years = {}
     num_active_weeks = 0
 
-    commits = Commit.where(:developer_id => @developer.id)
+    commits = @developer.commits
     commits.each do |commit|
       commit_year = commit.committed_at.strftime("%Y").to_i
       commit_week = commit.committed_at.strftime("%U").to_i

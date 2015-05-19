@@ -1,7 +1,10 @@
 # A developer typically owns a task or an issue. Not necessarily able to log into
 # Devboard (that requires a User object).
 class Developer < ActiveRecord::Base
-  has_many :tasks
+  # Tasks this developer created
+  has_many :created_tasks, :class_name => "Task", :foreign_key => "creator_id"
+  # Tasks this developer has been assigned
+  has_many :assigned_tasks, :class_name => "Task", :foreign_key => "assignee_id"
 
   # loginid may not exist in the case of a GH commit imported with no 'loginid'
   validates_uniqueness_of :loginid
@@ -20,7 +23,7 @@ class Developer < ActiveRecord::Base
 
   # Return all commits for all accounts associated with this Developer
   def commits
-    Commit.find_by developer_account_id: accounts.map{ |a| a.id }
+    Commit.where developer_account_id: accounts.map{ |a| a.id }
   end
 
   protected
