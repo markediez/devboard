@@ -11,8 +11,9 @@ class DevelopersController < ApplicationController
   # GET /developers/1
   # GET /developers/1.json
   def show
+    # Duration is in weeks for developer#show (days for site#overview)
+
     # TODO: Calculate "commits per week day" and display as bar chart
-    # TODO: Add totals, additions, and deletions to each commit
 
     if params[:duration] and [12, 24, 48, 96].include?(params[:duration].to_i)
       @duration = params[:duration].to_i
@@ -21,7 +22,7 @@ class DevelopersController < ApplicationController
       @duration = 24
     end
 
-    @commits = Commit.where(developer_account_id: @developer.accounts.map{ |a| a.id }).where('committed_at >= :date', date: Time.now - @duration.week).order(committed_at: :desc)
+    @commits = Commit.where(developer_account_id: @developer.accounts.map{ |a| a.id }).where('committed_at >= :date', date: Time.now - @duration.weeks).order(committed_at: :desc)
 
     # Set up data for the last 12 weeks (3 months) of commits (for Chart.js)
     @recent_commits_graph = {}
