@@ -11,8 +11,17 @@
 
 <p>
   <strong>Assigned to:</strong>
-  <% if @task.developer %>
-  <%= link_to @task.developer.name, @task.developer %>
+  <% if @task.assignee %>
+  <%= link_to @task.assignee.name, @task.assignee %>
+  <% else %>
+  Nobody
+  <% end %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <% if @task.creator %>
+  <%= link_to @task.creator.name, @task.creator %>
   <% else %>
   Nobody
   <% end %>
