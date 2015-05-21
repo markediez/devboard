@@ -5,7 +5,7 @@ namespace :github do
   task :sync_all => :environment do
     Rails.logger = Logger.new(STDOUT)
 
-    #Rake::Task["github:sync_tasks"].invoke
+    Rake::Task["github:sync_tasks"].invoke
     Rake::Task["github:sync_commits"].invoke
   end
 
