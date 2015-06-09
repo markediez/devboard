@@ -22,8 +22,8 @@ class TasksController < ApplicationController
     if params[:project_id] and (Project.find_by_id(params[:project_id]) != nil)
       @task.project_id = params[:project_id]
     else
-      flash[:alert] = "Invalid Project ID."
-      redirect_to projects_url
+      #flash[:alert] = "Invalid Project ID."
+      #redirect_to projects_url
     end
   end
 
@@ -46,7 +46,7 @@ class TasksController < ApplicationController
 
         ActivityLog.create!({developer_id: current_user.developer_id, project_id: @task.project_id, task_id: @task.id, activity_type: :created })
 
-        format.html { redirect_to @task.project, notice: notice_txt }
+        format.html { redirect_to @task, notice: notice_txt }
         format.json { render action: 'show', status: :created, location: @task }
       else
         logger.debug @task.errors.full_messages
@@ -110,7 +110,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :details, :developer_id, :project_id, :completed, :difficulty, :duration, :due, :priority)
+      params.require(:task).permit(:title, :details, :creator_id, :assignee_id, :project_id, :completed, :difficulty, :duration, :due, :priority)
     end
 
     # Uses the GitHub API to create a GitHub issue
