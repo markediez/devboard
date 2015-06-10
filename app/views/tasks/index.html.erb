@@ -10,7 +10,7 @@
     <tbody>
       <% @past_due_tasks.each do |task| %>
       <tr>
-        <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
+        <td><%= task.project ? link_to(task.project.name + ':', task.project) : 'No project' %> <%= link_to task.title, task %></td>
         <td><%= time_ago_in_words(task.due) %> ago</td>
       </tr>
       <% end %>

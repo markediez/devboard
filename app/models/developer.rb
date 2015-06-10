@@ -6,6 +6,8 @@ class Developer < ActiveRecord::Base
   # Tasks this developer has been assigned
   has_many :assigned_tasks, :class_name => "Task", :foreign_key => "assignee_id"
 
+  has_many :assignments
+
   # loginid may not exist in the case of a GH commit imported with no 'loginid'
   validates_uniqueness_of :loginid
   validates_presence_of :name, :email

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519192504) do
+ActiveRecord::Schema.define(version: 20150610211809) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 20150519192504) do
     t.integer  "activity_type",               default: 0
     t.integer  "meeting_note_id"
     t.string   "commit_gh_id",    limit: 255
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "task_id"
+    t.integer  "developer_id"
+    t.integer  "priority"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "commits", force: :cascade do |t|
