@@ -31,7 +31,7 @@
             <% if authenticated? %>
               <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                  <% { 'Overview' => overview_url, 'Projects' => projects_url, 'Tasks' => tasks_url, 'Developers' => developers_url, 'Export' => '#' }.each do |text, url| %>
+                  <% { 'Overview' => overview_url, 'Projects' => projects_url, 'Tasks' => tasks_url, 'Developers' => developers_url }.each do |text, url| %>
                   <% if (controller_name == text.downcase) or (controller_name == 'site' and text.downcase == 'overview') %>
                     <li class="active"><a href="<%= url %>"><%= text %></a></li>
                   <% else %>

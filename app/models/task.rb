@@ -3,8 +3,9 @@ class Task < ActiveRecord::Base
   scope :active, -> { where(completed: nil) }
 
   belongs_to :creator, :class_name => "Developer"
-  belongs_to :assignee, :class_name => "Developer"
+  #belongs_to :assignee, :class_name => "Developer"
   belongs_to :project
+  has_one :assignment
 
   enum priority: [ :low_priority, :normal_priority, :high_priority ]
 

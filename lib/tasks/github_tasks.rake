@@ -77,7 +77,16 @@ namespace :github do
             assignee.save!
           end
 
-          task.assignee = assignee
+          if task.new_record?
+            assignment = Assignment.new
+            assignment.task = task
+          else
+            assignment = task.assignment
+          end
+          
+          assignment.developer = assignee
+
+          #task.assignee = assignee
         end
 
         task.created_at = issue[:created_at]
