@@ -3,7 +3,7 @@ class CreateAppropriateForeignKeys < ActiveRecord::Migration
     #add_foreign_key :commits, :developer
     #add_foreign_key :commits, :project
 
-    add_foreign_key :developer_accounts, :developer
+    #add_foreign_key :developer_accounts, :developer
 
     add_foreign_key :meeting_notes, :project
 
