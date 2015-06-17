@@ -5,11 +5,11 @@ class CreateAppropriateForeignKeys < ActiveRecord::Migration
 
     #add_foreign_key :developer_accounts, :developer
 
-    add_foreign_key :meeting_notes, :project
+    #add_foreign_key :meeting_notes, :project
 
-    add_foreign_key :tasks, :developer
-    add_foreign_key :tasks, :project
+    #add_foreign_key :tasks, :developer
+    #add_foreign_key :tasks, :project
 
-    add_foreign_key :users, :developer
+    #add_foreign_key :users, :developer
   end
 end
