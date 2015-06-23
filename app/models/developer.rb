@@ -25,6 +25,10 @@ class Developer < ActiveRecord::Base
     Commit.where developer_account_id: accounts.map{ |a| a.id }
   end
 
+  def open_assignments
+    assignments.where("assigned_at <= '#{Time.now.utc}'").where("completed_at is null")
+  end
+
   protected
 
   # gh_username and gh_personal_token are optional but both must be present if either is specified
