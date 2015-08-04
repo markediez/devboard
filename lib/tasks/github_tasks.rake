@@ -13,7 +13,7 @@ namespace :github do
   # tasks/issues.
   desc 'Sync tasks (issues) from GitHub.'
   task :sync_tasks => :environment do
-    projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil))
+    projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
 
     Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
 
@@ -111,7 +111,7 @@ namespace :github do
   # Loop through GitHub-linked projects and sync the commit history
   desc 'Sync commits from GitHub.'
   task :sync_commits => :environment do
-    projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil))
+    projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
 
     Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
 
@@ -132,7 +132,7 @@ namespace :github do
 
         unless commit
           Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
-          
+
           commit = Commit.new
           commit.sha = gh_commit[:sha]
           commit.project = project
