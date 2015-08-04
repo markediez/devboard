@@ -37,7 +37,7 @@
     <% @project.tasks.each do |task| %>
     <tr>
       <td>
-        <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed.blank? %> />
+        <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
       </td>
       <td style="color: #666;">
         <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
@@ -53,10 +53,10 @@
         <% end %>
       </td>
       <td>
-        <% if task.assignee.nil? %>
+        <% if task.assignment.nil? %>
           No one assigned
         <% else %>
-          <%= link_to task.assignee.name, task.assignee %>
+          <%= link_to task.assignment.developer.name, task %>
         <% end %>
       </td>
       <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
