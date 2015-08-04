@@ -5,7 +5,7 @@ class Task < ActiveRecord::Base
   belongs_to :creator, :class_name => "Developer"
   #belongs_to :assignee, :class_name => "Developer"
   belongs_to :project
-  has_one :assignment
+  has_one :assignment, :dependent => :destroy
 
   enum priority: [ :low_priority, :normal_priority, :high_priority ]
 

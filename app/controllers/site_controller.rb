@@ -1,6 +1,6 @@
 class SiteController < ApplicationController
-  skip_before_filter :authenticate, :only => [:access_denied, :logout]
-  skip_before_action :verify_authenticity_token, only: :credentials
+  skip_before_filter :authenticate, only: [:access_denied, :logout]
+  skip_before_action :verify_authenticity_token, only: [:credentials]
 
   # GET /overview
   def overview
@@ -49,9 +49,17 @@ class SiteController < ApplicationController
     # Original view code
     @developers = Developer.order(created_at: :desc)
     @activities = ActivityLog.order(when: :desc).limit(6)
-    @past_due_tasks = Task.where(completed: nil).where('due < ?', DateTime.now).order(due: :asc)
-    @due_soon_tasks = Task.where(completed: nil).where('due < ?', DateTime.now + 14.days).where('due > ?', DateTime.now).order(due: :asc)
-    @no_due_date_tasks = Task.where(completed: nil).where(due: nil)
+    @past_due_tasks = Task.where(completed_at: nil).where('due < ?', DateTime.now).order(due: :asc)
+    @due_soon_tasks = Task.where(completed_at: nil).where('due < ?', DateTime.now + 14.days).where('due > ?', DateTime.now).order(due: :asc)
+    @no_due_date_tasks = Task.where(completed_at: nil).where(due: nil)
+
+    # Get all open assignments
+    @open_assignments = {}
+    unsorted_assignments = Assignment.where("completed_at is null")
+    unsorted_assignments.each do |assignment|
+      @open_assignments[assignment.developer.id] = [] if @open_assignments[assignment.developer.id].nil?
+      @open_assignments[assignment.developer.id] << assignment
+    end
 
     authorize! :manage, @developers
     authorize! :manage, @activity

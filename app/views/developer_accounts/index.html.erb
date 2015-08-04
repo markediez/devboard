@@ -1,0 +1,21 @@
+<h2 class="sub-header">Developer Accounts</h2>
+<div class="row">
+  <table class="table table-striped table-condensed">
+    <thead>
+      <th class="col-xs-5">E-mail</th>
+      <th class="col-xs-2">Type</th>
+      <th class="col-xs-5">Developer</th>
+    </thead>
+    <tbody>
+      <% @developer_accounts.each do |developer_account| %>
+        <%= form_for developer_account do |f| %>
+          <tr>
+            <td><%= developer_account.email %></td>
+            <td><%= developer_account.account_type %></td>
+            <td><%= f.select("developer_id", @developers.collect {|d| [ d.name, d.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

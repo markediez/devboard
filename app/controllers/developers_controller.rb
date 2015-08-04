@@ -58,6 +58,9 @@ class DevelopersController < ApplicationController
     @recent_commits_by_project = @recent_commits_by_project.sort_by { |name, commits| -1 * commits }
     @recent_lines_by_project = @recent_lines_by_project.sort_by { |name, lines| -1 * lines }
     @total_commit_count = @commits.count
+
+    # Gather current assignments
+    @assignments = @developer.open_assignments
   end
 
   # GET /developers/new

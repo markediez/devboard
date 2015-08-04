@@ -44,7 +44,7 @@ namespace :github do
 
         task.title = issue[:title]
         task.details = issue[:body]
-        task.completed = issue[:closed_at]
+        task.completed_at = issue[:closed_at]
 
         if issue[:user]
           creator = Developer.find_by_loginid(issue[:user][:login])
@@ -54,8 +54,6 @@ namespace :github do
             creator = Developer.new
 
             creator.loginid = issue[:user][:login]
-            creator.email = "unknown@unknown.com"
-            creator.name = "Somebody from GitHub"
 
             creator.save!
           end
@@ -67,26 +65,29 @@ namespace :github do
           assignee = Developer.find_by_loginid(issue[:assignee][:login])
 
           if assignee.nil?
-            #Rails.logger.debug "GH issue has developer but could not find developer locally (login ID: #{issue[:assignee][:login]}). Creating ..."
             assignee = Developer.new
 
             assignee.loginid = issue[:assignee][:login]
-            assignee.email = "unknown@unknown.com"
-            assignee.name = "Somebody from GitHub"
 
             assignee.save!
           end
 
-          if task.new_record?
+          if task.new_record? || task.assignment.nil?
             assignment = Assignment.new
             assignment.task = task
           else
             assignment = task.assignment
           end
-          
-          assignment.developer = assignee
 
-          #task.assignee = assignee
+          # assigned_at could be more accurately found in the issue 'events' stream
+          assignment.assigned_at = Time.now if assignment.assigned_at
+
+          assignment.developer = assignee
+        else
+          assignment = Assignment.find_by_task_id(task.id)
+
+          # If the assignment exists locally but not in GH, it has been unassigned so we'll delete ours
+          assignment.destroy! if assignment
         end
 
         task.created_at = issue[:created_at]
@@ -130,6 +131,8 @@ namespace :github do
         commit = project.commits.find_by_sha(gh_commit[:sha])
 
         unless commit
+          Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
+          
           commit = Commit.new
           commit.sha = gh_commit[:sha]
           commit.project = project
@@ -144,8 +147,6 @@ namespace :github do
           end
 
           commit.save!
-
-          Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
         end
 
         # Fill in commit statistics

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :tasks
   resources :developers
+  resources :developer_accounts
   resources :projects
 
   root 'site#overview'

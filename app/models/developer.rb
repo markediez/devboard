@@ -10,14 +10,17 @@ class Developer < ActiveRecord::Base
 
   # loginid may not exist in the case of a GH commit imported with no 'loginid'
   validates_uniqueness_of :loginid
-  validates_presence_of :name, :email
   validate :github_requires_two_fields
 
   has_one :user # nullable
   has_many :accounts, :class_name => "DeveloperAccount"
 
   def to_param
-    [id, name.parameterize].join("-")
+    if name.nil?
+      return id.to_s
+    else
+      return [id, name.parameterize].join("-")
+    end
   end
 
   # Return all commits for all accounts associated with this Developer
@@ -26,7 +29,7 @@ class Developer < ActiveRecord::Base
   end
 
   def open_assignments
-    assignments.where("assigned_at <= '#{Time.now.utc}'").where("completed_at is null")
+    assignments.where("completed_at is null") #.where("assigned_at <= '#{Time.now.utc}'").where("completed_at is null")
   end
 
   protected

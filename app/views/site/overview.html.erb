@@ -17,6 +17,27 @@
 
 <h3>Assignments</h3>
 
+<table class="table table-striped table-condensed">
+  <thead>
+    <th class="col-xs-2">Developer</th>
+    <th>Assignment</th>
+  </thead>
+  <tbody>
+    <% @open_assignments.each do |developer_id, assignments| %>
+      <% first_row = true %>
+      <% assignments.each do |assignment| %>
+        <tr>
+          <td><%= first_row ? @developers.where(id: developer_id)[0].name : '' %></td>
+          <td><%= assignment.task.title %></td>
+        </tr>
+        <% first_row = false %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<h3 style="display: none;">Assignments</h3>
+
 <style type="text/css">
   .gantt {
     width: 100%;
@@ -40,8 +61,8 @@
 
   /* These are the visible assignment blocks */
   .gantt tbody tr td div {
-    border: none; /* 1px solid #468cc8; */ /*005798;*/
-    background-color: #468cc8; /*f0f0f0;*/
+    border: none;
+    background-color: #468cc8;
     padding: 0.2em;
   }
 
@@ -54,61 +75,46 @@
     border-left: none;
   }
 
+  .gantt tbody tr td div.open {
+    background-color: #eee;
+    border: 1px dashed #bbb;
+  }
+
+  .gantt tbody tr td div.open a {
+    color: #777;
+  }
+
   .gantt-outer {
     overflow-x: scroll;
   }
 </style>
 
-<table class="gantt" style="float: left; width: 5%;">
-  <thead>
-    <tr>
-      <th style="min-width: 0;">&nbsp;<!-- developer --></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 0.75em; text-align: right; min-width: 0;">Christopher</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75em; text-align: right; min-width: 0;">Lloyd</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75em; text-align: right; min-width: 0;">Obada</td>
-    </tr>
-    <tr>
-      <td style="padding: 0.75em; text-align: right; min-width: 0;">Eric</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="gantt-outer">
+<div class="gantt-outer" style="display: none;">
   <table class="gantt">
     <thead>
       <tr>
-        <th>Wed 6/10</th>
-        <th>Thu 6/11</th>
-        <th>Fri 6/12</th>
-        <th>Mon 6/15</th>
-        <th>Tue 6/16</th>
-        <th>Wed 6/17</th>
-        <th>Thu 6/18</th>
-        <th>Fri 6/19</th>
-        <th>Mon 6/22</th>
-        <th>Tue 6/23</th>
+        <th style="min-width: 0;"><!-- developer name --></th>
+        <th><%= Time.now.strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 1.day).strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 2.day).strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 3.day).strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 4.day).strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 5.day).strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 6.day).strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 7.day).strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 8.day).strftime("%a %m/%d") %></th>
+        <th><%= (Time.now + 9.day).strftime("%a %m/%d") %></th>
       </tr>
     </thead>
     <tbody>
       <tr>
+        <td style="padding: 0.75em; text-align: right; min-width: 0;">Christopher</td>
         <td colspan="2"><div class="continuing"><a href="#">DevBoard: Gantt Charts</a></div></td>
         <td colspan="2"><div><a href="#">DW: Banner Activity Import</a></div></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td colspan="6"><div class="open"><a href="#">Click to assign</a></div></td>
       </tr>
       <tr>
+        <td style="padding: 0.75em; text-align: right; min-width: 0;">Lloyd</td>
         <td colspan="5"><div><a href="#">IPA: Refactor Instructors/Department Relationship</a></div></td>
         <td></td>
         <td></td>
@@ -117,6 +123,7 @@
         <td></td>
       </tr>
       <tr>
+        <td style="padding: 0.75em; text-align: right; min-width: 0;">Obada</td>
         <td colspan="2"><div><a href="#">IPA: TV HTML</a></div></td>
         <td></td>
         <td></td>
@@ -128,6 +135,7 @@
         <td></td>
       </tr>
       <tr>
+        <td style="padding: 0.75em; text-align: right; min-width: 0;">Eric</td>
         <td colspan="5"><div><a href="#">DSS Messenger: Publisher Modularization</a></div></td>
         <td></td>
         <td></td>
@@ -291,8 +299,8 @@
   <thead>
     <tr>
       <th class="col-xs-2">When</th>
-      <th class="col-xs-2">Project</th>
       <th class="col-xs-2">Developer</th>
+      <th class="col-xs-2">Project</th>
       <th class="col-xs-8">Message</th>
     </tr>
   </thead>
@@ -300,8 +308,8 @@
     <% @commits.each do |commit| %>
     <tr>
       <td><%= time_ago_in_words(commit.committed_at) %> ago</td>
-      <td><%= commit.project.name %></td>
       <td><%= commit.account.developer.nil? ? "Unknown" : commit.account.developer.name %></td>
+      <td><%= commit.project.name %></td>
       <td><%= commit.message %></td>
     </tr>
     <% end %>
@@ -348,7 +356,7 @@
       <tr>
         <td><%= project_status_in_words(project.status) %></td>
         <td><%= link_to project.name, project %></td>
-        <td><%= (project.tasks.count > 0) ? ((project.tasks.where(completed: nil).count / project.tasks.count) * 100).to_s + '%' : 'N/A' %></td>
+        <td><%= (Assignment.where(task: project.tasks).count > 0) ? ((Assignment.where(task: project.tasks).where(assignments: { completed_at: nil }).count / Assignment.where(task: project.tasks).count) * 100).to_s + '%' : 'N/A' %></td>
         <td><%= time_ago_in_words(project.began) %></td>
       </tr>
       <% end %>

@@ -31,8 +31,12 @@
             <% if authenticated? %>
               <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                  <% { 'Overview' => overview_url, 'Projects' => projects_url, 'Tasks' => tasks_url, 'Developers' => developers_url }.each do |text, url| %>
-                  <% if (controller_name == text.downcase) or (controller_name == 'site' and text.downcase == 'overview') %>
+                  <%
+                    subnav_links = {}
+                    subnav_links['Developers'] = []
+                  %>
+                  <% { 'Overview' => overview_url, 'Projects' => projects_url, 'Tasks' => tasks_url, 'Developers' => developers_url, 'Developer Accounts' => developer_accounts_url }.each do |text, url| %>
+                  <% if (controller_name == text.gsub(' ', '_').downcase) or (controller_name == 'site' and text.downcase == 'overview') %>
                     <li class="active"><a href="<%= url %>"><%= text %></a></li>
                   <% else %>
                     <li><a href="<%= url %>"><%= text %></a></li>
