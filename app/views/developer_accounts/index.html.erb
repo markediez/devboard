@@ -8,13 +8,11 @@
     </thead>
     <tbody>
       <% @developer_accounts.each do |developer_account| %>
-        <%= form_for developer_account do |f| %>
-          <tr>
-            <td><%= developer_account.email %></td>
-            <td><%= developer_account.account_type %></td>
-            <td><%= f.select("developer_id", @developers.collect {|d| [ d.name, d.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %></td>
-          </tr>
-        <% end %>
+        <tr>
+          <td><%= developer_account.email %></td>
+          <td><%= developer_account.account_type %></td>
+          <td><%= form_for developer_account do |f| %><%= f.select("developer_id", @developers.collect {|d| [ d.name, d.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %><% end %></td>
+        </tr>
       <% end %>
     </tbody>
   </table>
