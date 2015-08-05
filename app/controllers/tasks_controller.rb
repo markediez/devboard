@@ -5,9 +5,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @past_due_tasks = Task.where(completed: nil).where('due < ?', DateTime.now).order(due: :asc)
-    @due_soon_tasks = Task.where(completed: nil).where('due < ?', DateTime.now + 14.days).where('due > ?', DateTime.now).order(due: :asc)
-    @no_due_date_tasks = Task.where(completed: nil).where(due: nil)
+    @past_due_tasks = Task.where(completed_at: nil).where('due < ?', DateTime.now).order(due: :asc)
+    @due_soon_tasks = Task.where(completed_at: nil).where('due < ?', DateTime.now + 14.days).where('due > ?', DateTime.now).order(due: :asc)
+    @no_due_date_tasks = Task.where(completed_at: nil).where(due: nil)
   end
 
   # GET /tasks/1
