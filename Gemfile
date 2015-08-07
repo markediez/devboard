@@ -74,6 +74,7 @@ gem 'cancan'
 
 # For GitHub integration
 gem 'octokit'
+gem 'faraday-http-cache' # for etag caching with octokit
 
 # For scheduled tasks
 gem 'whenever', :require => false

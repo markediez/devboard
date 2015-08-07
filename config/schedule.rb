@@ -14,8 +14,8 @@
 
 job_type :envcommand, 'cd :path && RAILS_ENV=:environment :task'
 
-#every 60.minutes do
-every 1.day, :at => '4:45 am' do
+every 60.minutes do
+#every 1.day, :at => '4:45 am' do
   envcommand 'nice -n 10 bundle exec rake github:sync_all --silent >/dev/null 2>&1'
 end
 

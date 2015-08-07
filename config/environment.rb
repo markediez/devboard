@@ -1,6 +1,14 @@
 # Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
+stack = Faraday::RackBuilder.new do |builder|
+  builder.use Faraday::HttpCache
+  builder.use Octokit::Response::RaiseError
+  builder.adapter Faraday.default_adapter
+end
+
+Octokit.middleware = stack
+
 # Initialize the Rails application.
 Rails.application.initialize!
 

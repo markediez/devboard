@@ -91,6 +91,8 @@ GEM
     execjs (2.5.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    faraday-http-cache (1.1.1)
+      faraday (~> 0.8)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     gravatar_image_tag (1.2.0)
@@ -110,7 +112,7 @@ GEM
       mime-types (>= 1.16, < 3)
     mime-types (2.6.1)
     mini_portile (0.6.2)
-    minitest (5.7.0)
+    minitest (5.8.0)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     net-scp (1.2.1)
@@ -211,6 +213,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.1)
   coffee-rails (~> 4.0.0)
   exception_notification
+  faraday-http-cache
   gravatar_image_tag
   jbuilder (~> 1.2)
   jquery-rails
