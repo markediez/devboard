@@ -223,7 +223,7 @@ DEPENDENCIES
   jquery-rails
   octokit
   pg
-  rails (~> 4.2.1)
+  rails (~> 4.2.3)
   redcarpet
   rubycas-client!
   sass-rails (~> 4.0.0.rc1)
