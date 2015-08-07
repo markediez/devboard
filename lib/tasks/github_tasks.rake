@@ -17,94 +17,29 @@ namespace :github do
 
     Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
 
+    Octokit.auto_paginate = true
     client = Octokit::Client.new(:access_token => github_auth_token)
     client.login
 
     # Check for updates to local tasks in GitHub
     projects.each do |project|
-      Rails.logger.debug "Syncing issues/tasks for project '#{project.name}'."
+      Rails.logger.debug "Syncing issues (tasks) for project '#{project.name}'."
 
       issues = client.issues(project.gh_repo_url, :per_page => 100)
+      Rails.logger.debug "Found #{issues.count} open issues on GitHub."
 
-      Rails.logger.debug "Found #{issues.count} issues on GitHub."
-
-      # Sync issues from GitHub
+      # Sync open issues from GitHub
       issues.each do |issue|
-        # Find or create the GH issue locally (DevBoard calls them 'tasks')
-        task = project.tasks.find_by_gh_issue_number(issue[:number])
-
-        unless task
-          task = Task.new
-          task.gh_issue_number = issue[:number]
-          task.project = project
-          Rails.logger.debug "Importing issue ##{issue[:number]} ('#{issue[:title]}') from GitHub."
-        else
-          Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
-        end
-
-        task.title = issue[:title]
-        task.details = issue[:body]
-        task.completed_at = issue[:closed_at]
-
-        if issue[:user]
-          creator = Developer.find_by_loginid(issue[:user][:login])
-
-          if creator.nil?
-            #Rails.logger.debug "GH issue has developer but could not find developer locally (login ID: #{issue[:assignee][:login]}). Creating ..."
-            creator = Developer.new
-
-            creator.loginid = issue[:user][:login]
-
-            creator.save!
-          end
-
-          task.creator = creator
-        end
-
-        if issue[:assignee]
-          assignee = Developer.find_by_loginid(issue[:assignee][:login])
-
-          if assignee.nil?
-            assignee = Developer.new
-
-            assignee.loginid = issue[:assignee][:login]
-
-            assignee.save!
-          end
-
-          if task.new_record? || task.assignment.nil?
-            assignment = Assignment.new
-            assignment.task = task
-          else
-            assignment = task.assignment
-          end
-
-          # assigned_at could be more accurately found in the issue 'events' stream
-          assignment.assigned_at = Time.now if assignment.assigned_at
-
-          assignment.developer = assignee
-        else
-          assignment = Assignment.find_by_task_id(task.id)
-
-          # If the assignment exists locally but not in GH, it has been unassigned so we'll delete ours
-          assignment.destroy! if assignment
-        end
-
-        task.created_at = issue[:created_at]
-
-        task.save!
+        sync_issue(issue, project)
       end
 
-      # # Sync any remaining issues back _to_ GitHub
-      # unsynced_tasks = project.tasks.where(Task.arel_table[:gh_issue_number].eq(nil))
-      # unsynced_tasks.each do |task|
-      #   issue = client.create_issue(project.gh_repo_url, task.title, task.details)
-      #
-      #   Rails.logger.debug "Exporting task ('#{task.title}') to GitHub."
-      #
-      #   task.gh_issue_number = issue[:number]
-      #   task.save!
-      # end
+      issues = client.issues(project.gh_repo_url, {per_page: 100, state: 'closed'})
+      Rails.logger.debug "Found #{issues.count} closed issues on GitHub."
+
+      # Sync closed issues from GitHub
+      issues.each do |issue|
+        sync_issue(issue, project)
+      end
     end
   end
 
@@ -164,6 +99,78 @@ namespace :github do
   end
 
   private
+
+  # Syncs a single issue from GitHub to the local database
+  def sync_issue(issue, project)
+    # Find or create the GH issue locally (DevBoard calls them 'tasks')
+    task = project.tasks.find_by_gh_issue_number(issue[:number])
+
+    #byebug if(issue[:title] == 'Add IAM import task')
+
+    unless task
+      task = Task.new
+      task.gh_issue_number = issue[:number]
+      task.project = project
+      Rails.logger.debug "Importing issue ##{issue[:number]} ('#{issue[:title]}') from GitHub."
+    else
+      Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
+    end
+
+    task.title = issue[:title]
+    task.details = issue[:body]
+    task.completed_at = issue[:closed_at]
+
+    if issue[:user]
+      creator = Developer.find_by_loginid(issue[:user][:login])
+
+      if creator.nil?
+        creator = Developer.new
+
+        creator.loginid = issue[:user][:login]
+
+        creator.save!
+      end
+
+      task.creator = creator
+    end
+
+    if issue[:assignee]
+      assignee = Developer.find_by_loginid(issue[:assignee][:login])
+
+      if assignee.nil?
+        assignee = Developer.new
+
+        assignee.loginid = issue[:assignee][:login]
+
+        assignee.save!
+      end
+
+      if task.new_record? || task.assignment.nil?
+        assignment = Assignment.new
+        assignment.task = task
+      else
+        assignment = task.assignment
+      end
+
+      # assigned_at could be more accurately found in the issue 'events' stream
+      assignment.assigned_at = Time.now if assignment.assigned_at
+
+      assignment.developer = assignee
+
+      assignment.completed_at = issue[:closed_at]
+    else
+      assignment = Assignment.find_by_task_id(task.id)
+
+      # If the assignment exists locally but not in GH, it has been unassigned so we'll delete ours
+      assignment.destroy! if assignment
+    end
+
+    task.created_at = issue[:created_at]
+
+    task.save!
+
+    task.assignment.save! if task.assignment
+  end
 
   # Returns the private GitHub auth token (assuming config/github.yml is configured)
   def github_auth_token

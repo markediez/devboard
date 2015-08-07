@@ -3,8 +3,6 @@
 class Developer < ActiveRecord::Base
   # Tasks this developer created
   has_many :created_tasks, :class_name => "Task", :foreign_key => "creator_id"
-  # # Tasks this developer has been assigned
-  # has_many :assigned_tasks, :class_name => "Task", :foreign_key => "assignee_id"
 
   has_many :assignments
 

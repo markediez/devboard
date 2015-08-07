@@ -58,8 +58,8 @@ gem 'pg', group: :production
 # E-mail exceptions in production
 gem 'exception_notification', group: :production
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+# Use 'byebug' debugger
+gem 'byebug', group: [:development, :test]
 
 # For easy Bootstrap integration
 gem 'bootstrap-sass', '~> 3.1.0'

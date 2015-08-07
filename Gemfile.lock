@@ -59,6 +59,8 @@ GEM
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.2.2)
+    byebug (5.0.0)
+      columnize (= 0.9.0)
     cancan (1.6.10)
     capistrano (3.4.0)
       i18n
@@ -83,6 +85,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
+    columnize (0.9.0)
     debug_inspector (0.0.2)
     erubis (2.7.0)
     exception_notification (4.1.1)
@@ -205,6 +208,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store!
   bootstrap-sass (~> 3.1.0)
+  byebug
   cancan
   capistrano (~> 3.1)
   capistrano-bundler (~> 1.1)
