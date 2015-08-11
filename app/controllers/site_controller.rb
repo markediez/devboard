@@ -57,8 +57,10 @@ class SiteController < ApplicationController
     @open_assignments = {}
     unsorted_assignments = Assignment.where("completed_at is null")
     unsorted_assignments.each do |assignment|
-      @open_assignments[assignment.developer.id] = [] if @open_assignments[assignment.developer.id].nil?
-      @open_assignments[assignment.developer.id] << assignment
+      if assignment.developer_account and assignment.developer_account.developer
+        @open_assignments[assignment.developer_account.developer.id] = [] if @open_assignments[assignment.developer_account.developer.id].nil?
+        @open_assignments[assignment.developer_account.developer.id] << assignment
+      end
     end
 
     authorize! :manage, @developers

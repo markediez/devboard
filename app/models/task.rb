@@ -2,8 +2,7 @@
 class Task < ActiveRecord::Base
   scope :active, -> { where(completed: nil) }
 
-  belongs_to :creator, :class_name => "Developer"
-  #belongs_to :assignee, :class_name => "Developer"
+  belongs_to :creator, :class_name => "DeveloperAccount"
   belongs_to :project
   has_one :assignment, :dependent => :destroy
 

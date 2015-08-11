@@ -121,12 +121,13 @@ namespace :github do
     task.completed_at = issue[:closed_at]
 
     if issue[:user]
-      creator = Developer.find_by_loginid(issue[:user][:login])
+      creator = DeveloperAccount.find_by_loginid_and_account_type(issue[:user][:login], 'github')
 
       if creator.nil?
-        creator = Developer.new
+        creator = DeveloperAccount.new
 
         creator.loginid = issue[:user][:login]
+        creator.account_type = 'github'
 
         creator.save!
       end
@@ -135,12 +136,13 @@ namespace :github do
     end
 
     if issue[:assignee]
-      assignee = Developer.find_by_loginid(issue[:assignee][:login])
+      assignee = DeveloperAccount.find_by_loginid_and_account_type(issue[:assignee][:login], 'github')
 
       if assignee.nil?
-        assignee = Developer.new
+        assignee = DeveloperAccount.new
 
         assignee.loginid = issue[:assignee][:login]
+        assignee.account_type = 'github'
 
         assignee.save!
       end
@@ -155,7 +157,7 @@ namespace :github do
       # assigned_at could be more accurately found in the issue 'events' stream
       assignment.assigned_at = Time.now if assignment.assigned_at
 
-      assignment.developer = assignee
+      assignment.developer_account = assignee
 
       assignment.completed_at = issue[:closed_at]
     else
