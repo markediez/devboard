@@ -47,9 +47,5 @@ namespace :deploy do
       # end
     end
   end
-  
-  task :restart do
-    invoke 'delayed_job:restart'
-  end
 
 end
