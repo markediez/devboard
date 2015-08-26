@@ -4,6 +4,9 @@ lock '3.4.0'
 set :application, 'devboard'
 set :repo_url, 'git@github.com:dssit/devboard.git'
 
+# Temporary fix for restarting the application until Passenger v5.0.10
+set :passenger_restart_with_touch, true
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
