@@ -8,6 +8,7 @@ class DeveloperAccount < ActiveRecord::Base
 
   belongs_to :developer
   has_many :commits
+  has_many :assignments
 
   private
 

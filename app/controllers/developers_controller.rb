@@ -60,7 +60,7 @@ class DevelopersController < ApplicationController
     @total_commit_count = @commits.count
 
     # Gather current assignments
-    @assignments = @developer.open_assignments
+    @assignments = @developer.assignments(only_open: true)
   end
 
   # GET /developers/new

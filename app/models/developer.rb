@@ -4,8 +4,6 @@ class Developer < ActiveRecord::Base
   # Tasks this developer created
   has_many :created_tasks, :class_name => "Task", :foreign_key => "creator_id"
 
-  has_many :assignments
-
   # loginid may not exist in the case of a GH commit imported with no 'loginid'
   validates_uniqueness_of :loginid
   validate :github_requires_two_fields
@@ -26,8 +24,18 @@ class Developer < ActiveRecord::Base
     Commit.where developer_account_id: accounts.map{ |a| a.id }
   end
 
-  def open_assignments
-    assignments.where("completed_at is null") #.where("assigned_at <= '#{Time.now.utc}'").where("completed_at is null")
+  def assignments(only_open: false)
+    assignments = []
+
+    accounts.each do |account|
+      if only_open
+        assignments << account.assignments.where("completed_at is null")
+      else
+        assignments << account.assignments
+      end
+    end
+
+    return assignments.flatten
   end
 
   protected
