@@ -28,7 +28,7 @@
       <% assignments.each do |assignment| %>
         <tr>
           <td><%= first_row ? @developers.where(id: developer_id)[0].name : '' %></td>
-          <td><%= assignment.task.title %></td>
+          <td><%= link_to assignment.task.project.name, assignment.task.project %> / <%= link_to assignment.task.title, assignment.task %></td>
         </tr>
         <% first_row = false %>
       <% end %>

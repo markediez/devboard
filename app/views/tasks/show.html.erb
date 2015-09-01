@@ -8,55 +8,22 @@
 <h2 class="page-header" style="color: #ccc;">(Not assigned to a project)</h2>
 <% end %>
 
-<p>
-  <strong>Details:</strong>
-  <%= simple_format(@task.details) %>
-</p>
-
-<p>
-  <strong>Assigned to:</strong>
-  <% if @task.assignee %>
-  <%= link_to @task.assignee.name, @task.assignee %>
-  <% else %>
-  Nobody
-  <% end %>
-</p>
-
-<p>
-  <strong>Created by:</strong>
-  <% if @task.creator %>
-  <%= link_to @task.creator.name, @task.creator %>
-  <% else %>
-  Nobody
-  <% end %>
-</p>
-
-<p>
-  <strong>Priority:</strong>
-  <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>
-</p>
-
-<p>
-  <strong>GitHub Issue:</strong>
-  <% if @task.gh_issue_number %>
+<% if @task.gh_issue_number %>
   <% gh_url = 'https://github.com/' + @task.project.gh_repo_url_parse(:both) + '/issues/' + @task.gh_issue_number %>
-  <%= link_to gh_url, gh_url %>
-  <% else %>
-  None given
-  <% end %>
+  <div style="float: right;">
+    <%= link_to image_tag("GitHub-Mark-120px-plus.png", width: 35, alt: "View on GitHub"), gh_url %>
+  </div>
+<% end %>
+
+<p class="lead" style="margin-bottom: 5px; font-size: 1.5em;">
+  Created by <%= (@task.creator and @task.creator.developer) ? link_to(@task.creator.developer.name, @task.creator.developer) : "no one" %>,
+  assigned to <%= (@task.assignment and @task.assignment.developer_account) ? link_to(@task.assignment.developer_account.developer.name, @task.assignment.developer_account.developer) : "no one" %>.
+</p>
+<p class="lead" style="font-size: 1.0em;">
+  <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>. <%= @task.due.nil? ? 'No due date' : "Due " + time_ago_in_words(@task.due) %>. <%= @task.completed_at.nil? ? 'Not completed yet' : "Completed " + time_ago_in_words(@task.completed_at) %>.
 </p>
 
-<p>
-  <strong>Due:</strong>
-  <%= @task.due.nil? ? 'No due date' : time_ago_in_words(@task.due) %>
-</p>
 
-<p>
-  <strong>Completed:</strong>
-  <%= @task.completed.nil? ? 'Not yet' : time_ago_in_words(@task.completed) %>
-</p>
-
-<p>
-  <strong>Link:</strong>
-  <%= @task.link %>
-</p>
+<div style="margin: 1em;">
+  <%= simple_format(@task.details) %>
+</div>
