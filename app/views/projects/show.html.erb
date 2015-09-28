@@ -46,17 +46,17 @@
       </td>
       <td><%= link_to task.title, task %></td>
       <td>
-        <% if task.creator.nil? %>
+        <% if task.creator.nil? or task.creator.developer.nil? %>
           Unknown
         <% else %>
-          <%= link_to task.creator.name, task.creator %>
+          <%= link_to task.creator.developer.name, task.creator %>
         <% end %>
       </td>
       <td>
         <% if task.assignment.nil? %>
           No one assigned
         <% else %>
-          <%= link_to task.assignment.developer.name, task %>
+          <%= link_to task.assignment.developer_account.developer.name, task %>
         <% end %>
       </td>
       <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
