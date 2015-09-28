@@ -24,8 +24,8 @@
   <%= f.hidden_field :project_id %>
 
   <div class="form-group">
-    <%= f.label :assignee_id %><br>
-    <%= f.collection_select(:assignee_id, Developer.all, :id, :name, { include_blank: true }) %>
+    <%= label_tag 'Assign To' %><br>
+    <%= collection_select(:task, :assignment, Developer.all, :id, :name, { include_blank: true }) %>
   </div>
   <div class="form-group">
     <%= f.label :priority %><br>
@@ -79,10 +79,6 @@
     <input type="button" value="1 Month" class="btn btn-default btn-xs" onClick="setTaskDueDate(31)" />
     <input type="button" value="2 Months" class="btn btn-default btn-xs" onClick="setTaskDueDate(62)" />
     <input type="button" value="3 Months" class="btn btn-default btn-xs" onClick="setTaskDueDate(93)" />
-  </div>
-  <div class="form-group">
-    <%= f.label :completed %><br>
-    <%= f.datetime_select :completed, :include_blank => true %>
   </div>
   <% if @task.new_record? and gh_available and not @task.project.gh_repo_url.blank? %>
   <div class="form-group">
