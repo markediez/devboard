@@ -69,6 +69,8 @@ module Authentication
       # It's important that CAS sees this request as coming from /credentials so that CAS sends
       # the single sign _out_ request to it as well. The single sign _out_ request requires we
       # turn off CSRF protection, so /credentials is the one page where we do so.
+      session[:url_before_redirect] = request.original_url
+
       redirect_to :controller => 'site', :action => 'credentials'
     else
       # If environment variable 'CAS' is set and we're in development mode,
@@ -104,13 +106,29 @@ module Authentication
 
           if params[:ticket] and params[:ticket].include? "cas"
             # This is a session-initiating CAS login, so remove the damn GET parameter from the URL for UX
-            redirect_to :controller => 'site', :action => 'overview'
+            redirect_url = session[:url_before_redirect]
+
+            if redirect_url.present?
+              session.delete(:url_before_redirect)
+              redirect_to redirect_url
+            else
+              redirect_to :controller => 'site', :action => 'overview'
+            end
+
+            return
           end
 
           # New sessions already logged into CAS will fall through to here but
           # still be on site#credentials, which is not a valid page. Redirect.
           if (params[:controller] == 'site') and (params[:action] == 'credentials')
-            redirect_to :controller => 'site', :action => 'overview'
+            redirect_url = session[:url_before_redirect]
+
+            if redirect_url.present?
+              session.delete(:url_before_redirect)
+              redirect_to redirect_url
+            else
+              redirect_to :controller => 'site', :action => 'overview'
+            end
           end
 
           return
