@@ -44,10 +44,6 @@ module Authentication
 
     if session[:auth_via]
       case session[:auth_via]
-      # when :whitelisted_ip
-      #   Authorization.current_user = ApiWhitelistedIpUser.find_by_address(session[:user_id])
-      # when :api_key
-      #   Authorization.current_user = ApiKeyUser.find_by_name(session[:user_id])
       when :cas
         if session[:cas_user]
           if impersonating?
@@ -68,6 +64,7 @@ module Authentication
       return
     end
 
+    # No existing session. Redirect to site#credentials if necessary.
     unless (params[:controller] == 'site') and (params[:action] == 'credentials')
       # It's important that CAS sees this request as coming from /credentials so that CAS sends
       # the single sign _out_ request to it as well. The single sign _out_ request requires we
@@ -107,6 +104,12 @@ module Authentication
 
           if params[:ticket] and params[:ticket].include? "cas"
             # This is a session-initiating CAS login, so remove the damn GET parameter from the URL for UX
+            redirect_to :controller => 'site', :action => 'overview'
+          end
+
+          # New sessions already logged into CAS will fall through to here but
+          # still be on site#credentials, which is not a valid page. Redirect.
+          if (params[:controller] == 'site') and (params[:action] == 'credentials')
             redirect_to :controller => 'site', :action => 'overview'
           end
 
