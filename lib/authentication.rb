@@ -118,6 +118,8 @@ module Authentication
             return
           end
 
+          # TODO: Does the code below ever get reached?
+
           # New sessions already logged into CAS will fall through to here but
           # still be on site#credentials, which is not a valid page. Redirect.
           if (params[:controller] == 'site') and (params[:action] == 'credentials')
