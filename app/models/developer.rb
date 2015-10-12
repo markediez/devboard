@@ -8,7 +8,7 @@ class Developer < ActiveRecord::Base
   validates_uniqueness_of :loginid
   validate :github_requires_two_fields
 
-  has_one :user # nullable
+  has_one :user # nullable as not all developers have user accounts
   has_many :accounts, :class_name => "DeveloperAccount"
 
   def to_param
