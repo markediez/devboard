@@ -106,7 +106,7 @@
 <script type="text/javascript">
   var commitChartData = {
 			labels : [
-        <%= @recent_commits_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
+        <%= @recent_commits_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i + 1, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
       ],
 			datasets : [
 				{
@@ -124,7 +124,7 @@
 
   var lineChartData = {
 			labels : [
-        <%= @recent_lines_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
+        <%= @recent_lines_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i + 1, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
       ],
 			datasets : [
 				{
