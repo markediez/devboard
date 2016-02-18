@@ -11,8 +11,8 @@ module Authentication
       case auth_via
       # when :whitelisted_ip
       #   return ApiWhitelistedIpUser.find_by_address(session[:user_id])
-      # when :api_key
-      #   return ApiKeyUser.find_by_name(session[:user_id])
+      when :api_key
+        return ApiKeyUser.find_by_name(session[:user_id])
       when :cas
         return @current_user
       end
@@ -44,6 +44,10 @@ module Authentication
 
     if session[:auth_via]
       case session[:auth_via]
+      when :api_key
+        Authentication.actual_user = ApiKeyUser.find_by_name(session[:user_id])
+        logger.info "Authentication passed with existing session (API key): #{session[:user_id]}"
+      
       when :cas
         if session[:cas_user]
           if impersonating?
@@ -63,6 +67,26 @@ module Authentication
 
       return
     end
+
+    # Check if HTTP Auth is being attempted.
+    authenticate_with_http_basic { |name, secret|
+      @api_user = ApiKeyUser.find_by_name_and_secret(name, secret)
+
+      if @api_user
+        logger.info "API authenticated via application key"
+        session[:user_id] = name
+        session[:auth_via] = :api_key
+        return
+      end
+
+      logger.info "API authentication failed. Application key is wrong."
+      # Note that they will only get 'access denied' if they supplied a name and
+      # failed. If they supplied nothing for HTTP Auth, this block will get passed
+      # over.
+      render :text => "Invalid API key (#{name}).", :status => 401
+
+      return
+    }
 
     # No existing session. Redirect to site#credentials if necessary.
     unless (params[:controller] == 'site') and (params[:action] == 'credentials')
