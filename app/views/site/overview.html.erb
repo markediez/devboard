@@ -401,7 +401,7 @@
     <tbody>
       <% @due_soon_tasks.each do |task| %>
       <tr>
-        <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
+        <td><% if task.project %><%= link_to task.project.name + ':', task.project %><% end %> <%= link_to task.title, task %></td>
         <td><%= time_ago_in_words(task.due) %> from now</td>
       </tr>
       <% end %>
