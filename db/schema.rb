@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811000548) do
+ActiveRecord::Schema.define(version: 20160218221521) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20150811000548) do
     t.datetime "avatar_updated_at"
     t.string   "gh_personal_token",   limit: 255
     t.string   "gh_username",         limit: 255
+    t.boolean  "active",                          default: true
   end
 
   create_table "meeting_notes", force: :cascade do |t|
