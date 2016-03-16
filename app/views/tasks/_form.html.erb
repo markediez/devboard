@@ -80,7 +80,7 @@
     <input type="button" value="2 Months" class="btn btn-default btn-xs" onClick="setTaskDueDate(62)" />
     <input type="button" value="3 Months" class="btn btn-default btn-xs" onClick="setTaskDueDate(93)" />
   </div>
-  <% if @task.new_record? and gh_available and not @task.project.gh_repo_url.blank? %>
+  <% if @task.new_record? and not @task.project.gh_repo_url.blank? %>
   <div class="form-group">
     <%= f.label :create_github_issue, "Sync with GitHub" %><br>
     <select name="create_github_issue">

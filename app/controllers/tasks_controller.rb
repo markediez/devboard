@@ -36,7 +36,11 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
-    create_github_issue if @task.valid? and params[:create_github_issue] == '1'
+    if @task.valid? and params[:create_github_issue] == '1'
+      require 'github'
+      gh_issue_no = GitHubService.create_issue(@task)
+      @task.gh_issue_number = gh_issue_no
+    end
 
     respond_to do |format|
       if @task.save
@@ -73,7 +77,10 @@ class TasksController < ApplicationController
 
           if @task.gh_issue_number
             Rails.logger.debug "Closing a GitHub issue ..."
-            close_github_issue
+            
+            require 'github'
+            
+            GitHubService.close_issue(@task)
           else
             Rails.logger.debug "Not closing a GitHub issue."
           end
@@ -111,35 +118,5 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:title, :details, :creator_id, :assignee_id, :project_id, :completed, :difficulty, :duration, :due, :priority)
-    end
-
-    # Uses the GitHub API to create a GitHub issue
-    def create_github_issue
-      github = Github.new oauth_token: current_user.developer.gh_personal_token
-
-      begin
-        ret = github.issues.create @task.project.gh_repo_url_parse(:user), @task.project.gh_repo_url_parse(:project),
-        {
-          "title" => @task.title,
-          "body" => @task.details
-          #"assignee" => current_user.developer.gh_username
-        }
-
-        @task.gh_issue_number = ret[:number]
-      rescue Github::Error::Unauthorized
-        Rails.logger.error "Unable to sync issue with GitHub: API credentials rejected by GitHub for #{@task.project.gh_repo_url_parse(:user)}, #{@task.project.gh_repo_url_parse(:project)}."
-      end
-    end
-
-    # Uses the GitHub API to close a GitHub issue
-    def close_github_issue
-      github = Github.new oauth_token: current_user.developer.gh_personal_token
-
-      ret = github.issues.edit @task.project.gh_repo_url_parse(:user), @task.project.gh_repo_url_parse(:project), @task.gh_issue_number,
-      {
-        "state" => 'closed'
-      }
-
-      @gh_closed_at = ret[:closed_at]
     end
 end

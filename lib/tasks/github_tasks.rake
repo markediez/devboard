@@ -102,10 +102,10 @@ namespace :github do
 
   # Syncs a single issue from GitHub to the local database
   def sync_issue(issue, project)
+    return if issue.class == Array # avoid an odd 'moved permanently' issue ...
+    
     # Find or create the GH issue locally (DevBoard calls them 'tasks')
     task = project.tasks.find_by_gh_issue_number(issue[:number])
-
-    #byebug if(issue[:title] == 'Add IAM import task')
 
     unless task
       task = Task.new
