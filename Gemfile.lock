@@ -218,7 +218,7 @@ DEPENDENCIES
   gravatar_image_tag
   jbuilder (~> 1.2)
   jquery-rails
-  octokit
+  octokit (~> 4.0)
   pg
   rails (~> 4.2.3)
   redcarpet

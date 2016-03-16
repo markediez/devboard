@@ -68,7 +68,7 @@ gem 'rubycas-client', :git => 'https://github.com/cthielen/rubycas-client.git'
 gem 'cancan'
 
 # For GitHub integration
-gem 'octokit'
+gem 'octokit', '~> 4.0'
 gem 'faraday-http-cache' # for etag caching with octokit
 
 # For scheduled tasks
