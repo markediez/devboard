@@ -5,6 +5,7 @@
 
  * config/secrets.yml (`bundle exec rake secret` will generate secrets)
  * config/database.yml
+ * config/github.yml
 
 2. Run the following commands to install necessary dependencies and load the
     database:
