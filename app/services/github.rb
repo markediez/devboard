@@ -16,6 +16,7 @@ class GitHubService
 
       return ret[:state] == "closed"
     rescue Octokit::Unauthorized => e
+      Rails.logger.error "GitHub indicates no authorization when closing issue: #{e}"
       return false
     end
   end
