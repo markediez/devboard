@@ -13,30 +13,20 @@ namespace :github do
   # tasks/issues.
   desc 'Sync tasks (issues) from GitHub.'
   task :sync_tasks => :environment do
+    require 'github'
+
     projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
 
     Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
-
-    Octokit.auto_paginate = true
-    client = Octokit::Client.new(:access_token => github_auth_token)
-    client.login
 
     # Check for updates to local tasks in GitHub
     projects.each do |project|
       Rails.logger.debug "Syncing issues (tasks) for project '#{project.name}'."
 
-      issues = client.issues(project.gh_repo_url, :per_page => 100)
+      issues = GitHubService.find_issues_by_project(project.gh_repo_url)
       Rails.logger.debug "Found #{issues.count} open issues on GitHub."
 
-      # Sync open issues from GitHub
-      issues.each do |issue|
-        sync_issue(issue, project)
-      end
-
-      issues = client.issues(project.gh_repo_url, {per_page: 100, state: 'closed'})
-      Rails.logger.debug "Found #{issues.count} closed issues on GitHub."
-
-      # Sync closed issues from GitHub
+      # Sync issues (open & closed) from GitHub
       issues.each do |issue|
         sync_issue(issue, project)
       end
@@ -119,6 +109,7 @@ namespace :github do
     task.title = issue[:title]
     task.details = issue[:body]
     task.completed_at = issue[:closed_at]
+    task.created_at = issue[:created_at]
 
     if issue[:user]
       creator = DeveloperAccount.find_by_loginid_and_account_type(issue[:user][:login], 'github')

@@ -64,7 +64,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    completed_val_before = @task.completed
+    completed_val_before = @task.completed_at
 
     respond_to do |format|
       if @task.update(task_params)
@@ -72,7 +72,7 @@ class TasksController < ApplicationController
         # Was this task completed or merely updated?
         # AR Dirty will clear @task.changes in the above update but we need to do this
         # after the update in order to know that the update was successful.
-        if(completed_val_before != @task.completed) and not @task.completed.blank?
+        if(completed_val_before != @task.completed_at) and not @task.completed_at.blank?
           ActivityLog.create!({developer_id: current_user.developer_id, project_id: @task.project_id, task_id: @task.id, activity_type: :completed })
 
           if @task.gh_issue_number
@@ -117,6 +117,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :details, :creator_id, :assignee_id, :project_id, :completed, :difficulty, :duration, :due, :priority)
+      params.require(:task).permit(:title, :details, :creator_id, :assignee_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority)
     end
 end

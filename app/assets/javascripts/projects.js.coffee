@@ -8,7 +8,7 @@ window.setTaskCompleted = (task_id, el) ->
     type: 'PUT'
     data:
       task:
-        completed: if $(el).is(':checked') then (new Date().toISOString()) else null
+        completed_at: if $(el).is(':checked') then (new Date().toISOString()) else null
     success: (response) ->
       console.log response
   )

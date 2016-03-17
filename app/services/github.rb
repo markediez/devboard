@@ -8,11 +8,20 @@ class GitHubService
     return ret[:number]
   end
 
-  # Uses the GitHub API to close a GitHub issue
+  # Uses the GitHub API to close a GitHub issue.
+  # Returns true on success, false on error or unauthorized.
   def self.close_issue(task)
-    ret = self.client.close_issue task.project.gh_repo_url, task.gh_issue_number
+    begin
+      ret = self.client.close_issue task.project.gh_repo_url, task.gh_issue_number
 
-    return ret[:state] == "closed"
+      return ret[:state] == "closed"
+    rescue Octokit::Unauthorized => e
+      return false
+    end
+  end
+
+  def self.find_issues_by_project(gh_url)
+    self.client.list_issues(gh_url, { :state => 'all' })
   end
   
   private
@@ -22,6 +31,13 @@ class GitHubService
         Octokit.auto_paginate = true
       end
 
-      @_client = Octokit::Client.new :login => $GITHUB_CONFIG["LOGIN"], :password => $GITHUB_CONFIG["TOKEN"]
+      stack = Faraday::RackBuilder.new do |builder|
+      builder.response :logger
+        builder.use Octokit::Response::RaiseError
+        builder.adapter Faraday.default_adapter
+      end
+      Octokit.middleware = stack
+
+      @_client = Octokit::Client.new(:login => $GITHUB_CONFIG["LOGIN"], :password => $GITHUB_CONFIG["TOKEN"])
     end
 end

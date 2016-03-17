@@ -1,6 +1,6 @@
 # Duration is an integer in minutes.
 class Task < ActiveRecord::Base
-  scope :active, -> { where(completed: nil) }
+  scope :open, -> { where(completed_at: nil) }
 
   belongs_to :creator, :class_name => "DeveloperAccount"
   belongs_to :project

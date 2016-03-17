@@ -19,7 +19,7 @@
   <% end %>
 </p>
 
-<h3 class="sub-header">Tasks</h3>
+<h3 class="sub-header">Open Tasks</h3>
 <div class="table-responsive">
 <table class="table table-striped">
   <thead>
@@ -29,12 +29,12 @@
       <th>Summary</th>
       <th>Created By</th>
       <th>Assigned To</th>
+      <th>Created</th>
       <th>Due</th>
-      <th>Link</th>
     </tr>
   </thead>
   <tbody>
-    <% @project.tasks.each do |task| %>
+    <% @project.tasks.open.order(:created_at => 'DESC').each do |task| %>
     <tr>
       <td>
         <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
@@ -56,11 +56,11 @@
         <% if task.assignment.nil? %>
           No one assigned
         <% else %>
-          <%= link_to task.assignment.developer_account.developer.name, task %>
+         <%= link_to task.assignment.developer_account.developer ? task.assignment.developer_account.developer.name : 'DeveloperAccount #' + task.assignment.developer_account.id.to_s, task %>
         <% end %>
       </td>
+      <td><%= task.created_at.strftime("%b %e, %Y") %></td>
       <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
-      <td></td>
     </tr>
     <% end %>
     <tr>
