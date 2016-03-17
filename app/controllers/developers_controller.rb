@@ -19,7 +19,7 @@ class DevelopersController < ApplicationController
       @duration = params[:duration].to_i
     else
       # Default
-      @duration = 24
+      @duration = 12
     end
 
     @commits = Commit.where(developer_account_id: @developer.accounts.map{ |a| a.id }).where('committed_at >= :date', date: Time.now - @duration.weeks).order(committed_at: :desc)

@@ -55,7 +55,7 @@ class SiteController < ApplicationController
 
     # Get all open assignments
     @open_assignments = {}
-    unsorted_assignments = Assignment.where("completed_at is null")
+    unsorted_assignments = Assignment.all.select{ |a| a.task.completed_at.nil? }
     unsorted_assignments.each do |assignment|
       if assignment.developer_account and assignment.developer_account.developer and assignment.developer_account.developer.active
         @open_assignments[assignment.developer_account.developer.id] = [] if @open_assignments[assignment.developer_account.developer.id].nil?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218221521) do
+ActiveRecord::Schema.define(version: 20160317170025) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20160218221521) do
     t.datetime "due_at"
     t.datetime "assigned_at"
     t.integer  "delay_count",          default: 0
-    t.datetime "completed_at"
   end
 
   create_table "commits", force: :cascade do |t|

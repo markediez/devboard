@@ -169,14 +169,14 @@
     <div class="item active">
       <div class="row">
         <div class="col-xs-8">
-          <h3 class="sub-header">Commits Per Week</h3>
+          <h3 class="sub-header">Commits By Week</h3>
           <div>
         		<canvas id="commits_canvas" height="175" width="500"></canvas>
           </div>
         </div>
 
         <div class="col-xs-4">
-          <h3 class="sub-header">Commits By Project</h3>
+          <h3 class="sub-header">&nbsp;</h3>
           <ul style="list-style-type: none; padding: 0; margin: 0;">
             <% @recent_commits_by_project.each do |project| %>
             <li style="padding: 0; margin: 0;">
@@ -292,7 +292,7 @@
     });
 </script>
 
-<h3 class="sub-header">Commit Messages</h3>
+<h3 class="sub-header">Commits (<%= @duration %> days)</h3>
 
 <div class="table-responsive">
 <table class="table table-striped table-condensed">
@@ -344,9 +344,9 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Status</th>
         <th>Name</th>
-        <th>Task Ratio</th>
+        <th>Status</th>
+        <th>Unassigned Ratio</th>
         <th>Age</th>
       </tr>
     </thead>
@@ -354,9 +354,9 @@
       <%# [0, 1, 2, 3] are all in progress or in production statuses. Be nice to not have to magic number it up. %>
       <% Project.where(:status => [0, 1, 2, 3]).order(:status).each do |project| %>
       <tr>
-        <td><%= project_status_in_words(project.status) %></td>
         <td><%= link_to project.name, project %></td>
-        <td><%= (Assignment.where(task: project.tasks).count > 0) ? ((Assignment.where(task: project.tasks).where(assignments: { completed_at: nil }).count / Assignment.where(task: project.tasks).count) * 100).to_s + '%' : 'N/A' %></td>
+        <td><%= project_status_in_words(project.status) %></td>
+        <td><%= (Assignment.where(task: project.tasks).count > 0) ? ((Assignment.where(task: project.tasks).all.select{|a| a.task.completed_at.nil? }.count.to_f / Assignment.where(task: project.tasks).count) * 100).round(2).to_s + '%' : 'N/A' %></td>
         <td><%= time_ago_in_words(project.began) %></td>
       </tr>
       <% end %>

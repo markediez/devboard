@@ -178,7 +178,7 @@
   <tbody>
     <% @assignments.each do |assignment| %>
     <tr>
-      <td><%= assignment.task.title %></td>
+      <td><%= link_to assignment.task.title, assignment.task %></td>
       <td><%= assignment.task.project.name %></td>
       <td><%= assignment.assigned_at.nil? ? "Unknown" : time_ago_in_words(assignment.assigned_at) + " ago" %></td>
     </tr>
@@ -187,7 +187,7 @@
 </table>
 </div>
 
-<h3 class="sub-header">Commit Messages</h3>
+<h3 class="sub-header">Commits (<%= @duration %> weeks)</h3>
 
 <div class="table-responsive">
 <table class="table table-striped table-condensed">

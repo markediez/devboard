@@ -29,7 +29,9 @@ class Developer < ActiveRecord::Base
 
     accounts.each do |account|
       if only_open
-        assignments << account.assignments.where("completed_at is null")
+        account.assignments.each do |assignment|
+          assignments << assignment unless assignment.task.completed_at
+        end
       else
         assignments << account.assignments
       end
