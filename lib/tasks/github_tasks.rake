@@ -36,19 +36,17 @@ namespace :github do
   # Loop through GitHub-linked projects and sync the commit history
   desc 'Sync commits from GitHub.'
   task :sync_commits => :environment do
+    require 'github'
+
     projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
 
     Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
-
-    Octokit.auto_paginate = true
-    client = Octokit::Client.new(:access_token => github_auth_token)
-    client.login
 
     # Check for updates to local tasks in GitHub
     projects.each do |project|
       Rails.logger.debug "Syncing commits for project '#{project.name}'."
 
-      commits = client.commits(project.gh_repo_url)
+      commits = GitHubService.find_commits_by_project(project.gh_repo_url)
 
       Rails.logger.debug "Found #{commits.count} commits on GitHub."
 
@@ -76,7 +74,7 @@ namespace :github do
 
         # Fill in commit statistics
         if commit.total.nil?
-          gh_commit_details = client.commit(project.gh_repo_url, commit.sha)
+          gh_commit_details = GitHubService.find_commit_by_project_and_sha(project.gh_repo_url, commit.sha)
 
           commit.total = gh_commit_details[:stats][:total]
           commit.additions = gh_commit_details[:stats][:additions]
@@ -163,20 +161,6 @@ namespace :github do
     task.save!
 
     task.assignment.save! if task.assignment
-  end
-
-  # Returns the private GitHub auth token (assuming config/github.yml is configured)
-  def github_auth_token
-    unless @gh_token
-      begin
-        gh_config = YAML::load(File.open(Rails.root.join('config', 'github.yml')))
-      rescue Errno::ENOENT
-        Rails.logger.error "Unable to load #{Rails.root.join('config', 'github.yml')}, ensure it exists."
-        abort
-      end
-    end
-
-    @gh_token ||= gh_config['TOKEN']
   end
 
   # Finds or creates a developer account for the given GH commit data ('commit').
