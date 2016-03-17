@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :milestones
   resources :meeting_notes
 
   get '/overview' => 'site#overview'

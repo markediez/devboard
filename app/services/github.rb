@@ -37,6 +37,11 @@ class GitHubService
     self.client.commit(gh_url, sha)
   end
 
+  # Return all milestones (opened and closed) given a project URL, e.g. 'dssit/devboard'.
+  def self.find_milestones_by_project(gh_url)
+    self.client.list_milestones(gh_url, { :state => 'all' })
+  end
+
   private
   
     def self.client

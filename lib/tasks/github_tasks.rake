@@ -7,44 +7,44 @@ namespace :github do
 
     Rake::Task["github:sync_tasks"].invoke
     Rake::Task["github:sync_commits"].invoke
+    Rake::Task["github:sync_milestones"].invoke
   end
 
-  # For each project linked to GitHub, performs a sync (two-way merge) of any
-  # tasks/issues.
-  desc 'Sync tasks (issues) from GitHub.'
+  # For each project linked to GitHub, pulls all tasks/issues.
+  desc 'Pull tasks (issues) from GitHub.'
   task :sync_tasks => :environment do
     require 'github'
 
     projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
 
-    Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
+    Rails.logger.debug "Pulling tasks (issues) for #{projects.count} GitHub-enabled project(s)."
 
     # Check for updates to local tasks in GitHub
     projects.each do |project|
-      Rails.logger.debug "Syncing issues (tasks) for project '#{project.name}'."
+      Rails.logger.debug "Pulling tasks (issues) for project '#{project.name}'."
 
       issues = GitHubService.find_issues_by_project(project.gh_repo_url)
-      Rails.logger.debug "Found #{issues.count} open issues on GitHub."
+      Rails.logger.debug "Found #{issues.count} issues on GitHub."
 
-      # Sync issues (open & closed) from GitHub
+      # Import issues (open & closed) from GitHub
       issues.each do |issue|
         sync_issue(issue, project)
       end
     end
   end
 
-  # Loop through GitHub-linked projects and sync the commit history
-  desc 'Sync commits from GitHub.'
+  # Loop through GitHub-linked projects and import the commit history
+  desc 'Pull commits from GitHub.'
   task :sync_commits => :environment do
     require 'github'
 
     projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
 
-    Rails.logger.debug "Syncing #{projects.count} GitHub-enabled project(s)."
+    Rails.logger.debug "Pulling commits for #{projects.count} GitHub-enabled project(s)."
 
     # Check for updates to local tasks in GitHub
     projects.each do |project|
-      Rails.logger.debug "Syncing commits for project '#{project.name}'."
+      Rails.logger.debug "Pulling commits for project '#{project.name}'."
 
       commits = GitHubService.find_commits_by_project(project.gh_repo_url)
 
@@ -82,6 +82,29 @@ namespace :github do
 
           commit.save!
         end
+      end
+    end
+  end
+
+  # For each project linked to GitHub, pulls all milestones.
+  desc 'Sync milestones from GitHub.'
+  task :sync_milestones => :environment do
+    require 'github'
+
+    projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
+
+    Rails.logger.debug "Pulling milestones for #{projects.count} GitHub-enabled project(s)."
+
+    # Check for updates to local tasks in GitHub
+    projects.each do |project|
+      Rails.logger.debug "Pulling milestones for project '#{project.name}'."
+
+      milestones = GitHubService.find_milestones_by_project(project.gh_repo_url)
+      Rails.logger.debug "Found #{milestones.count} milestones on GitHub."
+
+      # Pull milestones (open & closed) from GitHub
+      milestones.each do |milestone|
+        sync_milestone(milestone, project)
       end
     end
   end

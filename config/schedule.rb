@@ -16,6 +16,7 @@ job_type :envcommand, 'cd :path && RAILS_ENV=:environment :task'
 
 every 1.hour do
   envcommand 'nice -n 10 bundle exec rake github:sync_tasks --silent >/dev/null 2>&1'
+  envcommand 'nice -n 10 bundle exec rake github:sync_milestones --silent >/dev/null 2>&1'
 end
 
 every 1.day, :at => '4:45 am' do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317170025) do
+ActiveRecord::Schema.define(version: 20160317174710) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -84,6 +84,16 @@ ActiveRecord::Schema.define(version: 20160317170025) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "taken"
+  end
+
+  create_table "milestones", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "due_on"
+    t.datetime "completed_at"
+    t.integer  "gh_milestone_number"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "projects", force: :cascade do |t|
