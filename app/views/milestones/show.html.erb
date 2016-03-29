@@ -6,10 +6,14 @@
 <h1 class="page-header"><%= @milestone.title %></h1>
 <div class="pull-right" style="color: #666; font-weight: bold; <%= "color: red;" if @milestone.due_on && (@milestone.due_on <= Time.now) %>">
   <% if @milestone.due_on %>
-    <%= @milestone.due_on > Time.now ? 'Due in ' : 'Past due by ' %><%= time_ago_in_words @milestone.due_on %>
+    <%= @milestone.due_on > Time.now ? 'Due in ' : 'Past due by ' %><%= time_ago_in_words @milestone.due_on %>,
   <% else %>
-    No due date
+    No due date,
   <% end %>
+  <% if @milestone.tasks.count > 0 %><%= ((@milestone.tasks.open.count.to_f / @milestone.tasks.count.to_f) * 100.0).round(0) %>%
+  <% else %>100%
+  <% end %>
+ complete
 </div>
 <h3>Description</h3>
 <p>
@@ -20,55 +24,23 @@
   <% end %>
 </p>
 
-<h3 class="sub-header">Open Tasks (<% if @milestone.tasks.count > 0 %><%= ((@milestone.tasks.open.count.to_f / @milestone.tasks.count.to_f) * 100.0).round(0) %>%
-  <% else %>100%
-  <% end %>
- complete)</h3>
-<div class="table-responsive">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><!-- completed checkbox --></th>
-      <th><!-- priority icon --></th>
-      <th>Summary</th>
-      <th>Points</th>
-      <th>Created By</th>
-      <th>Assigned To</th>
-      <th>Created</th>
-      <th>Due</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @milestone.tasks.open.order(:created_at => 'DESC').each do |task| %>
-    <tr>
-      <td>
-        <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
-      </td>
-      <td style="color: #666;">
-        <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
-        <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
-        <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
-      </td>
-      <td><%= link_to task.title, task %></td>
-      <td><%= task.points.nil? ? "<span style='color: #666;'>N/A</span>".html_safe : task.points %></td>
-      <td>
-        <% if task.creator.nil? or task.creator.developer.nil? %>
-          Unknown
-        <% else %>
-          <%= link_to task.creator.developer.name, task.creator %>
-        <% end %>
-      </td>
-      <td>
-        <% if task.assignment.nil? %>
-          No one assigned
-        <% else %>
-         <%= link_to task.assignment.developer_account.developer ? task.assignment.developer_account.developer.name : 'DeveloperAccount #' + task.assignment.developer_account.id.to_s, task %>
-        <% end %>
-      </td>
-      <td><%= task.created_at.strftime("%b %e, %Y") %></td>
-      <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+
+
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#open_tasks" aria-controls="home" role="tab" data-toggle="tab">Open Tasks (<%= @milestone.tasks.open.count %>)</a></li>
+    <li role="presentation"><a href="#closed_tasks" aria-controls="profile" role="tab" data-toggle="tab">Closed Tasks (<%= @milestone.tasks.closed.count %>)</a></li>
+    <li role="presentation"><a href="#unscored_tasks" aria-controls="messages" role="tab" data-toggle="tab">Unscored Tasks (<%= @milestone.tasks.unscored.count %>)</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="open_tasks">
+      <%= render 'open_tasks' %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="closed_tasks">...</div>
+    <div role="tabpanel" class="tab-pane" id="unscored_tasks">...</div>
+  </div>
+
 </div>

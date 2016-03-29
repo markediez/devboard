@@ -1,6 +1,8 @@
 # Duration is an integer in minutes.
 class Task < ActiveRecord::Base
   scope :open, -> { where(completed_at: nil) }
+  scope :closed, -> { where('completed_at is not null') }
+  scope :unscored, -> { where(points: nil) }
 
   belongs_to :creator, :class_name => "DeveloperAccount"
   belongs_to :project
