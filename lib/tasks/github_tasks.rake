@@ -126,7 +126,7 @@ namespace :github do
     else
       Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
     end
-
+    
     task.title = issue[:title]
     task.details = issue[:body]
     task.completed_at = issue[:closed_at]
@@ -170,13 +170,17 @@ namespace :github do
       assignment.assigned_at = Time.now if assignment.assigned_at
 
       assignment.developer_account = assignee
-
-      assignment.completed_at = issue[:closed_at]
     else
       assignment = Assignment.find_by_task_id(task.id)
 
       # If the assignment exists locally but not in GH, it has been unassigned so we'll delete ours
       assignment.destroy! if assignment
+    end
+    
+    if issue[:milestone]
+      milestone = Milestone.find_by_gh_milestone_number(issue[:milestone][:number])
+      
+      task.milestone = milestone
     end
 
     task.created_at = issue[:created_at]

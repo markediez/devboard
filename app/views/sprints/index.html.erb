@@ -15,7 +15,10 @@
             <%= sprint.description %>
           </p>
         </td>
-        <td style="color: #666;"><%= sprint.due_on ? sprint.due_on.strftime("%B %-d, %Y") : '<i>No due date</i>'.html_safe %></td>
+        <td style="color: #666; <%= "color: red;" if sprint.due_on && (sprint.due_on <= Time.now) %>">
+          <%= sprint.due_on ? sprint.due_on.strftime("%B %-d, %Y") : '<i>No due date</i>'.html_safe %><br />
+          <%= sprint.tasks.count > 0 ? ((sprint.tasks.open.count.to_f / sprint.tasks.count.to_f) * 100.0).round(0) : '100' %>% complete
+        </td>
       </tr>
     <% end %>
   </tbody>

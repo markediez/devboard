@@ -1,29 +1,72 @@
 <p id="notice"><%= notice %></p>
 
+<div class="pull-right" style="padding-top: 5px;">
+  <%= link_to 'Edit', edit_milestone_path(@milestone), :class => 'btn btn-default' %>
+</div>
+<h1 class="page-header"><%= @milestone.title %></h1>
+<div class="pull-right" style="color: #666; font-weight: bold; <%= "color: red;" if @milestone.due_on && (@milestone.due_on <= Time.now) %>">
+  <% if @milestone.due_on %>
+    <%= @milestone.due_on > Time.now ? 'Due in ' : 'Past due by ' %><%= time_ago_in_words @milestone.due_on %>
+  <% else %>
+    No due date
+  <% end %>
+</div>
+<h3>Description</h3>
 <p>
-  <strong>Title:</strong>
-  <%= @milestone.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
+  <% unless @milestone.description.blank? %>
   <%= @milestone.description %>
+  <% else %>
+  <i>None given.</i>
+  <% end %>
 </p>
 
-<p>
-  <strong>Due on:</strong>
-  <%= @milestone.due_on %>
-</p>
-
-<p>
-  <strong>Completed at:</strong>
-  <%= @milestone.completed_at %>
-</p>
-
-<p>
-  <strong>Gh milestone number:</strong>
-  <%= @milestone.gh_milestone_number %>
-</p>
-
-<%= link_to 'Edit', edit_milestone_path(@milestone) %> |
-<%= link_to 'Back', milestones_path %>
+<h3 class="sub-header">Open Tasks (<% if @milestone.tasks.count > 0 %><%= ((@milestone.tasks.open.count.to_f / @milestone.tasks.count.to_f) * 100.0).round(0) %>%
+  <% else %>100%
+  <% end %>
+ complete)</h3>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><!-- completed checkbox --></th>
+      <th><!-- priority icon --></th>
+      <th>Summary</th>
+      <th>Created By</th>
+      <th>Assigned To</th>
+      <th>Created</th>
+      <th>Due</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @milestone.tasks.open.order(:created_at => 'DESC').each do |task| %>
+    <tr>
+      <td>
+        <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
+      </td>
+      <td style="color: #666;">
+        <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
+        <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
+        <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
+      </td>
+      <td><%= link_to task.title, task %></td>
+      <td>
+        <% if task.creator.nil? or task.creator.developer.nil? %>
+          Unknown
+        <% else %>
+          <%= link_to task.creator.developer.name, task.creator %>
+        <% end %>
+      </td>
+      <td>
+        <% if task.assignment.nil? %>
+          No one assigned
+        <% else %>
+         <%= link_to task.assignment.developer_account.developer ? task.assignment.developer_account.developer.name : 'DeveloperAccount #' + task.assignment.developer_account.id.to_s, task %>
+        <% end %>
+      </td>
+      <td><%= task.created_at.strftime("%b %e, %Y") %></td>
+      <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
