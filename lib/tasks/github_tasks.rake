@@ -104,7 +104,7 @@ namespace :github do
 
       # Pull milestones (open & closed) from GitHub
       milestones.each do |milestone|
-        sync_milestone(milestone, project)
+        sync_milestone(project, milestone)
       end
     end
   end
@@ -189,79 +189,30 @@ namespace :github do
   # Syncs a single issue from GitHub to the local database
   def sync_milestone(project, gh_milestone)
     # Find or create the milestone locally
-    milestone = project.milestones.find_by_gh_number(issue[:number])
+    begin
+      milestone = project.milestones.find_by_gh_milestone_number(gh_milestone[:number])
+    rescue TypeError => e
+      Rails.logger.error "Unable to parse milestone data from GitHub: #{e}"
+      return
+    end
 
     unless milestone
       milestone = Milestone.new
-      milestone.gh_number = issue[:number]
+      milestone.gh_milestone_number = gh_milestone[:number]
       milestone.project = project
-      Rails.logger.debug "Importing issue ##{issue[:number]} ('#{issue[:title]}') from GitHub."
+      Rails.logger.debug "Importing milestone ##{gh_milestone[:number]} ('#{gh_milestone[:title]}') from GitHub."
     else
-      Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
+      Rails.logger.debug "Updating existing milestone ##{gh_milestone[:number]} ('#{gh_milestone[:title]}') with GitHub."
     end
     
-    # Milestone title: nil, description: nil, due_on: nil, completed_at: nil, gh_milestone_number: nil
+    milestone.title = gh_milestone[:title]
+    milestone.description = gh_milestone[:description]
+    milestone.due_on = gh_milestone[:due_on]
+    milestone.completed_at = gh_milestone[:closed_at]
 
-    # TODO: Finish me.
-    finishme
+    milestone.created_at = gh_milestone[:created_at]
 
-    task.title = issue[:title]
-    task.details = issue[:body]
-    task.completed_at = issue[:closed_at]
-    task.created_at = issue[:created_at]
-
-    if issue[:user]
-      creator = DeveloperAccount.find_by_loginid_and_account_type(issue[:user][:login], 'github')
-
-      if creator.nil?
-        creator = DeveloperAccount.new
-
-        creator.loginid = issue[:user][:login]
-        creator.account_type = 'github'
-
-        creator.save!
-      end
-
-      task.creator = creator
-    end
-
-    if issue[:assignee]
-      assignee = DeveloperAccount.find_by_loginid_and_account_type(issue[:assignee][:login], 'github')
-
-      if assignee.nil?
-        assignee = DeveloperAccount.new
-
-        assignee.loginid = issue[:assignee][:login]
-        assignee.account_type = 'github'
-
-        assignee.save!
-      end
-
-      if task.new_record? || task.assignment.nil?
-        assignment = Assignment.new
-        assignment.task = task
-      else
-        assignment = task.assignment
-      end
-
-      # assigned_at could be more accurately found in the issue 'events' stream
-      assignment.assigned_at = Time.now if assignment.assigned_at
-
-      assignment.developer_account = assignee
-
-      assignment.completed_at = issue[:closed_at]
-    else
-      assignment = Assignment.find_by_task_id(task.id)
-
-      # If the assignment exists locally but not in GH, it has been unassigned so we'll delete ours
-      assignment.destroy! if assignment
-    end
-
-    task.created_at = issue[:created_at]
-
-    task.save!
-
-    task.assignment.save! if task.assignment
+    milestone.save!
   end
 
   # Finds or creates a developer account for the given GH commit data ('commit').
