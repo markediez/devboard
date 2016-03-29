@@ -67,20 +67,13 @@
       <% end %>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group" id="points">
     <%= f.label :points %><br>
     <%= f.hidden_field :points %>
     <input type="button" value="Clear" class="btn btn-default btn-xs" onClick="clearTaskPoints()" />
-    <input type="button" value="0.5" class="btn btn-default btn-xs" onClick="setTaskPoints(0.5)" />
-    <input type="button" value="1.0" class="btn btn-default btn-xs" onClick="setTaskPoints(1.0)" />
-    <input type="button" value="1.5" class="btn btn-default btn-xs" onClick="setTaskPoints(1.5)" />
-    <input type="button" value="2.0" class="btn btn-default btn-xs" onClick="setTaskPoints(2.0)" />
-    <input type="button" value="2.5" class="btn btn-default btn-xs" onClick="setTaskPoints(2.5)" />
-    <input type="button" value="3.0" class="btn btn-default btn-xs" onClick="setTaskPoints(3.0)" />
-    <input type="button" value="3.5" class="btn btn-default btn-xs" onClick="setTaskPoints(3.5)" />
-    <input type="button" value="4.0" class="btn btn-default btn-xs" onClick="setTaskPoints(4.0)" />
-    <input type="button" value="4.5" class="btn btn-default btn-xs" onClick="setTaskPoints(4.5)" />
-    <input type="button" value="5.0" class="btn btn-default btn-xs" onClick="setTaskPoints(5.0)" />
+    <% ['0.5', '1.0', '1.5', '2.0', '2.5', '3.0', '3.5', '4.0', '4.5', '5.0'].each do |points| %>
+      <input id="set_points_<%= points.gsub('.', '') %>" type="button" value="<%= points %>" class="btn <%= 'btn-primary' if @task.points == points %> btn-default btn-xs" onClick="setTaskPoints(<%= points %>)" />
+    <% end %>
   </div>
   <div class="form-group">
     <%= f.label :due %><br>

@@ -43,6 +43,11 @@ window.clearTaskDueDate = () ->
 
 window.setTaskPoints = (points) ->
   $('input#task_points').val(points)
+  $("div#points input").removeClass('btn-primary')
+  if points >= 1.0
+    $('input#set_points_' + (points * 10)).addClass('btn-primary')
+  else
+    $('input#set_points_05').addClass('btn-primary')
 
 # Updates the multiple selects which comprise the points to clear their value
 window.clearTaskPoints = () ->
