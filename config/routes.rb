@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :developers
   resources :developer_accounts
   resources :projects
+  resources :sprints
 
   root 'site#overview'
 end

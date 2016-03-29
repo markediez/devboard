@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Open Sprints</h1>
+
+<hr />
+
+<table>
+  <tbody>
+    <% @sprints.where(:completed_at => nil).each do |sprint| %>
+      <tr valign="top">
+        <td style="padding-bottom: 1.5em;">
+          <h3 style="margin-top: 0;"><%= link_to sprint.title, sprint %></h3>
+          <h6><%= link_to sprint.project.name, sprint.project, :style => 'color: #000;' %></h6>
+          <p>
+            <%= sprint.description %>
+          </p>
+        </td>
+        <td style="color: #666;"><%= sprint.due_on ? sprint.due_on.strftime("%B %-d, %Y") : '<i>No due date</i>'.html_safe %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
