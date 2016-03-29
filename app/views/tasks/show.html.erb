@@ -22,7 +22,7 @@
   assigned to <%= (@task.assignment and @task.assignment.developer_account) ? link_to(@task.assignment.developer_account.developer.name, @task.assignment.developer_account.developer) : "no one" %>.
 </p>
 <p class="lead" style="font-size: 1.0em;">
-  <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>. <%= @task.due.nil? ? 'No due date' : "Due " + time_ago_in_words(@task.due) %>. <%= @task.completed_at.nil? ? 'Not completed yet' : "Completed " + time_ago_in_words(@task.completed_at) %>.
+  <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>. <%= @task.due.nil? ? 'No due date' : "Due " + time_ago_in_words(@task.due) %>. <%= @task.completed_at.nil? ? 'Not completed yet' : "Completed " + time_ago_in_words(@task.completed_at) %>. <%= @task.points.nil? ? 'Not scored yet' : "Worth " + @task.points.round(1).to_s %> points.
 </p>
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329012456) do
+ActiveRecord::Schema.define(version: 20160329040745) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20160329012456) do
     t.text     "details"
     t.datetime "completed_at"
     t.integer  "milestone_id"
+    t.float    "points"
   end
 
   create_table "users", force: :cascade do |t|

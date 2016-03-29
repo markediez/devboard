@@ -40,3 +40,10 @@ window.clearTaskDueDate = () ->
   $('select#task_due_3i').val('')
   $('select#task_due_4i').val('')
   $('select#task_due_5i').val('')
+
+window.setTaskPoints = (points) ->
+  $('input#task_points').val(points)
+
+# Updates the multiple selects which comprise the points to clear their value
+window.clearTaskPoints = () ->
+  $('input#task_points').val('')

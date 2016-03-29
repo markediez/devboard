@@ -68,6 +68,21 @@
     </select>
   </div>
   <div class="form-group">
+    <%= f.label :points %><br>
+    <%= f.hidden_field :points %>
+    <input type="button" value="Clear" class="btn btn-default btn-xs" onClick="clearTaskPoints()" />
+    <input type="button" value="0.5" class="btn btn-default btn-xs" onClick="setTaskPoints(0.5)" />
+    <input type="button" value="1.0" class="btn btn-default btn-xs" onClick="setTaskPoints(1.0)" />
+    <input type="button" value="1.5" class="btn btn-default btn-xs" onClick="setTaskPoints(1.5)" />
+    <input type="button" value="2.0" class="btn btn-default btn-xs" onClick="setTaskPoints(2.0)" />
+    <input type="button" value="2.5" class="btn btn-default btn-xs" onClick="setTaskPoints(2.5)" />
+    <input type="button" value="3.0" class="btn btn-default btn-xs" onClick="setTaskPoints(3.0)" />
+    <input type="button" value="3.5" class="btn btn-default btn-xs" onClick="setTaskPoints(3.5)" />
+    <input type="button" value="4.0" class="btn btn-default btn-xs" onClick="setTaskPoints(4.0)" />
+    <input type="button" value="4.5" class="btn btn-default btn-xs" onClick="setTaskPoints(4.5)" />
+    <input type="button" value="5.0" class="btn btn-default btn-xs" onClick="setTaskPoints(5.0)" />
+  </div>
+  <div class="form-group">
     <%= f.label :due %><br>
     <%= f.datetime_select :due, :include_blank => true %>
   </div>

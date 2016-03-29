@@ -31,6 +31,7 @@
       <th><!-- completed checkbox --></th>
       <th><!-- priority icon --></th>
       <th>Summary</th>
+      <th>Points</th>
       <th>Created By</th>
       <th>Assigned To</th>
       <th>Created</th>
@@ -49,6 +50,7 @@
         <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
       </td>
       <td><%= link_to task.title, task %></td>
+      <td><%= task.points.nil? ? "<span style='color: #666;'>N/A</span>".html_safe : task.points %></td>
       <td>
         <% if task.creator.nil? or task.creator.developer.nil? %>
           Unknown
