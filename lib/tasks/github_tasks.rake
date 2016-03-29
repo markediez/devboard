@@ -186,6 +186,84 @@ namespace :github do
     task.assignment.save! if task.assignment
   end
 
+  # Syncs a single issue from GitHub to the local database
+  def sync_milestone(project, gh_milestone)
+    # Find or create the milestone locally
+    milestone = project.milestones.find_by_gh_number(issue[:number])
+
+    unless milestone
+      milestone = Milestone.new
+      milestone.gh_number = issue[:number]
+      milestone.project = project
+      Rails.logger.debug "Importing issue ##{issue[:number]} ('#{issue[:title]}') from GitHub."
+    else
+      Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
+    end
+    
+    # Milestone title: nil, description: nil, due_on: nil, completed_at: nil, gh_milestone_number: nil
+
+    # TODO: Finish me.
+    finishme
+
+    task.title = issue[:title]
+    task.details = issue[:body]
+    task.completed_at = issue[:closed_at]
+    task.created_at = issue[:created_at]
+
+    if issue[:user]
+      creator = DeveloperAccount.find_by_loginid_and_account_type(issue[:user][:login], 'github')
+
+      if creator.nil?
+        creator = DeveloperAccount.new
+
+        creator.loginid = issue[:user][:login]
+        creator.account_type = 'github'
+
+        creator.save!
+      end
+
+      task.creator = creator
+    end
+
+    if issue[:assignee]
+      assignee = DeveloperAccount.find_by_loginid_and_account_type(issue[:assignee][:login], 'github')
+
+      if assignee.nil?
+        assignee = DeveloperAccount.new
+
+        assignee.loginid = issue[:assignee][:login]
+        assignee.account_type = 'github'
+
+        assignee.save!
+      end
+
+      if task.new_record? || task.assignment.nil?
+        assignment = Assignment.new
+        assignment.task = task
+      else
+        assignment = task.assignment
+      end
+
+      # assigned_at could be more accurately found in the issue 'events' stream
+      assignment.assigned_at = Time.now if assignment.assigned_at
+
+      assignment.developer_account = assignee
+
+      assignment.completed_at = issue[:closed_at]
+    else
+      assignment = Assignment.find_by_task_id(task.id)
+
+      # If the assignment exists locally but not in GH, it has been unassigned so we'll delete ours
+      assignment.destroy! if assignment
+    end
+
+    task.created_at = issue[:created_at]
+
+    task.save!
+
+    task.assignment.save! if task.assignment
+  end
+
   # Finds or creates a developer account for the given GH commit data ('commit').
   # Note: The GitHub API provides a few hints as to who a commit belongs. Preferred
   # is commit[:commit][:author] (signed by git) followed by commit[:author] (probably

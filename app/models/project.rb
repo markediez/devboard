@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   has_many :tasks
   has_many :meeting_notes
   has_many :commits
+  has_many :milestones
 
   def to_param
     [id, name.parameterize].join("-")
