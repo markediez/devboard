@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329040745) do
+ActiveRecord::Schema.define(version: 20160330205151) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -121,6 +121,16 @@ ActiveRecord::Schema.define(version: 20160329040745) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+
+  create_table "sprints", force: :cascade do |t|
+    t.integer  "milestone_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.float    "points_attempted"
+    t.float    "points_completed"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string   "title",           limit: 255

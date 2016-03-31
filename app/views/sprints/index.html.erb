@@ -2,24 +2,24 @@
 
 <h1>Open Sprints</h1>
 
-<hr />
-
-<table>
+<table class="table">
   <tbody>
-    <% @sprints.where(:completed_at => nil).each do |sprint| %>
+    <% @sprints.where(:finished_at => nil).each do |sprint| %>
       <tr valign="top">
         <td style="padding-bottom: 1.5em;">
-          <h3 style="margin-top: 0;"><%= link_to sprint.title, sprint %></h3>
-          <h6><%= link_to sprint.project.name, sprint.project, :style => 'color: #000;' %></h6>
+          <h3 style="margin-top: 0;"><%= link_to sprint.milestone.title, sprint %></h3>
+          <h6><%= link_to sprint.milestone.project.name, sprint.milestone.project, :style => 'color: #000;' %></h6>
           <p>
-            <%= sprint.description %>
+            <%= sprint.milestone.description %>
           </p>
         </td>
-        <td style="color: #666; <%= "color: red;" if sprint.due_on && (sprint.due_on <= Time.now) %>">
-          <%= sprint.due_on ? sprint.due_on.strftime("%B %-d, %Y") : '<i>No due date</i>'.html_safe %><br />
-          <%= sprint.tasks.count > 0 ? ((sprint.tasks.open.count.to_f / sprint.tasks.count.to_f) * 100.0).round(0) : '100' %>% complete
+        <td style="color: #666; <%= "color: red;" if sprint.milestone.due_on && (sprint.milestone.due_on <= Time.now) %>">
+          <%= sprint.milestone.due_on ? sprint.milestone.due_on.strftime("%B %-d, %Y") : '<i>No due date</i>'.html_safe %><br />
+          <%= sprint.milestone.tasks.count > 0 ? ((sprint.milestone.tasks.open.count.to_f / sprint.milestone.tasks.count.to_f) * 100.0).round(0) : '100' %>% complete
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= link_to 'Start New Sprint', new_sprint_path, :class => 'btn btn-primary' %>

@@ -1,29 +1,50 @@
 <p id="notice"><%= notice %></p>
 
+<div class="pull-right" style="padding-top: 5px;">
+  <%= link_to 'Edit', edit_sprint_path(@sprint), :class => 'btn btn-default' %>
+</div>
+<h1 class="page-header"><%= @sprint.milestone.title %></h1>
+<div class="pull-right" style="color: #666; font-weight: bold; <%= "color: red;" if @sprint.milestone.due_on && (@sprint.milestone.due_on <= Time.now) %>">
+  <% if @sprint.milestone.due_on %>
+    <%= @sprint.milestone.due_on > Time.now ? 'Due in ' : 'Past due by ' %><%= time_ago_in_words @sprint.milestone.due_on %>,
+  <% else %>
+    No due date,
+  <% end %>
+  <% if @sprint.milestone.tasks.count > 0 %><%= ((@sprint.milestone.tasks.open.count.to_f / @sprint.milestone.tasks.count.to_f) * 100.0).round(0) %>%
+  <% else %>100%
+  <% end %>
+ complete
+</div>
+<h3>Description</h3>
 <p>
-  <strong>Title:</strong>
-  <%= @milestone.title %>
+  <% unless @sprint.milestone.description.blank? %>
+  <%= @sprint.milestone.description %>
+  <% else %>
+  <i>None given.</i>
+  <% end %>
 </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @milestone.description %>
-</p>
 
-<p>
-  <strong>Due on:</strong>
-  <%= @milestone.due_on %>
-</p>
 
-<p>
-  <strong>Completed at:</strong>
-  <%= @milestone.completed_at %>
-</p>
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#open_tasks" aria-controls="home" role="tab" data-toggle="tab">Open Tasks (<%= @sprint.milestone.tasks.open.count %>)</a></li>
+    <li role="presentation"><a href="#closed_tasks" aria-controls="profile" role="tab" data-toggle="tab">Closed Tasks (<%= @sprint.milestone.tasks.closed.count %>)</a></li>
+    <li role="presentation"><a href="#unscored_tasks" aria-controls="messages" role="tab" data-toggle="tab">Unscored Tasks (<%= @sprint.milestone.tasks.unscored.count %>)</a></li>
+  </ul>
 
-<p>
-  <strong>Gh milestone number:</strong>
-  <%= @milestone.gh_milestone_number %>
-</p>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="open_tasks">
+      <%= render 'tasks', show_open: true %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="closed_tasks">
+      <%= render 'tasks', show_open: false %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="unscored_tasks">
+      something
+    </div>
+  </div>
 
-<%= link_to 'Edit', edit_milestone_path(@milestone) %> |
-<%= link_to 'Back', milestones_path %>
+</div>

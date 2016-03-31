@@ -13,7 +13,14 @@
       </tr>
     </thead>
     <tbody>
-      <% @milestone.tasks.open.order(:created_at => 'DESC').each do |task| %>
+      <%
+        if show_open
+          tasks = @sprint.milestone.tasks.open.order(:created_at => 'DESC')
+        else
+          tasks = @sprint.milestone.tasks.closed.order(:created_at => 'DESC')
+        end
+      %>
+      <% tasks.each do |task| %>
       <tr>
         <td>
           <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />

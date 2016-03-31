@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  milestone_id: 1
+  started_at: 2016-03-30 13:58:26
+  finished_at: 2016-03-30 13:58:26
+  points_attempted: 1.5
+  points_completed: 1.5
+
+two:
+  milestone_id: 1
+  started_at: 2016-03-30 13:58:26
+  finished_at: 2016-03-30 13:58:26
+  points_attempted: 1.5
+  points_completed: 1.5

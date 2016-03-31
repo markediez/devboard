@@ -1,0 +1,32 @@
+<%= form_for(@sprint) do |f| %>
+  <% if @sprint.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sprint.errors.count, "error") %> prohibited this sprint from being saved:</h2>
+
+      <ul>
+      <% @sprint.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :milestone_id %><br>
+    <%= f.collection_select(:milestone_id, Milestone.where(:completed_at => nil), :id, :title, :prompt => 'Select a milestone' ) %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :started_at %><br>
+    <%= f.datetime_select :started_at %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :finished_at %><br>
+    <%= f.datetime_select :finished_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+    <% unless @sprint.new_record? %>
+      <input type="button" class="btn btn-success" value="Mark as Finished" />
+    <% end %>
+  </div>
+<% end %>
