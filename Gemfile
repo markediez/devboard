@@ -79,3 +79,7 @@ gem 'redcarpet', :require => false
 
 # For Gravatar profile images
 gem 'gravatar_image_tag'
+
+# For Javascript-exposed routes
+gem 'js-routes'
+
