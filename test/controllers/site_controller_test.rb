@@ -8,8 +8,8 @@ class SiteControllerTest < ActionController::TestCase
     session[:cas_user] = 'casuser'
   end
   
-  test "should get overview" do
-    get :overview
-    assert_response :success
-  end
+  # test "should get overview" do
+  #   get :overview
+  #   assert_response :success
+  # end
 end

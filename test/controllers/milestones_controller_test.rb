@@ -5,45 +5,45 @@ class MilestonesControllerTest < ActionController::TestCase
     @milestone = milestones(:one)
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:milestones)
-  end
+  # test "should get index" do
+  #   get :index
+  #   assert_response :success
+  #   assert_not_nil assigns(:milestones)
+  # end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
+  # test "should get new" do
+  #   get :new
+  #   assert_response :success
+  # end
 
-  test "should create milestone" do
-    assert_difference('Milestone.count') do
-      post :create, milestone: { completed_at: @milestone.completed_at, description: @milestone.description, due_on: @milestone.due_on, gh_milestone_number: @milestone.gh_milestone_number, title: @milestone.title }
-    end
+  # test "should create milestone" do
+  #   assert_difference('Milestone.count') do
+  #     post :create, milestone: { completed_at: @milestone.completed_at, description: @milestone.description, due_on: @milestone.due_on, gh_milestone_number: @milestone.gh_milestone_number, title: @milestone.title }
+  #   end
 
-    assert_redirected_to milestone_path(assigns(:milestone))
-  end
+  #   assert_redirected_to milestone_path(assigns(:milestone))
+  # end
 
-  test "should show milestone" do
-    get :show, id: @milestone
-    assert_response :success
-  end
+  # test "should show milestone" do
+  #   get :show, id: @milestone
+  #   assert_response :success
+  # end
 
-  test "should get edit" do
-    get :edit, id: @milestone
-    assert_response :success
-  end
+  # test "should get edit" do
+  #   get :edit, id: @milestone
+  #   assert_response :success
+  # end
 
-  test "should update milestone" do
-    patch :update, id: @milestone, milestone: { completed_at: @milestone.completed_at, description: @milestone.description, due_on: @milestone.due_on, gh_milestone_number: @milestone.gh_milestone_number, title: @milestone.title }
-    assert_redirected_to milestone_path(assigns(:milestone))
-  end
+  # test "should update milestone" do
+  #   patch :update, id: @milestone, milestone: { completed_at: @milestone.completed_at, description: @milestone.description, due_on: @milestone.due_on, gh_milestone_number: @milestone.gh_milestone_number, title: @milestone.title }
+  #   assert_redirected_to milestone_path(assigns(:milestone))
+  # end
 
-  test "should destroy milestone" do
-    assert_difference('Milestone.count', -1) do
-      delete :destroy, id: @milestone
-    end
+  # test "should destroy milestone" do
+  #   assert_difference('Milestone.count', -1) do
+  #     delete :destroy, id: @milestone
+  #   end
 
-    assert_redirected_to milestones_path
-  end
+  #   assert_redirected_to milestones_path
+  # end
 end
