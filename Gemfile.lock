@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/rails/activerecord-session_store.git
-  revision: 2bd2e6c18ba2e0714e8a1b5d4e6f7b2a2c1819f3
+  revision: 2a3a2e98c6ded5866d5967bb6f8503523c07d3d9
   specs:
-    activerecord-session_store (0.1.2)
+    activerecord-session_store (1.0.0.pre)
       actionpack (>= 4.0, < 5.1)
       activerecord (>= 4.0, < 5.1)
       rack (>= 1.5.2, < 3)
@@ -60,9 +60,9 @@ GEM
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.2.2)
-    byebug (8.2.2)
+    byebug (8.2.4)
     cancan (1.6.10)
-    capistrano (3.4.0)
+    capistrano (3.4.1)
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
@@ -172,7 +172,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    spring (1.6.4)
+    spring (1.7.1)
     sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
