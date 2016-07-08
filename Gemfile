@@ -38,7 +38,7 @@ gem 'web-console', '~> 2.0', group: :development
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 # Use Capistrano for deployment
-gem 'capistrano', '~> 3.1', require: false
+gem 'capistrano', '~> 3.5', require: false
 gem 'capistrano-rails',   '~> 1.1', require: false
 gem 'capistrano-bundler', '~> 1.1', require: false
 gem 'capistrano-passenger', require: false
