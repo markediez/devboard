@@ -22,30 +22,30 @@ class MeetingNotesControllerTest < ActionController::TestCase
 
   test "should create meeting_note" do
     assert_difference('MeetingNote.count') do
-      post :create, meeting_note: { body: @meeting_note.body, project_id: @meeting_note.project_id, title: @meeting_note.title }
+      post :create, params: { meeting_note: { body: @meeting_note.body, project_id: @meeting_note.project_id, title: @meeting_note.title } }
     end
 
     assert_redirected_to meeting_note_path(assigns(:meeting_note))
   end
 
   test "should show meeting_note" do
-    get :show, id: @meeting_note
+    get :show, params: {id: @meeting_note}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @meeting_note
+    get :edit, params: { id: @meeting_note }
     assert_response :success
   end
 
   test "should update meeting_note" do
-    patch :update, id: @meeting_note, meeting_note: { body: @meeting_note.body, project_id: @meeting_note.project_id, title: @meeting_note.title }
+    patch :update, params: { id: @meeting_note, meeting_note: { body: @meeting_note.body, project_id: @meeting_note.project_id, title: @meeting_note.title } }
     assert_redirected_to meeting_note_path(assigns(:meeting_note))
   end
 
   test "should destroy meeting_note" do
     assert_difference('MeetingNote.count', -1) do
-      delete :destroy, id: @meeting_note
+      delete :destroy, params: { id: @meeting_note }
     end
 
     assert_redirected_to meeting_notes_path

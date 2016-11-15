@@ -22,30 +22,30 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should create project" do
     assert_difference('Project.count') do
-      post :create, project: { began: @project.began, finished: @project.finished, name: @project.name, priority: @project.priority, status: @project.status }
+      post :create, params: { project: { began: @project.began, finished: @project.finished, name: @project.name, priority: @project.priority, status: @project.status } }
     end
 
     assert_redirected_to project_path(assigns(:project))
   end
 
   test "should show project" do
-    get :show, id: @project
+    get :show, params: { id: @project }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @project
+    get :edit, params: { id: @project }
     assert_response :success
   end
 
   test "should update project" do
-    patch :update, id: @project, project: { began: @project.began, finished: @project.finished, name: @project.name, priority: @project.priority, status: @project.status }
+    patch :update, params: { id: @project, project: { began: @project.began, finished: @project.finished, name: @project.name, priority: @project.priority, status: @project.status } }
     assert_redirected_to project_path(assigns(:project))
   end
 
   test "should destroy project" do
     assert_difference('Project.count', -1) do
-      delete :destroy, id: @project
+      delete :destroy, params: { id: @project }
     end
 
     assert_redirected_to projects_path
