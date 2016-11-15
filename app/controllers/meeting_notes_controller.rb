@@ -11,16 +11,16 @@ class MeetingNotesController < ApplicationController
   # GET /meeting_notes/1.json
   def show
     require 'redcarpet'
-    
+
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new({hard_wrap: true}), autolink: true, tables: true)
-    
+
     @body_rendered = markdown.render(@meeting_note.body)
   end
 
   # GET /meeting_notes/new
   def new
     @meeting_note = MeetingNote.new
-    
+
     @meeting_note.project_id = params[:project_id] unless params[:project_id].blank?
   end
 
@@ -37,7 +37,7 @@ class MeetingNotesController < ApplicationController
     respond_to do |format|
       if @meeting_note.save
         ActivityLog.create!({developer_id: current_user.developer_id, project_id: @meeting_note.project_id, meeting_note_id: @meeting_note.id, activity_type: :created })
-        
+
         format.html { redirect_to @meeting_note, notice: 'Meeting note was successfully created.' }
         format.json { render action: 'show', status: :created, location: @meeting_note }
       else
@@ -53,7 +53,7 @@ class MeetingNotesController < ApplicationController
     respond_to do |format|
       if @meeting_note.update(meeting_note_params)
         ActivityLog.create!({developer_id: current_user.developer_id, project_id: @meeting_note.project_id, meeting_note_id: @meeting_note.id, activity_type: :edited })
-        
+
         format.html { redirect_to @meeting_note, notice: 'Meeting note was successfully updated.' }
         format.json { head :no_content }
       else
@@ -67,9 +67,9 @@ class MeetingNotesController < ApplicationController
   # DELETE /meeting_notes/1.json
   def destroy
     @meeting_note.destroy
-    
+
     ActivityLog.create!({developer_id: current_user.developer_id, project_id: @meeting_note.project_id, meeting_note_id: @meeting_note.id, activity_type: :deleted })
-    
+
     respond_to do |format|
       format.html { redirect_to meeting_notes_url }
       format.json { head :no_content }
@@ -84,6 +84,6 @@ class MeetingNotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_note_params
-      params.require(:meeting_note).permit(:title, :body, :project_id)
+      params.require(:meeting_note).permit(:title, :body, :project_id, :taken)
     end
 end
