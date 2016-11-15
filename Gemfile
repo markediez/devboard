@@ -79,3 +79,6 @@ gem 'gravatar_image_tag'
 
 # For Javascript-exposed routes
 gem 'js-routes'
+
+# For testing in Rails 5
+gem 'rails-controller-testing'
