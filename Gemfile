@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.7'
+gem 'rails', '~> 5.0.0.rc2'
 
 gem 'sqlite3',        group: :development
 
-gem 'sass-rails', '~> 4.0.0.rc1'
+gem 'sass-rails', '~> 5.0.0.rc1'
 
 gem 'uglifier', '>= 1.3.0'
 
@@ -79,4 +79,3 @@ gem 'gravatar_image_tag'
 
 # For Javascript-exposed routes
 gem 'js-routes'
-
