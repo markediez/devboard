@@ -17,12 +17,9 @@
   </div>
   <div class="form-group">
     <%= f.label :date %><br>
-    <%= f.date_field :taken, class: "form-control" %>
+    <%= f.datetime_select :taken, class: "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :time %><br>
-    <%= f.time_field :taken, class: "form-control" %>
-  </div>
+  
   <div class="form-group">
     <%= f.label :body %><br>
     <%= f.text_area :body, size: "65x8", class: "form-control" %>
