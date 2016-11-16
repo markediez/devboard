@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -117,10 +116,9 @@ ActiveRecord::Schema.define(version: 20160330205151) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "service_ticket", limit: 255
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
-
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
 
   create_table "sprints", force: :cascade do |t|
     t.integer  "milestone_id"

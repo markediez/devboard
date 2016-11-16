@@ -1,6 +1,6 @@
 class SiteController < ApplicationController
-  skip_before_filter :authenticate, only: [:access_denied, :logout]
   skip_before_action :verify_authenticity_token, only: [:credentials]
+  skip_before_action :authenticate, only: [:access_denied, :logout]
 
   # GET /overview
   def overview
