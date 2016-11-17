@@ -67,7 +67,14 @@ class TasksController < ApplicationController
     completed_val_before = @task.completed_at
 
     respond_to do |format|
-      if @task.update(task_params)
+      params = task_params
+      assigned_to = params.delete "assignment"
+      if @task.update(params)
+        # TODO: Will need to be updated if we will support multiple assignments to a single task
+        # Update currently task's assigned user
+        assigned_current = Assignment.where(:task_id => @task.id).first
+        assigned_current.developer_id = assigned_to
+        assigned_current.save!
 
         # Was this task completed or merely updated?
         # AR Dirty will clear @task.changes in the above update but we need to do this
@@ -77,9 +84,9 @@ class TasksController < ApplicationController
 
           if @task.gh_issue_number
             Rails.logger.debug "Closing a GitHub issue ..."
-            
+
             require 'github'
-            
+
             GitHubService.close_issue(@task)
           else
             Rails.logger.debug "Not closing a GitHub issue."
@@ -117,6 +124,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :details, :creator_id, :assignee_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points)
+      params.require(:task).permit(:title, :details, :creator_id, :assignee_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points, :assignment)
     end
 end
