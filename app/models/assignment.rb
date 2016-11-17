@@ -1,5 +1,5 @@
 class Assignment < ActiveRecord::Base
-  belongs_to :developer_account
+  belongs_to :developer
   belongs_to :task
 
   # Returns the number of days left for the assignment.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330205151) do
+ActiveRecord::Schema.define(version: 20161117193711) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -30,15 +30,23 @@ ActiveRecord::Schema.define(version: 20160330205151) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "ar_internal_metadata", ["key"], name: "sqlite_autoindex_ar_internal_metadata_1", unique: true
+
   create_table "assignments", force: :cascade do |t|
     t.integer  "task_id"
-    t.integer  "developer_account_id"
+    t.integer  "developer_id"
     t.integer  "priority"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.datetime "due_at"
     t.datetime "assigned_at"
-    t.integer  "delay_count",          default: 0
+    t.integer  "delay_count",  default: 0
   end
 
   create_table "commits", force: :cascade do |t|
