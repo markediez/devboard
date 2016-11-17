@@ -11,6 +11,9 @@ class Project < ActiveRecord::Base
   has_many :meeting_notes
   has_many :commits
   has_many :milestones
+  has_many :repositories, :class_name => "Repository", :dependent => :destroy
+
+  accepts_nested_attributes_for :repositories, :reject_if => lambda { |a| a[:repository].blank? }, :allow_destroy => true
 
   def to_param
     [id, name.parameterize].join("-")
