@@ -52,7 +52,7 @@
     <tbody>
       <% @no_due_date_tasks.each do |task| %>
       <tr>
-        <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
+        <td><%= link_to task.project.name + ':', task.project if task.project.present? %> <%= link_to task.title, task %></td>
       </tr>
       <% end %>
     </tbody>
