@@ -1,3 +1,186 @@
 // Place all the styles related to the Site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.section-title {
+    border-bottom: 1px solid rgb(214, 214, 214);
+    border-top: 1px solid rgb(214, 214, 214);
+}
+
+.unassigned-tasks {
+    display: flex;
+    flex-direction: column;
+    background-color: #F2F2F2;
+    border-left: 1px solid rgb(214, 214, 214);
+}
+
+.unassigned-tasks_header {
+    flex: 0 1 auto;
+    align-self: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: #9A9A9A;
+}
+
+.timeline-section {
+    flex: 0 1 80%;
+    /*display: flex;*/
+    flex-direction: column;
+}
+
+.timeline-section_title {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    margin-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(214, 214, 214);
+}
+
+.developer-section {
+    border-right: 1px solid rgb(214, 214, 214);
+    border-bottom: 1px solid rgb(214, 214, 214);
+    flex: 0 1 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.developer {
+    margin: 22px 0px 25px 15px;
+}
+
+.developer_name {
+    position: relative;
+    font-size: 8pt;
+    margin-left: 5px;
+}
+
+.assignment {
+    flex: 0 1 80%;
+    overflow-x: auto;
+    width: 800px;
+    border-bottom: 1px solid rgb(214, 214, 214);
+}
+
+.assignment_section {
+    flex: 0 1 10%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgb(214, 214, 214);
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 1000px;
+}
+
+.ipa-task {
+    flex: 0 1 30%;
+    background-color: #4AD3B7;
+    border: 1px solid #20C6A4;
+}
+
+.ipa-unassigned_task {
+    flex: 0 1 auto;
+    background-color: #4AD3B7;
+    border: 1px solid #20C6A4;
+}
+
+.assignment_section_task-title {
+    flex: 0 1 70%;
+    margin-top: 10px;
+    margin-left: 10px;
+    line-height: 2;
+    color: white;
+}
+
+.assignment_section_task-selection {
+    flex: 0 1 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 10px;
+}
+
+.task-selection_check-mark {
+    flex: 0 1 auto;
+    margin-top: 8px;
+}
+
+.task-selection_github {
+    flex: 0 1 auto;
+    font-size: 1em;
+    color: white;
+    margin-top: 5px;
+    margin-right: 1px;
+}
+
+.task-selection_github a {
+    color: white !important;
+}
+
+.empty-task {
+    border: 1.5px dashed #E2E2E2;
+    cursor: pointer;
+}
+
+.add-user_icon {
+    cursor: pointer;
+    color: #E2E2E2;
+    font-size: 15pt;
+}
+
+.finished-task {
+    flex: 0 1 40%;
+    background-color: #EBEBEB;
+    border: 1px solid #D3D3D3;
+}
+
+.finished-task .assignment_section_task-title {
+    color: #A7A7A7;
+}
+
+.finished-task .task-selection_github a {
+    color: #A7A7A7 !important;
+}
+
+.assignment_section_task {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 5px;
+    border-radius: 5px;
+}
+
+.unassigned_section_task {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px 10px 10px;
+    border-radius: 5px;
+}
+
+.difficulties_selection {
+    margin: 25px 0px 25px 0px;
+}
+
+.priority_selection {
+    margin: 25px 0px 25px 0px;
+}
+
+.pagination {
+    flex: 0 1 80%;
+    display: flex;
+    font-weight: 500;
+    margin: 10px 15px 0px 15px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.pagination_button {
+    flex: 0 1 auto
+}
+
+.btn_add-user {
+    margin-left: 36px;
+    margin-top: 10px;
+    font-size: 7pt;
+}
