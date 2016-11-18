@@ -30,6 +30,11 @@
           <div class="row">
             <% if authenticated? %>
               <div class="col-sm-3 col-md-2 sidebar">
+                <header>
+                  <div id="logo">
+                      <h1 style="margin-top: 0px;">Devboard</h1>
+                  </div>
+                </header>
                 <ul class="nav nav-sidebar">
                   <%
                     subnav_links = {}
@@ -57,7 +62,7 @@
                 </ul>
               </div>
             <% end %>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 padding-0">
                 <%= yield %>
             </div>
           </div>
