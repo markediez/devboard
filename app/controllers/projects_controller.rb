@@ -16,6 +16,9 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    3.times do
+      remote_repo = @project.repositories.build
+    end
   end
 
   # GET /projects/1/edit
@@ -29,9 +32,9 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        
+
         ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :created })
-        
+
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render action: 'show', status: :created, location: @project }
       else
@@ -47,7 +50,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :edited })
-        
+
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
@@ -61,9 +64,9 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     @project.destroy
-    
+
     ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :deleted })
-    
+
     respond_to do |format|
       format.html { redirect_to projects_url }
       format.json { head :no_content }

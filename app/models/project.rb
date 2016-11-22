@@ -13,7 +13,7 @@ class Project < ActiveRecord::Base
   has_many :milestones
   has_many :repositories, :class_name => "Repository", :dependent => :destroy
 
-  accepts_nested_attributes_for :repositories, :reject_if => lambda { |a| a[:repository].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :repositories, :reject_if => lambda { |a| a[:gh_url].blank? }, :allow_destroy => true
 
   def to_param
     [id, name.parameterize].join("-")
