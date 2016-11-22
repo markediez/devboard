@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117211301) do
+ActiveRecord::Schema.define(version: 20161122222211) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -28,14 +28,6 @@ ActiveRecord::Schema.define(version: 20161117211301) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "ar_internal_metadata", ["key"], name: "sqlite_autoindex_ar_internal_metadata_1", unique: true
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "task_id"
@@ -161,6 +153,7 @@ ActiveRecord::Schema.define(version: 20161117211301) do
     t.datetime "completed_at"
     t.integer  "milestone_id"
     t.float    "points"
+    t.integer  "repository_id"
   end
 
   create_table "users", force: :cascade do |t|

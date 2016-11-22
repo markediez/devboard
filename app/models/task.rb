@@ -8,6 +8,7 @@ class Task < ActiveRecord::Base
   belongs_to :project
   has_one :assignment, :dependent => :destroy
   belongs_to :milestone
+  belongs_to :repository
 
   enum priority: [ :low_priority, :normal_priority, :high_priority ]
 
