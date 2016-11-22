@@ -2,6 +2,5 @@
   <%= f.text_field :gh_url, class: 'form-control', :placeholder => 'user/repo-name' %><br />
   <%= f.check_box :_destroy %>
   <%= f.label :_destroy, "Remove Question" %>
-  <%= link_to "remove", "#", onclick: "$(this).prev('input[type=hidden]').val = 1;
- $(this).closest('.fields').hide(); return false;" %>
+  <%= link_to "remove", "#", onclick: "return remove_fields(this);" %>
 </p>

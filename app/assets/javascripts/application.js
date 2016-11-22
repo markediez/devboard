@@ -7,3 +7,17 @@
 //= require_tree .
 
 Turbolinks.enableProgressBar();
+
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g")
+  $(content).insertAfter(".repositories .fields:last");
+  return false;
+}
+
+function remove_fields(link) {
+  $(link).prev('input[type=hidden]').val = 1;
+  $(link).closest('.fields').hide();
+  return false;
+}

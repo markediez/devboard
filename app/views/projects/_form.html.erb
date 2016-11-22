@@ -56,12 +56,12 @@
     <%= f.text_field :link, class: "form-control" %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group repositories">
     <%= f.label :gh_repo_url, "GitHub Repository URL (optional)" %><br>
     <%= f.fields_for :repositories do |builder| %>
       <%= render "repository_fields", :f => builder %>
     <% end %>
-    
+    <%= link_to_add_fields "Add Repo", f, :repositories %>
   </div>
 
   <div class="actions">
