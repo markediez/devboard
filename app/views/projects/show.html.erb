@@ -3,7 +3,7 @@
 </div>
 <h1 class="page-header"><%= @project.name %></h1>
 <div class="pull-right" style="color: #666; font-weight: bold;">
-  <%= @project.gh_repo_url ? 'Linked to GitHub' : 'Not linked to GitHub' %>
+  <%= @project.repositories.size > 0 ? 'Linked to GitHub' : 'Not linked to GitHub' %>
 </div>
 <h3>Description</h3>
 <% unless @project.link.blank? %>
