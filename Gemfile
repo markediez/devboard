@@ -80,3 +80,6 @@ gem 'gravatar_image_tag'
 # For Javascript-exposed routes
 gem 'js-routes'
 
+# For Fontawsome icons
+gem 'font-awesome-sass'
+

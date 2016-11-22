@@ -184,3 +184,239 @@
     margin-top: 10px;
     font-size: 7pt;
 }
+
+
+/* modal */
+
+.modal-header_style {
+    border-top: 10px solid #4AD3B7;
+    border-radius: 5px;
+}
+
+.icon-section {
+    flex: 0 1 50%;
+    justify-content: center;
+    border-right: 1px solid #e5e5e5;
+}
+
+.icon-section>a {
+    color: #C4F1E8;
+}
+
+.icon-section>a:hover {
+    color: #4AD3B7;
+}
+
+.add_user_icon {
+    height: 120px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.user_info-section {
+    flex: 0 1 50%;
+    margin: 0px 60px 0px 60px;
+}
+
+.task_info-section {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.modal-title_bold {
+    font-weight: 700;
+}
+
+.form-group>label {
+    color: #95989A;
+}
+
+.btn-create {
+    background-color: #4AD3B7;
+    color: white;
+    border-radius: 0;
+    width: 300px;
+}
+
+.btn-create:hover {
+    background-color: #38BAA0 !important;
+    color: white !important;
+}
+
+.btn-create:active {
+    background-color: #38BAA0 !important;
+    color: white !important;
+}
+
+.btn-delete {
+    width: 120px !important;
+    margin: 0px 30px 0px 30px;
+    background-color: #F88181;
+    color: white;
+    border-radius: 0;
+    width: 300px;
+}
+
+.btn-delete:hover {
+    background-color: #D35555 !important;
+    color: white !important;
+}
+
+.btn-delete:active {
+    background-color: #D35555 !important;
+    color: white !important;
+}
+
+.difficulties_indicator {
+    flex: 0 1 10%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.difficulties_selection-header {
+    margin-bottom: 20px;
+}
+
+.priority_number_list {
+    justify-content: space-around;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.priority_selection-header {
+    margin-bottom: 20px;
+}
+
+.priority-1 {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 40px;
+    border: 4px solid #4AD35A;
+}
+
+.priority-2 {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 40px;
+    border: 4px solid #D6ED5A;
+}
+
+.priority-3 {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 40px;
+    border: 4px solid #E3E356;
+}
+
+.priority-4 {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 40px;
+    border: 4px solid #FFC989;
+}
+
+.priority-5 {
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 40px;
+    border: 4px solid #FF8383;
+}
+
+.priority_number {
+    display: block;
+    color: #95989A;
+    font-weight: 600;
+    font-size: 11pt;
+    margin-top: 8px;
+}
+
+.priority-1:active {
+    background-color: pink;
+}
+
+
+/* flex */
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-row_space-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex-row_center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flex-center {
+    justify-content: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-auto {
+    flex: 0 1 auto;
+}
+
+.flex-5 {
+    flex: 0 1 5%;
+}
+
+.flex-10 {
+    flex: 0 1 10%;
+}
+
+.flex-20 {
+    flex: 0 1 20%;
+}
+
+.flex-30 {
+    flex: 0 1 30%;
+}
+
+.flex-40 {
+    flex: 0 1 40%;
+}
+
+.flex-50 {
+    flex: 0 1 50%;
+}
+
+.flex-60 {
+    flex: 0 1 60%;
+}
+
+.flex-70 {
+    flex: 0 1 70%;
+}
+
+.flex-80 {
+    flex: 0 1 80%;
+}
+
+.flex-90 {
+    flex: 0 1 90%;
+}
+
+.flex-100 {
+    flex: 0 1 100%;
+}
