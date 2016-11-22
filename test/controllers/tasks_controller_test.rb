@@ -14,40 +14,40 @@ class TasksControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:tasks)
   end
-  
+
   test "should get new" do
-    get :new, {:project_id => 1}
+    get :new, params: {project_id: 1}
     assert_response :success
   end
 
   test "should create task" do
     assert_difference('Task.count') do
-      post :create, task: { completed_at: @task.completed_at, title: @task.title, project_id: @task.project_id }
+      post :create, params: {task: { completed_at: @task.completed_at, title: @task.title, project_id: @task.project_id } }
     end
-  
+
     # assert_redirected_to project_path(assigns(:task).project)
   end
-  
+
   test "should show task" do
-    get :show, id: @task
+    get :show, params: { id: @task }
     assert_response :success
   end
-  
+
   test "should get edit" do
-    get :edit, id: @task
+    get :edit, params: { id: @task }
     assert_response :success
   end
-  
+
   test "should update task" do
-    patch :update, id: @task, task: { completed_at: @task.completed_at, title: @task.title, project_id: @task.project_id }
+    patch :update, params: { id: @task, task: { completed_at: @task.completed_at, title: @task.title, project_id: @task.project_id } }
     assert_redirected_to task_path(assigns(:task))
   end
-  
+
   test "should destroy task" do
     assert_difference('Task.count', -1) do
-      delete :destroy, id: @task
+      delete :destroy, params: {id: @task}
     end
-  
+
     assert_redirected_to tasks_path
   end
 end
