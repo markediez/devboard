@@ -9,7 +9,6 @@ module ProjectsHelper
       render("repository_fields", :f => builder)
     end
 
-
-    link_to name, "#", onclick: "return add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\"); "
+    link_to name, "#", onclick: "return add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\"); ", class: "add-repository"
   end
 end

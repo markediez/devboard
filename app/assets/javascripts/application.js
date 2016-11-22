@@ -12,7 +12,7 @@ Turbolinks.enableProgressBar();
 function add_fields(link, association, content) {
   var new_id = new Date().getTime();
   var regexp = new RegExp("new_" + association, "g")
-  $(content).insertAfter(".repositories .fields:last");
+  $(content).insertBefore(".repositories .add-repository");
   return false;
 }
 
