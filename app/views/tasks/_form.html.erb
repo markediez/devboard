@@ -88,13 +88,10 @@
     <input type="button" value="2 Months" class="btn btn-default btn-xs" onClick="tasks.setTaskDueDate(62)" />
     <input type="button" value="3 Months" class="btn btn-default btn-xs" onClick="tasks.setTaskDueDate(93)" />
   </div>
-  <% if @task.new_record? and @task.project.present? and not @task.project.gh_repo_url.blank? %>
+  <% if @task.new_record? and @task.project.present? and @task.project.repositories.size > 0 %>
   <div class="form-group">
     <%= f.label :create_github_issue, "Sync with GitHub" %><br>
-    <select name="create_github_issue">
-      <option value="0">No</option>
-      <option value="1" <%= 'selected' if gh_available %>>Yes</option>
-    </select>
+    <%= collection_select(:repository , :repository_id, @task.project.repositories.all, :id, :gh_url, { include_blank: true }) %>
   </div>
   <% end %>
   <div class="actions">
