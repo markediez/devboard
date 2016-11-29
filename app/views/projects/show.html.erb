@@ -46,10 +46,10 @@
       </td>
       <td><%= link_to task.title, task %></td>
       <td>
-        <% if task.creator.nil? or task.creator.developer.nil? %>
+        <% if task.creator.nil? %>
           Unknown
         <% else %>
-          <%= link_to task.creator.developer.name, task.creator %>
+          <%= link_to task.creator.name, task.creator %>
         <% end %>
       </td>
       <td>
