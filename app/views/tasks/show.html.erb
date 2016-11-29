@@ -19,7 +19,7 @@
 <hr />
 
 <% if @task.gh_issue_number %>
-  <% gh_url = 'https://github.com/' + @task.project.gh_repo_url_parse(:both) + '/issues/' + @task.gh_issue_number %>
+  <% gh_url = 'https://github.com/' + @task.repository.gh_url + '/issues/' + @task.gh_issue_number %>
   <div style="float: right;">
     <%= link_to image_tag("GitHub-Mark-120px-plus.png", width: 35, alt: "View on GitHub"), gh_url %>
   </div>
