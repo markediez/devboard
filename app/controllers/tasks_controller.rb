@@ -19,10 +19,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @task.assignments.build
-    if params[:repository] and (Repository.find_by_id(params[:repository]) != nil)
-      @task.repository_id = params[:repository]
-    end
-
+    
     if params[:project_id] and (Project.find_by_id(params[:project_id]) != nil)
       @task.project_id = params[:project_id]
     else
@@ -40,10 +37,11 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
-    if @task.valid? and params[:create_github_issue] == '1'
+    if @task.valid? and params[:repository][:repository_id] != ""
       require 'github'
-      gh_issue_no = GitHubService.create_issue(@task)
+      gh_issue_no = GitHubService.create_issue(@task, Repository.where(:id => params[:repository][:repository_id]).first.gh_url)
       @task.gh_issue_number = gh_issue_no
+      @task.repository_id = params[:repository][:repository_id]
     end
 
     respond_to do |format|
