@@ -4,13 +4,14 @@ class Task < ActiveRecord::Base
   scope :closed, -> { where('completed_at is not null') }
   scope :unscored, -> { where(points: nil) }
 
+  has_many :assignments, :class_name => "Assignment", :dependent => :destroy
+
   belongs_to :creator, :class_name => "Developer"
   belongs_to :project
   belongs_to :repository
-  has_many :assignments, :class_name => "Assignment", :dependent => :destroy
   belongs_to :milestone
 
-  accepts_nested_attributes_for :assignments, :reject_if => lambda { |a| a[:developer].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :assignments, :reject_if => lambda { |a| a[:developer_id].blank? }, :allow_destroy => true
 
   enum priority: [ :low_priority, :normal_priority, :high_priority ]
 
