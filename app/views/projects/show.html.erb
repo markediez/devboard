@@ -53,10 +53,12 @@
         <% end %>
       </td>
       <td>
-        <% if task.assignment.nil? %>
+        <% if task.assignments.nil? %>
           No one assigned
         <% else %>
-         <%= link_to task.assignment.developer_account.developer ? task.assignment.developer_account.developer.name : 'DeveloperAccount #' + task.assignment.developer_account.id.to_s, task %>
+          <%= task.assignments.each do |assignment| %>
+            <%= link_to assignment.developer ? task.assignment.developer_account.developer.name : 'Developer #' + assignment.developer.id.to_s, task %>
+          <% end %>
         <% end %>
       </td>
       <td><%= task.created_at.strftime("%b %e, %Y") %></td>

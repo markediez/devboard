@@ -27,7 +27,16 @@
 
 <p class="lead" style="margin-bottom: 5px; font-size: 1.5em;">
   Created by <%= (@task.creator and @task.creator.developer) ? link_to(@task.creator.developer.name, @task.creator.developer) : "no one" %>,
-  assigned to <%= (@task.assignment and @task.assignment.developer) ? link_to(@task.assignment.developer.name, @task.assignment.developer) : "no one" %>.
+  assigned to
+  <%=
+    if @task.assignments.size > 0
+      @task.assignments.each do |assignment|
+        link_to(@task.assignment.developer.name, @task.assignment.developer)
+      end
+    else
+      "no one"
+    end
+  %>.
 </p>
 <p class="lead" style="font-size: 1.0em;">
   <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>. <%= @task.due.nil? ? 'No due date' : "Due " + time_ago_in_words(@task.due) %>. <%= @task.completed_at.nil? ? 'Not completed yet' : "Completed " + time_ago_in_words(@task.completed_at) %>. <%= @task.points.nil? ? 'Not scored yet' : "Worth " + @task.points.round(1).to_s %> points.
