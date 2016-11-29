@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330205151) do
+ActiveRecord::Schema.define(version: 20161129220019) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20160330205151) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "task_id"
-    t.integer  "developer_account_id"
+    t.integer  "developer_id"
     t.integer  "priority"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.datetime "due_at"
     t.datetime "assigned_at"
-    t.integer  "delay_count",          default: 0
+    t.integer  "delay_count",  default: 0
   end
 
   create_table "commits", force: :cascade do |t|
@@ -106,8 +106,14 @@ ActiveRecord::Schema.define(version: 20160330205151) do
     t.datetime "updated_at"
     t.string   "link",        limit: 255
     t.text     "description"
-    t.string   "gh_repo_url", limit: 255
     t.date     "due"
+  end
+
+  create_table "repositories", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "gh_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -146,6 +152,7 @@ ActiveRecord::Schema.define(version: 20160330205151) do
     t.datetime "completed_at"
     t.integer  "milestone_id"
     t.float    "points"
+    t.integer  "repository_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,4 @@
+<p class="fields">
+  <%= f.collection_select(:developer_id, Developer.all, :id, :name, { include_blank: true }) %>
+  <%= link_to "remove", "#", onclick: "return remove_fields(this);" %>
+</p>

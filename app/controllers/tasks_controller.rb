@@ -18,6 +18,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @task.assignments.build
 
     if params[:project_id] and (Project.find_by_id(params[:project_id]) != nil)
       @task.project_id = params[:project_id]
@@ -36,9 +37,11 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
-    if @task.valid? and params[:create_github_issue] == '1'
+    # Add task as an issue if a repository is chosen to sync with
+    if @task.valid? and params[:repository].present? and params[:repository][:repository_id] != ""
       require 'github'
-      gh_issue_no = GitHubService.create_issue(@task)
+      @task.repository_id = params[:repository][:repository_id]
+      gh_issue_no = GitHubService.create_issue(@task, Repository.where(:id => @task.repository_id).first.gh_url)
       @task.gh_issue_number = gh_issue_no
     end
 
@@ -77,9 +80,9 @@ class TasksController < ApplicationController
 
           if @task.gh_issue_number
             Rails.logger.debug "Closing a GitHub issue ..."
-            
+
             require 'github'
-            
+
             GitHubService.close_issue(@task)
           else
             Rails.logger.debug "Not closing a GitHub issue."
@@ -117,6 +120,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:title, :details, :creator_id, :assignee_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points)
+      #params.require(:task).permit(:title, :details, :creator_id, :assignee_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points, :assignment, :repository)
+      params.require(:task).permit!
     end
 end

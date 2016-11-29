@@ -16,6 +16,12 @@
     <%= f.text_field :title, class: 'form-control' %>
   </div>
 
+  <% if @task.new_record? %>
+    <div class="form-group">
+      <%= f.hidden_field :creator_id, :value => current_user.developer_id %>
+    </div>
+  <% end %>
+
   <div class="form-group">
     <%= f.label :details %><br>
     <%= f.text_area :details, class: 'form-control' %>
@@ -24,8 +30,12 @@
   <%= f.hidden_field :project_id %>
 
   <div class="form-group">
-    <%= label_tag 'Assign To' %><br>
-    <%= collection_select(:task, :assignment, Developer.all, :id, :name, { include_blank: true }) %>
+    <%= f.label :assignments, 'Assign To' %><br>
+    <%= f.fields_for :assignments do |builder| %>
+      <%= render "assignment_fields", :f => builder %>
+    <% end %>
+    <%= link_to_add_assignments "Add", f, :assignments %>
+
   </div>
   <div class="form-group">
     <%= f.label :priority %><br>
@@ -88,13 +98,10 @@
     <input type="button" value="2 Months" class="btn btn-default btn-xs" onClick="tasks.setTaskDueDate(62)" />
     <input type="button" value="3 Months" class="btn btn-default btn-xs" onClick="tasks.setTaskDueDate(93)" />
   </div>
-  <% if @task.new_record? and not @task.project.gh_repo_url.blank? %>
+  <% if @task.new_record? and @task.project.present? and @task.project.repositories.size > 0 %>
   <div class="form-group">
     <%= f.label :create_github_issue, "Sync with GitHub" %><br>
-    <select name="create_github_issue">
-      <option value="0">No</option>
-      <option value="1" <%= 'selected' if gh_available %>>Yes</option>
-    </select>
+    <%= collection_select(:repository , :repository_id, @task.project.repositories.all, :id, :gh_url, { include_blank: true }) %>
   </div>
   <% end %>
   <div class="actions">

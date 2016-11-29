@@ -16,6 +16,9 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+
+    # Default 1 field for github repositories
+    @project.repositories.build
   end
 
   # GET /projects/1/edit
@@ -29,9 +32,9 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        
+
         ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :created })
-        
+
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render action: 'show', status: :created, location: @project }
       else
@@ -47,7 +50,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :edited })
-        
+
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
@@ -61,9 +64,9 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     @project.destroy
-    
+
     ActivityLog.create!({developer_id: current_user.developer_id, project_id: @project.id, activity_type: :deleted })
-    
+
     respond_to do |format|
       format.html { redirect_to projects_url }
       format.json { head :no_content }
@@ -78,6 +81,10 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :status, :began, :finished, :priority, :link, :gh_repo_url, :description, :due)
+      # params.require(:project).permit(:name, :status, :began, :finished, :priority, :link, :description, :due, repositories_attributes: [new_repositories: [:gh_url, :_destroy] ])
+
+      # TODO: Figure out how to white list everything in repositories_attributes
+      # "everything" because on update repositories_attributes {"0" => "gh_url=> , _destory=>, id=>"  ... }
+      params.require(:project).permit!
     end
 end

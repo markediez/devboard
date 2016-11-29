@@ -1,9 +1,9 @@
 class GitHubService
   @_client = nil
-  
+
   # Uses the GitHub API to create a GitHub issue. Returns issue number on successful creation.
-  def self.create_issue(task)
-    ret = self.client.create_issue task.project.gh_repo_url, task.title, task.details
+  def self.create_issue(task, url)
+    ret = self.client.create_issue url, task.title, task.details
 
     return ret[:number]
   end
@@ -25,7 +25,7 @@ class GitHubService
   def self.find_issues_by_project(gh_url)
     self.client.list_issues(gh_url, { :state => 'all' })
   end
-  
+
   # Return all commits given a project URL, e.g. 'dssit/devboard'.
   # Optionally pass a branch, defaults to 'master'.
   def self.find_commits_by_project(gh_url, branch = 'master')
@@ -43,7 +43,7 @@ class GitHubService
   end
 
   private
-  
+
     def self.client
       unless @_client
         Octokit.auto_paginate = true

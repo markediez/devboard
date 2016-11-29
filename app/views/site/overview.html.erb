@@ -28,7 +28,7 @@
       <% assignments.each do |assignment| %>
         <tr>
           <td><%= first_row ? @developers.where(id: developer_id)[0].name : '' %></td>
-          <td><%= link_to assignment.task.project.name, assignment.task.project %> / <%= link_to assignment.task.title, assignment.task %></td>
+          <td><%= link_to assignment.task.project.name, assignment.task.project if assignment.task.project.present? %> / <%= link_to assignment.task.title, assignment.task %></td>
         </tr>
         <% first_row = false %>
       <% end %>
@@ -422,7 +422,7 @@
     <tbody>
       <% @no_due_date_tasks.each_with_index do |task, i| %>
       <tr>
-        <td><%= link_to task.project.name + ':', task.project %> <%= link_to task.title, task %></td>
+        <td><%= link_to task.project.name + ':', task.project if task.project.present? %> <%= link_to task.title, task %></td>
       </tr>
       <% if i == 5 %>
       <tr>

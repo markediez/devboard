@@ -10,6 +10,7 @@ class Developer < ActiveRecord::Base
 
   has_one :user # nullable as not all developers have user accounts
   has_many :accounts, :class_name => "DeveloperAccount"
+  has_many :assignments
 
   def to_param
     if name.nil?
@@ -22,22 +23,6 @@ class Developer < ActiveRecord::Base
   # Return all commits for all accounts associated with this Developer
   def commits
     Commit.where developer_account_id: accounts.map{ |a| a.id }
-  end
-
-  def assignments(only_open: false)
-    assignments = []
-
-    accounts.each do |account|
-      if only_open
-        account.assignments.each do |assignment|
-          assignments << assignment unless assignment.task.completed_at
-        end
-      else
-        assignments << account.assignments
-      end
-    end
-
-    return assignments.flatten
   end
 
   protected

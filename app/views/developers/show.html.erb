@@ -179,7 +179,7 @@
     <% @assignments.each do |assignment| %>
     <tr>
       <td><%= link_to assignment.task.title, assignment.task %></td>
-      <td><%= assignment.task.project.name %></td>
+      <td><%= assignment.task.project.name if assignment.task.project.present? %></td>
       <td><%= assignment.assigned_at.nil? ? "Unknown" : time_ago_in_words(assignment.assigned_at) + " ago" %></td>
     </tr>
     <% end %>
