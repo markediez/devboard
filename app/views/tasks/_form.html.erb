@@ -16,9 +16,11 @@
     <%= f.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="form-group">
-    <%= f.hidden_field :creator_id, :value => current_user.developer_id %>
-  </div>
+  <% if @task.new_record? %>
+    <div class="form-group">
+      <%= f.hidden_field :creator_id, :value => current_user.developer_id %>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= f.label :details %><br>
