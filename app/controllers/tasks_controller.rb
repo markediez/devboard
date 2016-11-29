@@ -37,11 +37,12 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
+    # Add task as an issue if a repository is chosen to sync with
     if @task.valid? and params[:repository].present? and params[:repository][:repository_id] != ""
       require 'github'
-      gh_issue_no = GitHubService.create_issue(@task, Repository.where(:id => params[:repository][:repository_id]).first.gh_url)
-      @task.gh_issue_number = gh_issue_no
       @task.repository_id = params[:repository][:repository_id]
+      gh_issue_no = GitHubService.create_issue(@task, Repository.where(:id => @task.repository_id).first.gh_url)
+      @task.gh_issue_number = gh_issue_no
     end
 
     respond_to do |format|

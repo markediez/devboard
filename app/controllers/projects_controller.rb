@@ -16,8 +16,9 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+
     # Default 1 field for github repositories
-    remote_repo = @project.repositories.build
+    @project.repositories.build
   end
 
   # GET /projects/1/edit
