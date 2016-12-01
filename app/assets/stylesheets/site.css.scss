@@ -420,3 +420,55 @@
 .flex-100 {
     flex: 0 1 100%;
 }
+
+
+/* range selector css */
+
+.range-slider__range {
+    height: 5px;
+    border-radius: 5px;
+    background: #d7dcdf;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    flex: 0 1 65%;
+    align-self: center;
+}
+
+.range-slider__range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: #4AD3B7;
+    cursor: pointer;
+}
+
+.range-slider__range::-moz-range-thumb:hover {
+    background: #4AD3B7;
+}
+
+.range-slider__range:active::-moz-range-thumb {
+    background: #4AD3B7;
+}
+
+.range-slider__value {
+    width: 60px;
+    color: #fff;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    background: #4AD3B7;
+    padding: 5px 10px;
+    margin-left: 8px;
+}
+
+::-moz-range-track {
+    background: #d7dcdf;
+    border: 0;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+    border: 0;
+}
