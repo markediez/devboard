@@ -22,7 +22,6 @@
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
-
 body {
     padding-top: 50px;
     font-size: 9pt;
@@ -273,4 +272,15 @@ a.navbar-brand {
         margin-bottom: 15px !important;
         margin-left: 20px !important;
     }
+}
+
+.sidebar-icon {
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    color: #95989A;
+}
+
+.nav-sidebar-style {
+    margin-left: 0px;
 }
