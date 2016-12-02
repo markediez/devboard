@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202000822) do
+ActiveRecord::Schema.define(version: 20161202192941) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20161202000822) do
 
   create_table "repositories", force: :cascade do |t|
     t.integer  "project_id"
-    t.string   "gh_url"
+    t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

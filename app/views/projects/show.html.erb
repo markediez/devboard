@@ -21,58 +21,58 @@
 
 <h3 class="sub-header">Open Tasks (<%= @project.tasks.open.count %>)</h3>
 <div class="table-responsive">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><!-- completed checkbox --></th>
-      <th><!-- priority icon --></th>
-      <th>Summary</th>
-      <th>Created By</th>
-      <th>Assigned To</th>
-      <th>Created</th>
-      <th>Due</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @project.tasks.open.order(:created_at => 'DESC').each do |task| %>
-    <tr>
-      <td>
-        <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
-      </td>
-      <td style="color: #666;">
-        <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
-        <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
-        <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
-      </td>
-      <td><%= link_to task.title, task %></td>
-      <td>
-        <% if task.creator.nil? %>
-          Unknown
-        <% else %>
-          <%= link_to task.creator.name, task.creator %>
-        <% end %>
-      </td>
-      <td>
-        <% if task.assignments.nil? %>
-          No one assigned
-        <% else %>
-          <% task.assignments.each do |assignment| %>
-            <%= link_to assignment.developer ? assignment.developer.name : 'Developer #' + assignment.developer.id.to_s, task %>
-            <%= "," unless assignment == task.assignments.last %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><!-- completed checkbox --></th>
+        <th><!-- priority icon --></th>
+        <th>Summary</th>
+        <th>Created By</th>
+        <th>Assigned To</th>
+        <th>Created</th>
+        <th>Due</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.tasks.open.order(:created_at => 'DESC').each do |task| %>
+      <tr>
+        <td>
+          <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
+        </td>
+        <td style="color: #666;">
+          <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
+          <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
+          <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
+        </td>
+        <td><%= link_to task.title, task %></td>
+        <td>
+          <% if task.creator.nil? %>
+            Unknown
+          <% else %>
+            <%= link_to task.creator.name, task.creator %>
           <% end %>
-        <% end %>
-      </td>
-      <td><%= task.created_at.strftime("%b %e, %Y") %></td>
-      <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
-    </tr>
-    <% end %>
-    <tr>
-      <td colspan="6">
-        <%= link_to 'New Task', new_task_path(:project_id => @project.id), :class => 'btn btn-default' %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        </td>
+        <td>
+          <% if task.assignments.nil? %>
+            No one assigned
+          <% else %>
+            <% task.assignments.each do |assignment| %>
+              <%= link_to assignment.developer ? assignment.developer.name : 'Developer #' + assignment.developer.id.to_s, task %>
+              <%= "," unless assignment == task.assignments.last %>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= task.created_at.strftime("%b %e, %Y") %></td>
+        <td><%= task.due.nil? ? 'No Due Date' : time_ago_in_words(task.due) %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <td colspan="6">
+          <%= link_to 'New Task', new_task_path(:project_id => @project.id), :class => 'btn btn-default' %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <h3 class="sub-header">Meeting Notes</h3>

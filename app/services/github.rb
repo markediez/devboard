@@ -22,24 +22,24 @@ class GitHubService
   end
 
   # Return all issues (opened and closed) given a project URL, e.g. 'dssit/devboard'
-  def self.find_issues_by_project(gh_url)
-    self.client.list_issues(gh_url, { :state => 'all' })
+  def self.find_issues_by_project(url)
+    self.client.list_issues(url, { :state => 'all' })
   end
 
   # Return all commits given a project URL, e.g. 'dssit/devboard'.
   # Optionally pass a branch, defaults to 'master'.
-  def self.find_commits_by_project(gh_url, branch = 'master')
-    self.client.commits(gh_url, branch)
+  def self.find_commits_by_project(url, branch = 'master')
+    self.client.commits(url, branch)
   end
 
   # Returns a single commit given a project URL, e.g. 'dssit/devboard' and SHA1.
-  def self.find_commit_by_project_and_sha(gh_url, sha)
-    self.client.commit(gh_url, sha)
+  def self.find_commit_by_project_and_sha(url, sha)
+    self.client.commit(url, sha)
   end
 
   # Return all milestones (opened and closed) given a project URL, e.g. 'dssit/devboard'.
-  def self.find_milestones_by_project(gh_url)
-    self.client.list_milestones(gh_url, { :state => 'all' })
+  def self.find_milestones_by_project(url)
+    self.client.list_milestones(url, { :state => 'all' })
   end
 
   private

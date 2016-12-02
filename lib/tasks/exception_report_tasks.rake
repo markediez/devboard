@@ -36,9 +36,6 @@ namespace :exception_report do
       subject = mail.subject
       body = mail.body.decoded
       from = mail.from[0]
-      to = mail.to
-
-      puts "from: #{from}"
 
       p = Project.find_by(exception_email_from: from)
       if p

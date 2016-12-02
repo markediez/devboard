@@ -2,8 +2,8 @@
 
 one:
   project_id: 1
-  gh_url: MyString
+  url: MyString
 
 two:
   project_id: 1
-  gh_url: MyString
+  url: MyString
