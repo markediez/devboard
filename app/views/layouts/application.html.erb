@@ -8,7 +8,9 @@
     <meta name="author" content="">
 
     <title><%= content_for?(:title) ? yield(:title) : "Devboard" %></title>
+
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Devboard" %>">
+
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
@@ -18,6 +20,8 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
   </head>
   <body>
     <header>
@@ -35,7 +39,7 @@
                     subnav_links = {}
                     subnav_links['Developers'] = []
                   %>
-                  <% { 'Overview' => overview_url, 'Sprints' => sprints_url, 'Projects' => projects_url, 'Tasks' => tasks_url, 'Developers' => developers_url, 'Developer Accounts' => developer_accounts_url }.each do |text, url| %>
+                  <% { 'Overview' => overview_url, 'Sprints' => sprints_url, 'Projects' => projects_url, 'Tasks' => tasks_url, 'Developers' => developers_url, 'Exceptions' => exception_reports_url }.each do |text, url| %>
                   <% if (controller_name == text.gsub(' ', '_').downcase) or (controller_name == 'site' and text.downcase == 'overview') %>
                     <li class="active"><a href="<%= url %>"><%= text %></a></li>
                   <% else %>
@@ -49,11 +53,6 @@
                   <% else %>
                     <li><%= link_to 'Meeting Notes', meeting_notes_url %></li>
                   <% end %>
-                  <li><a href="">Design Documents</a></li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                  <li><a href="">Best Practices</a></li>
-                  <li><a href="">Useful Links</a></li>
                 </ul>
               </div>
             <% end %>

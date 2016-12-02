@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :exception_reports
   resources :sprints
   resources :milestones
   resources :meeting_notes

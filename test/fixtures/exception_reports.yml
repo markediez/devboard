@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_id: 1
+  subject: MyString
+  body: MyText
+  gh_issue_id: 1
+  duplicate: false
+
+two:
+  project_id: 1
+  subject: MyString
+  body: MyText
+  gh_issue_id: 1
+  duplicate: false
