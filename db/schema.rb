@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202192941) do
+ActiveRecord::Schema.define(version: 20161205181543) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20161202192941) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "task_id"
-    t.integer  "developer_id"
+    t.integer  "developer_account_id"
     t.integer  "priority"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.datetime "due_at"
     t.datetime "assigned_at"
-    t.integer  "delay_count",  default: 0
+    t.integer  "delay_count",          default: 0
   end
 
   create_table "commits", force: :cascade do |t|

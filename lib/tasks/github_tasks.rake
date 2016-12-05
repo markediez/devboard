@@ -22,14 +22,16 @@ namespace :github do
 
     # Check for updates to local tasks in GitHub
     projects.each do |project|
-      Rails.logger.debug "Pulling tasks (issues) for project '#{project.name}'."
+      project.repositories.each do |repository|
+        Rails.logger.debug "Pulling tasks (issues) for project '#{project.name}'."
 
-      issues = GitHubService.find_issues_by_project(project.gh_repo_url)
-      Rails.logger.debug "Found #{issues.count} issues on GitHub."
+        issues = GitHubService.find_issues_by_project(repository.url)
+        Rails.logger.debug "Found #{issues.count} issues on GitHub for repository #{repository.url}."
 
-      # Import issues (open & closed) from GitHub
-      issues.each do |issue|
-        sync_issue(issue, project)
+        # Import issues (open & closed) from GitHub
+        issues.each do |issue|
+          sync_issue(issue, project)
+        end
       end
     end
   end
@@ -164,11 +166,13 @@ namespace :github do
         assignee.save!
       end
 
-      if task.new_record? || task.assignment.nil?
+      existing_assignment = task.assignments.find_by developer_account: assignee
+
+      if task.new_record? || !existing_assignment
         assignment = Assignment.new
         assignment.task = task
       else
-        assignment = task.assignment
+        assignment = existing_assignment
       end
 
       # assigned_at could be more accurately found in the issue 'events' stream
@@ -192,7 +196,7 @@ namespace :github do
 
     task.save!
 
-    task.assignment.save! if task.assignment
+    assignment.save! if assignment
   end
 
   # Syncs a single issue from GitHub to the local database
