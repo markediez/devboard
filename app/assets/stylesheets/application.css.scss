@@ -16,22 +16,12 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-.nav>li>a {
-   font-weight: 400;
-   color: #555;
-}
-
-.nav>li>a:hover {
-   color: #fff;
-   background-color: #428bca;
-}
-
 h1,
 h2,
 h3,
 h4,
 h5 {
-   margin: 0px !important;
+  margin: 0px !important;
 }
 
 .navbar {
@@ -61,8 +51,8 @@ body {
  */
 
 .sub-header {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
 /*
@@ -91,21 +81,40 @@ body {
 
 /* Sidebar navigation */
 
-.nav-sidebar {
-    margin-left: -20px;
+.nav {
     margin-right: -20px;
     margin-bottom: 20px;
-}
+    margin-left: 0px;
 
-.nav-sidebar>li>a {
-    padding-left: 25px;
-    padding-right: 25px;
-    color: #95989A;
-}
+    > .active {
+      background-color: #428bca;
 
-.nav-sidebar>.active>a {
-    color: #fff;
-    background-color: #428bca;
+      > a {
+        color: #fff;
+      }
+    }
+
+    > li {
+      &:hover, &:focus {
+        background-color: #428bca;
+
+        > a, > i {
+          color: #fff;
+        }
+      }
+
+      > a {
+        font-weight: 400;
+
+        padding-left: 25px;
+        padding-right: 25px;
+        color: #95989A;
+
+        &:hover, &:focus {
+          background-color: transparent; // #428bca;
+        }
+      }
+    }
 }
 
 /*
@@ -297,13 +306,13 @@ a.navbar-brand {
     }
 }
 
-.sidebar-icon {
-    position: absolute;
-    top: 12px;
-    left: 6px;
-    color: #95989A;
+.active>.sidebar-icon {
+  color: #fff;
 }
 
-.nav-sidebar-style {
-    margin-left: 0px;
+.sidebar-icon {
+    position: absolute;
+    top: 13px;
+    left: 6px;
+    color: #95989A;
 }
