@@ -6,8 +6,6 @@
 //= require routes
 //= require_tree .
 
-Turbolinks.enableProgressBar();
-
 /**
  * Renders new fields (e.g. more repositories or more assignees)
  * @param association - model created
@@ -19,7 +17,6 @@ function add_fields(association, content) {
   $(content).insertBefore(".add-field");
   return false;
 }
-
 
 /**
  * Removes a field (e.g. a repository field or assignee field)
