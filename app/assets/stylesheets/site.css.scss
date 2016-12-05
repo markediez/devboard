@@ -75,14 +75,16 @@
 
 .ipa-task {
     flex: 0 1 30%;
-    background-color: #4AD3B7;
-    border: 1px solid #20C6A4;
+    background-color: #5bc0de; // #4AD3B7;
+    border: 1px solid rgb(70, 184, 218); // 20C6A4;
 }
 
 .ipa-unassigned_task {
     flex: 0 1 auto;
-    background-color: #4AD3B7;
-    border: 1px solid #20C6A4;
+    // background-color: #4AD3B7;
+    // border: 1px solid #20C6A4;
+    background-color: #5bc0de; // #4AD3B7;
+    border: 1px solid rgb(70, 184, 218); // 20C6A4;
 }
 
 .assignment_section_task-title {
