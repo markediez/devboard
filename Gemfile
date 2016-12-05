@@ -82,3 +82,6 @@ gem 'js-routes'
 
 # For testing in Rails 5
 gem 'rails-controller-testing'
+
+# For Fontawsome icons
+gem 'font-awesome-sass'

@@ -1,320 +1,837 @@
 <div class="pull-right" style="padding-top: 20px;">
 
-  <div class="dropdown" style="float: left; padding-right: 10px;">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    <div class="dropdown" style="float: left; padding-right: 10px;">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
       Show <%= @duration %> days
       <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <% [7, 14, 21, 28].each do |duration| %>
-      <li role="presentation"><a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= root_path() %>?duration=<%= duration %>">Show <%= duration %> days</a></li>
-      <% end %>
-    </ul>
-  </div>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <% [7, 14, 21, 28].each do |duration| %>
+                <li role="presentation"><a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= root_path() %>?duration=<%= duration %>">Show <%= duration %> days</a></li>
+                <% end %>
+        </ul>
+    </div>
 </div>
 
-<h2 class="sub-header">Overview</h2>
+<div style="flex: 0 1 100%; background-color: #F8F8F8;">
+    <div class="container-fluid section-title">
+        <h3>Overview</h3>
+    </div>
+</div>
 
-<h3>Assignments</h3>
+<!-- test -->
+<div style="display: flex; flex: 0 1 100%;">
+    <div class="timeline-section">
+        <div class="timeline-section_title">
+            <h5 style="flex: 0 1 20%;">Developers</h5>
+            <h5 style="flex: 0 1 80%;">Assignments</h5>
+        </div>
+        <div style="flex: 0 1 80%; display: flex;">
+            <div class="developer-section">
+                <div class="developer">
+                    <%= image_tag('lloyd.png', style: 'height: 35px;')%>
+                        <span class="developer_name"><strong>Lloyd Wheeler</strong></span>
+                </div>
+                <div class="developer">
+                    <%= image_tag('Chris.png', style: 'height: 35px;')%>
+                        <span class="developer_name"><strong>Christopher Thielen</strong></span>
+                </div>
+                <div class="developer">
+                    <%= image_tag('Obada.png', style: 'height: 35px;')%>
+                        <span class="developer_name"><strong>Obada Kadri</strong></span>
+                </div>
+                <div class="developer">
+                    <%= image_tag('Mark.png', style: 'height: 35px;')%>
+                        <span class="developer_name"><strong>Mark Diez</strong></span>
+                </div>
+                <div class="developer">
+                    <%= image_tag('Shang.png', style: 'height: 35px;')%>
+                        <span class="developer_name"><strong>Shang Lu</strong></span>
+                </div>
+            </div>
+            <div class="assignment">
+                <div class="assignment_section">
+                    <div class="assignment_section_task finished-task">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task ipa-task">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task empty-task flex-30 flex-row_center" data-toggle="modal" data-target="#add_task">
+                        <div class="flex-auto" style="align-self: center;">
+                            <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="assignment_section">
+                    <div class="assignment_section_task finished-task flex-70">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task ipa-task flex-30">
+                        <div class="flex-row ">
+                            <div class="assignment_section_task-title ">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection ">
+                                <div class="task-selection_check-mark ">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github ">
+                                    <i class="fa fa-github-alt " aria-hidden="true "></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="assignment_section ">
+                    <div class="assignment_section_task finished-task flex-20">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task finished-task flex-20">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task finished-task flex-30">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task ipa-task flex-30">
+                        <div class="flex-row ">
+                            <div class="assignment_section_task-title ">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection ">
+                                <div class="task-selection_check-mark ">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github ">
+                                    <i class="fa fa-github-alt " aria-hidden="true "></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="assignment_section ">
+                    <div class="assignment_section_task finished-task flex-60">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task ipa-task flex-40">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="assignment_section ">
+                    <div class="assignment_section_task finished-task flex-60">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task finished-task flex-20">
+                        <div class="flex-row">
+                            <div class="assignment_section_task-title">
+                                <h5>ipa-client-angular</h5>
+                                <p>Shared activities</p>
+                            </div>
+                            <div class="assignment_section_task-selection">
+                                <div class="task-selection_check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection_github">
+                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignment_section_task empty-task flex-20 flex-row_center" data-toggle="modal" data-target="#add_task">
+                        <div class="flex-auto" style="align-self: center;">
+                            <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- add new developer -->
+        <div class="flex-row">
+            <div class="flex-20">
+                <button type="button" class="btn btn-info btn_add-user" data-toggle="modal" data-target="#myModal">+ New Developer</button>
+            </div>
+            <div class="pagination">
+                <div class="pagination_button">
+                    < Before </div>
+                        <div class="pagination_button">
+                            Today
+                        </div>
+                        <div class="pagination_button">
+                            Future >
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- add new developer ends-->
+        <!-- unassigned task sidebar -->
+        <div class="unassigned-tasks flex-20">
+            <div class="unassigned-tasks_header ">
+                <h5>Unassigned Tasks</h5>
+            </div>
+            <div class="unassigned_section_task ipa-unassigned_task">
+                <div class="flex-row ">
+                    <div class="assignment_section_task-title ">
+                        <h5>ipa-client-angular</h5>
+                        <p>Shared activities</p>
+                    </div>
+                    <div class="assignment_section_task-selection ">
+                        <div class="task-selection_check-mark ">
+                            <input type="checkbox">
+                        </div>
+                        <div class="task-selection_github ">
+                            <a href="#"><i class="fa fa-github-alt " aria-hidden="true "></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="unassigned_section_task ipa-unassigned_task">
+                <div class="flex-row ">
+                    <div class="assignment_section_task-title ">
+                        <h5>ipa-client-angular</h5>
+                        <p>Shared activities</p>
+                    </div>
+                    <div class="assignment_section_task-selection ">
+                        <div class="task-selection_check-mark ">
+                            <input type="checkbox">
+                        </div>
+                        <div class="task-selection_github ">
+                            <a href="#"><i class="fa fa-github-alt " aria-hidden="true "></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="unassigned_section_task ipa-unassigned_task">
+                <div class="flex-row ">
+                    <div class="assignment_section_task-title ">
+                        <h5>ipa-client-angular</h5>
+                        <p>Shared activities</p>
+                    </div>
+                    <div class="assignment_section_task-selection ">
+                        <div class="task-selection_check-mark ">
+                            <input type="checkbox">
+                        </div>
+                        <div class="task-selection_github ">
+                            <a href="#"><i class="fa fa-github-alt " aria-hidden="true "></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="unassigned_section_task ipa-unassigned_task">
+                <div class="flex-row ">
+                    <div class="assignment_section_task-title ">
+                        <h5>ipa-client-angular</h5>
+                        <p>Shared activities</p>
+                    </div>
+                    <div class="assignment_section_task-selection ">
+                        <div class="task-selection_check-mark ">
+                            <input type="checkbox">
+                        </div>
+                        <div class="task-selection_github ">
+                            <a href="#"><i class="fa fa-github-alt " aria-hidden="true "></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- unassigned task sidebar ends -->
+    </div>
+
+    <!-- Modal content add new user-->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header modal-header_style">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title modal-title_bold text-center">Adding a new developer</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="flex-row">
+                        <div class="icon-section flex-column">
+                            <%= image_tag('add_user_icon.svg', :class => 'add_user_icon') %>
+                                <a href="#">
+                                    <h5 class="text-center">+ Upload Avatar</h5>
+                                </a>
+                        </div>
+                        <div class="user_info-section">
+                            <form>
+                                <div class="form-group">
+                                    <label>First name</label>
+                                    <input class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Last name</label>
+                                    <input class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <input class="form-control">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer flex-row flex-center">
+                    <button type="button" class="btn btn-default btn-create" data-dismiss="modal">CREATE<i class="fa fa-check" aria-hidden="true" style="margin-left:5px;"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal content ends-->
+
+    <!-- Modal content add new task-->
+    <div id="add_task" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header modal-header_style">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title modal-title_bold text-center">Creating a new task</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="flex-column task_info-section">
+                        <div class="flex-auto">
+                            <form>
+                                <div class="form-group">
+                                    <label>Task title</label>
+                                    <input class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <input class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Github Link</label>
+                                    <input class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Details</label>
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- select difficulties -->
+                        <div class="flex-auto flex-column difficulties_selection">
+                            <div class="flex-auto difficulties_selection-header">
+                                <h5 class="text-center">Difficulties</h5>
+                            </div>
+                            <div class="flex-row_center flex-auto range-slider">
+                                <input value="0" min="0" max="5" class="range-slider__range" type="range">
+                                <span class="range-slider__value" class="difficulties_indicator">0</span>
+                            </div>
+                        </div>
+                        <!-- select difficulties ends -->
+                        <!-- priority -->
+                        <div class="priority_selection flex-auto flex-column">
+                            <div class="flex-auto priority_selection-header">
+                                <h5 class="text-center">Priority</h5>
+                            </div>
+                            <div class="flex-auto flex-row_space-between priority_number_list">
+                                <div class="flex-auto text-center">
+                                    <div class="priority-1"></div>
+                                    <span class="priority_number">1</span>
+                                </div>
+                                <div class="flex-auto text-center">
+                                    <div class="priority-2"></div>
+                                    <span class="priority_number">2</span>
+                                </div>
+                                <div class="flex-auto text-center">
+                                    <div class="priority-3"></div>
+                                    <span class="priority_number">3</span>
+                                </div>
+                                <div class="flex-auto text-center">
+                                    <div class="priority-4"></div>
+                                    <span class="priority_number">4</span>
+                                </div>
+                                <div class="flex-auto text-center">
+                                    <div class="priority-5"></div>
+                                    <span class="priority_number">5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- priority ends -->
+                    </div>
+                </div>
+                <div class=" modal-footer flex-row flex-center">
+                    <button type="button " class="btn btn-default btn-delete " data-dismiss="modal ">Deleted<i class="fa fa-trash" style="margin-left: 5px;" aria-hidden="true"></i></button>
+                    <button type="button " class="btn btn-default btn-create " data-dismiss="modal ">Create<i class="fa fa-check" aria-hidden="true" style="margin-left:5px;"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal content ends-->
+
+
+</div>
+<!-- test ends -->
 
 <table class="table table-striped table-condensed">
-  <thead>
-    <th class="col-xs-2">Developer</th>
-    <th>Assignment</th>
-  </thead>
-  <tbody>
-    <% @open_assignments.each do |developer_id, assignments| %>
-      <% first_row = true %>
-      <% assignments.each do |assignment| %>
-        <tr>
-          <td><%= first_row ? @developers.where(id: developer_id)[0].name : '' %></td>
-          <td><%= link_to assignment.task.project.name, assignment.task.project if assignment.task.project.present? %> / <%= link_to assignment.task.title, assignment.task %></td>
-        </tr>
-        <% first_row = false %>
-      <% end %>
-    <% end %>
-  </tbody>
+    <thead>
+        <input type="checkbox">
+        <th class="col-xs-2">Developer</th>
+        <th>Assignment</th>
+    </thead>
+    <tbody>
+        <% @open_assignments.each do |developer_id, assignments| %>
+            <% first_row = true %>
+                <% assignments.each do |assignment| %>
+                    <tr>
+                        <td>
+                            <%= first_row ? @developers.where(id: developer_id)[0].name : '' %>
+                        </td>
+                        <td>
+                            <%= link_to assignment.task.project.name, assignment.task.project %> /
+                                <%= link_to assignment.task.title, assignment.task %>
+                        </td>
+                    </tr>
+                    <% first_row = false %>
+                        <% end %>
+                            <% end %>
+    </tbody>
 </table>
 
 <h3 style="display: none;">Assignments</h3>
 
 <style type="text/css">
-  .gantt {
-    width: 100%;
-  }
+    .gantt {
+        width: 100%;
+    }
 
-  .gantt th {
-    font-size: 0.9em;
-  }
+    .gantt th {
+        font-size: 0.9em;
+    }
 
-  .gantt tbody tr td {
-    min-width: 250px;
-    padding-top: 0.55em;
-    padding-bottom: 0.55em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-  }
+    .gantt tbody tr td {
+        min-width: 250px;
+        padding-top: 0.55em;
+        padding-bottom: 0.55em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
 
-  .gantt thead tr th {
-    text-align: center;
-  }
+    .gantt thead tr th {
+        text-align: center;
+    }
+    /* These are the visible assignment blocks */
 
-  /* These are the visible assignment blocks */
-  .gantt tbody tr td div {
-    border: none;
-    background-color: #468cc8;
-    padding: 0.2em;
-  }
+    .gantt tbody tr td div {
+        border: none;
+        background-color: #468cc8;
+        padding: 0.2em;
+    }
 
-  .gantt tbody tr td div a {
-    color: #efefef;
-    text-decoration: none;
-  }
+    .gantt tbody tr td div a {
+        color: #efefef;
+        text-decoration: none;
+    }
 
-  .gantt tbody tr td div.continuing {
-    border-left: none;
-  }
+    .gantt tbody tr td div.continuing {
+        border-left: none;
+    }
 
-  .gantt tbody tr td div.open {
-    background-color: #eee;
-    border: 1px dashed #bbb;
-  }
+    .gantt tbody tr td div.open {
+        background-color: #eee;
+        border: 1px dashed #bbb;
+    }
 
-  .gantt tbody tr td div.open a {
-    color: #777;
-  }
+    .gantt tbody tr td div.open a {
+        color: #777;
+    }
 
-  .gantt-outer {
-    overflow-x: scroll;
-  }
+    .gantt-outer {
+        overflow-x: scroll;
+    }
 </style>
 
 <div class="gantt-outer" style="display: none;">
-  <table class="gantt">
-    <thead>
-      <tr>
-        <th style="min-width: 0;"><!-- developer name --></th>
-        <th><%= Time.now.strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 1.day).strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 2.day).strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 3.day).strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 4.day).strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 5.day).strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 6.day).strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 7.day).strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 8.day).strftime("%a %m/%d") %></th>
-        <th><%= (Time.now + 9.day).strftime("%a %m/%d") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="padding: 0.75em; text-align: right; min-width: 0;">Christopher</td>
-        <td colspan="2"><div class="continuing"><a href="#">DevBoard: Gantt Charts</a></div></td>
-        <td colspan="2"><div><a href="#">DW: Banner Activity Import</a></div></td>
-        <td colspan="6"><div class="open"><a href="#">Click to assign</a></div></td>
-      </tr>
-      <tr>
-        <td style="padding: 0.75em; text-align: right; min-width: 0;">Lloyd</td>
-        <td colspan="5"><div><a href="#">IPA: Refactor Instructors/Department Relationship</a></div></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td style="padding: 0.75em; text-align: right; min-width: 0;">Obada</td>
-        <td colspan="2"><div><a href="#">IPA: TV HTML</a></div></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td style="padding: 0.75em; text-align: right; min-width: 0;">Eric</td>
-        <td colspan="5"><div><a href="#">DSS Messenger: Publisher Modularization</a></div></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div> <!-- .gantt-outer -->
+    <table class="gantt">
+        <thead>
+            <tr>
+                <th style="min-width: 0;">
+                    <!-- developer name -->
+                </th>
+                <th>
+                    <%= Time.now.strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 1.day).strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 2.day).strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 3.day).strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 4.day).strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 5.day).strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 6.day).strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 7.day).strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 8.day).strftime("%a %m/%d") %>
+                </th>
+                <th>
+                    <%= (Time.now + 9.day).strftime("%a %m/%d") %>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 0.75em; text-align: right; min-width: 0;">Christopher</td>
+                <td colspan="2">
+                    <div class="continuing"><a href="#">DevBoard: Gantt Charts</a></div>
+                </td>
+                <td colspan="2">
+                    <div><a href="#">DW: Banner Activity Import</a></div>
+                </td>
+                <td colspan="6">
+                    <div class="open"><a href="#">Click to assign</a></div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75em; text-align: right; min-width: 0;">Lloyd</td>
+                <td colspan="5">
+                    <div><a href="#">IPA: Refactor Instructors/Department Relationship</a></div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75em; text-align: right; min-width: 0;">Obada</td>
+                <td colspan="2">
+                    <div><a href="#">IPA: TV HTML</a></div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75em; text-align: right; min-width: 0;">Eric</td>
+                <td colspan="5">
+                    <div><a href="#">DSS Messenger: Publisher Modularization</a></div>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- .gantt-outer -->
 
 <style text="text/css">
-  #progress {
-    position: relative;
-    padding: 3px;
-  }
+    #progress {
+        position: relative;
+        padding: 3px;
+    }
 
-  #percent {
-    position: absolute;
-  }
+    #percent {
+        position: absolute;
+    }
 
-  #bar {
-    height: 20px;
-    background-color: rgba(151,187,205,0.4);
-  }
+    #bar {
+        height: 20px;
+        background-color: rgba(151, 187, 205, 0.4);
+    }
 </style>
 
 
 <div id="activity-graphs" class="carousel slide" data-ride="carousel" data-interval="false">
-  <div class="carousel-inner" role="listbox" style="height: 120%;">
-    <div class="item active">
-      <div class="row">
-        <div class="col-xs-8">
-          <h3 class="sub-header">Commits By Week</h3>
-          <div>
-        		<canvas id="commits_canvas" height="175" width="500"></canvas>
-          </div>
-        </div>
+    <div class="carousel-inner" role="listbox" style="height: 120%;">
+        <div class="item active">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h3 class="sub-header">Commits By Week</h3>
+                    <div>
+                        <canvas id="commits_canvas" height="175" width="500"></canvas>
+                    </div>
+                </div>
 
-        <div class="col-xs-4">
-          <h3 class="sub-header">&nbsp;</h3>
-          <ul style="list-style-type: none; padding: 0; margin: 0;">
-            <% @recent_commits_by_project.each do |project| %>
-            <li style="padding: 0; margin: 0;">
-              <div id="progress">
-                <span id="percent"><%= project[0] %> (<%= project[1] %>)</span>
-                <div id="bar" style="width: <%= ((project[1].to_f / @total_commit_count.to_f) * 100.0).to_i %>%"></div>
-              </div>
-            </li>
-            <% end %>
-            <li style="padding: 0; margin: 0;">
-              <div style="text-align: center;">
-                <span><b>Total</b> (<%= @total_commit_count %>)</span>
-              </div>
-            </li>
-          </ul>
+                <div class="col-xs-4">
+                    <h3 class="sub-header">&nbsp;</h3>
+                    <ul style="list-style-type: none; padding: 0; margin: 0;">
+                        <% @recent_commits_by_project.each do |project| %>
+                            <li style="padding: 0; margin: 0;">
+                                <div id="progress">
+                                    <span id="percent"><%= project[0] %> (<%= project[1] %>)</span>
+                                    <div id="bar" style="width: <%= ((project[1].to_f / @total_commit_count.to_f) * 100.0).to_i %>%"></div>
+                                </div>
+                            </li>
+                            <% end %>
+                                <li style="padding: 0; margin: 0;">
+                                    <div style="text-align: center;">
+                                        <span><b>Total</b> (<%= @total_commit_count %>)</span>
+                                    </div>
+                                </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- .row -->
         </div>
-      </div> <!-- .row -->
+        <div class="item">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h3 class="sub-header">Lines Per Week</h3>
+                    <div>
+                        <canvas id="lines_canvas" height="175" width="500"></canvas>
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+                    <h3 class="sub-header">Lines By Project</h3>
+                    <ul style="list-style-type: none; padding: 0; margin: 0;">
+                        <% @recent_lines_by_project.each do |project| %>
+                            <li style="padding: 0; margin: 0;">
+                                <div id="progress">
+                                    <span id="percent"><%= project[0] %> (<%= project[1] %>)</span>
+                                    <div id="bar" style="width: <%= ((project[1].to_f / @total_commit_count.to_f) * 100.0).to_i %>%"></div>
+                                </div>
+                            </li>
+                            <% end %>
+                                <li style="padding: 0; margin: 0;">
+                                    <div style="text-align: center;">
+                                        <span><b>Total</b> (<%= @total_commit_count %>)</span>
+                                    </div>
+                                </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- .row -->
+        </div>
     </div>
-    <div class="item">
-      <div class="row">
-        <div class="col-xs-8">
-          <h3 class="sub-header">Lines Per Week</h3>
-          <div>
-        		<canvas id="lines_canvas" height="175" width="500"></canvas>
-          </div>
-        </div>
 
-        <div class="col-xs-4">
-          <h3 class="sub-header">Lines By Project</h3>
-          <ul style="list-style-type: none; padding: 0; margin: 0;">
-            <% @recent_lines_by_project.each do |project| %>
-            <li style="padding: 0; margin: 0;">
-              <div id="progress">
-                <span id="percent"><%= project[0] %> (<%= project[1] %>)</span>
-                <div id="bar" style="width: <%= ((project[1].to_f / @total_commit_count.to_f) * 100.0).to_i %>%"></div>
-              </div>
-            </li>
-            <% end %>
-            <li style="padding: 0; margin: 0;">
-              <div style="text-align: center;">
-                <span><b>Total</b> (<%= @total_commit_count %>)</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div> <!-- .row -->
+    <div style="text-align: center;">
+        <a href="#" data-target="#activity-graphs" data-slide-to="0" class="active">By Commits</a> | <a href="#" data-target="#activity-graphs" data-slide-to="1">By Lines</a>
     </div>
-  </div>
-
-  <div style="text-align: center;">
-    <a href="#" data-target="#activity-graphs" data-slide-to="0" class="active">By Commits</a> | <a href="#" data-target="#activity-graphs" data-slide-to="1">By Lines</a>
-  </div>
 </div>
 
 <script type="text/javascript">
-  var commitChartData = {
-			labels : [
-        <%= @recent_commits_graph.map{ |timestamp, commits| "'" + Date.strptime(timestamp.to_s, "%Y%j").strftime("%A %_m-%e") + "'" }.join(",").html_safe %>
-      ],
-			datasets : [
-				{
-					label: "Commits",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data : [<%= @recent_commits_graph.map{ |timestamp, commits| commits }.join(",") %>]
-				}
-			]
-		}
+    var commitChartData = {
+        labels: [
+            <%= @recent_commits_graph.map{ |timestamp, commits| "'" + Date.strptime(timestamp.to_s, "%Y%j").strftime("%A %_m-%e") + "'" }.join(",").html_safe %>
+        ],
+        datasets: [{
+            label: "Commits",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [<%= @recent_commits_graph.map{ |timestamp, commits| commits }.join(",") %>]
+        }]
+    }
 
-  var lineChartData = {
-			labels : [
-        <%= @recent_lines_graph.map{ |timestamp, commits| "'" + Date.strptime(timestamp.to_s, "%Y%j").strftime("%A %_m-%e") + "'" }.join(",").html_safe %>
-      ],
-			datasets : [
-				{
-					label: "Commits",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data : [<%= @recent_lines_graph.map{ |timestamp, lines| lines }.join(",") %>]
-				}
-			]
-		}
+    var lineChartData = {
+        labels: [
+            <%= @recent_lines_graph.map{ |timestamp, commits| "'" + Date.strptime(timestamp.to_s, "%Y%j").strftime("%A %_m-%e") + "'" }.join(",").html_safe %>
+        ],
+        datasets: [{
+            label: "Commits",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [<%= @recent_lines_graph.map{ |timestamp, lines| lines }.join(",") %>]
+        }]
+    }
 
     ready = function() {
-  		var commits_ctx = document.getElementById("commits_canvas").getContext("2d");
+        var commits_ctx = document.getElementById("commits_canvas").getContext("2d");
 
-  		window.commitsChart = new Chart(commits_ctx).Line(commitChartData, {
-  			responsive: true
-  		});
+        window.commitsChart = new Chart(commits_ctx).Line(commitChartData, {
+            responsive: true
+        });
 
-  		var lines_ctx = document.getElementById("lines_canvas").getContext("2d");
+        var lines_ctx = document.getElementById("lines_canvas").getContext("2d");
 
-  		window.linesChart = new Chart(lines_ctx).Line(lineChartData, {
-  			responsive: true
-  		});
-  	};
+        window.linesChart = new Chart(lines_ctx).Line(lineChartData, {
+            responsive: true
+        });
+    };
 
     $(document).ready(ready);
     $(document).on('page:load', ready);
 
-    $('#activity-graphs').on('slid.bs.carousel', function () {
-      $("#commits_canvas").width(500).height(175);
-      $("#lines_canvas").width(500).height(175);
-      ready();
+    $('#activity-graphs').on('slid.bs.carousel', function() {
+        $("#commits_canvas").width(500).height(175);
+        $("#lines_canvas").width(500).height(175);
+        ready();
     });
 </script>
 
-<h3 class="sub-header">Commits (<%= @duration %> days)</h3>
+<h3 class="sub-header">Commits (
+    <%= @duration %> days)</h3>
 
 <div class="table-responsive">
-<table class="table table-striped table-condensed">
-  <thead>
-    <tr>
-      <th class="col-xs-2">Project</th>
-      <th class="col-xs-2">Developer</th>
-      <th class="col-xs-6">Message</th>
-      <th class="col-xs-4">When</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @commits.each do |commit| %>
-    <tr>
-      <td><%= link_to commit.project.name, commit.project %></td>
-      <td><%= link_to commit.account.developer.nil? ? "Unknown" : commit.account.developer.name, commit.account.developer %></td>
-      <td><%= commit.message %></td>
-      <td><%= time_ago_in_words(commit.committed_at) %> ago</td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+    <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th class="col-xs-2">Project</th>
+                <th class="col-xs-2">Developer</th>
+                <th class="col-xs-6">Message</th>
+                <th class="col-xs-4">When</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @commits.each do |commit| %>
+                <tr>
+                    <td>
+                        <%= link_to commit.project.name, commit.project %>
+                    </td>
+                    <td>
+                        <%= link_to commit.account.developer.nil? ? "Unknown" : commit.account.developer.name, commit.account.developer %>
+                    </td>
+                    <td>
+                        <%= commit.message %>
+                    </td>
+                    <td>
+                        <%= time_ago_in_words(commit.committed_at) %> ago</td>
+                </tr>
+                <% end %>
+        </tbody>
+    </table>
 </div>
 
 
@@ -341,27 +858,35 @@
 <h3 class="sub-header">Projects</h3>
 
 <div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Unassigned Ratio</th>
-        <th>Age</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%# [0, 1, 2, 3] are all in progress or in production statuses. Be nice to not have to magic number it up. %>
-      <% Project.where(:status => [0, 1, 2, 3]).order(:status).each do |project| %>
-      <tr>
-        <td><%= link_to project.name, project %></td>
-        <td><%= project_status_in_words(project.status) %></td>
-        <td><%= (Assignment.where(task: project.tasks).count > 0) ? ((Assignment.where(task: project.tasks).all.select{|a| a.task.completed_at.nil? }.count.to_f / Assignment.where(task: project.tasks).count) * 100).round(2).to_s + '%' : 'N/A' %></td>
-        <td><%= time_ago_in_words(project.began) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Unassigned Ratio</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%# [0, 1, 2, 3] are all in progress or in production statuses. Be nice to not have to magic number it up. %>
+                <% Project.where(:status => [0, 1, 2, 3]).order(:status).each do |project| %>
+                    <tr>
+                        <td>
+                            <%= link_to project.name, project %>
+                        </td>
+                        <td>
+                            <%= project_status_in_words(project.status) %>
+                        </td>
+                        <td>
+                            <%= (Assignment.where(task: project.tasks).count > 0) ? ((Assignment.where(task: project.tasks).all.select{|a| a.task.completed_at.nil? }.count.to_f / Assignment.where(task: project.tasks).count) * 100).round(2).to_s + '%' : 'N/A' %>
+                        </td>
+                        <td>
+                            <%= time_ago_in_words(project.began) %>
+                        </td>
+                    </tr>
+                    <% end %>
+        </tbody>
+    </table>
 </div>
 
 <br /><br /><br />
@@ -369,94 +894,110 @@
 <h3 class="sub-header">Tasks</h3>
 
 <%# Only show 'Past Due' tasks if any exist %>
-<% if @past_due_tasks.length > 0 %>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th colspan="2">Past Due</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @past_due_tasks.each do |task| %>
-      <tr>
-        <td><%= link_to (task.project.nil? ? "No project" : task.project.name) + ':', task.project %> <%= link_to task.title, task %></td>
-        <td><%= time_ago_in_words(task.due) %> ago</td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% end %>
+    <% if @past_due_tasks.length > 0 %>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2">Past Due</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @past_due_tasks.each do |task| %>
+                        <tr>
+                            <td>
+                                <%= link_to (task.project.nil? ? "No project" : task.project.name) + ':', task.project %>
+                                    <%= link_to task.title, task %>
+                            </td>
+                            <td>
+                                <%= time_ago_in_words(task.due) %> ago</td>
+                        </tr>
+                        <% end %>
+                </tbody>
+            </table>
+        </div>
+        <% end %>
 
-<%# Only show 'Due Soon' tasks if any exist %>
-<% if @due_soon_tasks.length > 0 %>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th colspan="2">Due Soon</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @due_soon_tasks.each do |task| %>
-      <tr>
-        <td><% if task.project %><%= link_to task.project.name + ':', task.project %><% end %> <%= link_to task.title, task %></td>
-        <td><%= time_ago_in_words(task.due) %> from now</td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% end %>
+            <%# Only show 'Due Soon' tasks if any exist %>
+                <% if @due_soon_tasks.length > 0 %>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Due Soon</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @due_soon_tasks.each do |task| %>
+                                    <tr>
+                                        <td>
+                                            <% if task.project %>
+                                                <%= link_to task.project.name + ':', task.project %>
+                                                    <% end %>
+                                                        <%= link_to task.title, task %>
+                                        </td>
+                                        <td>
+                                            <%= time_ago_in_words(task.due) %> from now</td>
+                                    </tr>
+                                    <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% end %>
 
-<%# Only show 'No Due Date' tasks if any exist %>
-<% if @no_due_date_tasks.length > 0 %>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Issues with no Due Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @no_due_date_tasks.each_with_index do |task, i| %>
-      <tr>
-        <td><%= link_to task.project.name + ':', task.project if task.project.present? %> <%= link_to task.title, task %></td>
-      </tr>
-      <% if i == 5 %>
-      <tr>
-        <td><center><%= link_to 'Show More...', tasks_url %></center></td>
-      </tr>
-      <% break %>
-      <% end %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% end %>
+                        <%# Only show 'No Due Date' tasks if any exist %>
+                            <% if @no_due_date_tasks.length > 0 %>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Issues with no Due Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% @no_due_date_tasks.each_with_index do |task, i| %>
+                                                <tr>
+                                                    <td>
+                                                        <%= link_to task.project.name + ':', task.project %>
+                                                            <%= link_to task.title, task %>
+                                                    </td>
+                                                </tr>
+                                                <% if i == 5 %>
+                                                    <tr>
+                                                        <td>
+                                                            <center>
+                                                                <%= link_to 'Show More...', tasks_url %>
+                                                            </center>
+                                                        </td>
+                                                    </tr>
+                                                    <% break %>
+                                                        <% end %>
+                                                            <% end %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <% end %>
 
-<br /><br /><br />
+                                    <br /><br /><br />
 
-<h3 class="sub-header">Developers</h3>
+                                    <h3 class="sub-header">Developers</h3>
 
-number of projects in production, closed
-what each developer is working on
-each developer's commits, task count in the last week
-what's due soon
-what's overdue
+                                    number of projects in production, closed what each developer is working on each developer's commits, task count in the last week what's due soon what's overdue
 
 
-<h2 class="sub-header">Activity</h2>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <tbody>
-      <% @activities.each do |activity| %>
-      <tr>
-        <td><%= activity_to_s(activity) %></td>
-        <td><%= time_ago_in_words(activity.when) %> ago</td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+                                    <h2 class="sub-header">Activity</h2>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <% @activities.each do |activity| %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= activity_to_s(activity) %>
+                                                        </td>
+                                                        <td>
+                                                            <%= time_ago_in_words(activity.when) %> ago</td>
+                                                    </tr>
+                                                    <% end %>
+                                            </tbody>
+                                        </table>
+                                    </div>

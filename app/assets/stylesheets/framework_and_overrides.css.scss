@@ -1,11 +1,29 @@
 @import "bootstrap";
-
-.nav > li > a {
-  font-weight: 400;
-  color: #555;
+.nav>li>a {
+    font-weight: 400;
+    color: #555;
 }
 
-.nav > li > a:hover {
-  color: #fff;
-  background-color: #428bca;
+.nav>li>a:hover {
+    color: #fff;
+    background-color: #428bca;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0px !important;
+}
+
+.navbar {
+    height: 50px !important;
+}
+
+.btn-default {
+    border-color: white !important;
+}
+
+
+/* navigation bar and hover effect underline */
