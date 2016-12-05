@@ -12,22 +12,49 @@
  *= require_self
  */
 
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+.nav>li>a {
+   font-weight: 400;
+   color: #555;
+}
+
+.nav>li>a:hover {
+   color: #fff;
+   background-color: #428bca;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+   margin: 0px !important;
+}
+
+.navbar {
+   height: 50px !important;
+}
+
+.btn-default {
+   border-color: white !important;
+}
+
+/* navigation bar and hover effect underline */
 
 /*
  * Base structure
  */
 
-
 /* Move down content because we have a fixed navbar that is 50px tall */
 
-@import "font-awesome-sprockets";
-@import "font-awesome";
 body {
     font-family: 'Source Sans Pro', sans-serif;
     padding-top: 50px;
-    font-size: 9pt;
+    font-size: 10pt;
 }
-
 
 /*
  * Global add-ons
@@ -38,11 +65,9 @@ body {
     border-bottom: 1px solid #eee;
 }
 
-
 /*
  * Sidebar
  */
-
 
 /* Hide for mobile, show later */
 
@@ -64,13 +89,11 @@ body {
     }
 }
 
-
 /* Sidebar navigation */
 
 .nav-sidebar {
     margin-left: -20px;
-    margin-right: -21px;
-    /* 20px padding + 1px border */
+    margin-right: -20px;
     margin-bottom: 20px;
 }
 
@@ -84,7 +107,6 @@ body {
     color: #fff;
     background-color: #428bca;
 }
-
 
 /*
  * Main content
