@@ -1,11 +1,6 @@
 // Place all the styles related to the Site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.section-title {
-    border-bottom: 1px solid rgb(214, 214, 214);
-    border-top: 1px solid rgb(214, 214, 214);
-}
-
 .unassigned-tasks {
     display: flex;
     flex-direction: column;
@@ -473,3 +468,6 @@ input::-moz-focus-inner,
 input::-moz-focus-outer {
     border: 0;
 }
+
+
+@import "assignments_widget";

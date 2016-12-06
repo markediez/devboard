@@ -82,39 +82,45 @@ body {
 /* Sidebar navigation */
 
 .nav {
-    margin-right: -20px;
-    margin-bottom: 20px;
-    margin-left: 0px;
+  margin-right: -20px;
+  margin-bottom: 20px;
+  margin-left: -20px;
 
-    > .active {
+  > .active {
+    background-color: #428bca;
+
+    > a {
+      color: #fff;
+    }
+  }
+
+  > li {
+    padding-left: 20px;
+
+    > i {
+      left: 20px;
+    }
+
+    &:hover, &:focus {
       background-color: #428bca;
 
-      > a {
+      > a, > i {
         color: #fff;
       }
     }
 
-    > li {
+    > a {
+      font-weight: 400;
+
+      padding-left: 25px;
+      padding-right: 25px;
+      color: #95989A;
+
       &:hover, &:focus {
-        background-color: #428bca;
-
-        > a, > i {
-          color: #fff;
-        }
-      }
-
-      > a {
-        font-weight: 400;
-
-        padding-left: 25px;
-        padding-right: 25px;
-        color: #95989A;
-
-        &:hover, &:focus {
-          background-color: transparent; // #428bca;
-        }
+        background-color: transparent;
       }
     }
+  }
 }
 
 /*
@@ -181,24 +187,34 @@ a.navbar-brand {
     flex-direction: row;
 }
 
-.navbar-nav>li>a {
-    padding-top: 10px;
-    padding-bottom: 10px
-}
+.navbar-nav {
 
-.navbar-style {
-    box-shadow: -1px -2px 14px -2px rgba(150, 150, 150, 1);
-    z-index: 10;
-    background-color: white !important;
-    border: none !important;
-}
+  list-style-type: none !important;
 
-.navbar-style {
-    li {
-        margin-right: 35px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+  >li {
+    >a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
+  }
+}
+
+.navbar-style {
+  box-shadow: -1px -2px 14px -2px rgba(150, 150, 150, 1);
+  z-index: 10;
+  background-color: white !important;
+  border: none !important;
+
+  li {
+    margin-left: 3em;
+    margin-right: 2em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }
 
 .hover-underline {
@@ -297,13 +313,16 @@ a.navbar-brand {
 }
 
 .section-title {
-    border-bottom: 1px solid rgb(214, 214, 214);
-    border-top: 1px solid rgb(214, 214, 214);
-    h3 {
-        margin-top: 15px !important;
-        margin-bottom: 15px !important;
-        margin-left: 20px !important;
-    }
+  background-color: #F8F8F8;
+
+  border-bottom: 1px solid rgb(214, 214, 214);
+  border-top: 1px solid rgb(214, 214, 214);
+
+  h3 {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+    margin-left: 30px !important;
+  }
 }
 
 .active>.sidebar-icon {

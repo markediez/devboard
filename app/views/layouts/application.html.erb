@@ -28,72 +28,55 @@
       <%= render 'layouts/navigation' %>
     </header>
 
-    <main role="main">
-      <%= render 'layouts/messages' %>
+    <%= render 'layouts/messages' %>
 
-      <div class="container-fluid">
-        <div class="row">
-          <% if authenticated? %>
-            <div class="col-sm-3 col-md-2 sidebar">
-              <header>
-                <div id="logo">
-                    <h1 style="margin-top: 0px;">Devboard</h1>
-                </div>
-              </header>
-              <ul class="nav">
-                <li <%= " class=active" if (controller_name == "site") %>>
-                  <i class="fa fa-tachometer sidebar-icon" aria-hidden="true"></i>
-                  <a href="<%= overview_url %>">Overview</a>
-                </li>
-                <li <%= " class=active" if (controller_name == "sprints") %>>
-                  <i class="fa fa-tasks sidebar-icon" aria-hidden="true"></i>
-                  <a href="<%= sprints_url %>">Sprints</a>
-                </li>
-                <li <%= " class=active" if (controller_name == "projects") %>>
-                  <i class="fa fa-folder sidebar-icon" aria-hidden="true"></i>
-                  <a href="<%= projects_url %>">Projects</a>
-                </li>
-                <li <%= " class=active" if (controller_name == "tasks") %>>
-                  <i class="fa fa-thumb-tack sidebar-icon" aria-hidden="true"></i>
-                  <a href="<%= tasks_url %>">Tasks</a>
-                </li>
-                <li <%= " class=active" if (controller_name == "developers") %>>
-                  <i class="fa fa-user sidebar-icon" aria-hidden="true"></i>
-                  <a href="<%= developers_url %>">Developers</a>
-                </li>
-                <li <%= " class=active" if (controller_name == "exception_reports") %>>
-                  <i class="fa fa-exclamation-triangle sidebar-icon" aria-hidden="true"></i>
-                  <a href="<%= exception_reports_url %>">Exceptions</a>
-                </li>
-              </ul>
-              <ul class="nav">
-                <% if controller_name == 'meeting_notes' %>
-                  <li class="active"><%= link_to 'Meeting Notes', meeting_notes_url %></li>
-                <% else %>
-                  <li><i class="fa fa-sticky-note-o sidebar-icon" aria-hidden="true"></i>
-                <%= link_to 'Meeting Notes', meeting_notes_url %></li>
-                <% end %>
-                <li><i class="fa fa-folder-open-o sidebar-icon" aria-hidden="true"></i>
-                <a href="">Design Documents</a></li>
-              </ul>
-              <ul class="nav">
-                <li>
-                  <i class="fa fa-thumbs-o-up sidebar-icon" aria-hidden="true"></i>
-                  <a href="">Best Practices</a>
-                </li>
-                <li>
-                  <i class="fa fa-link sidebar-icon" aria-hidden="true"></i>
-                  <a href="">Useful Links</a>
-                </li>
-              </ul>
-            </div>
-          <% end %>
-
-          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 padding-0">
-            <%= yield %>
+    <% if authenticated? %>
+      <nav class="col-md-2 sidebar">
+        <header>
+          <div id="logo">
+              <h1>Devboard</h1>
           </div>
-        </div>
-      </div>
+        </header>
+        <ul class="nav">
+          <li <%= " class=active" if (controller_name == "site") %>>
+            <i class="fa fa-thumb-tack sidebar-icon" aria-hidden="true"></i>
+            <a href="<%= overview_url %>">Assignments</a>
+          </li>
+          <li <%= " class=active" if (controller_name == "sprints") %>>
+            <i class="fa fa-tasks sidebar-icon" aria-hidden="true"></i>
+            <a href="<%= sprints_url %>">Sprints</a>
+          </li>
+          <li <%= " class=active" if (controller_name == "projects") %>>
+            <i class="fa fa-folder sidebar-icon" aria-hidden="true"></i>
+            <a href="<%= projects_url %>">Projects</a>
+          </li>
+          <li <%= " class=active" if (controller_name == "developers") %>>
+            <i class="fa fa-user sidebar-icon" aria-hidden="true"></i>
+            <a href="<%= developers_url %>">Developers</a>
+          </li>
+          <li <%= " class=active" if (controller_name == "exception_reports") %>>
+            <i class="fa fa-exclamation-triangle sidebar-icon" aria-hidden="true"></i>
+            <a href="<%= exception_reports_url %>">Exceptions</a>
+          </li>
+        </ul>
+        <ul class="nav">
+          <% if controller_name == 'meeting_notes' %>
+            <li class="active"><%= link_to 'Meeting Notes', meeting_notes_url %></li>
+          <% else %>
+            <li><i class="fa fa-sticky-note-o sidebar-icon" aria-hidden="true"></i>
+          <%= link_to 'Meeting Notes', meeting_notes_url %></li>
+          <% end %>
+          <li>
+            <i class="fa fa-calendar sidebar-icon" aria-hidden="true"></i>
+            <a href="">Calendar</a>
+          </li>
+        </ul>
+      </nav>
+    <% end %>
+
+    <main class="col-md-10 col-md-offset-2 padding-0">
+      <%= yield %>
     </main>
+
   </body>
 </html>
