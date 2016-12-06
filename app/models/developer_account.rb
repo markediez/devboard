@@ -10,6 +10,10 @@ class DeveloperAccount < ActiveRecord::Base
   has_many :commits
   has_many :assignments
 
+  def developer_name
+    developer.present? ? developer.name : self.name
+  end
+
   private
 
   def minimum_email_length
