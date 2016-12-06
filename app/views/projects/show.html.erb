@@ -11,142 +11,145 @@
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
-  <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Tasks</a></li>
-  <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Meeting Notes</a></li>
-  <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Documents</a></li>
+  <li role="presentation" class="active"><a href="#summary" aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+  <li role="presentation"><a href="#tasks" aria-controls="profile" role="tab" data-toggle="tab">Tasks</a></li>
+  <li role="presentation"><a href="#meetings" aria-controls="messages" role="tab" data-toggle="tab">Meeting Notes</a></li>
+  <li role="presentation"><a href="#documents" aria-controls="settings" role="tab" data-toggle="tab">Documents</a></li>
 </ul>
 
-<section>
-  <h3>Description</h3>
-  <% unless @project.link.blank? %>
-    <p>
-      <%= link_to @project.link, @project.link %>
-    </p>
-  <% end %>
-  <p>
-    <% unless @project.description.blank? %>
-    <%= @project.description %>
-    <% else %>
-    <i>None given.</i>
-    <% end %>
-  </p>
-</section>
-
-<section>
-  <h3>Repositories</h3>
-  <ul>
-  <% if @project.repositories.empty? %>
-    <li>
-      None listed
-    </li>
-  <% else %>
-    <% @project.repositories.each do |repo| %>
-      <li><%= link_to repo.url, repo.url %></li>
-    <% end %>
-  <% end %>
-  </ul>
-</section>
-
-<section>
-  <h3>Tasks</h3>
-
-  <div class="table-responsive">
-    <table class="table" style="margin-top: 15px;">
-      <thead>
-        <tr style="color: #fff; background-color: #373a3c;">
-          <th><!-- completed checkbox --></th>
-          <th><!-- priority icon --></th>
-          <th>Summary</th>
-          <th>Creator</th>
-          <th>Assignee</th>
-          <th>Due</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @project.tasks.open.order(:created_at => 'DESC').each do |task| %>
-        <tr>
-          <td>
-            <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
-          </td>
-          <td style="color: #666;">
-            <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
-            <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
-            <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
-          </td>
-          <td><%= link_to task.title, task %></td>
-          <td>
-            <% if task.creator.present? %>
-              <%= link_to task.creator.developer_name, task.creator %>
-            <% end %>
-          </td>
-          <td>
-            <% if task.assignments.present? %>
-              <% task.assignments.each do |assignment| %>
-                <%= link_to assignment.developer.present? ? assignment.developer.name : 'Developer Account #' + assignment.developer_account.id.to_s, task %>
-                <%= "," unless assignment == task.assignments.last %>
-              <% end %>
-            <% end %>
-          </td>
-          <td><%= task.due.nil? ? '' : time_ago_in_words(task.due) %></td>
-        </tr>
-        <% end %>
-        <tr>
-          <td colspan="6">
-            <%= link_to 'New Task', new_task_path(:project_id => @project.id), :class => 'btn btn-default' %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section>
-  <h3 class="sub-header">Meeting Notes</h3>
-  <div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Summary</th>
-        <th>Taken</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @project.meeting_notes.each do |note| %>
-        <tr>
-          <td></td>
-          <td><%= link_to note.title, note %></td>
-          <td><%= note.taken.to_time.strftime('%B %e, %Y at %l:%M %p') %></td>
-        </tr>
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="summary">
+    <section>
+      <h3>Description</h3>
+      <% unless @project.link.blank? %>
+        <p>
+          <%= link_to @project.link, @project.link %>
+        </p>
       <% end %>
-      <tr>
-        <td colspan="3">
-          <%= link_to 'New Meeting Note', new_meeting_note_path(:project_id => @project.id), :class => 'btn btn-default' %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-</section>
+      <p>
+        <% unless @project.description.blank? %>
+        <%= @project.description %>
+        <% else %>
+        <i>None given.</i>
+        <% end %>
+      </p>
+    </section>
 
-<section>
-  <h3 class="sub-header">Documents</h3>
-  <div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Summary</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td colspan="2">
-          <%= link_to 'New Document', '', :class => 'btn btn-default' %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <section>
+      <h3>Repositories</h3>
+      <ul>
+      <% if @project.repositories.empty? %>
+        <li>
+          None listed
+        </li>
+      <% else %>
+        <% @project.repositories.each do |repo| %>
+          <li><%= link_to repo.url, repo.url %></li>
+        <% end %>
+      <% end %>
+      </ul>
+    </section>
   </div>
-</section>
+  <div role="tabpanel" class="tab-pane" id="tasks">
+    <section>
+      <div class="table-responsive">
+        <table class="table" style="margin-top: 15px;">
+          <thead>
+            <tr style="color: #fff; background-color: #373a3c;">
+              <th><!-- completed checkbox --></th>
+              <th><!-- priority icon --></th>
+              <th>Summary</th>
+              <th>Creator</th>
+              <th>Assignee</th>
+              <th>Due</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @project.tasks.open.order(:created_at => 'DESC').each do |task| %>
+            <tr>
+              <td>
+                <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
+              </td>
+              <td style="color: #666;">
+                <%= '<span class="glyphicon glyphicon-chevron-down"></span>'.html_safe if task.low_priority? %>
+                <%= '<span class="glyphicon glyphicon-minus"></span>'.html_safe if task.normal_priority? %>
+                <%= '<span class="glyphicon glyphicon-chevron-up"></span>'.html_safe if task.high_priority? %>
+              </td>
+              <td><%= link_to task.title, task %></td>
+              <td>
+                <% if task.creator.present? %>
+                  <%= link_to task.creator.developer_name, task.creator %>
+                <% end %>
+              </td>
+              <td>
+                <% if task.assignments.present? %>
+                  <% task.assignments.each do |assignment| %>
+                    <%= link_to assignment.developer.present? ? assignment.developer.name : 'Developer Account #' + assignment.developer_account.id.to_s, task %>
+                    <%= "," unless assignment == task.assignments.last %>
+                  <% end %>
+                <% end %>
+              </td>
+              <td><%= task.due.nil? ? '' : time_ago_in_words(task.due) %></td>
+            </tr>
+            <% end %>
+            <tr>
+              <td colspan="6">
+                <%= link_to 'New Task', new_task_path(:project_id => @project.id), :class => 'btn btn-default' %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="meetings">
+    <section>
+      <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Summary</th>
+            <th>Taken</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @project.meeting_notes.each do |note| %>
+            <tr>
+              <td></td>
+              <td><%= link_to note.title, note %></td>
+              <td><%= note.taken.to_time.strftime('%B %e, %Y at %l:%M %p') %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td colspan="3">
+              <%= link_to 'New Meeting Note', new_meeting_note_path(:project_id => @project.id), :class => 'btn btn-default' %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="documents">
+    <section>
+      <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">
+              <%= link_to 'New Document', '', :class => 'btn btn-default' %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+  </div>
+</div>
