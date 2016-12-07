@@ -1,4 +1,4 @@
-<div class="pull-right" style="padding-top: 5px;">
+<div class="header-btn-right">
   <%= link_to 'Edit', edit_project_path(@project), :class => 'btn btn-default' %>
 </div>
 
@@ -6,15 +6,12 @@
   <h3><%= @project.name %></h3>
 </header>
 
-<div class="pull-right" style="padding: 15px; color: #666; font-weight: bold;">
-  <%= @project.repositories.size > 0 ? 'Linked to GitHub' : 'Not linked to GitHub' %>
-</div>
-
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#summary" aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+  <li role="presentation"><a href="#commits" aria-controls="profile" role="tab" data-toggle="tab">Commits</a></li>
   <li role="presentation"><a href="#tasks" aria-controls="profile" role="tab" data-toggle="tab">Tasks</a></li>
-  <li role="presentation"><a href="#meetings" aria-controls="messages" role="tab" data-toggle="tab">Meeting Notes</a></li>
-  <li role="presentation"><a href="#documents" aria-controls="settings" role="tab" data-toggle="tab">Documents</a></li>
+  <li role="presentation"><a href="#documents" aria-controls="settings" role="tab" data-toggle="tab">Files</a></li>
+  <li role="presentation"><a href="#meetings" aria-controls="messages" role="tab" data-toggle="tab">Communications</a></li>
 </ul>
 
 <div class="tab-content">
