@@ -1,83 +1,8 @@
 // Place all the styles related to the Site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.unassigned-tasks {
-    display: flex;
-    flex-direction: column;
-    background-color: #F2F2F2;
-    border-left: 1px solid rgb(214, 214, 214);
-}
-
-.unassigned-tasks_header {
-    flex: 0 1 auto;
-    align-self: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    color: #9A9A9A;
-}
-
-.timeline-section {
-    flex: 0 1 80%;
-    /*display: flex;*/
-    flex-direction: column;
-}
-
-.timeline-section_title {
-    display: flex;
-    text-align: center;
-    flex-direction: row;
-    margin-top: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgb(214, 214, 214);
-}
-
-.developer-section {
-    border-right: 1px solid rgb(214, 214, 214);
-    border-bottom: 1px solid rgb(214, 214, 214);
-    flex: 0 1 20%;
-    display: flex;
-    flex-direction: column;
-}
-
-.developer {
-    margin: 22px 0px 25px 15px;
-}
-
-.developer_name {
-    position: relative;
-    font-size: 10pt;
-    margin-left: 5px;
-}
-
-.assignment {
-    flex: 0 1 80%;
-    overflow-x: auto;
-    width: 800px;
-    border-bottom: 1px solid rgb(214, 214, 214);
-}
-
-.assignment_section {
-    flex: 0 1 10%;
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid rgb(214, 214, 214);
-    padding-bottom: 10px;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 1000px;
-}
-
-.ipa-task {
-    flex: 0 1 30%;
-    background-color: #5bc0de; // #4AD3B7;
-    border: 1px solid rgb(70, 184, 218); // 20C6A4;
-}
-
-.ipa-unassigned_task {
-    flex: 0 1 auto;
-    // background-color: #4AD3B7;
-    // border: 1px solid #20C6A4;
+.assigned-task {
+    flex: 1;
     background-color: #5bc0de; // #4AD3B7;
     border: 1px solid rgb(70, 184, 218); // 20C6A4;
 }
@@ -115,11 +40,6 @@
     color: white !important;
 }
 
-.empty-task {
-    border: 1.5px dashed #E2E2E2;
-    cursor: pointer;
-}
-
 .add-user_icon {
     cursor: pointer;
     color: #E2E2E2;
@@ -127,7 +47,7 @@
 }
 
 .finished-task {
-    flex: 0 1 40%;
+    flex: 1;
     background-color: #EBEBEB;
     border: 1px solid #D3D3D3;
 }
@@ -144,13 +64,6 @@
     display: flex;
     flex-direction: column;
     margin: 0px 5px;
-    border-radius: 5px;
-}
-
-.unassigned_section_task {
-    display: flex;
-    flex-direction: column;
-    margin: 0px 10px 10px 10px;
     border-radius: 5px;
 }
 
@@ -173,11 +86,11 @@
 }
 
 .pagination_button {
-    flex: 0 1 auto
+    text-align: center;
 }
 
 .btn_add-user {
-    margin-left: 36px;
+    margin-left: 15px;
     margin-top: 10px;
 }
 
@@ -468,6 +381,5 @@ input::-moz-focus-inner,
 input::-moz-focus-outer {
     border: 0;
 }
-
 
 @import "assignments_widget";
