@@ -183,8 +183,13 @@
     }
     .pagination-button {
         text-align: center;
-        i {
-            margin: 0px 5px 0px 5px;
+        a {
+            color: $devblack;
+            cursor: pointer;
+            text-decoration-style: none;
+            i {
+                margin: 0px 5px 0px 5px;
+            }
         }
     }
     .row {

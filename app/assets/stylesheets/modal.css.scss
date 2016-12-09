@@ -1,47 +1,41 @@
     @import "utilities/variables";
     .modal-header_style {
         border-top: 10px solid $devblue;
-        border-radius: 5px;
+        border-radius: 5px 5px 0px 0px;
+        .modal-title-bold {
+            font-weight: 700;
+        }
     }
     
     .icon-section {
         flex: 0 1 50%;
         justify-content: center;
         border-right: 1px solid $lightgray;
-    }
-    
-    .icon-section {
         a {
             color: $devblue;
             &:hover {
                 color: $devblue-dark;
             }
         }
+        .add_user_icon {
+            height: 120px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
     }
     
-    .add_user_icon {
-        height: 120px;
-        margin-bottom: 20px;
-        width: 100%;
-    }
-    
-    .user_info-section {
+    .user-info-section {
         flex: 0 1 50%;
         margin: 0px 60px 0px 60px;
     }
     
-    .task_info-section {
+    .task-info-section {
         margin-left: 30px;
         margin-right: 30px;
-    }
-    
-    .modal-title_bold {
-        font-weight: 700;
-    }
-    
-    .form-group {
-        >label {
-            color: $devblack;
+        .form-group {
+            >label {
+                color: $devblack;
+            }
         }
     }
     
@@ -85,12 +79,6 @@
     
     .difficulties-selection-header {
         margin-bottom: 20px;
-    }
-    
-    .add-user-icon {
-        cursor: pointer;
-        color: #E2E2E2;
-        font-size: 15pt;
     }
     
     .difficulties-selection {
