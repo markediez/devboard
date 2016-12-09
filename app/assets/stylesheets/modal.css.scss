@@ -7,15 +7,16 @@
     .icon-section {
         flex: 0 1 50%;
         justify-content: center;
-        border-right: 1px solid #e5e5e5;
+        border-right: 1px solid $lightgray;
     }
     
-    .icon-section>a {
-        color: #C4F1E8;
-    }
-    
-    .icon-section>a:hover {
-        color: #4AD3B7;
+    .icon-section {
+        a {
+            color: $devblue;
+            &:hover {
+                color: $devblue-dark;
+            }
+        }
     }
     
     .add_user_icon {
@@ -38,8 +39,10 @@
         font-weight: 700;
     }
     
-    .form-group>label {
-        color: #95989A;
+    .form-group {
+        >label {
+            color: $devblack;
+        }
     }
     
     .btn-create {
@@ -74,108 +77,38 @@
         }
     }
     
-    .difficulties_indicator {
+    .difficulties-indicator {
         flex: 0 1 10%;
         padding-bottom: 5px;
         padding-top: 5px;
     }
     
-    .difficulties_selection-header {
+    .difficulties-selection-header {
         margin-bottom: 20px;
     }
     
-    .priority_number_list {
-        justify-content: space-around;
-        margin-left: 80px;
-        margin-right: 80px;
-    }
-    
-    .priority_selection-header {
-        margin-bottom: 20px;
-    }
-    
-    .add-user_icon {
+    .add-user-icon {
         cursor: pointer;
         color: #E2E2E2;
         font-size: 15pt;
     }
     
-    .assignment_section_task {
-        display: flex;
-        flex-direction: column;
-        margin: 0px 5px;
-        border-radius: 5px;
-    }
-    
-    .difficulties_selection {
+    .difficulties-selection {
         margin: 25px 0px 25px 0px;
+        h5 {
+            font-weight: bold;
+        }
     }
     
-    .priority_selection {
-        margin: 25px 0px 25px 0px;
-    }
-    
-    .btn_add-user {
+    .btn-add-user {
         margin-left: 15px;
         margin-top: 10px;
     }
     
-    .priority-1 {
-        background-color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 40px;
-        border: 4px solid #4AD35A;
-    }
-    
-    .priority-2 {
-        background-color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 40px;
-        border: 4px solid #D6ED5A;
-    }
-    
-    .priority-3 {
-        background-color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 40px;
-        border: 4px solid #E3E356;
-    }
-    
-    .priority-4 {
-        background-color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 40px;
-        border: 4px solid #FFC989;
-    }
-    
-    .priority-5 {
-        background-color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 40px;
-        border: 4px solid #FF8383;
-    }
-    
-    .priority_number {
-        display: block;
-        color: #95989A;
-        font-weight: 600;
-        font-size: 11pt;
-        margin-top: 8px;
-    }
-    
-    .priority-1:active {
-        background-color: pink;
-    }
-    
-    .range-slider__range {
+    .range-slider-range {
         height: 5px;
         border-radius: 5px;
-        background: #d7dcdf;
+        background: $gray;
         outline: none;
         padding: 0;
         margin: 0;
@@ -183,36 +116,34 @@
         align-self: center;
     }
     
-    .range-slider__range::-moz-range-thumb {
+    .range-slider-range::-moz-range-thumb {
         width: 20px;
         height: 20px;
         border: 0;
         border-radius: 50%;
-        background: #5bc0de;
+        background: $devblue;
         cursor: pointer;
+        &:hover {
+            background: $devblue-dark;
+        }
+        &:active {
+            background: $devblue-dark;
+        }
     }
     
-    .range-slider__range::-moz-range-thumb:hover {
-        background: #5bc0de;
-    }
-    
-    .range-slider__range:active::-moz-range-thumb {
-        background: #5bc0de;
-    }
-    
-    .range-slider__value {
+    .range-slider-value {
         width: 60px;
         color: #fff;
         line-height: 20px;
         text-align: center;
         border-radius: 3px;
-        background: #5bc0de;
+        background: $devblue;
         padding: 5px 10px;
         margin-left: 8px;
     }
     
      ::-moz-range-track {
-        background: #d7dcdf;
+        background: $gray;
         border: 0;
     }
     

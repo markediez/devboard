@@ -5,8 +5,8 @@ $(document).ready ->
 
   rangeSlider = ->
     slider = $('.range-slider')
-    range = $('.range-slider__range')
-    value = $('.range-slider__value')
+    range = $('.range-slider-range')
+    value = $('.range-slider-value')
     slider.each ->
       value.each ->
         `var value`
