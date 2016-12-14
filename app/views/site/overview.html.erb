@@ -5,9 +5,9 @@
                 <li role="presentation">
                     <a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= root_path() %>?duration=<%= duration %>">
             Show <%= duration %> days
-          </a>
+                    </a>
                 </li>
-                <% end %>
+            <% end %>
         </ul>
     </div>
 </div>
@@ -313,6 +313,7 @@
             </div>
         </div>
         <!-- upcoming ends -->
+        <!-- pagination -->
     </div>
     <div class="row">
         <div class="col-md-2">
@@ -321,24 +322,25 @@
         <div class="pagination col-md-9">
             <div class="col-md-3">
                 <div class="pagination-button">
-                    <a><i class="fa fa-arrow-left" aria-hidden="true"></i>Before</div></a>
+                    <a><i class="fa fa-arrow-left" aria-hidden="true"></i>Before</a>
                 </div>
-                <div class="col-md-6">
-                    <div class="pagination-button">
-                        Today
-                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="pagination-button">
+                    Today
                 </div>
-                <div class="col-md-3">
-                    <div class="pagination-button">
-                        <a>Future<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="col-md-3">
+                <div class="pagination-button">
+                    <a>Future<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
-                    </div>
                 </div>
             </div>
         </div>
-
-        <%= render 'site/modal_add_user' %>
-
-            <%= render 'site/modal_add_task' %>
-
     </div>
+
+    <%= render 'site/modal_add_user' %>
+
+        <%= render 'site/modal_add_task' %>
+
+</div>
