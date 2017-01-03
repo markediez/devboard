@@ -16,7 +16,7 @@ Turbolinks.enableProgressBar();
 function add_fields(association, content) {
   var new_id = new Date().getTime();
   var regexp = new RegExp("new_" + association, "g")
-  $(content).insertBefore(".add-field");
+  $(content.replace(regexp, new_id)).insertBefore(".add-field");
   return false;
 }
 
