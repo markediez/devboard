@@ -6,7 +6,7 @@ class Task < ActiveRecord::Base
 
   has_many :assignments, :class_name => "Assignment", :dependent => :destroy
 
-  belongs_to :creator, :class_name => "Developer"
+  belongs_to :creator, :class_name => "DeveloperAccount"
   belongs_to :project
   belongs_to :repository
   belongs_to :milestone

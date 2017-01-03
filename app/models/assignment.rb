@@ -1,6 +1,10 @@
 class Assignment < ActiveRecord::Base
-  belongs_to :developer
+  belongs_to :developer_account
   belongs_to :task
+
+  def developer
+    developer_account.present? ? developer_account.developer : nil
+  end
 
   # Returns the number of days left for the assignment.
   # A negative value indicates the assignment is overdue or completed.

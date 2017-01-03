@@ -101,7 +101,7 @@
   <% if @task.new_record? and @task.project.present? and @task.project.repositories.size > 0 %>
   <div class="form-group">
     <%= f.label :create_github_issue, "Sync with GitHub" %><br>
-    <%= collection_select(:repository , :repository_id, @task.project.repositories.all, :id, :gh_url, { include_blank: true }) %>
+    <%= collection_select(:repository , :repository_id, @task.project.repositories.all, :id, :url, { include_blank: true }) %>
   </div>
   <% end %>
   <div class="actions">

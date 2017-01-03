@@ -1,0 +1,2 @@
+module ExceptionReportsHelper
+end

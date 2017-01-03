@@ -41,7 +41,7 @@ class TasksController < ApplicationController
     if @task.valid? and params[:repository].present? and params[:repository][:repository_id] != ""
       require 'github'
       @task.repository_id = params[:repository][:repository_id]
-      gh_issue_no = GitHubService.create_issue(@task, Repository.where(:id => @task.repository_id).first.gh_url)
+      gh_issue_no = GitHubService.create_issue(@task, Repository.find(@task.repository_id).url)
       @task.gh_issue_number = gh_issue_no
     end
 

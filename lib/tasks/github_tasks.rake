@@ -15,20 +15,23 @@ namespace :github do
   task :sync_tasks => :environment do
     require 'github'
 
-    projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
+    # List of projects which have repositories
+    projects = Project.joins(:repositories)
 
     Rails.logger.debug "Pulling tasks (issues) for #{projects.count} GitHub-enabled project(s)."
 
     # Check for updates to local tasks in GitHub
     projects.each do |project|
-      Rails.logger.debug "Pulling tasks (issues) for project '#{project.name}'."
+      project.repositories.each do |repository|
+        Rails.logger.debug "Pulling tasks (issues) for project '#{project.name}'."
 
-      issues = GitHubService.find_issues_by_project(project.gh_repo_url)
-      Rails.logger.debug "Found #{issues.count} issues on GitHub."
+        issues = GitHubService.find_issues_by_project(repository.url)
+        Rails.logger.debug "Found #{issues.count} issues on GitHub for repository #{repository.url}."
 
-      # Import issues (open & closed) from GitHub
-      issues.each do |issue|
-        sync_issue(issue, project)
+        # Import issues (open & closed) from GitHub
+        issues.each do |issue|
+          sync_issue(issue, project)
+        end
       end
     end
   end
@@ -38,7 +41,8 @@ namespace :github do
   task :sync_commits => :environment do
     require 'github'
 
-    projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
+    # List of projects which have repositories
+    projects = Project.joins(:repositories)
 
     Rails.logger.debug "Pulling commits for #{projects.count} GitHub-enabled project(s)."
 
@@ -46,41 +50,43 @@ namespace :github do
     projects.each do |project|
       Rails.logger.debug "Pulling commits for project '#{project.name}'."
 
-      commits = GitHubService.find_commits_by_project(project.gh_repo_url)
+      project.repositories.each do |repository|
+        commits = GitHubService.find_commits_by_project(repository.url)
 
-      Rails.logger.debug "Found #{commits.count} commits on GitHub."
+        Rails.logger.debug "Found #{commits.count} commits on GitHub."
 
-      commits.each do |gh_commit|
-        commit = project.commits.find_by_sha(gh_commit[:sha])
+        commits.each do |gh_commit|
+          commit = project.commits.find_by_sha(gh_commit[:sha])
 
-        unless commit
-          Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
+          unless commit
+            Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
 
-          commit = Commit.new
-          commit.sha = gh_commit[:sha]
-          commit.project = project
+            commit = Commit.new
+            commit.sha = gh_commit[:sha]
+            commit.project = project
 
-          commit.account = find_or_create_developer_account_for_commit(gh_commit)
-          commit.message = gh_commit[:commit][:message]
+            commit.account = find_or_create_developer_account_for_commit(gh_commit)
+            commit.message = gh_commit[:commit][:message]
 
-          if gh_commit[:commit][:committer]
-            commit.committed_at = gh_commit[:commit][:committer][:date]
-          elsif gh_commit[:commit][:author]
-            commit.committed_at = gh_commit[:commit][:author][:date]
+            if gh_commit[:commit][:committer]
+              commit.committed_at = gh_commit[:commit][:committer][:date]
+            elsif gh_commit[:commit][:author]
+              commit.committed_at = gh_commit[:commit][:author][:date]
+            end
+
+            commit.save!
           end
 
-          commit.save!
-        end
+          # Fill in commit statistics
+          if commit.total.nil?
+            gh_commit_details = GitHubService.find_commit_by_project_and_sha(repository.url, commit.sha)
 
-        # Fill in commit statistics
-        if commit.total.nil?
-          gh_commit_details = GitHubService.find_commit_by_project_and_sha(project.gh_repo_url, commit.sha)
+            commit.total = gh_commit_details[:stats][:total]
+            commit.additions = gh_commit_details[:stats][:additions]
+            commit.deletions = gh_commit_details[:stats][:deletions]
 
-          commit.total = gh_commit_details[:stats][:total]
-          commit.additions = gh_commit_details[:stats][:additions]
-          commit.deletions = gh_commit_details[:stats][:deletions]
-
-          commit.save!
+            commit.save!
+          end
         end
       end
     end
@@ -91,7 +97,8 @@ namespace :github do
   task :sync_milestones => :environment do
     require 'github'
 
-    projects = Project.where(Project.arel_table[:gh_repo_url].not_eq(nil)).where(Project.arel_table[:gh_repo_url].not_eq(''))
+    # List of projects which have repositories
+    projects = Project.joins(:repositories)
 
     Rails.logger.debug "Pulling milestones for #{projects.count} GitHub-enabled project(s)."
 
@@ -114,7 +121,7 @@ namespace :github do
   # Syncs a single issue from GitHub to the local database
   def sync_issue(issue, project)
     return if issue.class == Array # avoid an odd 'moved permanently' issue ...
-    
+
     # Find or create the GH issue locally (DevBoard calls them 'tasks')
     task = project.tasks.find_by_gh_issue_number(issue[:number])
 
@@ -126,7 +133,7 @@ namespace :github do
     else
       Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
     end
-    
+
     task.title = issue[:title]
     task.details = issue[:body]
     task.completed_at = issue[:closed_at]
@@ -159,11 +166,13 @@ namespace :github do
         assignee.save!
       end
 
-      if task.new_record? || task.assignment.nil?
+      existing_assignment = task.assignments.find_by developer_account: assignee
+
+      if task.new_record? || !existing_assignment
         assignment = Assignment.new
         assignment.task = task
       else
-        assignment = task.assignment
+        assignment = existing_assignment
       end
 
       # assigned_at could be more accurately found in the issue 'events' stream
@@ -176,10 +185,10 @@ namespace :github do
       # If the assignment exists locally but not in GH, it has been unassigned so we'll delete ours
       assignment.destroy! if assignment
     end
-    
+
     if issue[:milestone]
       milestone = Milestone.find_by_gh_milestone_number(issue[:milestone][:number])
-      
+
       task.milestone = milestone
     end
 
@@ -187,7 +196,7 @@ namespace :github do
 
     task.save!
 
-    task.assignment.save! if task.assignment
+    assignment.save! if assignment
   end
 
   # Syncs a single issue from GitHub to the local database
@@ -208,7 +217,7 @@ namespace :github do
     else
       Rails.logger.debug "Updating existing milestone ##{gh_milestone[:number]} ('#{gh_milestone[:title]}') with GitHub."
     end
-    
+
     milestone.title = gh_milestone[:title]
     milestone.description = gh_milestone[:description]
     milestone.due_on = gh_milestone[:due_on]

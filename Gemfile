@@ -35,7 +35,7 @@ gem 'web-console', '~> 2.0', group: :development
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use AR Session Store as required by rubycas-client
-gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+gem 'activerecord-session_store', git: 'https://github.com/rails/activerecord-session_store'
 
 # Use Capistrano for deployment
 gem 'capistrano', '~> 3.5', require: false
@@ -82,3 +82,6 @@ gem 'js-routes'
 
 # For testing in Rails 5
 gem 'rails-controller-testing'
+
+# For Fontawsome icons
+gem 'font-awesome-sass'

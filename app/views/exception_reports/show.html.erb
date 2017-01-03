@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @exception_report.project_id %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @exception_report.subject %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @exception_report.body %>
+</p>
+
+<p>
+  <strong>Gh issue:</strong>
+  <%= @exception_report.gh_issue_id %>
+</p>
+
+<p>
+  <strong>Duplicate:</strong>
+  <%= @exception_report.duplicate %>
+</p>
+
+<%= link_to 'Edit', edit_exception_report_path(@exception_report) %> |
+<%= link_to 'Back', exception_reports_path %>

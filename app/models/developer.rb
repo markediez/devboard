@@ -25,6 +25,22 @@ class Developer < ActiveRecord::Base
     Commit.where developer_account_id: accounts.map{ |a| a.id }
   end
 
+  def assignments(only_open: false)
+    assignments = []
+
+    accounts.each do |account|
+      if only_open
+        account.assignments.each do |assignment|
+          assignments << assignment unless assignment.task.completed_at
+        end
+      else
+        assignments << account.assignments
+      end
+    end
+
+    return assignments.flatten
+  end
+
   protected
 
   # gh_username and gh_personal_token are optional but both must be present if either is specified
