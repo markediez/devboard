@@ -81,7 +81,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      # params.require(:project).permit(:name, :status, :began, :finished, :priority, :link, :description, :due, repositories_attributes: [new_repositories: [:gh_url, :_destroy] ])
+      params.require(:project).permit(:name, :status, :began, :finished, :priority, :link, :description, :due, repositories_attributes: [:id, :gh_url, :_destroy] )
 
       # TODO: Figure out how to white list everything in repositories_attributes
       # "everything" because on update repositories_attributes {"0" => "gh_url=> , _destory=>, id=>"  ... }
