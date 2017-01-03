@@ -11,7 +11,7 @@ class Task < ActiveRecord::Base
   belongs_to :repository
   belongs_to :milestone
 
-  accepts_nested_attributes_for :assignments, :reject_if => lambda { |a| a[:developer_id].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :assignments, :reject_if => lambda { |a| a[:developer_account_id].blank? }, :allow_destroy => true
 
   enum priority: [ :low_priority, :normal_priority, :high_priority ]
 
