@@ -289,71 +289,29 @@
             <div class="unassigned-tasks_header ">
                 <h5>Upcoming</h5>
             </div>
-            <div class="unassigned_section_task ipa-unassigned_task">
-                <div class="flex-row ">
-                    <div class="assignment_section_task-title ">
-                        <h5>ipa-client-angular</h5>
-                        <p>Shared activities</p>
-                    </div>
-                    <div class="assignment_section_task-selection ">
-                        <div class="task-selection_check-mark ">
-                            <input type="checkbox">
-                        </div>
-                        <div class="task-selection_github ">
-                            <a href="#"><i class="fa fa-github-alt " aria-hidden="true "></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="unassigned_section_task ipa-unassigned_task">
-                <div class="flex-row ">
-                    <div class="assignment_section_task-title ">
-                        <h5>ipa-client-angular</h5>
-                        <p>Shared activities</p>
-                    </div>
-                    <div class="assignment_section_task-selection ">
-                        <div class="task-selection_check-mark ">
-                            <input type="checkbox">
-                        </div>
-                        <div class="task-selection_github ">
-                            <a href="#"><i class="fa fa-github-alt " aria-hidden="true "></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="unassigned_section_task ipa-unassigned_task">
-                <div class="flex-row ">
-                    <div class="assignment_section_task-title ">
-                        <h5>ipa-client-angular</h5>
-                        <p>Shared activities</p>
-                    </div>
-                    <div class="assignment_section_task-selection ">
-                        <div class="task-selection_check-mark ">
-                            <input type="checkbox">
-                        </div>
-                        <div class="task-selection_github ">
-                            <a href="#"><i class="fa fa-github-alt " aria-hidden="true "></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="unassigned_section_task ipa-unassigned_task">
-                <div class="flex-row ">
-                    <div class="assignment_section_task-title ">
-                        <h5>ipa-client-angular</h5>
-                        <p>Shared activities</p>
-                    </div>
-                    <div class="assignment_section_task-selection ">
-                        <div class="task-selection_check-mark ">
-                            <input type="checkbox">
-                        </div>
-                        <div class="task-selection_github ">
-                            <a href="#"><i class="fa fa-github-alt " aria-hidden="true "></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+            <% @tasks.each do |task| %>
+              <div class="unassigned_section_task ipa-unassigned_task">
+                  <div class="flex-row ">
+                      <div class="assignment_section_task-title ">
+                          <h5><%= task.title %></h5>
+                          <p><%= task.details %></p>
+                      </div>
+                      <div class="assignment_section_task-selection ">
+                          <div class="task-selection_check-mark ">
+                              <input type="checkbox">
+                          </div>
+
+                          <% if task.repository.present? %>
+                            <div class="task-selection_github ">
+                              <%= link_to(raw('<i class="fa fa-github-alt " aria-hidden="true "></i>'), "http://github.com/" + task.repository.url, :target => "_blank") %>
+                            </div>
+                          <% end %>
+
+                      </div>
+                  </div>
+              </div>
+            <% end %>
         <!-- unassigned task sidebar ends -->
     </div>
 
