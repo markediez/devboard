@@ -49,7 +49,7 @@
                             </div>
                             <div class="assignment_section_task-selection">
                                 <div class="task-selection_check-mark">
-                                    <input type="checkbox" <%= task.completed_at? ? "checked" : "" %> >
+                                    <input type="checkbox" onclick="toggleTaskCompleted(this)" <%= task.completed_at? ? "checked" : "" %> >
                                 </div>
                                 <% if task.repository.present? %>
                                   <div class="task-selection_github">
@@ -62,11 +62,11 @@
                 <% end %>
                     <!-- Adding this part messes with the CSS -->
                     <!-- TODO: Fix the CSS so that developers and their task are aligned regardless of the height of the assignment section -->
-                    <!-- <div class="assignment_section_task empty-task flex-30 flex-row_center" data-toggle="modal" data-target="#add_task">
+                    <div class="assignment_section_task empty-task flex-20 flex-row_center" data-toggle="modal" data-target="#add_task">
                         <div class="flex-auto" style="align-self: center;">
                             <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
               <% end %>
             </div>
