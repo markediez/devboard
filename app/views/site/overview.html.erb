@@ -28,242 +28,47 @@
         </div>
         <div style="flex: 0 1 80%; display: flex;">
             <div class="developer-section">
+              <% @developers.each do |developer| %>
                 <div class="developer">
-                    <%= image_tag('lloyd.png', style: 'height: 35px;')%>
-                        <span class="developer_name"><strong>Lloyd Wheeler</strong></span>
+                  <%= gravatar_image_tag(developer.email, :alt => developer.name, :style => 'width: 35px; height: 35px; border-radius: 50%;')%>
+                  <span class="developer_name"><strong><%=developer.name%></strong></span>
                 </div>
-                <div class="developer">
-                    <%= image_tag('Chris.png', style: 'height: 35px;')%>
-                        <span class="developer_name"><strong>Christopher Thielen</strong></span>
-                </div>
-                <div class="developer">
-                    <%= image_tag('Obada.png', style: 'height: 35px;')%>
-                        <span class="developer_name"><strong>Obada Kadri</strong></span>
-                </div>
-                <div class="developer">
-                    <%= image_tag('Mark.png', style: 'height: 35px;')%>
-                        <span class="developer_name"><strong>Mark Diez</strong></span>
-                </div>
-                <div class="developer">
-                    <%= image_tag('Shang.png', style: 'height: 35px;')%>
-                        <span class="developer_name"><strong>Shang Lu</strong></span>
-                </div>
+              <% end %>
             </div>
 
             <div class="assignment">
-                <div class="assignment_section">
-                    <div class="assignment_section_task finished-task">
+              <% @developers.each do |developer| %>
+                <div class="assignment_section ">
+                    <% developer.assignments.each do |assignment| %>
+                    <% task = assignment.task %>
+                    <div class="assignment_section_task ipa-task flex-20">
                         <div class="flex-row">
                             <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
+                                <h5><%= task.project.name %></h5>
+                                <p><%= task.title %></p>
                             </div>
                             <div class="assignment_section_task-selection">
                                 <div class="task-selection_check-mark">
                                     <input type="checkbox">
                                 </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
+                                <% if task.repository.present? %>
+                                  <div class="task-selection_github">
+                                    <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), "http://github.com/" + task.repository.url  %>
+                                  </div>
+                                <% end %>
                             </div>
                         </div>
                     </div>
-                    <div class="assignment_section_task ipa-task">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assignment_section_task empty-task flex-30 flex-row_center" data-toggle="modal" data-target="#add_task">
+                <% end %>
+                    <!-- Adding this part messes with the CSS -->
+                    <!-- TODO: Fix the CSS so that developers and their task are aligned regardless of the height of the assignment section -->
+                    <!-- <div class="assignment_section_task empty-task flex-30 flex-row_center" data-toggle="modal" data-target="#add_task">
                         <div class="flex-auto" style="align-self: center;">
                             <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="assignment_section">
-                    <div class="assignment_section_task finished-task flex-70">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assignment_section_task ipa-task flex-30">
-                        <div class="flex-row ">
-                            <div class="assignment_section_task-title ">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection ">
-                                <div class="task-selection_check-mark ">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github ">
-                                    <i class="fa fa-github-alt " aria-hidden="true "></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="assignment_section ">
-                    <div class="assignment_section_task finished-task flex-20">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assignment_section_task finished-task flex-20">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assignment_section_task finished-task flex-30">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assignment_section_task ipa-task flex-30">
-                        <div class="flex-row ">
-                            <div class="assignment_section_task-title ">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection ">
-                                <div class="task-selection_check-mark ">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github ">
-                                    <i class="fa fa-github-alt " aria-hidden="true "></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="assignment_section">
-                    <div class="assignment_section_task finished-task flex-60">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assignment_section_task ipa-task flex-40">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="assignment_section ">
-                    <div class="assignment_section_task finished-task flex-60">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assignment_section_task finished-task flex-20">
-                        <div class="flex-row">
-                            <div class="assignment_section_task-title">
-                                <h5>ipa-client-angular</h5>
-                                <p>Shared activities</p>
-                            </div>
-                            <div class="assignment_section_task-selection">
-                                <div class="task-selection_check-mark">
-                                    <input type="checkbox">
-                                </div>
-                                <div class="task-selection_github">
-                                    <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="assignment_section_task empty-task flex-20 flex-row_center" data-toggle="modal" data-target="#add_task">
-                        <div class="flex-auto" style="align-self: center;">
-                            <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
-                        </div>
-                    </div>
-                </div>
-
+              <% end %>
             </div>
         </div>
         <!-- add new developer -->
@@ -294,8 +99,8 @@
               <div class="unassigned_section_task ipa-unassigned_task">
                   <div class="flex-row ">
                       <div class="assignment_section_task-title ">
-                          <h5><%= task.title %></h5>
-                          <p><%= task.details %></p>
+                          <h5><%= task.project.name %></h5>
+                          <p><%= task.title %></p>
                       </div>
                       <div class="assignment_section_task-selection ">
                           <div class="task-selection_check-mark ">
