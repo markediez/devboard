@@ -30,7 +30,7 @@ namespace :github do
 
         # Import issues (open & closed) from GitHub
         issues.each do |issue|
-          sync_issue(issue, project)
+          sync_issue(issue, project, repository)
         end
       end
     end
@@ -119,7 +119,7 @@ namespace :github do
   private
 
   # Syncs a single issue from GitHub to the local database
-  def sync_issue(issue, project)
+  def sync_issue(issue, project, repository)
     return if issue.class == Array # avoid an odd 'moved permanently' issue ...
 
     # Find or create the GH issue locally (DevBoard calls them 'tasks')
@@ -129,6 +129,7 @@ namespace :github do
       task = Task.new
       task.gh_issue_number = issue[:number]
       task.project = project
+      task.repository_id = repository.id
       Rails.logger.debug "Importing issue ##{issue[:number]} ('#{issue[:title]}') from GitHub."
     else
       Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
