@@ -26,53 +26,52 @@
       <h5 style="flex: 0 1 20%;">Developers</h5>
       <h5 style="flex: 0 1 80%;">Active Tasks</h5>
     </div>
-    <div style="flex: 0 1 80%; display: flex; flex-direction: column;">
-      <% @developers.each do |developer| %>
-      <div style="display: flex; flex-direction: row; flex: 0 1 80%;">
-        <div class="developer-section">
-          <div class="developer">
-            <%= gravatar_image_tag(developer.email, :alt => developer.name, :style => 'width: 35px; height: 35px; border-radius: 50%;')%>
-            <span class="developer_name"><strong><%=developer.name%></strong></span>
-          </div>
+    <div style="flex: 0 1 80%; display: flex;">
+      <div class="developer-section">
+        <% @developers.each do |developer| %>
+        <div class="developer">
+          <%= gravatar_image_tag(developer.email, :alt => developer.name, :style => 'width: 35px; height: 35px; border-radius: 50%;')%>
+          <span class="developer_name"><strong><%=developer.name%></strong></span>
         </div>
-
-        <div class="assignment">
-          <div class="assignment_section ">
-            <% developer.assignments.each do |assignment| %>
-            <% task = assignment.task %>
-            <div class="task assignment_section_task flex-20 <%= task.completed_at? ? "finished-task" : "ipa-task" %>">
-              <div class="flex-row">
-                <div class="assignment_section_task-title">
-                  <h5><%= task.project.name %></h5>
-                  <p><%= task.title %></p>
-                </div>
-                <div class="assignment_section_task-selection">
-                  <div class="task-selection_check-mark">
-                    <input type="checkbox" onclick="toggleTaskCompleted(this)" <%= task.completed_at? ? "checked" : "" %> >
-                  </div>
-                  <% if task.repository.present? %>
-                  <div class="task-selection_github">
-                    <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), "http://github.com/" + task.repository.url  %>
-                  </div>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-            <% end %>
-
-            <div class="assignment_section_task empty-task flex-20 flex-row_center" data-toggle="modal" data-target="#add_task">
-              <div class="flex-auto" style="align-self: center;">
-                <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <% end %>
       </div>
-      <% end %>
+
+      <div class="assignment">
+        <% @developers.each do |developer| %>
+        <div class="assignment_section ">
+          <% developer.assignments.each do |assignment| %>
+          <% task = assignment.task %>
+          <div class="task assignment_section_task flex-20 <%= task.completed_at? ? "finished-task" : "ipa-task" %>">
+            <div class="flex-row">
+              <div class="assignment_section_task-title">
+                <h5><%= task.project.name %></h5>
+                <p><%= task.title %></p>
+              </div>
+              <div class="assignment_section_task-selection">
+                <div class="task-selection_check-mark">
+                  <input type="checkbox" onclick="toggleTaskCompleted(this)" <%= task.completed_at? ? "checked" : "" %> >
+                </div>
+                <% if task.repository.present? %>
+                <div class="task-selection_github">
+                  <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), "http://github.com/" + task.repository.url  %>
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+          <!-- Adding this part messes with the CSS -->
+          <!-- TODO: Fix the CSS so that developers and their task are aligned regardless of the height of the assignment section -->
+          <div class="assignment_section_task empty-task flex-20 flex-row_center" data-toggle="modal" data-target="#add_task">
+            <div class="flex-auto" style="align-self: center;">
+              <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
     </div>
 
-    <!-- add new developer ends-->
     <!-- unassigned task sidebar -->
     <div class="unassigned-tasks flex-20">
       <div class="unassigned-tasks_header ">
@@ -103,12 +102,12 @@
       <% end %>
       <!-- unassigned task sidebar ends -->
     </div>
+
     <%= render 'site/modal_add_user' %>
 
     <%= render 'site/modal_add_task' %>
 
   </div>
-  <!-- test ends -->
 </div>
 <!-- add new developer -->
 <div class="flex-row">
@@ -127,3 +126,4 @@
     </div>
   </div>
 </div>
+<!-- add new developer ends-->
