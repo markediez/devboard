@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .unassigned-tasks {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
     flex-direction: column;
     overflow-y: auto;
     background-color: #F2F2F2;
