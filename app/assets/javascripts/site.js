@@ -3,7 +3,7 @@
  * @param el - The checkbox toggled
  */
 function toggleTaskCompleted(el) {
-  container = $(el).closest(".assignment_section_task")
+  container = $(el).closest(".task")
 
   // Gray out if the task is finished
   if( $("input", container).is(':checked') ) {
