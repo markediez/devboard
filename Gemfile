@@ -85,3 +85,6 @@ gem 'rails-controller-testing'
 
 # For Fontawsome icons
 gem 'font-awesome-sass'
+
+# For drag and drop
+gem 'jquery-ui-rails'
