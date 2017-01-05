@@ -11,10 +11,10 @@
  * @param association - model created
  * @param content - html to render
  */
-function add_fields(association, content) {
+function rails_nested_form_add_fields(association, content) {
   var new_id = new Date().getTime();
   var regexp = new RegExp("new_" + association, "g")
-  $(content).insertBefore(".add-field");
+  $(content.replace(regexp, new_id)).insertBefore(".add-field");
   return false;
 }
 
@@ -23,7 +23,7 @@ function add_fields(association, content) {
  * closest to the button / link clicked
  * @param link - the button / link clicked by user
  */
-function remove_fields(link) {
+function rails_nested_form_remove_fields(link) {
   $(link).prev('input[type=hidden]').val("true");
   $(link).closest('.fields').hide();
   return false;

@@ -1,15 +1,19 @@
 <div class="pull-right" style="padding-top: 20px;">
-    <div class="dropdown" style="float: left; padding-right: 10px;">
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-            <% [7, 14, 21, 28].each do |duration| %>
-                <li role="presentation">
-                    <a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= root_path() %>?duration=<%= duration %>">
-            Show <%= duration %> days
-                    </a>
-                </li>
-            <% end %>
-        </ul>
-    </div>
+  <div class="dropdown" style="float: left; padding-right: 10px;">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+      Show <%= @duration %> days
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <% [7, 14, 21, 28].each do |duration| %>
+      <li role="presentation">
+        <a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= root_path() %>?duration=<%= duration %>">
+          Show <%= duration %> days
+        </a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
 
 <header class="section-title">
@@ -336,11 +340,11 @@
 
                 </div>
             </div>
+          </div>
         </div>
     </div>
 
     <%= render 'site/modal_add_user' %>
 
         <%= render 'site/modal_add_task' %>
-
 </div>
