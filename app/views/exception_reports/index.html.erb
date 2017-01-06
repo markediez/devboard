@@ -2,36 +2,32 @@
 
 <h1>Exception Reports</h1>
 
-<table style="width:100%">
-  <thead>
-    <tr style="color: #fff; background-color: #373a3c;">
-      <th style="width:10%;">Project</th>
-      <th style="width:50%;">Subject</th>
-      <!-- <th>Body</th> -->
-      <!-- <th>Gh issue</th> -->
-      <th style="width:20%;">Assignee</th>
-      <th>Duplicate</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @exception_reports.each do |exception_report| %>
-      <tr>
-        <td><%= exception_report.project.name %></td>
-        <td><%= link_to exception_report.subject, exception_report %></td>
-        <!-- <td><%= exception_report.body %></td> -->
-        <!-- <td><%= exception_report.gh_issue_id %></td> -->
-        <td><%=  %></td>
-        <td><%= exception_report.duplicate %></td>
-        <!-- <td><%= link_to 'Show', exception_report %></td> -->
-        <!-- <td><%= link_to 'Edit', edit_exception_report_path(exception_report) %></td> -->
-        <td><%= link_to 'Destroy', exception_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="row" style="color: #fff; background-color: #373a3c; padding: 8px 0; margin-top: 8px; margin-bottom: 8px;">
+  <h5 class="col-md-2">Project</h5>
+  <h5 class="col-md-5">Subject</h5>
+  <h5 class="col-md-2">Assignee</h5>
+  <h5 class="col-md-3">Actions</h5>
+</div>
+<div class="row">
+  <% @exception_reports.each do |exception_report| %>
+  <div class="col-md-12" style="padding: 0; border-bottom: 1px solid #666; height:30px;">
+    <h5 class="col-md-2"><%= exception_report.project.name %></h5>
+    <h5 class="col-md-5"><%= link_to exception_report.subject, exception_report %></h5>
+    <h5 class="col-md-2">
+      <% if exception_report.task.present? %>
+        <% exception_report.task.assignments.each do |assignment| %>
+          <%= assignment.developer_account.developer_name %>
+          <%= "," unless assignment == exception_report.task.assignments.last %>
+        <% end %>
+      <% end %>
+    </h5>
+    <h5 class="col-md-3">
+      <%= link_to 'Destroy', exception_report, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </h5>
+  </div>
+  <% end %>
+</div>
 <br>
+<%= render 'site/modal_add_task' %>
 
 <%= link_to 'New Exception Report', new_exception_report_path %>
