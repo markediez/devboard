@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205181543) do
+ActiveRecord::Schema.define(version: 20170106192250) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20161205181543) do
     t.boolean  "duplicate"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "task_id"
   end
 
   create_table "meeting_notes", force: :cascade do |t|
