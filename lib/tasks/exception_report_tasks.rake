@@ -3,6 +3,7 @@ require 'rake'
 namespace :exception_report do
   desc 'Checks the exception reports mailbox for new exceptions.'
   task :check_mailbox do
+    Rails.logger = Logger.new(STDOUT)
     Rake::Task['environment'].invoke
 
     check_time_start = Time.now
