@@ -196,3 +196,23 @@
         margin: 0px;
     }
 }
+
+
+/* test css */
+.test-column-side {
+    float: left;
+    width: 20%;
+    background: pink;
+    height: 100%;
+    overflow: scroll;
+}
+
+.test-column-middle {
+    float: left;
+    width: 60%;
+    background: red;
+    height: 100%;
+    overflow: scroll;
+}
+
+/* test css ends*/

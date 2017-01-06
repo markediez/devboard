@@ -19,10 +19,9 @@
 <header class="section-title">
     <h3>Assignments</h3>
 </header>
-
 <div class="assignments-widget">
-    <div class="timeline">
-        <div class="developer-container col-md-3">
+    <div class="timeline" style="height: 100%;">
+        <div class="developer-container test-column-side">
             <div class="timeline-title">
                 <h5><strong>Developers</strong></h5>
             </div>
@@ -50,7 +49,7 @@
             </div>
         </div>
         <!-- assignment -->
-        <div class="assignment-container col-md-6">
+        <div class="assignment-container">
             <div class="timeline-title">
                 <h5><strong>Assigned Tasks</strong></h5>
             </div>
@@ -288,60 +287,9 @@
         </div>
         <!-- assignment -->
         <!-- upcoming -->
-        <div class="upcoming-assignment-container col-md-3">
-            <div class="upcoming-sidebar">
-                <div class="unassigned-tasks-header">
-                    <h5>Upcoming</h5>
-                </div>
-                <div class="unassigned-task">
-                    <div class="flex-row">
-                        <div class="assignment-section-task-title">
-                            <h5>ipa-client-angular</h5>
-                            <p>Shared activities</p>
-                        </div>
-                        <div class="assignment-section-task-selection">
-                            <div class="task-selection-check-mark">
-                                <input type="checkbox">
-                            </div>
-                            <div class="task-selection-github">
-                                <a href="#"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="assignment-section-task empty-task flex-row_center" data-toggle="modal" data-target="#add_task">
-                    <div class="flex-auto text-center">
-                        <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- upcoming ends -->
         <!-- pagination -->
     </div>
-    <div class="row">
-        <div class="col-md-2">
-            <button type="button" class="btn btn-info btn-add-user" data-toggle="modal" data-target="#addUserModal">+ New Developer</button>
-        </div>
-        <div class="pagination col-md-9">
-            <div class="col-md-3">
-                <div class="pagination-button">
-                    <a><i class="fa fa-arrow-left" aria-hidden="true"></i>Before</a>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="pagination-button">
-                    Today
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="pagination-button">
-                    <a>Future<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-
-                </div>
-            </div>
-          </div>
-        </div>
     </div>
 
     <%= render 'site/modal_add_user' %>
