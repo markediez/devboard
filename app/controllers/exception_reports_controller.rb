@@ -4,6 +4,7 @@ class ExceptionReportsController < ApplicationController
   # GET /exception_reports
   def index
     @exception_reports = ExceptionReport.all
+    @projects = Project.all
   end
 
   # GET /exception_reports/1
@@ -53,6 +54,6 @@ class ExceptionReportsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def exception_report_params
-      params.require(:exception_report).permit(:project_id, :subject, :body, :gh_issue_id, :duplicate)
+      params.require(:exception_report).permit(:project_id, :subject, :body, :gh_issue_id, :duplicate, :exception_from_email_id)
     end
 end
