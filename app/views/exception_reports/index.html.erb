@@ -2,18 +2,18 @@
 
 <h1>Exception Reports</h1>
 
-<div class="row" style="color: #fff; background-color: #373a3c; padding: 8px 0; margin-top: 8px; margin-bottom: 8px;">
+<div class="table-head">
   <h5 class="col-md-2">Project</h5>
   <h5 class="col-md-5">Subject</h5>
   <h5 class="col-md-2">Assignee</h5>
   <h5 class="col-md-3">Actions</h5>
 </div>
-<div class="row">
+<div class="table-content">
   <% @exception_reports.each do |exception_report| %>
-  <div class="col-md-12" style="padding: 0; border-bottom: 1px solid #666; height:30px;">
-    <h5 class="col-md-2"><%= exception_report.project.name %></h5>
-    <h5 class="col-md-5"><%= link_to exception_report.subject, exception_report %></h5>
-    <h5 class="col-md-2">
+  <div class="table-row">
+    <h5 class="col-md-2 table-cell"><%= exception_report.project.name %></h5>
+    <h5 class="col-md-5 table-cell"><%= link_to exception_report.subject, exception_report %></h5>
+    <h5 class="col-md-2 table-cell">
       <% if exception_report.task.present? %>
         <% exception_report.task.assignments.each do |assignment| %>
           <%= assignment.developer_account.developer_name %>
@@ -21,7 +21,7 @@
         <% end %>
       <% end %>
     </h5>
-    <h5 class="col-md-3">
+    <h5 class="col-md-3 table-cell">
       <%= link_to 'Destroy', exception_report, method: :delete, data: { confirm: 'Are you sure?' } %>
     </h5>
   </div>

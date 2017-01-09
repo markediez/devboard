@@ -1,0 +1,33 @@
+$table-head-bg: #373A3C;
+$table-head-color: #FFFFFF;
+$table-row-divider: 1px solid #666;
+$table-row-height: 30px;
+
+.table-head {
+  display: flex;
+  width: 100%;
+  background-color: $table-head-bg;
+  color: $table-head-color;
+  padding: 8px 0;
+  margin-top: 8px;
+}
+
+.table-content {
+  width: 100%;
+  padding:0;
+
+  .table-row {
+    display: flex;
+    width: 100%;
+    padding:0;
+    border-bottom: $table-row-divider;
+    height: $table-row-height;
+
+    .table-cell {
+      align-self: center;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
