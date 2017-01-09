@@ -1,0 +1,2 @@
+class ExceptionFromEmail < ApplicationRecord
+end
