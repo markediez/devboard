@@ -11,7 +11,9 @@
 <div class="table-content">
   <% @exception_reports.each do |exception_report| %>
   <div class="table-row">
-    <h5 class="col-md-2 table-cell"><%= exception_report.project.name %></h5>
+    <h5 class="col-md-2 table-cell">
+      <%= exception_report.project.present? ? exception_report.project.name : "" %>
+    </h5>
     <h5 class="col-md-5 table-cell"><%= link_to exception_report.subject, exception_report %></h5>
     <h5 class="col-md-2 table-cell">
       <% if exception_report.task.present? %>

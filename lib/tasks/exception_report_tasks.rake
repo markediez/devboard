@@ -38,22 +38,24 @@ namespace :exception_report do
       body = mail.body.decoded
       from = mail.from[0]
 
-      p = Project.find_by(exception_email_from: from)
-      if p
-        er = ExceptionReport.new
-        er.project = p
-        er.subject = subject
-        er.body = body
-        er.duplicate = false
-        er.save!
-
-        # Delete the message
-        imap.copy(id, 'Deleted Items')
-        imap.store(id, "+FLAGS", [:Deleted])
-      else
-        Rails.logger.warn "Could not find project matching exception address: #{from}. Skipping ..."
-        next
+      efe = ExceptionFromEmail.find_by(email: from)
+      unless efe
+        Rails.logger.warn "Could not find project matching exception address: #{from}. Creating ..."
+        efe = ExceptionFromEmail.new
+        efe.email = from
+        efe.save!
       end
+
+      er = ExceptionReport.new
+      er.subject = subject
+      er.body = body
+      er.duplicate = false
+      er.exception_from_email = efe
+      er.save!
+
+      # Delete the message
+      imap.copy(id, 'Deleted Items')
+      imap.store(id, "+FLAGS", [:Deleted])
     end
 
     imap.expunge
