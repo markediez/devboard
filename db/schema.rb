@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109195246) do
+ActiveRecord::Schema.define(version: 20170109210911) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(version: 20170109195246) do
   end
 
   create_table "exception_reports", force: :cascade do |t|
-    t.integer  "project_id"
     t.string   "subject",                 null: false
     t.text     "body",                    null: false
     t.integer  "gh_issue_id"
