@@ -44,7 +44,7 @@
           <div class="task assignment_section_task flex-20 <%= task.completed_at? ? "finished-task" : "ipa-task" %>">
             <div class="flex-row">
               <div class="assignment_section_task-title">
-                <h5><%= task.project.name %></h5>
+                <h5><%= task.project.present? ? task.project.name : "< No Project >" %></h5>
                 <p><%= task.title %></p>
               </div>
               <div class="assignment_section_task-selection">
@@ -82,7 +82,7 @@
       <div class="task unassigned_section_task ipa-unassigned_task">
         <div class="flex-row ">
           <div class="assignment_section_task-title ">
-            <h5><%= task.project.name %></h5>
+            <h5><%= task.project.present? ? task.project.name : "< No Project >" %></h5>
             <p><%= task.title %></p>
           </div>
           <div class="assignment_section_task-selection ">
