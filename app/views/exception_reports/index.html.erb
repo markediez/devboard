@@ -26,9 +26,20 @@
           <%= assignment.developer_account.developer_name %>
           <%= "," unless assignment == exception_report.task.assignments.last %>
         <% end %>
+        <%= link_to "+", exception_report.task %>
+      <% else %>
+        <%= form_for :new_task, :url => 'exception_reports/new_task' do |form| %>
+          <%= form.hidden_field :title, :value => exception_report.subject %>
+          <%= form.hidden_field :details, :value => exception_report.body %>
+          <%= form.hidden_field :id, :value => exception_report.id %>
+          <%= form.submit "Convert To Task" %>
+        <% end %>
       <% end %>
     </h5>
     <h5 class="col-md-3 table-cell">
+      <%= form_for exception_report do |f| %>
+        <%= f.check_box :duplicate, :onChange => 'javascript:this.form.submit();' %>
+      <% end %>
       <%= link_to 'Destroy', exception_report, method: :delete, data: { confirm: 'Are you sure?' } %>
     </h5>
   </div>
