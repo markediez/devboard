@@ -28,7 +28,7 @@
           <%= assignment.developer_account.developer_name %>
           <%= "," unless assignment == exception_report.task.assignments.last %>
         <% end %>
-        <%= link_to "+", exception_report.task %>
+        <%= link_to "+", edit_task_path(exception_report.task) %>
       <% else %>
         <%= form_for :new_task, :url => 'exception_reports/new_task' do |form| %>
           <%= form.hidden_field :title, :value => exception_report.subject %>
