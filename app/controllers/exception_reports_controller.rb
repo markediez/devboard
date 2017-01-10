@@ -34,13 +34,16 @@ class ExceptionReportsController < ApplicationController
 
   # POST /exception_report/new_task
   def new_task
+    # Create a task with the report's details
     @task = Task.new(:title => params[:new_task][:title], :details => params[:new_task][:details])
     @task.save!
 
+    # Reference the task created for the report
     @exception_report = ExceptionReport.where(:id => params[:new_task][:id]).first
     @exception_report.task = @task
     @exception_report.save!
 
+    # Flash notice
     redirect_to exception_reports_url, notice: 'Exception report was successfully updated.'
   end
 
