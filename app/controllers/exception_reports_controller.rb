@@ -5,6 +5,11 @@ class ExceptionReportsController < ApplicationController
   def index
     @exception_reports = ExceptionReport.all
     @projects = Project.all
+
+    # @test = []
+    # @exception_reports.each do |er|
+    #   @test << er.build_exception_from_email
+    # end
   end
 
   # GET /exception_reports/1
@@ -34,7 +39,7 @@ class ExceptionReportsController < ApplicationController
   # PATCH/PUT /exception_reports/1
   def update
     if @exception_report.update(exception_report_params)
-      redirect_to @exception_report, notice: 'Exception report was successfully updated.'
+      redirect_to exception_reports_url, notice: 'Exception report was successfully updated.'
     else
       render :edit
     end
@@ -54,6 +59,6 @@ class ExceptionReportsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def exception_report_params
-      params.require(:exception_report).permit(:project_id, :subject, :body, :gh_issue_id, :duplicate, :exception_from_email_id)
+      params.require(:exception_report).permit(:project_id, :subject, :body, :gh_issue_id, :duplicate, exception_from_email_attributes: [:id, :project_id])
     end
 end

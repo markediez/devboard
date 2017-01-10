@@ -10,12 +10,14 @@
 </div>
 <div class="table-content">
   <% @exception_reports.each do |exception_report| %>
+
   <div class="table-row">
     <h5 class="col-md-2 table-cell">
       <%= form_for exception_report do |f| %>
-        <%= f.select("exception_from_email_id", @projects.collect {|p| [ p.name, p.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %>
+        <%= f.fields_for :exception_from_email do |builder| %>
+          <%= builder.select("project_id", @projects.collect {|p| [ p.name, p.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %>
+        <% end %>
       <% end %>
-      <%= exception_report.project.present? ? exception_report.project.name : "" %>
     </h5>
     <h5 class="col-md-5 table-cell"><%= link_to exception_report.subject, exception_report %></h5>
     <h5 class="col-md-2 table-cell">
