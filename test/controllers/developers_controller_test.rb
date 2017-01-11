@@ -29,10 +29,10 @@ class DevelopersControllerTest < ActionController::TestCase
     assert_redirected_to developer_path(assigns(:developer))
   end
 
-  test "should show developer" do
-    get :show, params: { id: @developer }
-    assert_response :success
-  end
+  #test "should show developer" do
+  #  get :show, params: { id: @developer }
+  #  assert_response :success
+  #end
 
   test "should get edit" do
     get :edit, params: { id: @developer }
