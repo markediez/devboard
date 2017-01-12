@@ -4,50 +4,52 @@
 
 <p id="notice"><%= notice %></p>
 
-<div class="table-head">
-  <h5 class="col-md-2"><%= link_to "Project", "/exception_reports/sort_by?"%></h5>
-  <h5 class="col-md-5">Subject</h5>
-  <h5 class="col-md-2">Assignee</h5>
-  <h5 class="col-md-3">Actions</h5>
-</div>
-<div class="table-content">
-  <% @exception_reports.each do |exception_report| %>
-
-  <div class="table-row">
-    <h5 class="col-md-2 table-cell">
-      <%= form_for exception_report do |f| %>
-        <%= f.fields_for :exception_from_email do |builder| %>
-          <%= builder.select("project_id", @projects.collect {|p| [ p.name, p.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %>
-        <% end %>
-      <% end %>
-    </h5>
-    <h5 class="col-md-5 table-cell"><%= link_to exception_report.subject, exception_report %></h5>
-    <h5 class="col-md-2 table-cell">
-      <% if exception_report.task.present? %>
-        <% exception_report.task.assignments.each do |assignment| %>
-          <%= assignment.developer_account.developer_name %>
-          <%= "," unless assignment == exception_report.task.assignments.last %>
-        <% end %>
-        <%= link_to "+", edit_task_path(exception_report.task) %>
-      <% else %>
-        <%= form_for :new_task, :url => 'exception_reports/new_task' do |form| %>
-          <%= form.hidden_field :title, :value => exception_report.subject %>
-          <%= form.hidden_field :details, :value => exception_report.body %>
-          <%= form.hidden_field :id, :value => exception_report.id %>
-          <%= form.submit "Convert To Task" %>
-        <% end %>
-      <% end %>
-    </h5>
-    <h5 class="col-md-3 table-cell">
-      <%= form_for exception_report do |f| %>
-        <%= f.check_box :duplicate, :onChange => 'javascript:this.form.submit();' %>
-      <% end %>
-      <%= link_to 'Destroy', exception_report, method: :delete, data: { confirm: 'Are you sure?' } %>
-    </h5>
+<section>
+  <div class="table-head">
+    <h5 class="col-md-2">Project</h5>
+    <h5 class="col-md-5">Subject</h5>
+    <h5 class="col-md-2">Assignee</h5>
+    <h5 class="col-md-3">Actions</h5>
   </div>
-  <% end %>
-</div>
-<br>
-<%= render 'site/modal_add_task' %>
+  <div class="table-content">
+    <% @exception_reports.each do |exception_report| %>
 
-<%= link_to 'New Exception Report', new_exception_report_path %>
+    <div class="table-row">
+      <h5 class="col-md-2 table-cell">
+        <%= form_for exception_report do |f| %>
+          <%= f.fields_for :exception_from_email do |builder| %>
+            <%= builder.select("project_id", @projects.collect {|p| [ p.name, p.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %>
+          <% end %>
+        <% end %>
+      </h5>
+      <h5 class="col-md-5 table-cell"><%= link_to exception_report.subject, exception_report %></h5>
+      <h5 class="col-md-2 table-cell">
+        <% if exception_report.task.present? %>
+          <% exception_report.task.assignments.each do |assignment| %>
+            <%= assignment.developer_account.developer_name %>
+            <%= "," unless assignment == exception_report.task.assignments.last %>
+          <% end %>
+          <%= link_to "+", edit_task_path(exception_report.task) %>
+        <% else %>
+          <%= form_for :new_task, :url => 'exception_reports/new_task' do |form| %>
+            <%= form.hidden_field :title, :value => exception_report.subject %>
+            <%= form.hidden_field :details, :value => exception_report.body %>
+            <%= form.hidden_field :id, :value => exception_report.id %>
+            <%= form.submit "Convert To Task" %>
+          <% end %>
+        <% end %>
+      </h5>
+      <h5 class="col-md-3 table-cell">
+        <%= form_for exception_report do |f| %>
+          <%= f.check_box :duplicate, :onChange => 'javascript:this.form.submit();' %>
+        <% end %>
+        <%= link_to 'Destroy', exception_report, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </h5>
+    </div>
+    <% end %>
+  </div>
+  <br>
+  <%= render 'site/modal_add_task' %>
+
+  <%= link_to 'New Exception Report', new_exception_report_path %>
+</section>
