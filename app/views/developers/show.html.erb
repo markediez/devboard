@@ -1,211 +1,240 @@
-<div class="pull-right" style="padding-top: 20px;">
-
-  <div class="dropdown" style="float: left; padding-right: 10px;">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-      Show <%= @duration %> weeks
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <% [12, 24, 48, 96].each do |duration| %>
-      <li role="presentation"><a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= developer_path(@developer) %>?duration=<%= duration %>">Show <%= duration %> weeks</a></li>
-      <% end %>
-    </ul>
-  </div>
-
+<div class="header-btn-right">
   <%= link_to 'Edit', edit_developer_path(@developer), :class => 'btn btn-default' %>
 </div>
 
-<%= gravatar_image_tag(@developer.email, :alt => @developer.name, :style => 'border-radius: 50%; float: left; margin-right: 1.0em; margin-top: 1.0em;') %> <h1><%= @developer.name %><br />
-<small><a href="mailto:<%= @developer.email %>"><%= @developer.email %></a> (<%= @developer.loginid %>)</small>
-</h1>
+<header class="section-title">
+  <h3><%= @developer.name %></h3>
+</header>
 
-<style text="text/css">
-  #progress {
-    position: relative;
-    padding: 3px;
-  }
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#summary" aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+  <li role="presentation"><a href="#commits" aria-controls="profile" role="tab" data-toggle="tab">Commits</a></li>
+  <li role="presentation"><a href="#assignments" aria-controls="profile" role="tab" data-toggle="tab">Assignments</a></li>
+  <li role="presentation"><a href="#calendar" aria-controls="settings" role="tab" data-toggle="tab">Calendar</a></li>
+</ul>
 
-  #percent {
-    position: absolute;
-  }
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="summary">
+    <section>
+    <div class="pull-right" style="padding-top: 20px;">
 
-  #bar {
-    height: 20px;
-    background-color: rgba(151,187,205,0.4);
-  }
-</style>
-
-
-<div id="activity-graphs" class="carousel slide" data-ride="carousel" data-interval="false">
-  <div class="carousel-inner" role="listbox" style="height: 120%;">
-    <div class="item active">
-      <div class="row">
-        <div class="col-xs-8">
-          <h3 class="sub-header">Commits Per Week</h3>
-          <div>
-        		<canvas id="commits_canvas" height="175" width="500"></canvas>
-          </div>
-        </div>
-
-        <div class="col-xs-4">
-          <h3 class="sub-header">Commits By Project</h3>
-          <ul style="list-style-type: none; padding: 0; margin: 0;">
-            <% @recent_commits_by_project.each do |project| %>
-            <li style="padding: 0; margin: 0;">
-              <div id="progress">
-                <span id="percent"><%= project[0] %> (<%= project[1] %>)</span>
-                <div id="bar" style="width: <%= ((project[1].to_f / @total_commit_count.to_f) * 100.0).to_i %>%"></div>
-              </div>
-            </li>
-            <% end %>
-            <li style="padding: 0; margin: 0;">
-              <div style="text-align: center;">
-                <span><b>Total</b> (<%= @total_commit_count %>)</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div> <!-- .row -->
+      <div class="dropdown" style="float: left; padding-right: 10px;">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+          Show <%= @duration %> weeks
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          <% [12, 24, 48, 96].each do |duration| %>
+          <li role="presentation"><a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= developer_path(@developer) %>?duration=<%= duration %>">Show <%= duration %> weeks</a></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-    <div class="item">
-      <div class="row">
-        <div class="col-xs-8">
-          <h3 class="sub-header">Lines Per Week</h3>
-          <div>
-        		<canvas id="lines_canvas" height="175" width="500"></canvas>
-          </div>
-        </div>
 
-        <div class="col-xs-4">
-          <h3 class="sub-header">Lines By Project</h3>
-          <ul style="list-style-type: none; padding: 0; margin: 0;">
-            <% @recent_lines_by_project.each do |project| %>
-            <li style="padding: 0; margin: 0;">
-              <div id="progress">
-                <span id="percent"><%= project[0] %> (<%= project[1] %>)</span>
-                <div id="bar" style="width: <%= ((project[1].to_f / @total_commit_count.to_f) * 100.0).to_i %>%"></div>
+    <%= gravatar_image_tag(@developer.email, :alt => @developer.name, :style => 'border-radius: 50%; float: left; margin-right: 1.0em; margin-top: 1.0em;') %>
+    <h1>
+      <%= @developer.name %><br />
+      <small><a href="mailto:<%= @developer.email %>"><%= @developer.email %></a> (<%= @developer.loginid %>)</small>
+    </h1>
+
+    <style text="text/css">
+      #progress {
+        position: relative;
+        padding: 3px;
+      }
+
+      #percent {
+        position: absolute;
+      }
+
+      #bar {
+        height: 20px;
+        background-color: rgba(151,187,205,0.4);
+      }
+    </style>
+
+
+    <div id="activity-graphs" class="carousel slide" data-ride="carousel" data-interval="false">
+      <div class="carousel-inner" role="listbox" style="height: 120%;">
+        <div class="item active">
+          <div class="row">
+            <div class="col-xs-8">
+              <h3 class="sub-header">Commits Per Week</h3>
+              <div>
+                <canvas id="commits_canvas" height="175" width="500"></canvas>
               </div>
-            </li>
-            <% end %>
-            <li style="padding: 0; margin: 0;">
-              <div style="text-align: center;">
-                <span><b>Total</b> (<%= @total_commit_count %>)</span>
-              </div>
-            </li>
-          </ul>
+            </div>
+
+            <div class="col-xs-4">
+              <h3 class="sub-header">Commits By Project</h3>
+              <ul style="list-style-type: none; padding: 0; margin: 0;">
+                <% @recent_commits_by_project.each do |project| %>
+                <li style="padding: 0; margin: 0;">
+                  <div id="progress">
+                    <span id="percent"><%= project[0] %> (<%= project[1] %>)</span>
+                    <div id="bar" style="width: <%= ((project[1].to_f / @total_commit_count.to_f) * 100.0).to_i %>%"></div>
+                  </div>
+                </li>
+                <% end %>
+                <li style="padding: 0; margin: 0;">
+                  <div style="text-align: center;">
+                    <span><b>Total</b> (<%= @total_commit_count %>)</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div> <!-- .row -->
         </div>
-      </div> <!-- .row -->
+        <div class="item">
+          <div class="row">
+            <div class="col-xs-8">
+              <h3 class="sub-header">Lines Per Week</h3>
+              <div>
+                <canvas id="lines_canvas" height="175" width="500"></canvas>
+              </div>
+            </div>
+
+            <div class="col-xs-4">
+              <h3 class="sub-header">Lines By Project</h3>
+              <ul style="list-style-type: none; padding: 0; margin: 0;">
+                <% @recent_lines_by_project.each do |project| %>
+                <li style="padding: 0; margin: 0;">
+                  <div id="progress">
+                    <span id="percent"><%= project[0] %> (<%= project[1] %>)</span>
+                    <div id="bar" style="width: <%= ((project[1].to_f / @total_commit_count.to_f) * 100.0).to_i %>%"></div>
+                  </div>
+                </li>
+                <% end %>
+                <li style="padding: 0; margin: 0;">
+                  <div style="text-align: center;">
+                    <span><b>Total</b> (<%= @total_commit_count %>)</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div> <!-- .row -->
+        </div>
+      </div>
+
+      <div style="text-align: center;">
+        <a href="#" data-target="#activity-graphs" data-slide-to="0" class="active">By Commits</a> | <a href="#" data-target="#activity-graphs" data-slide-to="1">By Lines</a>
+      </div>
     </div>
+
+    <script type="text/javascript">
+      var commitChartData = {
+          labels : [
+            <%= @recent_commits_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
+          ],
+          datasets : [
+            {
+              label: "Commits",
+              fillColor: "rgba(151,187,205,0.2)",
+              strokeColor: "rgba(151,187,205,1)",
+              pointColor: "rgba(151,187,205,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(151,187,205,1)",
+              data : [<%= @recent_commits_graph.map{ |timestamp, commits| commits }.join(",") %>]
+            }
+          ]
+        }
+
+      var lineChartData = {
+          labels : [
+            <%= @recent_lines_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
+          ],
+          datasets : [
+            {
+              label: "Commits",
+              fillColor: "rgba(151,187,205,0.2)",
+              strokeColor: "rgba(151,187,205,1)",
+              pointColor: "rgba(151,187,205,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(151,187,205,1)",
+              data : [<%= @recent_lines_graph.map{ |timestamp, lines| lines }.join(",") %>]
+            }
+          ]
+        }
+
+        ready = function() {
+          var commits_ctx = document.getElementById("commits_canvas").getContext("2d");
+
+          window.commitsChart = new Chart(commits_ctx).Line(commitChartData, {
+            responsive: true
+          });
+
+          var lines_ctx = document.getElementById("lines_canvas").getContext("2d");
+
+          window.linesChart = new Chart(lines_ctx).Line(lineChartData, {
+            responsive: true
+          });
+        };
+
+        $(document).ready(ready);
+        $(document).on('page:load', ready);
+
+        $('#activity-graphs').on('slid.bs.carousel', function () {
+          $("#commits_canvas").width(500).height(175);
+          $("#lines_canvas").width(500).height(175);
+          ready();
+        });
+    </script>
+    </section>
+  </div> <!-- #summary -->
+
+  <div role="tabpanel" class="tab-pane" id="commits">
+    <section>
+      <div class="table-responsive">
+        <table class="table" style="margin-top: 15px;">
+          <thead>
+            <tr style="color: #fff; background-color: #373a3c;">
+              <th>When</th>
+              <th>Project</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @commits.each do |commit| %>
+            <tr>
+              <td><%= time_ago_in_words(commit.committed_at) %> ago</td>
+              <td><%= commit.project.name %></td>
+              <td><%= commit.message %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
-
-  <div style="text-align: center;">
-    <a href="#" data-target="#activity-graphs" data-slide-to="0" class="active">By Commits</a> | <a href="#" data-target="#activity-graphs" data-slide-to="1">By Lines</a>
+  <div role="tabpanel" class="tab-pane" id="assignments">
+    <section>
+      <div class="table-responsive">
+        <table class="table" style="margin-top: 15px;">
+          <thead>
+            <tr style="color: #fff; background-color: #373a3c;">
+              <th>Title</th>
+              <th>Project</th>
+              <th>Days Active</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @assignments.each do |assignment| %>
+            <tr>
+              <td><%= link_to assignment.task.title, assignment.task %></td>
+              <td><%= assignment.task.project.name if assignment.task.project.present? %></td>
+              <td><%= assignment.assigned_at.nil? ? "Unknown" : time_ago_in_words(assignment.assigned_at) + " ago" %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
-</div>
-
-<script type="text/javascript">
-  var commitChartData = {
-			labels : [
-        <%= @recent_commits_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
-      ],
-			datasets : [
-				{
-					label: "Commits",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data : [<%= @recent_commits_graph.map{ |timestamp, commits| commits }.join(",") %>]
-				}
-			]
-		}
-
-  var lineChartData = {
-			labels : [
-        <%= @recent_lines_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
-      ],
-			datasets : [
-				{
-					label: "Commits",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data : [<%= @recent_lines_graph.map{ |timestamp, lines| lines }.join(",") %>]
-				}
-			]
-		}
-
-    ready = function() {
-  		var commits_ctx = document.getElementById("commits_canvas").getContext("2d");
-
-  		window.commitsChart = new Chart(commits_ctx).Line(commitChartData, {
-  			responsive: true
-  		});
-
-  		var lines_ctx = document.getElementById("lines_canvas").getContext("2d");
-
-  		window.linesChart = new Chart(lines_ctx).Line(lineChartData, {
-  			responsive: true
-  		});
-  	};
-
-    $(document).ready(ready);
-    $(document).on('page:load', ready);
-
-    $('#activity-graphs').on('slid.bs.carousel', function () {
-      $("#commits_canvas").width(500).height(175);
-      $("#lines_canvas").width(500).height(175);
-      ready();
-    });
-</script>
-
-<h3 class="sub-header">Assignments (<%= @assignments.count %>)</h3>
-
-<div class="table-responsive">
-<table class="table table-striped table-condensed">
-  <thead>
-    <tr>
-      <th class="col-xs-8">Title</th>
-      <th class="col-xs-2">Project</th>
-      <th class="col-xs-2">Days Active</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @assignments.each do |assignment| %>
-    <tr>
-      <td><%= link_to assignment.task.title, assignment.task %></td>
-      <td><%= assignment.task.project.name if assignment.task.project.present? %></td>
-      <td><%= assignment.assigned_at.nil? ? "Unknown" : time_ago_in_words(assignment.assigned_at) + " ago" %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-</div>
-
-<h3 class="sub-header">Commits (<%= @duration %> weeks)</h3>
-
-<div class="table-responsive">
-<table class="table table-striped table-condensed">
-  <thead>
-    <tr>
-      <th class="col-xs-2">When</th>
-      <th class="col-xs-2">Project</th>
-      <th class="col-xs-8">Message</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @commits.each do |commit| %>
-    <tr>
-      <td><%= time_ago_in_words(commit.committed_at) %> ago</td>
-      <td><%= commit.project.name %></td>
-      <td><%= commit.message %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div role="tabpanel" class="tab-pane" id="calendar">
+    <section>
+      Calendar goes here
+    </section>
+  </div>
 </div>
