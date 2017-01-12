@@ -70,6 +70,6 @@ class ExceptionReportsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def exception_report_params
-      params.require(:exception_report).permit(:project_id, :subject, :body, :gh_issue_id, :duplicate, exception_from_email_attributes: [:id, :project_id], new_task: [:title, :details, :id])
+      params.require(:exception_report).permit(:project_id, :subject, :body, :gh_issue_id, :duplicated_id, exception_from_email_attributes: [:id, :project_id], new_task: [:title, :details, :id])
     end
 end

@@ -1,6 +1,7 @@
 $(document).ready ->
-  $(".notice, .notice-confirm").hide()
+  $(".notice-regular, .notice-confirm").hide()
 
+  # Set Event Listeners
   $(".cb-email").on "click", (e) ->
     toggleRow(this)
 
@@ -31,8 +32,8 @@ toggleRow = (el) ->
 # Deletes an exception report
 # id = exception report id to delete
 deleteMessage = (id) ->
-  $.ajax
-    url: window.location.href + "/#{id}"
+  $.post
+    url: "/exception_reports/#{id}"
     method: "DELETE"
     success: (data, status, xhr) ->
       $('[data-exception-report-id="' + id + '"]').hide(500)
@@ -42,13 +43,15 @@ deleteMessage = (id) ->
       console.log "something went wrong"
 
 
+# Briefly flashes a message
 flashMessage = (type, msg) ->
-  $(".notice").fadeIn(400)
-  $(".notice span").html(msg)
+  $(".notice-regular").fadeIn(400)
+  $(".notice-regular span").html(msg)
   setTimeout ( ->
-    $(".notice").fadeOut(400)
+    $(".notice-regular").fadeOut(400)
   ), 1500
 
+# Changes the table styles and event actions for specifying the original exception report
 letUserSelectOriginal = ->
   $(".notice-confirm").fadeIn(400)
   $("input").attr("disabled", "true")
@@ -60,16 +63,24 @@ letUserSelectOriginal = ->
 
     $("input:checked.cb-email").each ->
       duplicateId = $(this).closest(".table-row").data("exception-report-id")
-      console.log "#{duplicateId} ----> #{originalId}"
-      $('[data-exception-report-id="' + duplicateId + '"]').fadeOut(500)
-      # $.ajax
-      #   url: window.location.href + "/#{duplicateId}"
-      #   method: "PATCH"
-      #   success: (data, status, xhr) ->
-      #     $('[data-exception-report-id="' + duplicateId + '"]').fadeOut(500)
+
+      # Update exception report and remove from DOM
+      $.post
+        url: "/exception_reports/#{duplicateId}"
+        dataType: "script"
+        contentType: 'application/json'
+        method: "PUT"
+        data: JSON.stringify(
+          "_method": 'put'
+          "exception_report":
+            "duplicated_id": originalId
+        )
+        success: (data, status, xhr) ->
+          $('[data-exception-report-id="' + duplicateId + '"]').fadeOut(500)
 
     revert()
 
+# Reverts the page back to its original state
 revert = ->
   $(".notice-confirm").fadeOut(400)
   $("input").removeAttr("disabled")

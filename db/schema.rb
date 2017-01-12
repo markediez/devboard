@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112203800) do
+ActiveRecord::Schema.define(version: 20170112225920) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20170112203800) do
     t.string   "subject",                 null: false
     t.text     "body",                    null: false
     t.integer  "gh_issue_id"
-    t.integer  "original_id"
+    t.integer  "duplicated_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "task_id"
