@@ -53,9 +53,11 @@ namespace :exception_report do
       er.exception_from_email = efe
       er.save!
 
-      # Delete the message
-      imap.copy(id, 'Deleted Items')
-      imap.store(id, "+FLAGS", [:Deleted])
+      # Delete the message on production
+      if Rails.env == "production"
+        imap.copy(id, 'Deleted Items')
+        imap.store(id, "+FLAGS", [:Deleted])
+      end
     end
 
     imap.expunge
