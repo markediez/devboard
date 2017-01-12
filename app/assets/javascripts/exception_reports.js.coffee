@@ -18,11 +18,12 @@ toggleRow = (el) ->
 # Deletes an exception report
 # id = exception report id to delete
 deleteMessage = (id) ->
-  console.log "Deleting " + id
   $.ajax
     url: window.location.href + "/#{id}"
     method: "DELETE"
     success: (data, status, xhr) ->
       $('[data-exception-report-id="' + id + '"]').hide(500)
     error: (data, status, xhr) ->
+      # Should send exception email?
+      # Should flash?
       console.log "something went wrong"
