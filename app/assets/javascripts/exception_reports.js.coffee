@@ -63,20 +63,22 @@ letUserSelectOriginal = ->
 
     $("input:checked.cb-email").each ->
       duplicateId = $(this).closest(".table-row").data("exception-report-id")
-
+      debugger
       # Update exception report and remove from DOM
-      $.post
+      $.ajax
         url: "/exception_reports/#{duplicateId}"
-        dataType: "script"
-        contentType: 'application/json'
-        method: "PUT"
-        data: JSON.stringify(
-          "_method": 'put'
-          "exception_report":
-            "duplicated_id": originalId
-        )
+        type: "put"
+        # dataType: "script"
+        # contentType: 'application/json'
+        data:
+          exception_report:
+            duplicated_id: originalId
         success: (data, status, xhr) ->
-          $('[data-exception-report-id="' + duplicateId + '"]').fadeOut(500)
+          debugger
+          $('[data-exception-report-id="' + duplicateId + '"]').hide()
+        error: (data, status, xhr) ->
+          debugger
+          console.log ":("
 
     revert()
 

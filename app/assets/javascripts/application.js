@@ -1,10 +1,15 @@
 //= require jquery
-//= require jquery_ujs
-//= require turbolinks
 //= require bootstrap
 //= require Chart
 //= require routes
 //= require_tree .
+
+$(document).ready(function() {
+  console.log("hi");
+  $.ajaxSetup({
+    headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
+  });
+});
 
 /**
  * Renders new fields (e.g. more repositories or more assignees)
