@@ -1,3 +1,7 @@
+<div class="header-btn-right">
+  <button class="btn btn-default"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+  <button class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+</div>
 <header class="section-title">
   <h3>Exception Reports</h3>
 </header>
@@ -6,15 +10,16 @@
 
 <section>
   <div class="table-head">
+    <h5 class="col-md-1"><!-- For the checkboxes --></h5>
     <h5 class="col-md-2">Project</h5>
-    <h5 class="col-md-5">Subject</h5>
-    <h5 class="col-md-2">Assignee</h5>
-    <h5 class="col-md-3">Actions</h5>
+    <h5 class="col-md-6">Subject</h5>
+    <h5 class="col-md-3">Assignee</h5>
   </div>
   <div class="table-content">
     <% @exception_reports.each do |exception_report| %>
 
     <div class="table-row">
+      <h5 class="col-md-1 table-cell"><input type="checkbox" /></h5>
       <h5 class="col-md-2 table-cell">
         <%= form_for exception_report do |f| %>
           <%= f.fields_for :exception_from_email do |builder| %>
@@ -22,8 +27,8 @@
           <% end %>
         <% end %>
       </h5>
-      <h5 class="col-md-5 table-cell"><%= link_to exception_report.subject, exception_report %></h5>
-      <h5 class="col-md-2 table-cell">
+      <h5 class="col-md-6 table-cell"><%= link_to exception_report.subject, exception_report %></h5>
+      <h5 class="col-md-3 table-cell">
         <% if exception_report.task.present? %>
           <% exception_report.task.assignments.each do |assignment| %>
             <%= assignment.developer_account.developer_name %>
@@ -38,12 +43,6 @@
             <%= form.submit "Convert To Task" %>
           <% end %>
         <% end %>
-      </h5>
-      <h5 class="col-md-3 table-cell">
-        <%= form_for exception_report do |f| %>
-          <%= f.check_box :duplicate, :onChange => 'javascript:this.form.submit();' %>
-        <% end %>
-        <%= link_to 'Destroy', exception_report, method: :delete, data: { confirm: 'Are you sure?' } %>
       </h5>
     </div>
     <% end %>
