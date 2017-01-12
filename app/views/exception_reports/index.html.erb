@@ -19,7 +19,7 @@
     <% @exception_reports.each do |exception_report| %>
 
     <div class="table-row">
-      <h5 class="col-md-1 table-cell"><input type="checkbox" /></h5>
+      <input type="checkbox" class="col-md-1 table-cell cb-email" onclick="toggleRow(this)"></input>
       <h5 class="col-md-2 table-cell">
         <%= form_for exception_report do |f| %>
           <%= f.fields_for :exception_from_email do |builder| %>

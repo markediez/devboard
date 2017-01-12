@@ -1,13 +1,14 @@
 $table-head-bg: #373A3C;
-$table-head-color: #FFFFFF;
+$table-head-text-color: #FFFFFF;
 $table-row-divider: 1px solid #666;
 $table-row-height: 30px;
+$table-row-selected-bg: #f8f8f8;
 
 .table-head {
   display: flex;
   width: 100%;
   background-color: $table-head-bg;
-  color: $table-head-color;
+  color: $table-head-text-color;
   padding: 8px 0;
 }
 
@@ -28,5 +29,9 @@ $table-row-height: 30px;
       text-overflow: ellipsis;
       overflow: hidden;
     }
+  }
+
+  .selected-row {
+    background-color: $table-row-selected-bg;
   }
 }
