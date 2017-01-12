@@ -20,10 +20,5 @@
   <%= @exception_report.gh_issue_id %>
 </p>
 
-<p>
-  <strong>Duplicate:</strong>
-  <%= @exception_report.duplicate %>
-</p>
-
 <%= link_to 'Edit', edit_exception_report_path(@exception_report) %> |
 <%= link_to 'Back', exception_reports_path %>

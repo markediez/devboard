@@ -1,10 +1,24 @@
 $(document).ready ->
+  $(".notice, .notice-confirm").hide()
+
   $(".cb-email").on "click", (e) ->
     toggleRow(this)
 
   $("#delete").on "click", (e) ->
-    $("input:checked.cb-email").each ->
-      deleteMessage($(this).closest(".table-row").data("exception-report-id"))
+    reports = $("input:checked.cb-email")
+    if reports.size() > 0 && confirm("Are you sure you want to delete these reports?")
+      reports.each ->
+        deleteMessage($(this).closest(".table-row").data("exception-report-id"))
+
+  $("#mark-duplicate").on "click", (e) ->
+    if $("input:checked.cb-email").size() > 0
+      letUserSelectOriginal()
+    else
+      flashMessage("notice", "Nothing to mark as duplicate")
+
+  $("#cancel").on "click", (e) ->
+    $(".notice-confirm").fadeOut(400)
+    # Also cancel current action
 
 # Changes the background color of a row when selected
 # el = checkbox within the row, el.parent() should be row
@@ -27,3 +41,14 @@ deleteMessage = (id) ->
       # Should send exception email?
       # Should flash?
       console.log "something went wrong"
+
+
+flashMessage = (type, msg) ->
+  $(".notice").fadeIn(400)
+  $(".notice span").html(msg)
+  setTimeout ( ->
+    $(".notice").fadeOut(400)
+  ), 1500
+
+letUserSelectOriginal = ->
+  $(".notice-confirm").fadeIn(400)

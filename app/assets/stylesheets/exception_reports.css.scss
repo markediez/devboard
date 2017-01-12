@@ -4,6 +4,8 @@ $table-row-divider: 1px solid #666;
 $table-row-height: 30px;
 $table-row-selected-bg: #f8f8f8;
 
+$notice-info: #33b5e5;
+
 .table-head {
   display: flex;
   width: 100%;
@@ -33,5 +35,35 @@ $table-row-selected-bg: #f8f8f8;
 
   .selected-row {
     background-color: $table-row-selected-bg;
+  }
+}
+
+.notice {
+  position: fixed;
+  display: flex;
+  top: 7%;
+  left: 50%;
+
+  span {
+    padding: 15px;
+    background-color: $notice-info;
+    color: white;
+  }
+}
+
+.notice-confirm {
+  position: fixed;
+  display: flex;
+  top: 7%;
+  left: 50%;
+
+  span {
+    padding: 15px;
+    background-color: $notice-info;
+    color: white;
+  }
+
+  button {
+    border-radius: 0;
   }
 }

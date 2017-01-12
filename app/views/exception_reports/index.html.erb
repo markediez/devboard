@@ -1,5 +1,5 @@
 <div class="header-btn-right">
-  <button class="btn btn-default"><i class="fa fa-files-o" aria-hidden="true"></i></button>
+  <button id="mark-duplicate" class="btn btn-default"><i class="fa fa-files-o" aria-hidden="true"></i></button>
   <button id="delete" class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 </div>
 <header class="section-title">
@@ -50,3 +50,14 @@
 
   <%= link_to 'New Exception Report', new_exception_report_path %>
 </section>
+
+<!-- Start notice for selecting original -->
+<div class="notice">
+  <span>Please select the original report</span>
+</div>
+
+<div class="notice-confirm">
+  <span>Please select the original report</span>
+  <button id="cancel" class="btn btn-danger">Cancel</button>
+</div>
+<!-- End notice for selecting original -->
