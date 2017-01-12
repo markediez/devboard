@@ -4,11 +4,14 @@ gem 'rails', '~> 5.0'
 
 gem 'sqlite3',        group: :development
 
-gem 'sass-rails', '~> 5.0.0'
+gem 'sass-rails', '~> 5.0'
 
 gem 'uglifier', '>= 1.3.0'
 
-gem 'coffee-rails', '~> 4.0'
+gem 'coffee-rails', '~> 4.2'
+
+# Use Puma as the app server
+gem 'puma', '~> 3.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
@@ -17,22 +20,13 @@ gem 'coffee-rails', '~> 4.0'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 5'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.5'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc',          group: :doc, require: false
-
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/jonleighton/spring
-gem 'spring',        group: :development
-
-# Web console for debugging in Rails 4.2
-gem 'web-console', '~> 2.0', group: :development
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use AR Session Store as required by rubycas-client
 gem 'activerecord-session_store', git: 'https://github.com/rails/activerecord-session_store'
@@ -44,6 +38,15 @@ gem 'capistrano-bundler', '~> 1.1', require: false
 gem 'capistrano-passenger', require: false
 gem 'capistrano-npm', require: false
 
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
 # Use PostgreSQL in production
 gem 'pg', group: :production
 
@@ -51,7 +54,7 @@ gem 'pg', group: :production
 gem 'exception_notification', group: :production
 
 # Use 'byebug' debugger
-gem 'byebug', group: [:development, :test]
+gem 'byebug', group: [:development, :test], platform: :mri
 
 # For easy Bootstrap integration
 gem 'bootstrap-sass', '~> 3.1.0'
@@ -85,3 +88,6 @@ gem 'rails-controller-testing'
 
 # For Fontawsome icons
 gem 'font-awesome-sass'
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
