@@ -67,3 +67,11 @@ $notice-info: #33b5e5;
     border-radius: 0;
   }
 }
+
+.option-original {
+  cursor: pointer;
+}
+
+.option-original:hover {
+  background-color: red;
+}

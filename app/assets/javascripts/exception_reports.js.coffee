@@ -17,8 +17,7 @@ $(document).ready ->
       flashMessage("notice", "Nothing to mark as duplicate")
 
   $("#cancel").on "click", (e) ->
-    $(".notice-confirm").fadeOut(400)
-    # Also cancel current action
+    revert()
 
 # Changes the background color of a row when selected
 # el = checkbox within the row, el.parent() should be row
@@ -52,3 +51,28 @@ flashMessage = (type, msg) ->
 
 letUserSelectOriginal = ->
   $(".notice-confirm").fadeIn(400)
+  $("input").attr("disabled", "true")
+  $("select").attr("disabled", "true")
+  $("input:not(:checked).cb-email").closest(".table-row").addClass("option-original")
+
+  $(".table-row.option-original").on "click", (e) ->
+    originalId = $(this).data("exception-report-id")
+
+    $("input:checked.cb-email").each ->
+      duplicateId = $(this).closest(".table-row").data("exception-report-id")
+      console.log "#{duplicateId} ----> #{originalId}"
+      $('[data-exception-report-id="' + duplicateId + '"]').fadeOut(500)
+      # $.ajax
+      #   url: window.location.href + "/#{duplicateId}"
+      #   method: "PATCH"
+      #   success: (data, status, xhr) ->
+      #     $('[data-exception-report-id="' + duplicateId + '"]').fadeOut(500)
+
+    revert()
+
+revert = ->
+  $(".notice-confirm").fadeOut(400)
+  $("input").removeAttr("disabled")
+  $("select").removeAttr("disabled")
+  $(".table-row.option-original").off "click"
+  $(".table-row.option-original").removeClass("option-original")
