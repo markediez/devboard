@@ -11,20 +11,18 @@
             width: 300px;
             left: 16%;
             top: 12px;
-            .date-indicator {
-                font-size: 12pt;
-                position: absolute;
-                top: 5px;
-                left: 90px;
-            }
             button {
                 border: 1px solid $gray !important;
             }
-            .calendar-picker {
-                position: absolute;
-                font-size: 15pt;
-                right: 3%;
-                top: 5px;
+        }
+        .date-indicator {
+            font-size: 11pt;
+            position: absolute;
+            left: 24%;
+            top: 18px;
+            i {
+                margin-left: 5px;
+                cursor: pointer;
             }
         }
         .pagination-button {
@@ -66,14 +64,14 @@
                 text-align: center;
             }
         }
-        .assignment-section-task {
+        .task {
             /* general styles */
             display: flex;
             flex-direction: column;
             margin: 0px 5px;
             border-radius: 5px;
         }
-        .assignment-section-task-title {
+        .task-title {
             /* general styles */
             flex: 0 1 70%;
             margin-top: 10px;
@@ -81,7 +79,7 @@
             line-height: 2;
             color: white;
         }
-        .assignment-section-task-selection {
+        .task-selection {
             /* general styles */
             flex: 0 1 30%;
             display: flex;
@@ -108,7 +106,7 @@
         width: 20%;
         height: 100%;
     }*/
-        .Ndeveloper-container {
+        .developer-container {
             float: left;
             width: 20%;
             height: 100%;
@@ -131,14 +129,17 @@
                 }
             }
         }
-        .Nassignment-container {
+        .assignment-container {
             float: left;
             width: 80%;
             height: 100%;
-            .assignment {
+            .assignment-section {
                 overflow-y: hidden;
                 flex: 0 1 100%;
-                .assignment-section {
+                border-bottom: 1px solid $gray;
+                border-right: 1px solid $gray;
+                padding-bottom: 16px;
+                .assignment {
                     flex: 0 0 100%;
                     display: flex;
                     flex-direction: row;
@@ -157,7 +158,7 @@
                         flex: 1 0 180px;
                         background-color: $lightgray;
                         border: 1px solid $gray;
-                        .assignment-section-task-title {
+                        .task-title {
                             color: $darkgray;
                         }
                         .task-selection-github a {
@@ -182,7 +183,7 @@
                 }
             }
         }
-        .notask-container {
+        .unassigned-task-container {
             position: fixed;
             width: 15%;
             height: 100%;
