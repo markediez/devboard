@@ -39,30 +39,44 @@
         .row {
             margin: 0px;
         }
-        .empty-task {
-            flex: 1 0 180px !important;
-        }
-        .timeline-title {
-            /* general styles */
-            padding: 10px 20px 10px 20px;
-            border-top: 1px solid $gray;
+        .timeline-header {
             display: flex;
-            background-color: white;
-            h5 {
-                font-weight: bold;
+            flex-direction: row;
+            .developer-assignment-titles {
+                /* general styles */
+                padding: 10px 20px 10px 20px;
+                border-top: 1px solid $gray;
+                border-right: 1px solid $gray;
+                display: flex;
+                flex: 0 0 82%;
+                background-color: white;
+                h5 {
+                    font-weight: bold;
+                }
+                h5:first-child {
+                    flex: 1;
+                    text-align: center;
+                }
+                h5:nth-child(2) {
+                    flex: 4;
+                    text-align: center;
+                }
             }
-            h5:first-child {
+            .unassigned-task-title {
+                padding: 10px 20px 10px 20px;
+                border-top: 1px solid $gray;
                 flex: 1;
-                text-align: center;
+                align-self: center;
+                h5 {
+                    text-align: center;
+                    font-weight: bold;
+                }
             }
-            h5:nth-child(2) {
-                flex: 6.4;
-                text-align: center;
-            }
-            h5:last-child {
-                flex: 1;
-                text-align: center;
-            }
+        }
+        .timeline-body {
+            overflow-y: auto;
+            width: 82%;
+            height: 100%;
         }
         .task {
             /* general styles */
@@ -101,18 +115,11 @@
         .task-selection-github a {
             color: white !important;
         }
-        /*.Nunassigned-container {
-        float: left;
-        width: 20%;
-        height: 100%;
-    }*/
         .developer-container {
             float: left;
             width: 20%;
             height: 100%;
-            /*overflow-y: auto;*/
             .developer-section {
-                /*border-right: 1px solid $gray;*/
                 flex: 0 1 20%;
                 display: flex;
                 flex-direction: column;
@@ -147,12 +154,23 @@
                     padding-top: 10px;
                     padding-left: 10px;
                     padding-right: 10px;
-                    /*width: 1000px;*/
                     width: 100%;
                     .assigned-task {
                         flex: 1 0 180px;
-                        background-color: $devblue; // #4AD3B7;
-                        border: 1px solid $devblue-dark; // 20C6A4;
+                        background-color: $devblue;
+                        border: 1px solid $devblue-dark;
+                        h5 {
+                            white-space: nowrap;
+                            width: 150px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                        p {
+                            white-space: nowrap;
+                            width: 150px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
                     }
                     .finished-task {
                         flex: 1 0 180px;
@@ -160,13 +178,25 @@
                         border: 1px solid $gray;
                         .task-title {
                             color: $darkgray;
+                            h5 {
+                                white-space: nowrap;
+                                width: 150px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                            p {
+                                white-space: nowrap;
+                                width: 150px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
                         }
                         .task-selection-github a {
                             color: $darkgray !important;
                         }
                     }
                     .empty-task {
-                        flex: 1;
+                        flex: 1 0 180px !important;
                         height: 62.07px;
                         border: 1.5px dashed $gray;
                         i {
@@ -185,15 +215,28 @@
         }
         .unassigned-task-container {
             position: fixed;
+            overflow-y: auto;
             width: 15%;
-            height: 100%;
+            height: calc(100% - 150px);
             background-color: #F2F2F2;
             right: 0;
             .assigned-task {
                 flex: 1;
-                background-color: $devblue; // #4AD3B7;
-                border: 1px solid $devblue-dark; // 20C6A4;
+                background-color: $devblue;
+                border: 1px solid $devblue-dark;
                 margin: 10px;
+                h5 {
+                    white-space: nowrap;
+                    width: 110px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                p {
+                    white-space: nowrap;
+                    width: 110px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
         }
     }
