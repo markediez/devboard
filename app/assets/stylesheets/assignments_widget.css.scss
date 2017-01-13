@@ -8,21 +8,15 @@
         height: calc(100% - 96.4px);
         .date-nav {
             position: absolute;
-            width: 300px;
-            left: 16%;
+            left: 57.3%;
             top: 12px;
             button {
                 border: 1px solid $gray !important;
             }
         }
-        .date-indicator {
-            font-size: 11pt;
-            position: absolute;
-            left: 24%;
-            top: 18px;
+        .date-picker {
             i {
-                margin-left: 5px;
-                cursor: pointer;
+                margin-left: 6px;
             }
         }
         .pagination-button {
@@ -143,9 +137,8 @@
             .assignment-section {
                 overflow-y: hidden;
                 flex: 0 1 100%;
-                border-bottom: 1px solid $gray;
-                border-right: 1px solid $gray;
                 padding-bottom: 16px;
+                box-shadow: 5px -2px 14px -10px #969696;
                 .assignment {
                     flex: 0 0 100%;
                     display: flex;
@@ -213,13 +206,31 @@
                 }
             }
         }
+        .tool-bar {
+            position: fixed;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            width: 15%;
+            background-color: white;
+            right: 0;
+            z-index: 200;
+            border-radius: 0px;
+            box-shadow: 0px 1px 2px 0px #969696;
+            .tools {
+                color: $devblack;
+                margin: 2.5px 12px 2.5px 12px;
+            }
+        }
         .unassigned-task-container {
             position: fixed;
             overflow-y: auto;
             width: 15%;
-            height: calc(100% - 150px);
+            height: calc(100% - 176.6px);
             background-color: #F2F2F2;
             right: 0;
+            box-shadow: 0px 1px 2px 0px #969696;
             .assigned-task {
                 flex: 1;
                 background-color: $devblue;
