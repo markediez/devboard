@@ -20,4 +20,13 @@ class Task < ActiveRecord::Base
 
   # Difficulty is rated on a subjective scale from 1-10
   validates :difficulty, :numericality => { :greater_than => 0, :less_than_or_equal_to => 10 }, :allow_nil => true
+
+  # Returns the GitHub URL associated with this task, if any, else false
+  def external_url
+    if @task.gh_issue_number and @task.repository and @task.repository.url
+      return 'https://github.com/' + @task.repository.url + '/issues/' + @task.gh_issue_number
+    end
+
+    return false
+  end
 end
