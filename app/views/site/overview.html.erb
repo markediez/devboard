@@ -1,134 +1,165 @@
 <div class="assignments-widget">
-  <!-- header -->
-  <header class="section-title">
-    <h3>Assignments</h3>
-    <div class="btn-group date-nav" role="group" aria-label="...">
-      <button type="button" class="btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-      <button type="button" class="btn btn-default date-picker">
+    <!-- header -->
+    <header class="section-title">
+        <h3>Assignments</h3>
+        <div class="btn-group date-nav" role="group" aria-label="...">
+            <button type="button" class="btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-default date-picker">
         <span>Wednesday, Jan 11, 2017</span>
         <i class="fa fa-calendar" aria-hidden="true"></i>
       </button>
-      <button type="button" class="btn btn-default"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-    </div>
-    <div class="timeline-header">
-      <div class="developer-assignment-titles ">
-        <h5>Developers</h5>
-        <h5>Assigned tasks</h5>
-      </div>
-      <div class="unassigned-task-title">
-        <h5 style="text-align: center;">Unassigned tasks</h5>
-      </div>
-    </div>
-  </header>
-  <!-- header ends -->
-  <!-- timeline body -->
-  <div class="timeline-body">
-    <!-- developers -->
-    <div class="developer-container">
-      <div class="developer-section">
-        <% @developers.each do |developer| %>
-        <div class="developer">
-          <%= gravatar_image_tag(developer.email, :alt => developer.name, :style => 'height: 35px; width: 35px; border-radius: 50%;')  %>
-          <span class="developer-name"><%= link_to developer.name, developer %></span>
+            <button type="button" class="btn btn-default"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
         </div>
-        <% end %>
-      </div>
-    </div>
-    <!-- developers ends -->
-    <!-- assignment -->
-    <div class="assignment-container">
-      <div class="assignment-section">
-        <% @developers.each do |developer| %>
-          <div class="assignment">
-
-            <!-- Show open assigned tasks and tasks closed on the same day -->
-            <% developer.assignments_at(Time.now).each do |assignment| %>
-              <% task = assignment.task %>
-              <div class="task <%=task.completed_at? ? "finished-task" : "assigned-task" %>" data-task-id="<%= task.id %>">
-                <div class="flex-row">
-                  <div class="task-title">
-                    <h5><%= task.project.present? ? link_to(task.project.name, task.project) : "" %></h5>
-                    <p><%= link_to task.title, task %></p>
-                  </div>
-                  <div class="task-selection">
-                    <div class="task-selection-check-mark">
-
-                      <input type="checkbox" <%= task.completed_at? ? "checked" : "" %> >
-                    </div>
-                    <div class="task-selection-github">
-                      <% if task.repository_id && task.gh_issue_number %>
-                        <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-
-            <!-- Start add new task -->
-            <div class="task empty-task flex-row_center" data-toggle="modal" data-target="#add_task">
-              <div class="flex-auto text-center">
-                <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
-              </div>
+        <div class="timeline-header">
+            <div class="developer-assignment-titles ">
+                <h5>Developers</h5>
+                <h5>Assigned tasks</h5>
             </div>
-            <!-- End add new task -->
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <!-- assignment ends -->
-    <!-- unassigned task -->
-    <div class="tool-bar">
-      <div class="tools" style="margin-top: 7px;">
-        <div class="input-group">
-          <div class="input-group-btn search-panel">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="padding-left: 0px;padding-right: 10px;">
+            <div class="unassigned-task-title">
+                <h5 style="text-align: center;">Unassigned tasks</h5>
+            </div>
+        </div>
+    </header>
+    <!-- header ends -->
+    <!-- timeline body -->
+    <div class="timeline-body">
+        <!-- developers -->
+        <div class="developer-container">
+            <div class="developer-section">
+                <% @developers.each do |developer| %>
+                    <div class="developer">
+                        <%= gravatar_image_tag(developer.email, :alt => developer.name, :style => 'height: 35px; width: 35px; border-radius: 50%;')  %>
+                            <div class="developer-name">
+                                <%= link_to developer.name, developer %>
+                            </div>
+                    </div>
+                    <% end %>
+            </div>
+        </div>
+        <!-- developers ends -->
+        <!-- assignment -->
+        <div class="assignment-container">
+            <div class="assignment-section">
+                <% @developers.each do |developer| %>
+                    <div class="assignment">
+
+                        <!-- Show open assigned tasks and tasks closed on the same day -->
+                        <% developer.assignments_at(Time.now).each do |assignment| %>
+                            <% task = assignment.task %>
+                                <div class="task <%=task.completed_at? ? " finished-task " : "assigned-task " %>" data-task-id="<%= task.id %>">
+                                    <div class="flex-row">
+                                        <div class="task-title">
+                                            <h5>
+                                                <%= task.project.present? ? link_to(task.project.name, task.project) : "" %>
+                                            </h5>
+                                            <p>
+                                                <%= link_to task.title, task %>
+                                            </p>
+                                        </div>
+                                        <div class="task-selection">
+                                            <div class="task-selection-check-mark">
+
+                                                <input type="checkbox" <%=t ask.completed_at? ? "checked" : "" %> >
+                                            </div>
+                                            <div class="task-selection-github">
+                                                <% if task.repository_id && task.gh_issue_number %>
+                                                    <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
+                                                        <% end %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% end %>
+
+                                    <!-- Start add new task -->
+                                    <div class="task empty-task flex-row_center" data-toggle="modal" data-target="#add_task">
+                                        <div class="flex-auto text-center">
+                                            <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
+                                        </div>
+                                    </div>
+                                    <!-- End add new task -->
+                    </div>
+                    <% end %>
+            </div>
+        </div>
+        <!-- assignment ends -->
+        <!-- unassigned task -->
+        <!-- old 
+        <div class="tool-bar">
+            <div class="tools" style="margin-top: 7px;">
+                <div class="input-group">
+                    <div class="input-group-btn search-panel">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="padding-left: 0px;padding-right: 10px;">
               <i class="fa fa-filter" aria-hidden="true"></i>
             </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#contains">IPA</a></li>
-              <li><a href="#its_equal">Devboard</a></li>
-              <li><a href="#greather_than">Roles Management</a></li>
-              <li><a href="#less_than">Wayfindings</a></li>
-              <li class="divider"></li>
-              <li><a href="#all">Clear</a></li>
-            </ul>
-          </div>
-          <input name="search_param" value="all" id="search_param" type="hidden">
-          <span class="input-group-btn">
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#contains">IPA</a></li>
+                            <li><a href="#its_equal">Devboard</a></li>
+                            <li><a href="#greather_than">Roles Management</a></li>
+                            <li><a href="#less_than">Wayfindings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#all">Clear</a></li>
+                        </ul>
+                    </div>
+                    <input name="search_param" value="all" id="search_param" type="hidden">
+                    <span class="input-group-btn">
             <button class="btn btn-default" type="button" style="padding-right: qw;padding-left: 0px;"><span class="glyphicon glyphicon-search"></span></button>
-          </span><input class="form-control" name="x" style="padding-top: 6px;padding-bottom: 6px;border-radius: 0px;" placeholder="Search keyword..." type="text">
+                    </span><input class="form-control" name="x" style="padding-top: 6px;padding-bottom: 6px;border-radius: 0px;" placeholder="Search keyword..." type="text">
 
-        </div>
-      </div>
-    </div>
-    <div class="unassigned-task-container" style="margin-top: 26px;">
-      <% @tasks.each do |task| %>
-      <div class="task assigned-task" data-task-id="<%= task.id %>">
-        <div class="flex-row">
-          <div class="task-title">
-            <h5><%= task.project.present? ? link_to(task.project.name, task.project) : ""%></h5>
-            <p><%= link_to task.title, task %></p>
-          </div>
-          <div class="task-selection">
-            <div class="task-selection-check-mark">
-              <input type="checkbox">
+                </div>
             </div>
-            <div class="task-selection-github">
-              <% if task.repository_id && task.gh_issue_number %>
-                <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
-              <% end %>
+        </div>-->
+        <!-- update -->
+        <div class="tool-bar">
+            <div class="tools" style="margin-top: 7px;">
+                <div class="input-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    	    <i class="fa fa-filter" aria-hidden="true"></i>
+                        </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#contains">IPA</a></li>
+                        <li><a href="#its_equal">Devboard</a></li>
+                        <li><a href="#greather_than">Roles Management</a></li>
+                        <li><a href="#less_than">Wayfindings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#all">Clear</a></li>
+                    </ul>
+                    <input class="input-section" name="x" placeholder="Search keyword..." type="text">
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <% end %>
-      <!-- unassigned task ends -->
+        <!-- update -->
+        <div class="unassigned-task-container" style="margin-top: 26px;">
+            <% @tasks.each do |task| %>
+                <div class="task assigned-task" data-task-id="<%= task.id %>">
+                    <div class="flex-row">
+                        <div class="task-title">
+                            <h5>
+                                <%= task.project.present? ? link_to(task.project.name, task.project) : ""%>
+                            </h5>
+                            <p>
+                                <%= link_to task.title, task %>
+                            </p>
+                        </div>
+                        <div class="task-selection">
+                            <div class="task-selection-check-mark">
+                                <input type="checkbox">
+                            </div>
+                            <div class="task-selection-github">
+                                <% if task.repository_id && task.gh_issue_number %>
+                                    <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
+                                        <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% end %>
+                    <!-- unassigned task ends -->
+        </div>
+        <!-- timeline body ends -->
     </div>
-    <!-- timeline body ends -->
-  </div>
 
-  <%= render 'site/modal_add_user' %>
-  <%= render 'site/modal_add_task' %>
+    <%= render 'site/modal_add_user' %>
+        <%= render 'site/modal_add_task' %>
 
 </div>
