@@ -29,7 +29,7 @@
         <% @developers.each do |developer| %>
         <div class="developer">
           <%= gravatar_image_tag(developer.email, :alt => developer.name, :style => 'height: 35px; width: 35px; border-radius: 50%;')  %>
-          <span class="developer-name"><%= developer.name %></span>
+          <span class="developer-name"><%= link_to developer.name, developer %></span>
         </div>
         <% end %>
       </div>
@@ -47,8 +47,8 @@
               <div class="task <%=task.completed_at? ? "finished-task" : "assigned-task" %>">
                 <div class="flex-row">
                   <div class="task-title">
-                    <h5><%= task.project.present? ? task.project.name : "" %></h5>
-                    <p><%= task.title %></p>
+                    <h5><%= task.project.present? ? link_to(task.project.name, task.project) : "" %></h5>
+                    <p><%= link_to task.title, task %></p>
                   </div>
                   <div class="task-selection">
                     <div class="task-selection-check-mark">
@@ -107,8 +107,8 @@
       <div class="task assigned-task">
         <div class="flex-row">
           <div class="task-title">
-            <h5><%= task.project.present? ? task.project.name : ""%></h5>
-            <p><%= task.title %></p>
+            <h5><%= task.project.present? ? link_to(task.project.name, task.project) : ""%></h5>
+            <p><%= link_to task.title, task %></p>
           </div>
           <div class="task-selection">
             <div class="task-selection-check-mark">
