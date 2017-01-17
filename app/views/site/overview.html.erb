@@ -44,7 +44,7 @@
             <!-- Show open assigned tasks and tasks closed on the same day -->
             <% developer.assignments_at(Time.now).each do |assignment| %>
               <% task = assignment.task %>
-              <div class="task <%=task.completed_at? ? "finished-task" : "assigned-task" %>">
+              <div class="task <%=task.completed_at? ? "finished-task" : "assigned-task" %>" data-task-id="<%= task.id %>">
                 <div class="flex-row">
                   <div class="task-title">
                     <h5><%= task.project.present? ? link_to(task.project.name, task.project) : "" %></h5>
@@ -104,7 +104,7 @@
     </div>
     <div class="unassigned-task-container" style="margin-top: 26px;">
       <% @tasks.each do |task| %>
-      <div class="task assigned-task">
+      <div class="task assigned-task" data-task-id="<%= task.id %>">
         <div class="flex-row">
           <div class="task-title">
             <h5><%= task.project.present? ? link_to(task.project.name, task.project) : ""%></h5>

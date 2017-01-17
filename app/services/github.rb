@@ -12,11 +12,22 @@ class GitHubService
   # Returns true on success, false on error or unauthorized.
   def self.close_issue(task)
     begin
-      ret = self.client.close_issue task.project.gh_repo_url, task.gh_issue_number
+      ret = self.client.close_issue task.repository.url, task.gh_issue_number
 
       return ret[:state] == "closed"
     rescue Octokit::Unauthorized => e
       Rails.logger.error "GitHub indicates no authorization when closing issue: #{e}"
+      return false
+    end
+  end
+
+  def self.reopen_issue(task)
+    begin
+      ret = self.client.reopen_issue task.repository.url, task.gh_issue_number
+
+      return ret[:state] == "open"
+    rescue Octokit::Unauthorized => e
+      Rails.logger.error "GitHub indicates no authorization when opening issue: #{e}"
       return false
     end
   end

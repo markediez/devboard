@@ -64,7 +64,6 @@ letUserSelectOriginal = ->
 
     $("input:checked.cb-email").each ->
       duplicateId = $(this).closest(".table-row").data("exception-report-id")
-      debugger
       # Update exception report and remove from DOM
       $.ajax
         url: "/exception_reports/#{duplicateId}.json"
@@ -75,10 +74,8 @@ letUserSelectOriginal = ->
           exception_report:
             duplicated_id: originalId
         success: (data, status, xhr) ->
-          debugger
           $('[data-exception-report-id="' + duplicateId + '"]').hide()
         error: (data, status, xhr) ->
-          debugger
           console.log ":("
 
     revert()

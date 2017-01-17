@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
+  # Set up event listeners
+  $(".task input:checkbox").on "click", (e) ->
+    toggleTaskStatus(this)
 
   rangeSlider = ->
     slider = $('.range-slider')
@@ -21,6 +24,34 @@ $(document).ready ->
 
   rangeSlider()
   return
+
+# el = checkbox of a task
+toggleView = (el) ->
+  task = $(el).closest(".task")
+  if $(el).is(":checked")
+    task.removeClass("assigned-task")
+    task.addClass("finished-task");
+  else
+    task.removeClass("finished-task")
+    task.addClass("assigned-task")
+
+# Opens / closes tasks
+# el = checkbox of a task
+toggleTaskStatus = (el) ->
+  taskId = $(el).closest(".task").data("task-id")
+  timestamp = if $(el).is(":checked") then getTimeNow() else null
+
+  $.ajax
+    url: "/tasks/#{taskId}.json"
+    type: "put"
+    data:
+      task:
+        completed_at: timestamp
+    success: (data, status, xhr) ->
+      debugger
+      toggleView(el)
+    error: (data, status, xhr) ->
+      console.log ":("
 
 # Toggles the task between finished and unfinished
 # @param el - The checkbox toggled
