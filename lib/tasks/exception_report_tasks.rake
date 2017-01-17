@@ -49,7 +49,7 @@ namespace :exception_report do
       er = ExceptionReport.new
       er.subject = subject
       er.body = body
-      er.duplicate = false
+      er.duplicated_id = false
       er.exception_from_email = efe
       er.save!
 
