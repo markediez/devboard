@@ -1,5 +1,253 @@
-.assignments-widget {
-  display: flex;
-  position: relative;
-  flex: 0 1 100%;
-}
+    @import "utilities/variables";
+    html,
+    body {
+        height: 100%;
+    }
+    
+    .assignments-widget {
+        height: calc(100% - 96.4px);
+        .date-nav {
+            position: absolute;
+            left: 57.3%;
+            top: 12px;
+            button {
+                border: 1px solid $gray !important;
+            }
+        }
+        .date-picker {
+            i {
+                margin-left: 6px;
+            }
+        }
+        .pagination-button {
+            text-align: center;
+            a {
+                color: $devblack;
+                cursor: pointer;
+                text-decoration-style: none;
+                i {
+                    margin: 0px 5px 0px 5px;
+                }
+            }
+        }
+        .row {
+            margin: 0px;
+        }
+        .timeline-header {
+            display: flex;
+            flex-direction: row;
+            .developer-assignment-titles {
+                /* general styles */
+                padding: 10px 20px 10px 20px;
+                border-top: 1px solid $gray;
+                border-right: 1px solid $gray;
+                display: flex;
+                flex: 0 0 82%;
+                background-color: white;
+                h5 {
+                    font-weight: bold;
+                }
+                h5:first-child {
+                    flex: 1;
+                    text-align: center;
+                }
+                h5:nth-child(2) {
+                    flex: 4;
+                    text-align: center;
+                }
+            }
+            .unassigned-task-title {
+                padding: 10px 20px 10px 20px;
+                border-top: 1px solid $gray;
+                flex: 1;
+                align-self: center;
+                h5 {
+                    text-align: center;
+                    font-weight: bold;
+                }
+            }
+        }
+        .timeline-body {
+            overflow-y: auto;
+            width: 82%;
+            height: 100%;
+        }
+        .task {
+            /* general styles */
+            display: flex;
+            flex-direction: column;
+            margin: 0px 5px;
+            border-radius: 5px;
+        }
+        .task-title {
+            /* general styles */
+            flex: 0 1 70%;
+            margin-top: 10px;
+            margin-left: 10px;
+            line-height: 2;
+            color: white;
+        }
+        .task-selection {
+            /* general styles */
+            flex: 0 1 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 10px;
+        }
+        .task-selection-check-mark {
+            flex: 0 1 auto;
+            margin-top: 8px;
+        }
+        .task-selection-github {
+            flex: 0 1 auto;
+            font-size: 1em;
+            color: white;
+            margin-top: 5px;
+            margin-right: 1px;
+        }
+        .task-selection-github a {
+            color: white !important;
+        }
+        .developer-container {
+            float: left;
+            width: 20%;
+            height: 100%;
+            .developer-section {
+                flex: 0 1 20%;
+                display: flex;
+                flex-direction: column;
+                border-bottom: 1px solid $gray;
+                border-right: 1px solid $gray;
+                padding-bottom: 14px;
+                .developer {
+                    margin: 24.5px 0px 24.5px 15px;
+                    .developer-name {
+                        position: relative;
+                        font-size: 10pt;
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+        .assignment-container {
+            float: left;
+            width: 80%;
+            height: 100%;
+            .assignment-section {
+                overflow-y: hidden;
+                flex: 0 1 100%;
+                padding-bottom: 16px;
+                box-shadow: 5px -2px 14px -10px #969696;
+                .assignment {
+                    flex: 0 0 100%;
+                    display: flex;
+                    flex-direction: row;
+                    padding-bottom: 10px;
+                    padding-top: 10px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    width: 100%;
+                    .assigned-task {
+                        flex: 1 0 180px;
+                        background-color: $devblue;
+                        border: 1px solid $devblue-dark;
+                        h5 {
+                            white-space: nowrap;
+                            width: 150px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                        p {
+                            white-space: nowrap;
+                            width: 150px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                    .finished-task {
+                        flex: 1 0 180px;
+                        background-color: $lightgray;
+                        border: 1px solid $gray;
+                        .task-title {
+                            color: $darkgray;
+                            h5 {
+                                white-space: nowrap;
+                                width: 150px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                            p {
+                                white-space: nowrap;
+                                width: 150px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+                        .task-selection-github a {
+                            color: $darkgray !important;
+                        }
+                    }
+                    .empty-task {
+                        flex: 1 0 180px !important;
+                        height: 62.07px;
+                        border: 1.5px dashed $gray;
+                        i {
+                            color: $gray;
+                        }
+                        &:hover {
+                            border: 1.5px dashed $darkgray;
+                            cursor: pointer;
+                            i {
+                                color: $darkgray;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .tool-bar {
+            position: fixed;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            width: 15%;
+            background-color: white;
+            right: 0;
+            z-index: 200;
+            border-radius: 0px;
+            box-shadow: 0px 1px 2px 0px #969696;
+            .tools {
+                color: $devblack;
+                margin: 2.5px 12px 2.5px 12px;
+            }
+        }
+        .unassigned-task-container {
+            position: fixed;
+            overflow-y: auto;
+            width: 15%;
+            height: calc(100% - 176.6px);
+            background-color: #F2F2F2;
+            right: 0;
+            box-shadow: 0px 1px 2px 0px #969696;
+            .assigned-task {
+                flex: 1;
+                background-color: $devblue;
+                border: 1px solid $devblue-dark;
+                margin: 10px;
+                h5 {
+                    white-space: nowrap;
+                    width: 110px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                p {
+                    white-space: nowrap;
+                    width: 110px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
