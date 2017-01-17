@@ -1,39 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="6378.234 3485.87 166.745 166.745">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #cbf2ea;
-        stroke: #4ad3b7;
-        opacity: 0.32;
-      }
-
-      .cls-1, .cls-2 {
-        stroke-width: 4px;
-      }
-
-      .cls-2 {
-        fill: #fff;
-        stroke: #c4f1e8;
-      }
-
-      .cls-3 {
-        stroke: none;
-      }
-
-      .cls-4 {
-        fill: none;
-      }
-    </style>
-  </defs>
-  <g id="Group_1" data-name="Group 1" transform="translate(5654 3159)">
-    <g id="ellipse-13" class="cls-1" transform="translate(724.234 326.87)">
-      <ellipse class="cls-3" cx="83.372" cy="83.372" rx="83.372" ry="83.372"/>
-      <ellipse class="cls-4" cx="83.372" cy="83.372" rx="81.372" ry="81.372"/>
-    </g>
-    <path id="ellipse-15" class="cls-2" d="M23.847.5C36.741.5,47.194,9.369,47.194,20.31S.5,31.251.5,20.31,10.953.5,23.847.5Z" transform="translate(784.179 405.625)"/>
-    <g id="ellipse-14" class="cls-2" transform="translate(793.28 383.188)">
-      <ellipse class="cls-3" cx="15.155" cy="15.155" rx="15.155" ry="15.155"/>
-      <ellipse class="cls-4" cx="15.155" cy="15.155" rx="13.155" ry="13.155"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 166.7 166.7" style="enable-background:new 0 0 166.7 166.7;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.55;}
+	.st1{fill:#C0F6FF;}
+	.st2{fill:none;stroke:#8FE4F9;stroke-width:4;}
+	.st3{fill:#FFFFFF;stroke:#8FE4F9;stroke-width:3;}
+</style>
+<g id="Group_1" transform="translate(5654 3159)" class="st0">
+	<g id="ellipse-13" transform="translate(724.234 326.87)">
+		<ellipse class="st1" cx="-6294.7" cy="-3401.6" rx="81.5" ry="81.5"/>
+		<ellipse class="st2" cx="-6294.7" cy="-3401.6" rx="79.5" ry="79.5"/>
+	</g>
+	<path id="ellipse-15" class="st3" d="M-5570.1-3078.8c12.6,0,22.8,8.7,22.8,19.4s-45.6,10.7-45.6,0S-5582.7-3078.8-5570.1-3078.8z"
+		/>
+	<g id="ellipse-14" transform="translate(793.28 383.188)">
+		<ellipse class="st3" cx="-6363" cy="-3469.6" rx="12.9" ry="12.9"/>
+	</g>
+</g>
 </svg>
