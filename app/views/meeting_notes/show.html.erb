@@ -1,11 +1,19 @@
-<div class="pull-right" style="padding-top: 5px;">
-  <%= link_to 'Edit', edit_meeting_note_path(@meeting_note), :class => 'btn btn-default' %>
+<header class="section-title">
+  <div class="pull-right tmp" style="padding-top: 5px;">
+    <%= link_to 'Edit', edit_meeting_note_path(@meeting_note), :class => 'btn btn-default' %>
+  </div>
+  <h3><%= @meeting_note.title %></h3>
+  <% if @meeting_note.project.present? %>
+    <h3>For project <%= link_to @meeting_note.project.name, @meeting_note.project %></h3>
+  <% else %>
+    <h3>No Project</h3>
+  <% end %>
+</header>
+
+<div class="tmp">
+  <p>
+    <strong>Taken <%= @meeting_note.taken.to_time.strftime('%B %e, %Y at %l:%M %p') %></strong>
+  </p>
+
+  <%= @body_rendered.html_safe %>
 </div>
-<h1 class="page-header"><%= @meeting_note.title %></h1>
-<h3>For project <%= link_to @meeting_note.project.name, @meeting_note.project %></h3>
-
-<p>
-  <strong>Taken <%= @meeting_note.taken.to_time.strftime('%B %e, %Y at %l:%M %p') %></strong>
-</p>
-
-<%= @body_rendered.html_safe %>

@@ -10,26 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205181543) do
+ActiveRecord::Schema.define(version: 20170112225920) do
 
-  create_table "activity_logs", force: :cascade do |t|
+  create_table "activity_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "developer_id"
     t.integer  "project_id"
     t.datetime "when"
     t.integer  "task_id"
-    t.integer  "activity_type",               default: 0
+    t.integer  "activity_type",   default: 0
     t.integer  "meeting_note_id"
-    t.string   "commit_gh_id",    limit: 255
+    t.string   "commit_gh_id"
   end
 
-  create_table "api_key_users", force: :cascade do |t|
+  create_table "api_key_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "assignments", force: :cascade do |t|
+  create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "task_id"
     t.integer  "developer_account_id"
     t.integer  "priority"
@@ -40,11 +40,11 @@ ActiveRecord::Schema.define(version: 20161205181543) do
     t.integer  "delay_count",          default: 0
   end
 
-  create_table "commits", force: :cascade do |t|
-    t.string   "sha",                  limit: 255
+  create_table "commits", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "sha"
     t.integer  "developer_account_id"
     t.integer  "project_id"
-    t.string   "message",              limit: 255
+    t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "committed_at"
@@ -53,122 +53,131 @@ ActiveRecord::Schema.define(version: 20161205181543) do
     t.integer  "total"
   end
 
-  create_table "developer_accounts", force: :cascade do |t|
+  create_table "developer_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "developer_id"
-    t.string   "email",        limit: 255
-    t.string   "account_type", limit: 255
+    t.string   "email"
+    t.string   "account_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "loginid"
     t.string   "name"
   end
 
-  create_table "developers", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.string   "loginid",             limit: 255
-    t.string   "email",               limit: 255
+  create_table "developers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.string   "loginid"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_content_type", limit: 255
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "gh_personal_token",   limit: 255
-    t.string   "gh_username",         limit: 255
-    t.boolean  "active",                          default: true
+    t.string   "gh_personal_token"
+    t.string   "gh_username"
+    t.boolean  "active",              default: true
   end
 
-  create_table "exception_reports", force: :cascade do |t|
+  create_table "exception_from_emails", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "project_id"
-    t.string   "subject",     null: false
-    t.text     "body",        null: false
-    t.integer  "gh_issue_id"
-    t.boolean  "duplicate"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
-  create_table "meeting_notes", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.text     "body"
+  create_table "exception_reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "subject",                               null: false
+    t.text     "body",                    limit: 65535, null: false
+    t.integer  "gh_issue_id"
+    t.integer  "duplicated_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "task_id"
+    t.integer  "exception_from_email_id"
+  end
+
+  create_table "meeting_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
+    t.text     "body",       limit: 65535
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "taken"
   end
 
-  create_table "milestones", force: :cascade do |t|
+  create_table "milestones", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
-    t.text     "description"
+    t.text     "description",         limit: 65535
     t.datetime "due_on"
     t.datetime "completed_at"
     t.integer  "gh_milestone_number"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "project_id"
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string   "name",                 limit: 255
-    t.integer  "status",                           default: 0
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "status",                    default: 0
     t.datetime "began"
     t.date     "finished"
-    t.integer  "priority",                         default: 0
+    t.integer  "priority",                  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "link",                 limit: 255
-    t.text     "description"
+    t.string   "link"
+    t.text     "description", limit: 65535
     t.date     "due"
-    t.string   "exception_email_from"
   end
 
-  create_table "repositories", force: :cascade do |t|
+  create_table "repositories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "project_id"
     t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "sessions", force: :cascade do |t|
-    t.string   "session_id",     limit: 255, null: false
-    t.text     "data"
+  create_table "sessions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "session_id",                   null: false
+    t.text     "data",           limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "service_ticket", limit: 255
-    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
-    t.index ["updated_at"], name: "index_sessions_on_updated_at"
+    t.string   "service_ticket"
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+    t.index ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
   end
 
-  create_table "sprints", force: :cascade do |t|
+  create_table "sprints", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "milestone_id"
     t.datetime "started_at"
     t.datetime "finished_at"
-    t.float    "points_attempted"
-    t.float    "points_completed"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.float    "points_attempted", limit: 24
+    t.float    "points_completed", limit: 24
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.string   "title",           limit: 255
+  create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
     t.integer  "creator_id"
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "due"
-    t.string   "link",            limit: 255
-    t.integer  "priority",                    default: 1
+    t.string   "link"
+    t.integer  "priority",                      default: 1
     t.integer  "difficulty"
     t.integer  "duration"
-    t.string   "gh_issue_number", limit: 255
-    t.text     "details"
+    t.string   "gh_issue_number"
+    t.text     "details",         limit: 65535
     t.datetime "completed_at"
     t.integer  "milestone_id"
-    t.float    "points"
+    t.float    "points",          limit: 24
     t.integer  "repository_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "loginid",      limit: 255
-    t.boolean  "active",                   default: true
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "loginid"
+    t.boolean  "active",       default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "developer_id"

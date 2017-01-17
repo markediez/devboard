@@ -1,15 +1,20 @@
-<h2 class="sub-header">Developers</h2>
-<div class="row placeholders">
-    <% @developers.each do |developer| %>
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <% if developer.email and developer.name %>
-            <%= link_to gravatar_image_tag(developer.email, :alt => developer.name, :style => 'border-radius: 50%;'), developer %>
-          <% else %>
-            <%= link_to developer.loginid, developer %>
-          <% end %>
-          <h4><%= developer.name %></h4>
-        </div>
-    <% end %>
-</div>
+<header class="section-title">
+  <h3>Developers</h3>
+</header>
 
-<%= link_to 'New Developer', new_developer_path, :class => 'btn btn-default' %>
+<div class="tmp">
+  <div class="row placeholders">
+      <% @developers.each do |developer| %>
+          <div class="col-xs-6 col-sm-3 placeholder">
+            <% if developer.email and developer.name %>
+              <%= link_to gravatar_image_tag(developer.email, :alt => developer.name, :style => 'border-radius: 50%;'), developer %>
+            <% else %>
+              <%= link_to developer.loginid, developer %>
+            <% end %>
+            <h4><%= developer.name %></h4>
+          </div>
+      <% end %>
+  </div>
+
+  <%= link_to 'New Developer', new_developer_path, :class => 'btn btn-default' %>
+</div>
