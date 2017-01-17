@@ -6,7 +6,6 @@
 //= require_tree .
 
 $(document).ready(function() {
-  console.log("hi");
   $.ajaxSetup({
     headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
   });
