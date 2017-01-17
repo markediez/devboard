@@ -13,4 +13,15 @@ module ApplicationHelper
 
     link_to name, "#", onclick: "return rails_nested_form_add_fields(\"#{association}\", \"#{escape_javascript(fields)}\"); ", class: "add-field"
   end
+
+  # repo = <github-user/repository>
+  def link_to_github(repo)
+    return "https://github.com/" + repo
+  end
+
+  # repo = <github-user/repository>
+  # issue_num = github issue number
+  def link_to_github_issue(repo, issue_num )
+    return "https://github.com/" + repo + "/issues/" + issue_num
+  end
 end

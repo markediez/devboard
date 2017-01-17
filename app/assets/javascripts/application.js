@@ -1,15 +1,32 @@
 //= require jquery
+//= require jquery-ui
 //= require bootstrap
 //= require Chart
 //= require routes
 //= require_tree .
 
 $(document).ready(function() {
-  console.log("hi");
   $.ajaxSetup({
     headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
   });
 });
+
+/**
+ * Returns the time in the format YYY-MM-DD HH:MM:SS
+ */
+function getTimeNow() {
+  var t = new Date(Date.now());
+
+  var year = t.getFullYear();
+  var month = ("0" + (t.getMonth() + 1) ).slice(-2);   // "0" + ___ .slice(-2) ensures 2 digit numbers
+  var day = ("0" + t.getDate()).slice(-2);
+
+  var hour = ("0" + t.getHours()).slice(-2);
+  var minute = ("0" + t.getMinutes()).slice(-2);
+  var second = ("0" + t.getSeconds()).slice(-2);
+
+  return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+}
 
 /**
  * Renders new fields (e.g. more repositories or more assignees)
