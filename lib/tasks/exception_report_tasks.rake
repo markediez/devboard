@@ -16,12 +16,6 @@ namespace :exception_report do
     imap = Net::IMAP.new(Rails.application.secrets.exception_imap_server, 993, true)
     imap.login(Rails.application.secrets.exception_imap_username, Rails.application.secrets.exception_imap_password)
 
-    # List folders
-    # imap.list("", "*")
-
-    # List of recent messages
-    # mail = imap.search(["RECENT"])
-
     # Select the INBOX
     imap.select('INBOX')
 
@@ -53,8 +47,8 @@ namespace :exception_report do
       er.exception_from_email = efe
       er.save!
 
-      # Delete the message on production
-      if Rails.env == "production"
+      # Delete the message only on production
+      if Rails.env.production?
         imap.copy(id, 'Deleted Items')
         imap.store(id, "+FLAGS", [:Deleted])
       end

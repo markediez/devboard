@@ -12,10 +12,6 @@ class ExceptionReportsController < ApplicationController
   def show
   end
 
-  # GET /exception_reports/1/edit
-  def edit
-  end
-
   # POST /exception_reports
   def create
     @exception_report = ExceptionReport.new(exception_report_params)
