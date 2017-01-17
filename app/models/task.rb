@@ -5,6 +5,7 @@ class Task < ActiveRecord::Base
   scope :unscored, -> { where(points: nil) }
 
   has_many :assignments, :class_name => "Assignment", :dependent => :destroy
+  has_one :exception_report
 
   belongs_to :creator, :class_name => "DeveloperAccount"
   belongs_to :project

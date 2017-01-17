@@ -12,7 +12,11 @@
     <% @meeting_notes.each do |meeting_note| %>
       <tr>
         <td><%= link_to meeting_note.title, meeting_note %></td>
-        <td><%= link_to meeting_note.project.name, meeting_note.project %></td>
+        <% if meeting_note.project.present? %>
+          <td><%= link_to meeting_note.project.name, meeting_note.project %></td>
+        <% else %>
+          <td>No Project</td>
+        <% end %>
         <td><%= time_ago_in_words(meeting_note.taken) %> ago</td>
         <td><%= link_to 'Destroy', meeting_note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

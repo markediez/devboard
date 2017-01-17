@@ -106,12 +106,14 @@ namespace :github do
     projects.each do |project|
       Rails.logger.debug "Pulling milestones for project '#{project.name}'."
 
-      milestones = GitHubService.find_milestones_by_project(project.gh_repo_url)
-      Rails.logger.debug "Found #{milestones.count} milestones on GitHub."
+      project.repositories.each do |repo|
+        milestones = GitHubService.find_milestones_by_project(repo.url)
+        Rails.logger.debug "Found #{milestones.count} milestones on GitHub."
 
-      # Pull milestones (open & closed) from GitHub
-      milestones.each do |milestone|
-        sync_milestone(project, milestone)
+        # Pull milestones (open & closed) from GitHub
+        milestones.each do |milestone|
+          sync_milestone(project, milestone)
+        end
       end
     end
   end

@@ -2,7 +2,7 @@
 
 <p>
   <strong>Project:</strong>
-  <%= @exception_report.project_id %>
+  <%= @exception_report.exception_from_email.project_id %>
 </p>
 
 <p>
@@ -18,11 +18,6 @@
 <p>
   <strong>Gh issue:</strong>
   <%= @exception_report.gh_issue_id %>
-</p>
-
-<p>
-  <strong>Duplicate:</strong>
-  <%= @exception_report.duplicate %>
 </p>
 
 <%= link_to 'Edit', edit_exception_report_path(@exception_report) %> |

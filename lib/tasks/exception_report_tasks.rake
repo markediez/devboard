@@ -3,6 +3,7 @@ require 'rake'
 namespace :exception_report do
   desc 'Checks the exception reports mailbox for new exceptions.'
   task :check_mailbox do
+    Rails.logger = Logger.new(STDOUT)
     Rake::Task['environment'].invoke
 
     check_time_start = Time.now
@@ -37,21 +38,25 @@ namespace :exception_report do
       body = mail.body.decoded
       from = mail.from[0]
 
-      p = Project.find_by(exception_email_from: from)
-      if p
-        er = ExceptionReport.new
-        er.project = p
-        er.subject = subject
-        er.body = body
-        er.duplicate = false
-        er.save!
+      efe = ExceptionFromEmail.find_by(email: from)
+      unless efe
+        Rails.logger.warn "Could not find project matching exception address: #{from}. Creating ..."
+        efe = ExceptionFromEmail.new
+        efe.email = from
+        efe.save!
+      end
 
-        # Delete the message
+      er = ExceptionReport.new
+      er.subject = subject
+      er.body = body
+      er.duplicated_id = false
+      er.exception_from_email = efe
+      er.save!
+
+      # Delete the message on production
+      if Rails.env == "production"
         imap.copy(id, 'Deleted Items')
         imap.store(id, "+FLAGS", [:Deleted])
-      else
-        Rails.logger.warn "Could not find project matching exception address: #{from}. Skipping ..."
-        next
       end
     end
 

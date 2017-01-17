@@ -42,11 +42,9 @@
         position: relative;
         padding: 3px;
       }
-
       #percent {
         position: absolute;
       }
-
       #bar {
         height: 20px;
         background-color: rgba(151,187,205,0.4);
@@ -139,7 +137,6 @@
             }
           ]
         }
-
       var lineChartData = {
           labels : [
             <%= @recent_lines_graph.map{ |timestamp, commits| "'" + Date.commercial(timestamp.to_s[0..3].to_i, timestamp.to_s[4..-1].to_i, 7).strftime("%b %d, %y") + "'" }.join(",").html_safe %>
@@ -157,24 +154,18 @@
             }
           ]
         }
-
         ready = function() {
           var commits_ctx = document.getElementById("commits_canvas").getContext("2d");
-
           window.commitsChart = new Chart(commits_ctx).Line(commitChartData, {
             responsive: true
           });
-
           var lines_ctx = document.getElementById("lines_canvas").getContext("2d");
-
           window.linesChart = new Chart(lines_ctx).Line(lineChartData, {
             responsive: true
           });
         };
-
         $(document).ready(ready);
         $(document).on('page:load', ready);
-
         $('#activity-graphs').on('slid.bs.carousel', function () {
           $("#commits_canvas").width(500).height(175);
           $("#lines_canvas").width(500).height(175);
