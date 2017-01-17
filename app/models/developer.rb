@@ -41,6 +41,10 @@ class Developer < ActiveRecord::Base
     return assignments.flatten
   end
 
+  def assignments_at(date)
+    assignments()
+  end
+
   protected
 
   # gh_username and gh_personal_token are optional but both must be present if either is specified
