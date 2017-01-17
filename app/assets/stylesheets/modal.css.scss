@@ -1,0 +1,141 @@
+@import "utilities/variables";
+.modal-header_style {
+    border-top: 10px solid $devblack;
+    border-radius: 5px 5px 0px 0px;
+    .modal-title-bold {
+        font-weight: 700;
+    }
+}
+
+.icon-section {
+    flex: 0 1 50%;
+    justify-content: center;
+    border-right: 1px solid $lightgray;
+    a {
+        color: $devblue;
+        &:hover {
+            color: $devblue-dark;
+        }
+    }
+    .add_user_icon {
+        height: 120px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+}
+
+.user-info-section {
+    flex: 0 1 50%;
+    margin: 0px 60px 0px 60px;
+}
+
+.task-info-section {
+    margin-left: 30px;
+    margin-right: 30px;
+    .form-group {
+        >label {
+            color: $devblack;
+        }
+    }
+}
+
+.btn-create {
+    background-color: $devblue !important;
+    color: white !important;
+    border-radius: 0;
+    width: 300px;
+    &:hover {
+        background-color: $devblue-dark !important;
+        color: white !important;
+    }
+    &:active {
+        background-color: $devblue-dark !important;
+        color: white !important;
+    }
+}
+
+.btn-delete {
+    width: 120px !important;
+    margin: 0px 30px 0px 30px;
+    background-color: $warning-red !important;
+    color: white !important;
+    border-radius: 0;
+    width: 300px;
+    &:hover {
+        background-color: $warning-red-dark !important;
+        color: white !important;
+    }
+    &:active {
+        background-color: $warning-red-dark !important;
+        color: white !important;
+    }
+}
+
+.difficulties-indicator {
+    flex: 0 1 10%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.difficulties-selection-header {
+    margin-bottom: 20px;
+}
+
+.difficulties-selection {
+    margin: 25px 0px 25px 0px;
+    h5 {
+        font-weight: bold;
+    }
+}
+
+.btn-add-user {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.range-slider-range {
+    height: 5px;
+    border-radius: 5px;
+    background: $gray;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    flex: 0 1 65%;
+    align-self: center;
+}
+
+.range-slider-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: $devblue;
+    cursor: pointer;
+    &:hover {
+        background: $devblue-dark;
+    }
+    &:active {
+        background: $devblue-dark;
+    }
+}
+
+.range-slider-value {
+    width: 60px;
+    color: #fff;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    background: $devblue;
+    padding: 5px 10px;
+    margin-left: 8px;
+}
+
+ ::-moz-range-track {
+    background: $gray;
+    border: 0;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+    border: 0;
+}
