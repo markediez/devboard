@@ -49,10 +49,14 @@ class ExceptionReportsController < ApplicationController
 
   # PATCH/PUT /exception_reports/1
   def update
-    if @exception_report.update(exception_report_params)
-      redirect_to exception_reports_url, notice: 'Exception report was successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      if @exception_report.update(exception_report_params)
+        format.html { redirect_to @exception_report, notice: 'Exception report was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @exception_report.errors, status: :unprocessable_entity }
+      end
     end
   end
 

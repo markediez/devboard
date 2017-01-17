@@ -32,6 +32,7 @@ toggleRow = (el) ->
 # Deletes an exception report
 # id = exception report id to delete
 deleteMessage = (id) ->
+  debugger
   $.post
     url: "/exception_reports/#{id}"
     method: "DELETE"
@@ -66,7 +67,7 @@ letUserSelectOriginal = ->
       debugger
       # Update exception report and remove from DOM
       $.ajax
-        url: "/exception_reports/#{duplicateId}"
+        url: "/exception_reports/#{duplicateId}.json"
         type: "put"
         # dataType: "script"
         # contentType: 'application/json'
