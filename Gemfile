@@ -67,7 +67,7 @@ gem 'bootstrap-sass', '~> 3.1.0'
 gem 'rubycas-client', :git => 'https://github.com/cthielen/rubycas-client.git'
 
 # For authorization
-gem 'cancan'
+gem 'cancancan'
 
 # For GitHub integration
 gem 'octokit', '~> 4.0'
