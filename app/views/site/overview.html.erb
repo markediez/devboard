@@ -206,24 +206,18 @@
         <div class="tool-bar">
             <div class="tools" style="margin-top: 7px;">
                 <div class="input-group">
-                    <div class="input-group-btn search-panel">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="padding-left: 0px;padding-right: 10px;">
-                    	<i class="fa fa-filter" aria-hidden="true"></i>
-                    </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#contains">IPA</a></li>
-                            <li><a href="#its_equal">Devboard</a></li>
-                            <li><a href="#greather_than">Roles Management</a></li>
-                            <li><a href="#less_than">Wayfindings</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#all">Clear</a></li>
-                        </ul>
-                    </div>
-                    <input name="search_param" value="all" id="search_param" type="hidden">
-                    <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" style="padding-right: qw;padding-left: 0px;"><span class="glyphicon glyphicon-search"></span></button>
-                    </span><input class="form-control" name="x" style="padding-top: 6px;padding-bottom: 6px;border-radius: 0px;" placeholder="Search keyword..." type="text">
-
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    	    <i class="fa fa-filter" aria-hidden="true"></i>
+                        </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#contains">IPA</a></li>
+                        <li><a href="#its_equal">Devboard</a></li>
+                        <li><a href="#greather_than">Roles Management</a></li>
+                        <li><a href="#less_than">Wayfindings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#all">Clear</a></li>
+                    </ul>
+                    <input class="input-section" name="x" placeholder="Search keyword..." type="text">
                 </div>
                 <!-- <i class="fa fa-search" aria-hidden="true" type></i> -->
                 <!-- previous design
@@ -243,7 +237,7 @@
                 -->
             </div>
         </div>
-        <div class="unassigned-task-container" style="margin-top: 26px;">
+        <div class="unassigned-task-container">
             <div class="task assigned-task">
                 <div class="flex-row">
                     <div class="task-title">

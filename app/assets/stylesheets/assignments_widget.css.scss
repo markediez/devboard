@@ -117,9 +117,10 @@
                 flex: 0 1 20%;
                 display: flex;
                 flex-direction: column;
-                border-bottom: 1px solid $gray;
-                border-right: 1px solid $gray;
-                padding-bottom: 14px;
+                /*border-bottom: 1px solid $gray;
+                border-right: 1px solid $gray;*/
+                padding-bottom: 10px;
+                box-shadow: 1px -3px 5px -2px rgba(0, 0, 0, 0.75);
                 .developer {
                     margin: 24.5px 0px 24.5px 15px;
                     .developer-name {
@@ -138,7 +139,7 @@
                 overflow-y: hidden;
                 flex: 0 1 100%;
                 padding-bottom: 16px;
-                box-shadow: 5px -2px 14px -10px #969696;
+                /*border-bottom: 1px solid #d6d6d6;*/
                 .assignment {
                     flex: 0 0 100%;
                     display: flex;
@@ -207,6 +208,10 @@
             }
         }
         .tool-bar {
+            .input-section {
+                margin-bottom: 6px;
+                width: 74%;
+            }
             position: fixed;
             margin-left: 0px;
             margin-right: 0px;
@@ -220,14 +225,15 @@
             box-shadow: 0px 1px 2px 0px #969696;
             .tools {
                 color: $devblack;
-                margin: 2.5px 12px 2.5px 12px;
+                margin: 7px 3px 7px 3px;
             }
         }
         .unassigned-task-container {
+            padding-top: 55px;
             position: fixed;
             overflow-y: auto;
             width: 15%;
-            height: calc(100% - 176.6px);
+            height: calc(100% - 143px);
             background-color: #F2F2F2;
             right: 0;
             box-shadow: 0px 1px 2px 0px #969696;
