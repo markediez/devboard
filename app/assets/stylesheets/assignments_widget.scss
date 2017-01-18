@@ -86,6 +86,9 @@
             margin-left: 10px;
             line-height: 2;
             color: white;
+            a {
+                color: white;
+            }
         }
         .task-selection {
             /* general styles */
@@ -119,13 +122,20 @@
                 flex-direction: column;
                 border-bottom: 1px solid $gray;
                 border-right: 1px solid $gray;
-                padding-bottom: 14px;
+                box-shadow: 1px -3px 5px -2px rgba(0, 0, 0, 0.45);
                 .developer {
+                    display: flex;
                     margin: 24.5px 0px 24.5px 15px;
                     .developer-name {
                         position: relative;
                         font-size: 10pt;
                         margin-left: 5px;
+                        white-space: nowrap;
+                        width: 70%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: inline-block;
+                        align-self: center;
                     }
                 }
             }
@@ -137,8 +147,8 @@
             .assignment-section {
                 overflow-y: hidden;
                 flex: 0 1 100%;
-                padding-bottom: 16px;
-                box-shadow: 5px -2px 14px -10px #969696;
+                padding-bottom: 2px;
+                border-bottom: 1px solid $gray;
                 .assignment {
                     flex: 0 0 100%;
                     display: flex;
@@ -183,6 +193,9 @@
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                             }
+                            a {
+                                color: $darkgray;
+                            }
                         }
                         .task-selection-github a {
                             color: $darkgray !important;
@@ -218,16 +231,20 @@
             z-index: 200;
             border-radius: 0px;
             box-shadow: 0px 1px 2px 0px #969696;
+            .input-section {
+                width: 74%;
+            }
             .tools {
                 color: $devblack;
-                margin: 2.5px 12px 2.5px 12px;
+                margin: 7px 3px 7px 3px;
             }
         }
         .unassigned-task-container {
+            padding-top: 25px;
             position: fixed;
             overflow-y: auto;
             width: 15%;
-            height: calc(100% - 176.6px);
+            height: calc(100% - 170px);
             background-color: #F2F2F2;
             right: 0;
             box-shadow: 0px 1px 2px 0px #969696;
