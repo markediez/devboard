@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0'
 
-gem 'sqlite3',        group: :development
+gem 'sqlite3',        group: [:development, :test]
 
 gem 'sass-rails', '~> 5.0'
 
@@ -45,6 +45,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # For using MySQL server during development
+  gem 'mysql2'
 end
 
 # Use PostgreSQL in production
@@ -65,7 +67,7 @@ gem 'bootstrap-sass', '~> 3.1.0'
 gem 'rubycas-client', :git => 'https://github.com/cthielen/rubycas-client.git'
 
 # For authorization
-gem 'cancan'
+gem 'cancancan'
 
 # For GitHub integration
 gem 'octokit', '~> 4.0'
@@ -91,9 +93,6 @@ gem 'font-awesome-sass'
 
 # For drag and drop
 gem 'jquery-ui-rails'
-
-# For using MySQL server during development
-gem 'mysql2'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

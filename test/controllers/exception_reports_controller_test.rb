@@ -14,11 +14,6 @@ class ExceptionReportsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
   #test "should create exception_report" do
   #  assert_difference('ExceptionReport.count') do
   #    post exception_reports_url, params: { exception_report: { body: @exception_report.body, duplicate: @exception_report.duplicate, gh_issue_id: @exception_report.gh_issue_id, project_id: @exception_report.project_id, subject: @exception_report.subject } }
@@ -26,16 +21,6 @@ class ExceptionReportsControllerTest < ActionController::TestCase
 
   #  assert_redirected_to exception_report_url(ExceptionReport.last)
   #end
-
-  test "should show exception_report" do
-    get :show, params: { id: @exception_report }
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, params: { id: @exception_report }
-    assert_response :success
-  end
 
   #test "should update exception_report" do
   #  patch exception_report_url(@exception_report), params: { exception_report: { body: @exception_report.body, duplicate: @exception_report.duplicate, gh_issue_id: @exception_report.gh_issue_id, project_id: @exception_report.project_id, subject: @exception_report.subject } }

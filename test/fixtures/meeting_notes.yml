@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   title: MyString
   body: MyText
   project_id: 1
-  taken: 2014-02-10 13:10:43
+  taken: "2014-02-10 13:10:43"
 
 two:
+  id: 2
   title: MyString
   body: MyText
   project_id: 1
-  taken: 2014-02-11 13:10:43
+  taken: "2014-02-11 13:10:43"
