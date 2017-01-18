@@ -59,7 +59,7 @@
                                         <div class="task-selection">
                                             <div class="task-selection-check-mark">
 
-                                                <input type="checkbox" <%=t ask.completed_at? ? "checked" : "" %> >
+                                                <input type="checkbox" <%= task.completed_at? ? "checked" : "" %> >
                                             </div>
                                             <div class="task-selection-github">
                                                 <% if task.repository_id && task.gh_issue_number %>
