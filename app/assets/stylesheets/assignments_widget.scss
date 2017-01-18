@@ -4,6 +4,10 @@
         height: 100%;
     }
     
+    .row {
+        margin: 0px;
+    }
+    
     .assignments-widget {
         height: calc(100% - 96.4px);
         .date-nav {
@@ -29,9 +33,6 @@
                     margin: 0px 5px 0px 5px;
                 }
             }
-        }
-        .row {
-            margin: 0px;
         }
         .timeline-header {
             display: flex;
@@ -59,6 +60,7 @@
             .unassigned-task-title {
                 padding: 10px 20px 10px 20px;
                 border-top: 1px solid $gray;
+                background-color: white;
                 flex: 1;
                 align-self: center;
                 h5 {
@@ -174,6 +176,9 @@
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
+                        a {
+                            color: white;
+                        }
                     }
                     .finished-task {
                         flex: 1 0 180px;
@@ -237,10 +242,13 @@
             .tools {
                 color: $devblack;
                 margin: 7px 3px 7px 3px;
+                .input-group {
+                    width: 100%;
+                }
             }
         }
         .unassigned-task-container {
-            padding-top: 25px;
+            margin-top: 48px;
             position: fixed;
             overflow-y: auto;
             width: 15%;
@@ -264,6 +272,33 @@
                     width: 110px;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                }
+            }
+            .finished-task {
+                flex: 1;
+                background-color: $lightgray;
+                border: 1px solid $gray;
+                margin: 10px;
+                .task-title {
+                    color: $darkgray;
+                    h5 {
+                        white-space: nowrap;
+                        width: 110px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    p {
+                        white-space: nowrap;
+                        width: 110px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    a {
+                        color: $darkgray;
+                    }
+                }
+                .task-selection-github a {
+                    color: $darkgray !important;
                 }
             }
         }
