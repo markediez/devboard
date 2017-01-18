@@ -4,6 +4,10 @@
         height: 100%;
     }
     
+    .row {
+        margin: 0px;
+    }
+    
     .assignments-widget {
         height: calc(100% - 96.4px);
         .date-nav {
@@ -29,9 +33,6 @@
                     margin: 0px 5px 0px 5px;
                 }
             }
-        }
-        .row {
-            margin: 0px;
         }
         .timeline-header {
             display: flex;
@@ -237,6 +238,9 @@
             .tools {
                 color: $devblack;
                 margin: 7px 3px 7px 3px;
+                .input-group {
+                    width: 100%;
+                }
             }
         }
         .unassigned-task-container {
