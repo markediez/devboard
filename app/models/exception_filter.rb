@@ -9,10 +9,14 @@ class ExceptionFilter < ApplicationRecord
 
 		if regex.match(exception[self.concern]) != nil
 			case kind
+				# Sets 'project' equal to Project.find_by_name(value)
 				when 'SET_PROJECT'
+					Rails.logger.info "ExceptionReport ##{exception.id} filtered by SET_PROJECT"
 					exception.project = Project.find_by_name(self.value)
 					return true
+				# Removes any matches to 'value' from exception subject
 				when 'CLEAN_SUBJECT'
+					Rails.logger.info "ExceptionReport ##{exception.id} filtered by CLEAN_SUBJECT"
 					exception.subject.gsub!(value, '')
 					return true
 			end
@@ -21,11 +25,3 @@ class ExceptionFilter < ApplicationRecord
 		return false
 	end
 end
-
-# Examples
-
-# Set project if e-mail is from a certain address
-## if concern == pattern then set field to value2
-
-# Clean up subject line if e-mail is from a certain address
-## if concern == pattern then set field to gsub(field)

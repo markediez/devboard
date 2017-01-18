@@ -22,6 +22,8 @@ namespace :exception_report do
     # Grab all messages (except deleted ones, which would show up if we did 'ALL')
     ids = imap.search(['NOT','DELETED'])
 
+    filters = ExceptionFilter.all
+
     # Loop over each message
     ids.each do |id|
       # Fetch the message by 'id'
@@ -33,10 +35,13 @@ namespace :exception_report do
       er.body = mail.body.decoded
       er.duplicated_id = false
       er.email_from = mail.from[0]
-      er.exception_from_email = efe
+
+      # Apply any filters
+      filters.each do |f|
+        f.apply(er)
+      end
+
       er.save!
-
-
 
       # Delete the message only on production
       if Rails.env.production?
