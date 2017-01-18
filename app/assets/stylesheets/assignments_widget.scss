@@ -60,6 +60,7 @@
             .unassigned-task-title {
                 padding: 10px 20px 10px 20px;
                 border-top: 1px solid $gray;
+                background-color: white;
                 flex: 1;
                 align-self: center;
                 h5 {
@@ -247,8 +248,7 @@
             }
         }
         .unassigned-task-container {
-            padding-top: 25px;
-            margin-top: 26px;
+            margin-top: 48px;
             position: fixed;
             overflow-y: auto;
             width: 15%;
