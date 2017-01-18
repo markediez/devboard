@@ -28,24 +28,15 @@ namespace :exception_report do
       msg = imap.fetch(id, "RFC822")[0].attr['RFC822']
       mail = Mail.read_from_string(msg)
 
-      subject = mail.subject
-      body = mail.body.decoded
-      from = mail.from[0]
-
-      efe = ExceptionFromEmail.find_by(email: from)
-      unless efe
-        Rails.logger.warn "Could not find project matching exception address: #{from}. Creating ..."
-        efe = ExceptionFromEmail.new
-        efe.email = from
-        efe.save!
-      end
-
       er = ExceptionReport.new
-      er.subject = subject
-      er.body = body
+      er.subject = mail.subject
+      er.body = mail.body.decoded
       er.duplicated_id = false
+      er.email_from = mail.from[0]
       er.exception_from_email = efe
       er.save!
+
+
 
       # Delete the message only on production
       if Rails.env.production?

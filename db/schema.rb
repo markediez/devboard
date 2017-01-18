@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112225920) do
+ActiveRecord::Schema.define(version: 20170118003642) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -76,11 +76,13 @@ ActiveRecord::Schema.define(version: 20170112225920) do
     t.boolean  "active",                          default: true
   end
 
-  create_table "exception_from_emails", force: :cascade do |t|
-    t.string   "email"
+  create_table "exception_filters", force: :cascade do |t|
+    t.string   "concern"
+    t.string   "pattern"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "project_id"
+    t.string   "kind"
+    t.string   "value"
   end
 
   create_table "exception_reports", force: :cascade do |t|
@@ -92,6 +94,8 @@ ActiveRecord::Schema.define(version: 20170112225920) do
     t.datetime "updated_at",              null: false
     t.integer  "task_id"
     t.integer  "exception_from_email_id"
+    t.string   "email_from"
+    t.integer  "project_id"
   end
 
   create_table "meeting_notes", force: :cascade do |t|

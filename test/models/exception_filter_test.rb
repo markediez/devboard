@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ExceptionFromEmailTest < ActiveSupport::TestCase
+class ExceptionFilterTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
