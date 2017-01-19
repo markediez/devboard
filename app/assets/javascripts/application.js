@@ -14,8 +14,8 @@ $(document).ready(function() {
 /**
  * Returns the time in the format YYY-MM-DD HH:MM:SS
  */
-function getTimeNow() {
-  var t = new Date(Date.now());
+function getTimeNow(timeInMills = Date.now()) {
+  var t = new Date(timeInMills);
 
   var year = t.getFullYear();
   var month = ("0" + (t.getMonth() + 1) ).slice(-2);   // "0" + ___ .slice(-2) ensures 2 digit numbers

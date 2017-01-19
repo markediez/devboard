@@ -42,7 +42,35 @@ class Developer < ActiveRecord::Base
   end
 
   def assignments_at(date)
-    assignments()
+    start_of_day = date.change(:hour => 0)
+    end_of_day = date.change(:hour => 24)
+
+    assignments_to_view = assignments
+    assignments.each do |a|
+      task = a.task
+      logger.debug "~~" + a.task.title
+      if task.completed_at && (task.completed_at > end_of_day || task.completed_at < start_of_day)
+        logger.debug "BOOM"
+        assignments_to_view.delete(a)
+      end
+    end
+
+    return assignments_to_view
+    #
+    # logger.debug "============="
+    # logger.debug start_of_day
+    # logger.debug end_of_day
+    # valid_assignments = assignments
+    # valid_assignments.each do |a|
+    #   logger.debug "~~" + a.task.title
+    #   if a.task.completed_at && (a.task.completed_at < start_of_day || a.task.completed_at > end_of_day)
+    #     logger.debug "yes"
+    #     logger.debug  "::" + a.task.completed_at.to_s
+    #     valid_assignments.delete(a)
+    #   end
+    # end
+    #
+    # return valid_assignments
   end
 
   protected

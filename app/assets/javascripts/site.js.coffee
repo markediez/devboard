@@ -1,29 +1,81 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+
+# Global Variables
+
 $(document).ready ->
+  # Need this to detect if we drag tasks between developers / unassigned tasks
+  origin = undefined
+
   # Set up event listeners
   $(".task input:checkbox").on "click", (e) ->
     toggleTaskStatus(this)
 
-  rangeSlider = ->
-    slider = $('.range-slider')
-    range = $('.range-slider-range')
-    value = $('.range-slider-value')
-    slider.each ->
-      value.each ->
-        `var value`
-        value = $(this).prev().attr('value')
-        $(this).html value
-        return
-      range.on 'input', ->
-        $(this).next(value).html @value
-        return
-      return
-    return
+  # Set up drag and drop for tasks
+  $(".assignment, .unassigned-task-container").sortable(
+    items: ".assigned-task"
+    connectWith: ".connected-sortable"
+    start: (e, ui) ->
+      # Set overflow to visible for the dragged task to be seen
+      $(".unassigned-task-container").css("overflow-y", "visible")
 
-  rangeSlider()
+      # Set origin of task
+      origin = $(this.closest("[data-developer-id]")).data("developer-id")
+    stop: (e, ui) ->
+      # Reset after dragging
+      $(".unassigned-task-container").css("overflow-y", "auto")
+  ).disableSelection().droppable(
+    drop: (event, ui) ->
+      taskId = $(ui.draggable).data("task-id")
+      destination = $(this.closest("[data-developer-id]")).data("developer-id")
+      
+      if destination != origin
+        # Assign task to a developer
+        if destination != -1
+          if origin != -1
+            unassignTaskFromDeveloper(origin, taskId)
+
+          assignTaskToDeveloper(destination, taskId)
+        else
+          unassignTaskFromDeveloper(origin, taskId)
+  )
   return
+
+# Assigns a task to a developer
+# developerAccountId = developer to assign
+# taskId = id of the task
+assignTaskToDeveloper = (developerAccountId, taskId) ->
+  uniqueId = Date.now()
+  $.ajax
+    url: "/tasks/#{taskId}.json"
+    type: "put"
+    data:
+      task:
+        assignments_attributes:
+          "#{uniqueId}":
+            developer_account_id: developerAccountId
+            _destroy: "false"
+    success: (data, status, xhr) ->
+      # Flash success notice?
+    error: (data, status, xhr) ->
+      # Flash error notice?
+
+# Unassigns a task from a developer
+# developerAccountId = developer currently assigned to task
+# taskId = id of the task
+unassignTaskFromDeveloper = (developerAccountId, taskId) ->
+  $.post
+    url: "/tasks/unassign"
+    data:
+      task:
+        developer_account_id: developerAccountId
+        task_id: taskId
+    success: (data, status, xhr) ->
+      # Flash success notice?
+    error: (data, status, xhr) ->
+      # Flash error notice?
+
 
 # el = checkbox of a task
 toggleView = (el) ->
@@ -65,3 +117,20 @@ this.toggleTaskCompleted = (el) ->
   else
     container.removeClass("finished-task");
     container.addClass("ipa-task");
+
+# For task modal
+this.rangeSlider = ->
+  slider = $('.range-slider')
+  range = $('.range-slider-range')
+  value = $('.range-slider-value')
+  slider.each ->
+    value.each ->
+      `var value`
+      value = $(this).prev().attr('value')
+      $(this).html value
+      return
+    range.on 'input', ->
+      $(this).next(value).html @value
+      return
+    return
+  return

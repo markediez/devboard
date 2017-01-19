@@ -3,17 +3,23 @@
     body {
         height: 100%;
     }
-    
+
     .row {
         margin: 0px;
     }
-    
+
     .assignments-widget {
-        height: calc(100% - 96.4px);
+        height: calc(100% - 96px);
         .date-nav {
             position: absolute;
-            left: 57.3%;
             top: 12px;
+            left: 37%;
+            @media screen and (min-width: 1290px) {
+                left: 37%;
+            }
+            @media screen and (min-width: 1920px) {
+                left: 41%;
+            }
             button {
                 border: 1px solid $gray !important;
             }
@@ -127,7 +133,7 @@
                 box-shadow: 1px -3px 5px -2px rgba(0, 0, 0, 0.45);
                 .developer {
                     display: flex;
-                    margin: 24.5px 0px 24.5px 15px;
+                    margin: 23px 0px 24px 15px;
                     .developer-name {
                         position: relative;
                         font-size: 10pt;
@@ -149,12 +155,12 @@
             .assignment-section {
                 overflow-y: hidden;
                 flex: 0 1 100%;
-                padding-bottom: 2px;
                 border-bottom: 1px solid $gray;
                 .assignment {
                     flex: 0 0 100%;
                     display: flex;
                     flex-direction: row;
+                    min-height: 82px;
                     padding-bottom: 10px;
                     padding-top: 10px;
                     padding-left: 10px;
@@ -252,7 +258,7 @@
             position: fixed;
             overflow-y: auto;
             width: 15%;
-            height: calc(100% - 170px);
+            height: calc(100% - 190px);
             background-color: #F2F2F2;
             right: 0;
             box-shadow: 0px 1px 2px 0px #969696;
