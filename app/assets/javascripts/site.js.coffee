@@ -6,6 +6,18 @@ $(document).ready ->
   $(".task input:checkbox").on "click", (e) ->
     toggleTaskStatus(this)
 
+  # Set up drag and drop for tasks
+  $(".assignment, .unassigned-task-container").sortable(
+    connectWith: ".connected-sortable"
+    start: (e, ui) ->
+      # Set overflow to visible for the dragged task to be seen
+      $(".unassigned-task-container").css("overflow-y", "visible")
+    stop: (e, ui) ->
+      # Reset after dragging 
+      $(".unassigned-task-container").css("overflow-y", "auto")
+  ).disableSelection()
+
+
   rangeSlider = ->
     slider = $('.range-slider')
     range = $('.range-slider-range')
