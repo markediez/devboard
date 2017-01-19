@@ -42,7 +42,20 @@ class Developer < ActiveRecord::Base
   end
 
   def assignments_at(date)
-    assignments()
+    start_of_day = date
+    end_of_day = date
+
+    start_of_day.change(:hour => 0)
+    end_of_day.change(:hour => 23, :minute => 59, :second => 59)
+
+    valid_assignments = assignments
+    valid_assignments.each do |a|
+      if a.task.completed_at && (a.task.completed_at < start_of_day || a.task.completed_at > end_of_day)
+        valid_assignments.delete(a)
+      end
+    end
+
+    return valid_assignments
   end
 
   protected
