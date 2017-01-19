@@ -33,6 +33,20 @@ $(document).ready ->
       if destination != origin
         # Assign task to a developer
         if destination != -1
+          if origin != -1
+            # Unassign task from developer
+            $.post
+              url: "/tasks/unassign"
+              data:
+                task:
+                  developer_account_id: origin
+                  task_id: taskId
+              success: (data, status, xhr) ->
+                # Flash success notice?
+              error: (data, status, xhr) ->
+                # Flash error notice?
+
+
           $.ajax
             url: "/tasks/#{taskId}.json"
             type: "put"
@@ -43,9 +57,10 @@ $(document).ready ->
                     developer_account_id: destination
                     _destroy: "false"
             success: (data, status, xhr) ->
-
+              # Flash success notice?
             error: (data, status, xhr) ->
-              console.log ":("
+              # Flash error notice?
+
         else
           # Unassign task from developer
           $.post
@@ -55,9 +70,9 @@ $(document).ready ->
                 developer_account_id: origin
                 task_id: taskId
             success: (data, status, xhr) ->
-              console.log ":)"
+              # Flash success notice?
             error: (data, status, xhr) ->
-              console.log ":("
+              # Flash error notice?
   )
 
 
