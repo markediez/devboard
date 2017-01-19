@@ -12,8 +12,14 @@
         height: calc(100% - 96px);
         .date-nav {
             position: absolute;
-            left: 57.3%;
             top: 12px;
+            left: 37%;
+            @media screen and (min-width: 1290px) {
+                left: 37%;
+            }
+            @media screen and (min-width: 1920px) {
+                left: 41%;
+            }
             button {
                 border: 1px solid $gray !important;
             }
