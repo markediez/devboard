@@ -14,6 +14,7 @@ $(document).ready ->
 
   # Set up drag and drop for tasks
   $(".assignment, .unassigned-task-container").sortable(
+    items: ".assigned-task"
     connectWith: ".connected-sortable"
     start: (e, ui) ->
       # Set overflow to visible for the dragged task to be seen
