@@ -44,7 +44,7 @@
                     <div class="assignment connected-sortable" data-developer-id="<%= developer.accounts.size > 0 ? developer.accounts.first.id : "" %>">
 
                         <!-- Show open assigned tasks and tasks closed on the same day -->
-                        <% developer.assignments_at(Time.now).each do |assignment| %>
+                        <% developer.assignments_at(@time_to_view).each do |assignment| %>
                             <% task = assignment.task %>
                                 <div class="task <%=task.completed_at? ? " finished-task " : "assigned-task " %>" data-task-id="<%= task.id %>">
                                     <div class="flex-row">
