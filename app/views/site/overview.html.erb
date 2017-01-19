@@ -41,7 +41,7 @@
         <div class="assignment-container">
             <div class="assignment-section">
                 <% @developers.each do |developer| %>
-                    <div class="assignment connected-sortable">
+                    <div class="assignment connected-sortable" data-developer-id="<%= developer.accounts.first.id %>">
 
                         <!-- Show open assigned tasks and tasks closed on the same day -->
                         <% developer.assignments_at(Time.now).each do |assignment| %>
@@ -102,7 +102,7 @@
                 </div>
             </div>
         </div>
-        <div class="unassigned-task-container connected-sortable">
+        <div class="unassigned-task-container connected-sortable" data-developer-id="-1">
             <% @tasks.each do |task| %>
                 <div class="task assigned-task" data-task-id="<%= task.id %>">
                     <div class="flex-row">

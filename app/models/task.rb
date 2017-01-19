@@ -23,8 +23,8 @@ class Task < ActiveRecord::Base
 
   # Returns the GitHub URL associated with this task, if any, else false
   def external_url
-    if @task.gh_issue_number and @task.repository and @task.repository.url
-      return 'https://github.com/' + @task.repository.url + '/issues/' + @task.gh_issue_number
+    if self.gh_issue_number and self.repository and self.repository.url
+      return 'https://github.com/' + self.repository.url + '/issues/' + self.gh_issue_number
     end
 
     return false

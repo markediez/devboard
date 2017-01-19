@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   post '/credentials' => 'site#credentials'
   get '/logout' => 'site#logout'
 
+  post '/tasks/unassign' => 'tasks#unassign'
+
   post 'exception_reports/new_task' => 'exception_reports#new_task'
 
   resources :tasks
