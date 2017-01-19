@@ -1,10 +1,80 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+
+# Global Variables
+
 $(document).ready ->
+  # Need this to detect if we drag tasks between developers / unassigned tasks
+  origin = undefined
+
   # Set up event listeners
   $(".task input:checkbox").on "click", (e) ->
     toggleTaskStatus(this)
+
+  # Set up drag and drop for tasks
+  $(".assignment, .unassigned-task-container").sortable(
+    connectWith: ".connected-sortable"
+    start: (e, ui) ->
+      # Set overflow to visible for the dragged task to be seen
+      $(".unassigned-task-container").css("overflow-y", "visible")
+
+      # Set origin of task
+      origin = $(this.closest("[data-developer-id]")).data("developer-id")
+    stop: (e, ui) ->
+      # Reset after dragging
+      $(".unassigned-task-container").css("overflow-y", "auto")
+  ).disableSelection().droppable(
+    drop: (event, ui) ->
+      taskId = $(ui.draggable).data("task-id")
+      destination = $(this.closest("[data-developer-id]")).data("developer-id")
+      uniqueId = Date.now()
+
+      if destination != origin
+        # Assign task to a developer
+        if destination != -1
+          if origin != -1
+            # Unassign task from developer
+            $.post
+              url: "/tasks/unassign"
+              data:
+                task:
+                  developer_account_id: origin
+                  task_id: taskId
+              success: (data, status, xhr) ->
+                # Flash success notice?
+              error: (data, status, xhr) ->
+                # Flash error notice?
+
+
+          $.ajax
+            url: "/tasks/#{taskId}.json"
+            type: "put"
+            data:
+              task:
+                assignments_attributes:
+                  "#{uniqueId}":
+                    developer_account_id: destination
+                    _destroy: "false"
+            success: (data, status, xhr) ->
+              # Flash success notice?
+            error: (data, status, xhr) ->
+              # Flash error notice?
+
+        else
+          # Unassign task from developer
+          $.post
+            url: "/tasks/unassign"
+            data:
+              task:
+                developer_account_id: origin
+                task_id: taskId
+            success: (data, status, xhr) ->
+              # Flash success notice?
+            error: (data, status, xhr) ->
+              # Flash error notice?
+  )
+
 
   rangeSlider = ->
     slider = $('.range-slider')
