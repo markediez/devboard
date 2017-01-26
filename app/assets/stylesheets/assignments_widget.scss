@@ -82,7 +82,7 @@
         }
         .task {
             /* general styles */
-            display: flex;
+            display: inline-block;
             flex-direction: column;
             margin: 0px 5px;
             border-radius: 5px;
@@ -158,7 +158,8 @@
                 border-bottom: 1px solid $gray;
                 .assignment {
                     flex: 0 0 100%;
-                    display: flex;
+                    display: inline-table;
+                    white-space: nowrap;
                     flex-direction: row;
                     min-height: 82px;
                     padding-bottom: 10px;
