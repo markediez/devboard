@@ -4,6 +4,7 @@
 //= require Chart
 //= require routes
 //= require_tree .
+//= require bootstrap-datepicker
 
 $(document).ready(function() {
   $.ajaxSetup({

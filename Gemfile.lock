@@ -61,6 +61,8 @@ GEM
     airbrussh (1.1.2)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (7.1.4)
+    bootstrap-datepicker-rails (1.6.4.1)
+      railties (>= 3.0)
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.2.3)
@@ -237,6 +239,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store!
+  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.1.0)
   byebug
   cancancan

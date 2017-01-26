@@ -5,10 +5,31 @@
 # Global Variables
 
 $(document).ready ->
+  # Set up datepicker
+  $(".date-picker").datepicker
+    format: "DD, M d, yyyy"
+    autoclose: true
+
+  # Set default value
+  $(".date-picker").datepicker('setDate',new Date())
+  $(".date-picker").datepicker('update')
+
   # Need this to detect if we drag tasks between developers / unassigned tasks
   origin = undefined
 
   # Set up event listeners
+  $("[data-nav=tomorrow]").on "click", (e) ->
+    currDate = new Date $(".date-picker").val()
+    currDate.setDate(currDate.getDate() + 1)
+    $(".date-picker").datepicker('setDate', currDate)
+    $(".date-picker").datepicker('update')
+
+  $("[data-nav=yesterday]").on "click", (e) ->
+    currDate = new Date $(".date-picker").val()
+    currDate.setDate(currDate.getDate() - 1)
+    $(".date-picker").datepicker('setDate', currDate)
+    $(".date-picker").datepicker('update')
+
   $(".task input:checkbox").on "click", (e) ->
     toggleTaskStatus(this)
 
@@ -29,7 +50,7 @@ $(document).ready ->
     drop: (event, ui) ->
       taskId = $(ui.draggable).data("task-id")
       destination = $(this.closest("[data-developer-id]")).data("developer-id")
-      
+
       if destination != origin
         # Assign task to a developer
         if destination != -1
