@@ -1,3 +1,36 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.form-container {
+    width: 95%;
+    margin: 20px;
+    .form-section {
+        margin: 0px 25px;
+        padding: 30px 0px;
+        border-bottom: 1px solid #F0F0F0;
+        label {
+            width: 80px;
+            margin-right: 80px;
+        }
+        textarea {
+            border: 1px solid #F0F0F0 !important;
+        }
+        .details {
+            display: block;
+            float: left;
+        }
+    }
+}
+
+.info-container {
+    width: 95%;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    .colm-right {
+        flex: 1 1 100%;
+    }
+    .colm-left {
+        flex: 1 1 100%;
+    }
+}
