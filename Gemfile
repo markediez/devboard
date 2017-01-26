@@ -60,6 +60,7 @@ gem 'byebug', group: [:development, :test], platform: :mri
 
 # For easy Bootstrap integration
 gem 'bootstrap-sass', '~> 3.1.0'
+gem 'bootstrap-datepicker-rails'
 
 # For CAS authentication
 #gem 'rubycas-client', :git => 'https://github.com/mp-dhorsak/rubycas-client.git'
