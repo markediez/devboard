@@ -3,11 +3,11 @@
     body {
         height: 100%;
     }
-
+    
     .row {
         margin: 0px;
     }
-
+    
     .assignments-widget {
         height: calc(100% - 96px);
         .date-nav {
@@ -25,6 +25,7 @@
             }
         }
         .date-picker {
+            border-color: #d6d6d6;
             i {
                 margin-left: 6px;
             }
@@ -82,7 +83,7 @@
         }
         .task {
             /* general styles */
-            display: flex;
+            display: inline-block;
             flex-direction: column;
             margin: 0px 5px;
             border-radius: 5px;
@@ -90,8 +91,8 @@
         .task-title {
             /* general styles */
             flex: 0 1 70%;
-            margin-top: 10px;
-            margin-left: 10px;
+            margin-top: 8px;
+            margin-left: 8px;
             line-height: 2;
             color: white;
             a {
@@ -158,18 +159,20 @@
                 border-bottom: 1px solid $gray;
                 .assignment {
                     flex: 0 0 100%;
-                    display: flex;
+                    display: inline-table;
+                    white-space: nowrap;
                     flex-direction: row;
                     min-height: 82px;
                     padding-bottom: 10px;
                     padding-top: 10px;
-                    padding-left: 10px;
-                    padding-right: 10px;
+                    padding-left: 5px;
+                    padding-right: 5px;
                     width: 100%;
                     .assigned-task {
                         flex: 1 0 180px;
                         background-color: $devblue;
                         border: 1px solid $devblue-dark;
+                        vertical-align: top;
                         h5 {
                             white-space: nowrap;
                             width: 150px;
@@ -212,18 +215,24 @@
                             color: $darkgray !important;
                         }
                     }
-                    .empty-task {
+                    .empty-task-wrapper {
+                        //this class help fix the margin issue for empty task
                         flex: 1 0 180px !important;
                         height: 62.07px;
-                        border: 1.5px dashed $gray;
-                        i {
-                            color: $gray;
-                        }
-                        &:hover {
-                            border: 1.5px dashed $darkgray;
-                            cursor: pointer;
+                        .empty-task {
+                            height: 62.07px;
+                            border: 1.5px dashed $gray;
+                            margin-right: 10px;
+                            margin-left: 10px;
                             i {
-                                color: $darkgray;
+                                color: $gray;
+                            }
+                            &:hover {
+                                border: 1.5px dashed $darkgray;
+                                cursor: pointer;
+                                i {
+                                    color: $darkgray;
+                                }
                             }
                         }
                     }

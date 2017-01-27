@@ -3,12 +3,11 @@
     <header class="section-title">
         <h3>Assignments</h3>
         <div class="btn-group date-nav" role="group" aria-label="...">
-            <button type="button" class="btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-            <button type="button" class="btn btn-default date-picker">
-        <span>Wednesday, Jan 11, 2017</span>
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-      </button>
-            <button type="button" class="btn btn-default"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-default" data-nav="yesterday"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+
+            <input type="button" class="btn btn-default date-picker">
+
+            <button type="button" class="btn btn-default" data-nav="tomorrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
         </div>
         <div class="timeline-header">
             <div class="developer-assignment-titles ">
@@ -41,7 +40,7 @@
         <div class="assignment-container">
             <div class="assignment-section">
                 <% @developers.each do |developer| %>
-                    <div class="assignment connected-sortable" data-developer-id="<%= developer.accounts.size > 0 ? developer.accounts.first.id : "" %>">
+                    <div class="assignment connected-sortable" data-developer-id="<%= developer.accounts.size > 0 ? developer.accounts.first.id : " " %>">
 
                         <!-- Show open assigned tasks and tasks closed on the same day -->
                         <% developer.assignments_at(@time_to_view).each do |assignment| %>
@@ -59,7 +58,7 @@
                                         <div class="task-selection">
                                             <div class="task-selection-check-mark">
 
-                                                <input type="checkbox" <%= task.completed_at? ? "checked" : "" %> >
+                                                <input type="checkbox" <%=task.completed_at? ? "checked" : "" %> >
                                             </div>
                                             <div class="task-selection-github">
                                                 <% if task.repository_id && task.gh_issue_number %>
@@ -72,6 +71,7 @@
                                 <% end %>
 
                                     <!-- Start add new task -->
+
                                     <!-- <div class="task empty-task flex-row_center" data-toggle="modal" data-target="#add_task">
                                         <div class="flex-auto text-center">
                                             <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>

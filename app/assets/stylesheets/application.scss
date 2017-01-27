@@ -10,6 +10,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap-datepicker
  */
 
 @import "bootstrap";
@@ -34,7 +35,7 @@ h5 {
 }
 
 .btn-default {
-    border-color: white !important;
+    border-color: white;
 }
 
 

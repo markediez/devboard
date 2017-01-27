@@ -61,6 +61,8 @@ GEM
     airbrussh (1.1.2)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (7.1.4)
+    bootstrap-datepicker-rails (1.6.4.1)
+      railties (>= 3.0)
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.2.3)
@@ -198,7 +200,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    spring (2.0.0)
+    spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -216,7 +218,7 @@ GEM
       net-ssh (>= 2.8.0)
     thor (0.19.4)
     thread_safe (0.3.5)
-    tilt (2.0.5)
+    tilt (2.0.6)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.4)
@@ -226,7 +228,7 @@ GEM
       activemodel (>= 5.0)
       debug_inspector
       railties (>= 5.0)
-    websocket-driver (0.6.4)
+    websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     whenever (0.9.7)
@@ -237,6 +239,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store!
+  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.1.0)
   byebug
   cancancan
