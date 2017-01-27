@@ -28,9 +28,11 @@
     display: flex;
     flex-direction: row;
     .colm-right {
+        margin: 0px 25px;
         flex: 1 1 100%;
     }
     .colm-left {
+        margin: 0px 25px;
         flex: 1 1 100%;
     }
 }
