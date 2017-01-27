@@ -265,6 +265,8 @@
         .unassigned-task-container {
             margin-top: 48px;
             position: fixed;
+            display: flex;
+            flex-direction: column;
             overflow-y: auto;
             width: 15%;
             height: calc(100% - 190px);
@@ -272,7 +274,7 @@
             right: 0;
             box-shadow: 0px 1px 2px 0px #969696;
             .assigned-task {
-                flex: 1;
+                flex: 0 1 auto;
                 background-color: $devblue;
                 border: 1px solid $devblue-dark;
                 margin: 10px;
