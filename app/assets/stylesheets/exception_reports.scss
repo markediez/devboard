@@ -4,7 +4,7 @@ $table-row-divider: 1px solid #666;
 $table-row-height: 30px;
 $table-row-selected-bg: #f8f8f8;
 $notice-info: #428bca;
-.table {
+#exception-table {
     border: 1px solid lightgray;
     box-shadow: 0px 2px 10px -5px rgba(97, 97, 97, 1);
     text-align: center;
@@ -16,6 +16,22 @@ $notice-info: #428bca;
             td:nth-child(3) {
                 text-align: left;
             }
+        }
+    }
+}
+
+.table {
+    border: 1px solid lightgray;
+    box-shadow: 0px 2px 10px -5px rgba(97, 97, 97, 1);
+    /*text-align: center;
+    th {
+        text-align: center;
+    }*/
+    tbody {
+        tr {
+            /*td:nth-child(3) {
+                text-align: left;
+            }*/
         }
     }
 }
