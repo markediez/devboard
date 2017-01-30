@@ -3,11 +3,11 @@
     body {
         height: 100%;
     }
-    
+
     .row {
         margin: 0px;
     }
-    
+
     .assignments-widget {
         height: calc(100% - 96px);
         .date-nav {
@@ -162,7 +162,7 @@
                     display: inline-table;
                     white-space: nowrap;
                     flex-direction: row;
-                    min-height: 82px;
+                    height: 82px;
                     padding-bottom: 10px;
                     padding-top: 10px;
                     padding-left: 5px;
