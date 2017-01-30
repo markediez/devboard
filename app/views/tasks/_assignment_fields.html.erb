@@ -1,5 +1,5 @@
 <p class="fields">
-  <%= f.collection_select(:developer_account_id, Developer.all, :id, :name, { include_blank: true }) %>
+  <%= f.collection_select(:developer_account_id, Developer.all, :devboard_account_id, :name, { include_blank: true }) %>
   <%= f.hidden_field :_destroy %>
   <%= link_to "remove", "#", onclick: "return rails_nested_form_remove_fields(this);" %>
 </p>

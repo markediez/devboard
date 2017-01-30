@@ -79,6 +79,12 @@ class Developer < ActiveRecord::Base
     end
   end
 
+  def devboard_account_id
+    accounts.each do |account|
+      return account.id if account.account_type == "devboard"
+    end
+  end
+
   protected
 
   # gh_username and gh_personal_token are optional but both must be present if either is specified
