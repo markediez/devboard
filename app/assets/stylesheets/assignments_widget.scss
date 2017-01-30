@@ -85,7 +85,7 @@
             /* general styles */
             display: inline-block;
             flex-direction: column;
-            margin: 0px 3px;
+            margin: 0px 4px;
             border-radius: 5px;
         }
         .task-title {
@@ -173,6 +173,7 @@
                         background-color: $devblue;
                         border: 1px solid $devblue-dark;
                         vertical-align: top;
+                        height: 100%;
                         h5 {
                             white-space: nowrap;
                             width: 150px;
@@ -263,7 +264,8 @@
             }
         }
         .unassigned-task-container {
-            padding-top: 54px;
+            margin-top: 48px;
+            padding-top: 6px;
             position: fixed;
             display: flex;
             flex-direction: column;
