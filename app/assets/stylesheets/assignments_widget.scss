@@ -3,11 +3,11 @@
     body {
         height: 100%;
     }
-
+    
     .row {
         margin: 0px;
     }
-
+    
     .assignments-widget {
         height: calc(100% - 96px);
         .date-nav {
@@ -85,7 +85,7 @@
             /* general styles */
             display: inline-block;
             flex-direction: column;
-            margin: 0px 5px;
+            margin: 0px 4px;
             border-radius: 5px;
         }
         .task-title {
@@ -173,6 +173,7 @@
                         background-color: $devblue;
                         border: 1px solid $devblue-dark;
                         vertical-align: top;
+                        height: 100%;
                         h5 {
                             white-space: nowrap;
                             width: 150px;
@@ -264,6 +265,7 @@
         }
         .unassigned-task-container {
             margin-top: 48px;
+            padding-top: 6px;
             position: fixed;
             display: flex;
             flex-direction: column;
@@ -277,7 +279,7 @@
                 flex: 0 1 auto;
                 background-color: $devblue;
                 border: 1px solid $devblue-dark;
-                margin: 10px;
+                margin: 5px 10px;
                 h5 {
                     white-space: nowrap;
                     width: 110px;
@@ -295,7 +297,7 @@
                 flex: 1;
                 background-color: $lightgray;
                 border: 1px solid $gray;
-                margin: 10px;
+                margin: 5px 10px;
                 .task-title {
                     color: $darkgray;
                     h5 {
