@@ -73,6 +73,12 @@ class Developer < ActiveRecord::Base
     # return valid_assignments
   end
 
+  def devboard_account
+    accounts.each do |account|
+      return account if account.account_type == "devboard"
+    end
+  end
+
   protected
 
   # gh_username and gh_personal_token are optional but both must be present if either is specified
