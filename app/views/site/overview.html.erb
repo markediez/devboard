@@ -49,7 +49,7 @@
                                     <div class="flex-row">
                                         <div class="task-title">
                                             <h5>
-                                                <%= task.project.present? ? link_to(task.project.name, task.project) : "" %>
+                                                <%= task.project.present? ? link_to(task.project.name, task.project) : "No Project" %>
                                             </h5>
                                             <p>
                                                 <%= link_to task.title, task %>
@@ -110,7 +110,7 @@
                     <div class="flex-row">
                         <div class="task-title">
                             <h5>
-                                <%= task.project.present? ? link_to(task.project.name, task.project) : ""%>
+                                <%= task.project.present? ? link_to(task.project.name, task.project) : "No Project"%>
                             </h5>
                             <p>
                                 <%= link_to task.title, task %>
