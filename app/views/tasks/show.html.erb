@@ -30,7 +30,7 @@
     assigned to
     <% if @task.assignments.size > 0 %>
         <% @task.assignments.each do |assignment| %>
-          <%= link_to(assignment.developer.name, assignment.developer)%>
+          <%= assignment.developer.present? ? link_to(assignment.developer.name, assignment.developer) : link_to(assignment.developer_account, developer_account_path)%>
           <%= "," unless assignment == @task.assignments.last %>
         <% end %>
     <% else %>
