@@ -3,75 +3,131 @@ $table-head-text-color: #FFFFFF;
 $table-row-divider: 1px solid #666;
 $table-row-height: 30px;
 $table-row-selected-bg: #f8f8f8;
+$notice-info: #428bca;
+#exception-table {
+    border: 1px solid lightgray;
+    box-shadow: 0px 2px 10px -5px rgba(97, 97, 97, 1);
+    text-align: center;
+    th {
+        text-align: center;
+    }
+    tbody {
+        tr {
+            td:nth-child(3) {
+                text-align: left;
+            }
+        }
+    }
+}
 
-$notice-info: #33b5e5;
+.table {
+    border: 1px solid lightgray;
+    box-shadow: 0px 2px 10px -5px rgba(97, 97, 97, 1);
+    /*text-align: center;
+    th {
+        text-align: center;
+    }*/
+    tbody {
+        tr {
+            /*td:nth-child(3) {
+                text-align: left;
+            }*/
+        }
+    }
+}
 
 .table-head {
-  display: flex;
-  width: 100%;
-  background-color: $table-head-bg;
-  color: $table-head-text-color;
-  padding: 8px 0;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    background-color: $table-head-bg;
+    color: $table-head-text-color;
+    padding: 8px 0;
 }
 
 .table-content {
-  width: 100%;
-  padding:0;
-
-  .table-row {
-    display: flex;
     width: 100%;
-    padding:0;
-    border-bottom: $table-row-divider;
-    height: $table-row-height;
-
-    .table-cell {
-      align-self: center;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
+    padding: 0;
+    .table-row {
+        display: flex;
+        width: 100%;
+        padding: 0;
+        border-bottom: $table-row-divider;
+        height: $table-row-height;
+        .table-cell {
+            align-self: center;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
-  }
-
-  .selected-row {
-    background-color: $table-row-selected-bg;
-  }
+    .selected-row {
+        background-color: $table-row-selected-bg;
+    }
 }
 
 .notice-regular {
-  position: fixed;
-  display: flex;
-  top: 7%;
-  left: 50%;
-
-  span {
-    padding: 15px;
-    background-color: $notice-info;
-    color: white;
-  }
+    position: fixed;
+    display: flex;
+    top: 13.8%;
+    margin-left: 22px;
+    margin-right: 22px;
+    width: 80%;
+    padding-left: 0px;
+    padding-right: 0px;
+    @media screen and (max-width: 1278px) {
+        top: 9.1%;
+    }
+    @media screen and (min-width: 1280px) {
+        top: 7.9%;
+    }
+    @media screen and (min-width: 1920px) {
+        top: 6%;
+    }
+    //left: 50%;
+    span {
+        padding: 15px;
+        background-color: $notice-info;
+        color: white;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .notice-confirm {
-  position: fixed;
-  display: flex;
-  top: 7%;
-  left: 50%;
-
-  span {
-    padding: 15px;
-    background-color: $notice-info;
-    color: white;
-  }
-
-  button {
-    border-radius: 0;
-  }
+    position: fixed;
+    display: flex;
+    width: 80%;
+    margin-left: 22px;
+    margin-right: 22px;
+    padding-left: 0px;
+    padding-right: 0px;
+    @media screen and (max-width: 1278px) {
+        top: 9.1%;
+    }
+    @media screen and (min-width: 1280px) {
+        top: 7.9%;
+    }
+    @media screen and (min-width: 1920px) {
+        top: 6%;
+    }
+    span {
+        padding: 15px;
+        background-color: $notice-info;
+        color: white;
+        width: 85%;
+        text-align: center;
+    }
+    button {
+        border-radius: 0;
+        width: 15%;
+    }
 }
 
 .option-original {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .option-original:hover {
-  background-color: red;
+    background-color: red;
 }
