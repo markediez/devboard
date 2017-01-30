@@ -40,7 +40,7 @@
         <div class="assignment-container">
             <div class="assignment-section">
                 <% @developers.each do |developer| %>
-                    <div class="assignment connected-sortable" data-developer-id="<%= developer.accounts.size > 0 ? developer.accounts.first.id : " " %>">
+                    <div class="assignment connected-sortable" data-developer-id="<%= developer.devboard_account_id %>">
 
                         <!-- Show open assigned tasks and tasks closed on the same day -->
                         <% developer.assignments_at(@time_to_view).each do |assignment| %>
