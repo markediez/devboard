@@ -12,8 +12,23 @@
             width: 80px;
             margin-right: 80px;
         }
+        input {
+            border: 1px solid #E2E2E2;
+            padding: 5px;
+            height: 28px;
+            border-radius: 3px !important;
+            outline: none;
+            color: #BFBFBF;
+            box-shadow: none;
+        }
         textarea {
-            border: 1px solid #F0F0F0 !important;
+            border: 1px solid #E2E2E2;
+            padding: 5px;
+            height: 28px;
+            border-radius: 3px !important;
+            outline: none;
+            color: #BFBFBF;
+            box-shadow: none;
         }
         .details {
             display: block;
