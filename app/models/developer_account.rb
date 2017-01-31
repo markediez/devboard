@@ -4,7 +4,7 @@
 # in various git commits)
 class DeveloperAccount < ActiveRecord::Base
   validate :email, :minimum_email_length
-  validates_inclusion_of :account_type, :in => %w( git github )
+  validates_inclusion_of :account_type, :in => %w( git github devboard )
 
   belongs_to :developer
   has_many :commits

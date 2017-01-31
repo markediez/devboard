@@ -26,11 +26,11 @@
   <% end %>
 
   <p class="lead" style="margin-bottom: 5px; font-size: 1.5em;">
-    Created by <%= (@task.creator) ? link_to(@task.creator.name, @task.creator) : "no one" %>,
+    Created by <%= (@task.creator) ? link_to(@task.creator.name, developer_accounts_path) : "no one" %>,
     assigned to
     <% if @task.assignments.size > 0 %>
         <% @task.assignments.each do |assignment| %>
-          <%= link_to(assignment.developer.name, assignment.developer)%>
+          <%= assignment.developer.present? ? link_to(assignment.developer.name, assignment.developer) : link_to(assignment.developer_account.name, developer_accounts_path)%>
           <%= "," unless assignment == @task.assignments.last %>
         <% end %>
     <% else %>

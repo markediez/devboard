@@ -217,6 +217,9 @@
                             color: $darkgray !important;
                         }
                     }
+                    .hidden-task {
+                      display: none;
+                    }
                     .empty-task-wrapper {
                         //this class help fix the margin issue for empty task
                         flex: 1 0 180px !important;
