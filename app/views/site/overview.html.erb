@@ -102,31 +102,34 @@
             </div>
         </div>
         <div class="unassigned-task-container connected-sortable" data-developer-id="-1">
-            <% @tasks.each do |task| %>
-                <div class="task assigned-task" data-task-id="<%= task.id %>">
-                    <div class="flex-row">
-                        <div class="task-title">
-                            <h5>
-                                <%= task.project.present? ? link_to(task.project.name, task.project) : ""%>
-                            </h5>
-                            <p>
-                                <%= link_to task.title, task %>
-                            </p>
-                        </div>
-                        <div class="task-selection">
-                            <div class="task-selection-check-mark">
-                                <input type="checkbox">
+            <div class="margin-fix">
+                <!-- this class fix bottom space issue in unassigned task container(Firefox only) -->
+                <% @tasks.each do |task| %>
+                    <div class="task assigned-task" data-task-id="<%= task.id %>">
+                        <div class="flex-row">
+                            <div class="task-title">
+                                <h5>
+                                    <%= task.project.present? ? link_to(task.project.name, task.project) : ""%>
+                                </h5>
+                                <p>
+                                    <%= link_to task.title, task %>
+                                </p>
                             </div>
-                            <div class="task-selection-github">
-                                <% if task.repository_id && task.gh_issue_number %>
-                                    <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
-                                        <% end %>
+                            <div class="task-selection">
+                                <div class="task-selection-check-mark">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="task-selection-github">
+                                    <% if task.repository_id && task.gh_issue_number %>
+                                        <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
+                                            <% end %>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <% end %>
-                    <!-- unassigned task ends -->
+                    <% end %>
+            </div>
+            <!-- unassigned task ends -->
         </div>
         <!-- timeline body ends -->
     </div>
