@@ -35,7 +35,7 @@ $(document).ready ->
 
   # Set up drag and drop for tasks
   $(".assignment, .unassigned-task-container").sortable(
-    items: ".assigned-task"
+    items: ".assigned-task, .hidden-task"
     connectWith: ".connected-sortable"
     start: (e, ui) ->
       # Set overflow to visible for the dragged task to be seen
@@ -46,6 +46,27 @@ $(document).ready ->
     stop: (e, ui) ->
       # Reset after dragging
       $(".unassigned-task-container").css("overflow-y", "auto")
+    update: () ->
+      devId = $(this).closest("[data-developer-id]").data("developer-id")
+      taskIds = []
+      foo = $(".assigned-task, .finished-task", this)
+
+      foo.each () ->
+        taskIds.push $(this).data("task-id")
+
+      # We can only sort assigned tasks
+      if devId != -1
+        $.post
+          url: "/assignments/sort"
+          data:
+            task:
+              assignments_attributes:
+                developer_account_id: devId
+                task_ids: taskIds
+          success: () ->
+            console.log "Success"
+          error: () ->
+            console.log "Error"
   ).disableSelection().droppable(
     drop: (event, ui) ->
       taskId = $(ui.draggable).data("task-id")
