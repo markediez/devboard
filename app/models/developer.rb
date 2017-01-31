@@ -75,15 +75,11 @@ class Developer < ActiveRecord::Base
   end
 
   def devboard_account
-    accounts.each do |account|
-      return account if account.account_type == "devboard"
-    end
+    accounts.where(:account_type => "devboard").first
   end
 
   def devboard_account_id
-    accounts.each do |account|
-      return account.id if account.account_type == "devboard"
-    end
+    self.devboard_account().id
   end
 
   def create_devboard_developer_account
