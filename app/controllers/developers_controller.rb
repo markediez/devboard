@@ -1,7 +1,6 @@
 class DevelopersController < ApplicationController
   load_and_authorize_resource
   before_action :set_developer, only: [:show, :edit, :update, :destroy]
-  after_action :create_devboard_developer_account, only: [:create]
 
   # GET /developers
   # GET /developers.json
@@ -114,16 +113,6 @@ class DevelopersController < ApplicationController
       format.html { redirect_to developers_url }
       format.json { head :no_content }
     end
-  end
-
-  def create_devboard_developer_account
-    da = DeveloperAccount.new
-    da.developer = @developer
-    da.email = @developer.email
-    da.loginid = @developer.loginid
-    da.name = @developer.name
-    da.account_type = "devboard"
-    da.save!
   end
 
   private
