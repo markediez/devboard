@@ -1,7 +1,7 @@
 # A developer typically owns a task or an issue. Not necessarily able to log into
 # Devboard (that requires a User object).
 class Developer < ActiveRecord::Base
-  after_create :create_devboard_developer_account
+  after_save :create_devboard_developer_account
   # Tasks this developer created
   has_many :created_tasks, :class_name => "Task", :foreign_key => "creator_id"
 
@@ -83,13 +83,15 @@ class Developer < ActiveRecord::Base
   end
 
   def create_devboard_developer_account
-    da = DeveloperAccount.new
-    da.developer = self
-    da.email = self.email
-    da.loginid = self.loginid
-    da.name = self.name
-    da.account_type = "devboard"
-    da.save!
+    unless devboard_account.present?
+      da = DeveloperAccount.new
+      da.developer = self
+      da.email = self.email
+      da.loginid = self.loginid
+      da.name = self.name
+      da.account_type = "devboard"
+      da.save!
+    end
   end
 
   protected
