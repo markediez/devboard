@@ -134,6 +134,16 @@ class TasksController < ApplicationController
   # POST /assignments/sort
   # Save the position of assigned tasks
   def assignments_sort
+    # Grab the developer and tasks
+    dev_id = params["task"]["assignments_attributes"]["developer_account_id"]
+    tasks = params["task"]["assignments_attributes"]["task_ids"]
+
+    # Update each assigned task to new position
+    i = 0
+    tasks.each do |task|
+      Assignment.where(:developer_account_id => dev_id).where(:task_id => task).update(:sort_position => i)
+      i = i + 1
+    end
 
   end
 
