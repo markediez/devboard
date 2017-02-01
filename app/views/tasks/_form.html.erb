@@ -16,7 +16,7 @@
     <%= f.text_field :title, class: 'form-control' %>
   </div>
 
-  <% if @task.new_record? %>
+  <% if @task.new_record? and current_user.developer.present? %>
     <div class="form-group">
       <%= f.hidden_field :creator_id, :value => current_user.developer.devboard_account.id %>
     </div>
