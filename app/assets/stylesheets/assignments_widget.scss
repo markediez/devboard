@@ -282,9 +282,24 @@
                     }
                     .tools {
                         color: $devblack;
-                        margin: 7px 3px 7px 3px;
+                        margin: 10px 3px 7px 3px;
                         .input-group {
                             width: 100%;
+                            button {
+                                padding: 3px 9px;
+                                border: 1px solid white !important;
+                                margin-left: 2px;
+                            }
+                            button:hover {
+                                border: 1px solid $gray !important;
+                                &:focus {
+                                    border: 1px solid $gray !important;
+                                }
+                            }
+                            input {
+                                padding-top: 3px;
+                                margin-left: 5px;
+                            }
                         }
                     }
                 }
