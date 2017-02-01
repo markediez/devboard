@@ -40,7 +40,7 @@
         <div class="assignment-container">
             <div class="assignment-section">
                 <% @developers.each do |developer| %>
-                    <div class="assignment connected-sortable" data-developer-id="<%= developer.accounts.size > 0 ? developer.accounts.first.id : " " %>">
+                    <div class="assignment connected-sortable" data-developer-id="<%= developer.devboard_account_id %>">
 
                         <!-- Show open assigned tasks and tasks closed on the same day -->
                         <% developer.assignments_at(@time_to_view).each do |assignment| %>
@@ -49,7 +49,7 @@
                                     <div class="flex-row">
                                         <div class="task-title">
                                             <h5>
-                                                <%= task.project.present? ? link_to(task.project.name, task.project) : "" %>
+                                                <%= task.project.present? ? link_to(task.project.name, task.project) : "No Project" %>
                                             </h5>
                                             <p>
                                                 <%= link_to task.title, task %>
@@ -71,6 +71,9 @@
                                 <% end %>
 
                                     <!-- Start add new task -->
+                                    <div class="task assigned-task hidden-task">
+                                        <!-- This is required for sorting developers with empty tasks -->
+                                    </div>
                                     <div class="task empty-task flex-row_center" data-toggle="modal" data-target="#add_task">
                                         <div class="flex-auto text-center">
                                             <i class="fa fa-plus add-user_icon" aria-hidden="true" data-toggle="modal" data-target="#add_task"></i>
@@ -103,13 +106,12 @@
         </div>
         <div class="unassigned-task-container connected-sortable" data-developer-id="-1">
             <div class="margin-fix">
-                <!-- this class fix bottom space issue in unassigned task container(Firefox only) -->
                 <% @tasks.each do |task| %>
                     <div class="task assigned-task" data-task-id="<%= task.id %>">
                         <div class="flex-row">
                             <div class="task-title">
                                 <h5>
-                                    <%= task.project.present? ? link_to(task.project.name, task.project) : ""%>
+                                    <%= task.project.present? ? link_to(task.project.name, task.project) : "No Project"%>
                                 </h5>
                                 <p>
                                     <%= link_to task.title, task %>
@@ -119,22 +121,26 @@
                                 <div class="task-selection-check-mark">
                                     <input type="checkbox">
                                 </div>
-                                <div class="task-selection-github">
-                                    <% if task.repository_id && task.gh_issue_number %>
-                                        <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
-                                            <% end %>
+                                <div class="task-selection">
+                                    <div class="task-selection-check-mark">
+                                        <input type="checkbox">
+                                    </div>
+                                    <div class="task-selection-github">
+                                        <% if task.repository_id && task.gh_issue_number %>
+                                            <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
+                                                <% end %>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <% end %>
                     </div>
-                    <% end %>
+                    <!-- unassigned task ends -->
             </div>
-            <!-- unassigned task ends -->
+            <!-- timeline body ends -->
         </div>
-        <!-- timeline body ends -->
+
+        <%= render 'site/modal_add_user' %>
+            <%= render 'site/modal_add_task' %>
+
     </div>
-
-    <%= render 'site/modal_add_user' %>
-        <%= render 'site/modal_add_task' %>
-
-</div>

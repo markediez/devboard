@@ -1,4 +1,4 @@
-        @import "utilities/variables";
+            @import "utilities/variables";
         html,
         body {
             height: 100%;
@@ -194,28 +194,12 @@
                             flex: 1 0 180px;
                             background-color: $lightgray;
                             border: 1px solid $gray;
-                            height: 60px;
-                            .task-title {
-                                color: $darkgray;
-                                h5 {
-                                    white-space: nowrap;
-                                    width: 150px;
-                                    overflow: hidden;
-                                    text-overflow: ellipsis;
-                                }
-                                p {
-                                    white-space: nowrap;
-                                    width: 150px;
-                                    overflow: hidden;
-                                    text-overflow: ellipsis;
-                                }
-                                a {
-                                    color: $darkgray;
-                                }
-                            }
                             .task-selection-github a {
                                 color: $darkgray !important;
                             }
+                        }
+                        .hidden-task {
+                            display: none;
                         }
                         .empty-task-wrapper {
                             //this class help fix the margin issue for empty task
@@ -224,91 +208,99 @@
                             .empty-task {
                                 //height: 62.07px;
                                 height: 60px;
-                                border: 1.5px dashed $gray;
-                                margin-right: 10px;
-                                margin-left: 10px;
-                                i {
-                                    color: $gray;
-                                }
-                                &:hover {
-                                    border: 1.5px dashed $darkgray;
-                                    cursor: pointer;
-                                    i {
+                                .task-title {
+                                    color: $darkgray;
+                                    h5 {
+                                        white-space: nowrap;
+                                        width: 150px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+                                    p {
+                                        white-space: nowrap;
+                                        width: 150px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+                                    a {
                                         color: $darkgray;
+                                    }
+                                }
+                                .task-selection-github a {
+                                    color: $darkgray !important;
+                                }
+                            }
+                            .empty-task-wrapper {
+                                //this class help fix the margin issue for empty task
+                                flex: 1 0 180px !important;
+                                height: 62.07px;
+                                .empty-task {
+                                    //height: 62.07px;
+                                    height: 60px;
+                                    border: 1.5px dashed $gray;
+                                    margin-right: 10px;
+                                    margin-left: 10px;
+                                    i {
+                                        color: $gray;
+                                    }
+                                    &:hover {
+                                        border: 1.5px dashed $darkgray;
+                                        cursor: pointer;
+                                        i {
+                                            color: $darkgray;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
-            .tool-bar {
-                position: fixed;
-                margin-left: 0px;
-                margin-right: 0px;
-                margin-top: 0px;
-                margin-bottom: 0px;
-                width: 15%;
-                background-color: white;
-                right: 0;
-                z-index: 200;
-                border-radius: 0px;
-                box-shadow: 0px 1px 2px 0px #969696;
-                .input-section {
-                    width: 74%;
-                }
-                .tools {
-                    color: $devblack;
-                    margin: 7px 3px 7px 3px;
-                    .input-group {
-                        width: 100%;
+                .tool-bar {
+                    position: fixed;
+                    margin-left: 0px;
+                    margin-right: 0px;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                    width: 15%;
+                    background-color: white;
+                    right: 0;
+                    z-index: 200;
+                    border-radius: 0px;
+                    box-shadow: 0px 1px 2px 0px #969696;
+                    .input-section {
+                        width: 74%;
+                    }
+                    .tools {
+                        color: $devblack;
+                        margin: 7px 3px 7px 3px;
+                        .input-group {
+                            width: 100%;
+                        }
                     }
                 }
-            }
-            .unassigned-task-container {
-                margin-top: 48px;
-                padding-top: 6px;
-                position: fixed;
-                display: flex;
-                flex-direction: column;
-                overflow-y: auto;
-                width: 15%;
-                height: calc(100% - 193px);
-                background-color: #F2F2F2;
-                right: 0;
-                box-shadow: 0px 1px 2px 0px #969696;
-                .margin-fix {
-                    /*fix bottom space issue in firebox*/
+                .unassigned-task-container {
+                    margin-top: 48px;
+                    padding-top: 6px;
+                    position: fixed;
                     display: flex;
                     flex-direction: column;
-                    padding-bottom: 3px;
-                }
-                .assigned-task {
-                    flex: 0 1 auto;
-                    background-color: $devblue;
-                    border: 1px solid $devblue-dark;
-                    margin: 5px 10px;
-                    h5 {
-                        white-space: nowrap;
-                        width: 110px;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                    overflow-y: auto;
+                    width: 15%;
+                    height: calc(100% - 193px);
+                    background-color: #F2F2F2;
+                    right: 0;
+                    box-shadow: 0px 1px 2px 0px #969696;
+                    .margin-fix {
+                        /*fix bottom space issue in firebox*/
+                        display: flex;
+                        flex-direction: column;
+                        padding-bottom: 3px;
                     }
-                    p {
-                        white-space: nowrap;
-                        width: 110px;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                }
-                .finished-task {
-                    flex: 1;
-                    background-color: $lightgray;
-                    border: 1px solid $gray;
-                    margin: 5px 10px;
-                    height: 60px;
-                    .task-title {
-                        color: $darkgray;
+                    .assigned-task {
+                        flex: 0 1 auto;
+                        background-color: $devblue;
+                        border: 1px solid $devblue-dark;
+                        margin: 5px 10px;
                         h5 {
                             white-space: nowrap;
                             width: 110px;
@@ -321,17 +313,38 @@
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
-                        a {
+                    }
+                    .finished-task {
+                        flex: 1;
+                        background-color: $lightgray;
+                        border: 1px solid $gray;
+                        margin: 5px 10px;
+                        height: 60px;
+                        .task-title {
                             color: $darkgray;
+                            h5 {
+                                white-space: nowrap;
+                                width: 110px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                            p {
+                                white-space: nowrap;
+                                width: 110px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                            a {
+                                color: $darkgray;
+                            }
+                        }
+                        .task-selection-github a {
+                            color: $darkgray !important;
                         }
                     }
-                    .task-selection-github a {
-                        color: $darkgray !important;
-                    }
+                }
+                .margin-fix>:last-child {
+                    /*fix bottom space issue in chrome and safari */
+                    margin-bottom: 8px;
                 }
             }
-            .margin-fix>:last-child {
-                /*fix bottom space issue in chrome and safari */
-                margin-bottom: 8px;
-            }
-        }

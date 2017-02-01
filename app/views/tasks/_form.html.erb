@@ -18,7 +18,7 @@
 
   <% if @task.new_record? %>
     <div class="form-group">
-      <%= f.hidden_field :creator_id, :value => current_user.developer_id %>
+      <%= f.hidden_field :creator_id, :value => current_user.developer.devboard_account.id %>
     </div>
   <% end %>
 
