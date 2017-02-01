@@ -1,11 +1,13 @@
 <header class="section-title">
     <h3>Editing task</h3>
 </header>
-<!--
+
 <div class="tmp">
-  <%= render 'form' %>
+    <%= render 'form' %>
 </div>
--->
+
+
+<!-- 
 <div class="form-container">
     <form>
         <div class="form-section row">
@@ -14,34 +16,75 @@
         </div>
         <div class="form-section row">
             <label class="details">Details</label>
-            <textarea style="display: block;float: left;width: 791px;
+            <textarea style="display: block;float: left;width: 600px;
 height: 103px;"></textarea>
         </div>
     </form>
 </div>
 <div class="info-container">
-    <div class="colm-left" style="display: flex;
-flex-direction: column;">
-        <div style="flex: 1 0 80px;">
+    <div class="colm-left">
+        <div class="colm-section">
             <label>Assign to</label>
+            <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    None <span class="caret"></span>
+  </button>
+                <ul class="dropdown-menu">
+                    <li><a>haha</a></li>
+                    <li><a>haha</a></li>
+                    <li><a>haha</a></li>
+                </ul>
+            </div>
         </div>
-        <div style="flex: 1 0 80px;">
+        <div class="colm-section">
             <label>Diffculties</label>
+            <div style="width: 285px;position: relative;display: inline-flex;vertical-align: middle;/*! position: absolute; */">
+                <input value="0" min="0" max="5" class="range-slider-range" type="range" style="flex: 0 1 80%;">
+                <span class=" range-slider-value " style="width: 40px; ">0</span>
+            </div>
         </div>
-        <div style="flex: 1 0 80px;">
+        <div class="colm-section">
             <label>Priority</label>
+            <div style="width: 285px;position: relative;display: inline-flex;vertical-align: middle;/*! position: absolute; */">
+                <input value="0" min="0" max="5" class="range-slider-range" type="range" style="flex: 0 1 80%;">
+                <span class=" range-slider-value " style="width: 40px; ">0</span>
+            </div>
         </div>
     </div>
-    <div class="colm-right" style="display: flex;
-flex-direction: column;">
-        <div style="flex: 1 0 80px;">
-            <label>Time Requested</label>
+    <div class="colm-right ">
+        <div class="colm-section">
+            <label>Assign to</label>
+            <div class="btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   None <span class="caret"></span>
+  </button>
+                <ul class="dropdown-menu">
+                    <li><a>haha</a></li>
+                    <li><a>haha</a></li>
+                    <li><a>haha</a></li>
+                </ul>
+            </div>
         </div>
-        <div style="flex: 1 0 80px;">
+        <div class="colm-section points">
             <label>Points</label>
+            <div class="btn-group" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-default">1</button>
+                <button type="button" class="btn btn-default">2</button>
+                <button type="button" class="btn btn-default">3</button>
+                <button type="button" class="btn btn-default">4</button>
+                <button type="button" class="btn btn-default">5</button>
+            </div>
         </div>
-        <div style="flex: 1 0 80px;">
+        <div class="colm-section date">
             <label>Due Date</label>
+            <div class="btn-group date-nav" role="group" aria-label="..." style="">
+                <button type="button" class="btn btn-default" data-nav="yesterday"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+
+                <input class="btn btn-default date-picker" style="width: 117px;">
+
+                <button type="button" class="btn btn-default" data-nav="tomorrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
         </div>
     </div>
 </div>
+-->

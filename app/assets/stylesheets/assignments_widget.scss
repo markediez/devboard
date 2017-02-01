@@ -1,211 +1,346 @@
-    @import "utilities/variables";
-    html,
-    body {
-        height: 100%;
-    }
-    
-    .row {
-        margin: 0px;
-    }
-    
-    .assignments-widget {
-        height: calc(100% - 96px);
-        .date-nav {
-            position: absolute;
-            top: 12px;
-            left: 37%;
-            @media screen and (min-width: 1290px) {
-                left: 37%;
+            @import "utilities/variables";
+            html,
+            body {
+                height: 100%;
             }
-            @media screen and (min-width: 1920px) {
-                left: 41%;
+            
+            .row {
+                margin: 0px;
             }
-            button {
-                border: 1px solid $gray !important;
-            }
-        }
-        .date-picker {
-            border-color: #d6d6d6;
-            i {
-                margin-left: 6px;
-            }
-        }
-        .pagination-button {
-            text-align: center;
-            a {
-                color: $devblack;
-                cursor: pointer;
-                text-decoration-style: none;
-                i {
-                    margin: 0px 5px 0px 5px;
-                }
-            }
-        }
-        .timeline-header {
-            display: flex;
-            flex-direction: row;
-            .developer-assignment-titles {
-                /* general styles */
-                padding: 10px 20px 10px 20px;
-                border-top: 1px solid $gray;
-                border-right: 1px solid $gray;
-                display: flex;
-                flex: 0 0 82%;
-                background-color: white;
-                h5 {
-                    font-weight: bold;
-                }
-                h5:first-child {
-                    flex: 1;
-                    text-align: center;
-                }
-                h5:nth-child(2) {
-                    flex: 4;
-                    text-align: center;
-                }
-            }
-            .unassigned-task-title {
-                padding: 10px 20px 10px 20px;
-                border-top: 1px solid $gray;
-                background-color: white;
-                flex: 1;
-                align-self: center;
-                h5 {
-                    text-align: center;
-                    font-weight: bold;
-                }
-            }
-        }
-        .timeline-body {
-            overflow-y: auto;
-            width: 82%;
-            height: 100%;
-        }
-        .task {
-            /* general styles */
-            display: inline-block;
-            flex-direction: column;
-            margin: 0px 4px;
-            border-radius: 5px;
-        }
-        .task-title {
-            /* general styles */
-            flex: 0 1 70%;
-            margin-top: 8px;
-            margin-left: 8px;
-            line-height: 2;
-            color: white;
-            a {
-                color: white;
-            }
-        }
-        .task-selection {
-            /* general styles */
-            flex: 0 1 30%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            margin-right: 10px;
-        }
-        .task-selection-check-mark {
-            flex: 0 1 auto;
-            margin-top: 8px;
-        }
-        .task-selection-github {
-            flex: 0 1 auto;
-            font-size: 1em;
-            color: white;
-            margin-top: 5px;
-            margin-right: 1px;
-        }
-        .task-selection-github a {
-            color: white !important;
-        }
-        .developer-container {
-            float: left;
-            width: 20%;
-            height: 100%;
-            .developer-section {
-                flex: 0 1 20%;
-                display: flex;
-                flex-direction: column;
-                border-bottom: 1px solid $gray;
-                border-right: 1px solid $gray;
-                box-shadow: 1px -3px 5px -2px rgba(0, 0, 0, 0.45);
-                .developer {
-                    display: flex;
-                    margin: 23px 0px 24px 15px;
-                    .developer-name {
-                        position: relative;
-                        font-size: 10pt;
-                        margin-left: 5px;
-                        white-space: nowrap;
-                        width: 70%;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: inline-block;
-                        align-self: center;
+            
+            .assignments-widget {
+                height: calc(100% - 96px);
+                .date-nav {
+                    position: absolute;
+                    top: 12px;
+                    left: 37%;
+                    @media screen and (min-width: 1290px) {
+                        left: 37%;
+                    }
+                    @media screen and (min-width: 1920px) {
+                        left: 41%;
+                    }
+                    button {
+                        border: 1px solid $gray !important;
                     }
                 }
-            }
-        }
-        .assignment-container {
-            float: left;
-            width: 80%;
-            height: 100%;
-            .assignment-section {
-                overflow-y: hidden;
-                flex: 0 1 100%;
-                border-bottom: 1px solid $gray;
-                .assignment {
-                    flex: 0 0 100%;
-                    display: inline-table;
-                    white-space: nowrap;
+                .date-picker {
+                    border-color: #d6d6d6;
+                    i {
+                        margin-left: 6px;
+                    }
+                }
+                .pagination-button {
+                    text-align: center;
+                    a {
+                        color: $devblack;
+                        cursor: pointer;
+                        text-decoration-style: none;
+                        i {
+                            margin: 0px 5px 0px 5px;
+                        }
+                    }
+                }
+                .timeline-header {
+                    display: flex;
                     flex-direction: row;
-                    height: 82px;
-                    padding-bottom: 10px;
-                    padding-top: 10px;
-                    padding-left: 5px;
-                    padding-right: 5px;
-                    width: 100%;
+                    .developer-assignment-titles {
+                        /* general styles */
+                        padding: 10px 20px 10px 20px;
+                        border-top: 1px solid $gray;
+                        border-right: 1px solid $gray;
+                        display: flex;
+                        flex: 0 0 82%;
+                        background-color: white;
+                        h5 {
+                            font-weight: bold;
+                        }
+                        h5:first-child {
+                            flex: 1;
+                            text-align: center;
+                        }
+                        h5:nth-child(2) {
+                            flex: 4;
+                            text-align: center;
+                        }
+                    }
+                    .unassigned-task-title {
+                        padding: 10px 20px 10px 20px;
+                        border-top: 1px solid $gray;
+                        background-color: white;
+                        flex: 1;
+                        align-self: center;
+                        h5 {
+                            text-align: center;
+                            font-weight: bold;
+                        }
+                    }
+                }
+                .timeline-body {
+                    overflow-y: auto;
+                    width: 82%;
+                    height: 100%;
+                }
+                .task {
+                    /* general styles */
+                    display: inline-block;
+                    flex-direction: column;
+                    margin: 0px 4px;
+                    border-radius: 5px;
+                }
+                .task-title {
+                    /* general styles */
+                    flex: 0 1 70%;
+                    margin-top: 8px;
+                    margin-left: 8px;
+                    line-height: 2;
+                    color: white;
+                    a {
+                        color: white;
+                    }
+                }
+                .task-selection {
+                    /* general styles */
+                    flex: 0 1 30%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                    margin-right: 10px;
+                }
+                .task-selection-check-mark {
+                    flex: 0 1 auto;
+                    margin-top: 8px;
+                }
+                .task-selection-github {
+                    flex: 0 1 auto;
+                    font-size: 1em;
+                    color: white;
+                    margin-top: 5px;
+                    margin-right: 1px;
+                }
+                .task-selection-github a {
+                    color: white !important;
+                }
+                .developer-container {
+                    float: left;
+                    width: 20%;
+                    height: 100%;
+                    .developer-section {
+                        flex: 0 1 20%;
+                        display: flex;
+                        flex-direction: column;
+                        border-bottom: 1px solid $gray;
+                        border-right: 1px solid $gray;
+                        box-shadow: 1px -3px 5px -2px rgba(0, 0, 0, 0.45);
+                        .developer {
+                            display: flex;
+                            margin: 23px 0px 24px 15px;
+                            .developer-name {
+                                position: relative;
+                                font-size: 10pt;
+                                margin-left: 5px;
+                                white-space: nowrap;
+                                width: 70%;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: inline-block;
+                                align-self: center;
+                            }
+                        }
+                    }
+                }
+                .assignment-container {
+                    float: left;
+                    width: 80%;
+                    height: 100%;
+                    .assignment-section {
+                        overflow-y: hidden;
+                        flex: 0 1 100%;
+                        border-bottom: 1px solid $gray;
+                        .assignment {
+                            flex: 0 0 100%;
+                            display: inline-table;
+                            white-space: nowrap;
+                            flex-direction: row;
+                            height: 82px;
+                            padding-bottom: 10px;
+                            padding-top: 10px;
+                            padding-left: 5px;
+                            padding-right: 5px;
+                            width: 100%;
+                            .assigned-task {
+                                flex: 1 0 180px;
+                                background-color: $devblue;
+                                border: 1px solid $devblue-dark;
+                                vertical-align: top;
+                                height: 60px;
+                                h5 {
+                                    white-space: nowrap;
+                                    width: 150px;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+                                p {
+                                    white-space: nowrap;
+                                    width: 150px;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+                                a {
+                                    color: white;
+                                }
+                            }
+                            .finished-task {
+                                flex: 1 0 180px;
+                                background-color: $lightgray;
+                                border: 1px solid $gray;
+                                height: 60px;
+                                .task-title {
+                                    color: $darkgray;
+                                    h5 {
+                                        white-space: nowrap;
+                                        width: 150px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+                                    p {
+                                        white-space: nowrap;
+                                        width: 150px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+                                    a {
+                                        color: $darkgray;
+                                    }
+                                }
+                                .task-selection-github a {
+                                    color: $darkgray !important;
+                                }
+                            }
+                        }
+                        .hidden-task {
+                            display: none;
+                        }
+                        .empty-task-wrapper {
+                            //this class help fix the margin issue for empty task
+                            flex: 1 0 180px !important;
+                            height: 62.07px;
+                            .empty-task {
+                                height: 60px;
+                                border: 1.5px dashed $gray;
+                                margin-right: 10px;
+                                margin-left: 10px;
+                                .task-title {
+                                    color: $darkgray;
+                                    h5 {
+                                        white-space: nowrap;
+                                        width: 150px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+                                    p {
+                                        white-space: nowrap;
+                                        width: 150px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+                                    a {
+                                        color: $darkgray;
+                                    }
+                                }
+                                .task-selection-github a {
+                                    color: $darkgray !important;
+                                }
+                                i {
+                                    color: $gray;
+                                }
+                                &:hover {
+                                    border: 1.5px dashed $darkgray;
+                                    cursor: pointer;
+                                    i {
+                                        color: $darkgray;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .tool-bar {
+                    position: fixed;
+                    margin-left: 0px;
+                    margin-right: 0px;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                    width: 15%;
+                    background-color: white;
+                    right: 0;
+                    z-index: 200;
+                    border-radius: 0px;
+                    box-shadow: 0px 1px 2px 0px #969696;
+                    .input-section {
+                        width: 74%;
+                    }
+                    .tools {
+                        color: $devblack;
+                        margin: 7px 3px 7px 3px;
+                        .input-group {
+                            width: 100%;
+                        }
+                    }
+                }
+                .unassigned-task-container {
+                    margin-top: 48px;
+                    padding-top: 6px;
+                    position: fixed;
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: auto;
+                    width: 15%;
+                    height: calc(100% - 193px);
+                    background-color: #F2F2F2;
+                    right: 0;
+                    box-shadow: 0px 1px 2px 0px #969696;
+                    .margin-fix {
+                        /*fix bottom space issue in firebox*/
+                        display: flex;
+                        flex-direction: column;
+                        padding-bottom: 2px;
+                    }
                     .assigned-task {
-                        flex: 1 0 180px;
+                        flex: 0 1 auto;
                         background-color: $devblue;
                         border: 1px solid $devblue-dark;
-                        vertical-align: top;
-                        height: 60px;
+                        margin: 5px 10px;
                         h5 {
                             white-space: nowrap;
-                            width: 150px;
+                            width: 110px;
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
                         p {
                             white-space: nowrap;
-                            width: 150px;
+                            width: 110px;
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
-                        a {
-                            color: white;
-                        }
                     }
                     .finished-task {
-                        flex: 1 0 180px;
+                        flex: 1;
                         background-color: $lightgray;
                         border: 1px solid $gray;
+                        margin: 5px 10px;
                         height: 60px;
                         .task-title {
                             color: $darkgray;
                             h5 {
                                 white-space: nowrap;
-                                width: 150px;
+                                width: 110px;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                             }
                             p {
                                 white-space: nowrap;
-                                width: 150px;
+                                width: 110px;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                             }
@@ -217,114 +352,9 @@
                             color: $darkgray !important;
                         }
                     }
-                    .hidden-task {
-                      display: none;
-                    }
-                    .empty-task-wrapper {
-                        //this class help fix the margin issue for empty task
-                        flex: 1 0 180px !important;
-                        height: 62.07px;
-                        .empty-task {
-                            //height: 62.07px;
-                            height: 60px;
-                            border: 1.5px dashed $gray;
-                            margin-right: 10px;
-                            margin-left: 10px;
-                            i {
-                                color: $gray;
-                            }
-                            &:hover {
-                                border: 1.5px dashed $darkgray;
-                                cursor: pointer;
-                                i {
-                                    color: $darkgray;
-                                }
-                            }
-                        }
-                    }
+                }
+                .margin-fix>:last-child {
+                    /*fix bottom space issue in chrome and safari */
+                    margin-bottom: 8px;
                 }
             }
-        }
-        .tool-bar {
-            position: fixed;
-            margin-left: 0px;
-            margin-right: 0px;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            width: 15%;
-            background-color: white;
-            right: 0;
-            z-index: 200;
-            border-radius: 0px;
-            box-shadow: 0px 1px 2px 0px #969696;
-            .input-section {
-                width: 74%;
-            }
-            .tools {
-                color: $devblack;
-                margin: 7px 3px 7px 3px;
-                .input-group {
-                    width: 100%;
-                }
-            }
-        }
-        .unassigned-task-container {
-            margin-top: 48px;
-            padding-top: 6px;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            width: 15%;
-            height: calc(100% - 190px);
-            background-color: #F2F2F2;
-            right: 0;
-            box-shadow: 0px 1px 2px 0px #969696;
-            .assigned-task {
-                flex: 0 1 auto;
-                background-color: $devblue;
-                border: 1px solid $devblue-dark;
-                margin: 5px 10px;
-                h5 {
-                    white-space: nowrap;
-                    width: 110px;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-                p {
-                    white-space: nowrap;
-                    width: 110px;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            }
-            .finished-task {
-                flex: 1;
-                background-color: $lightgray;
-                border: 1px solid $gray;
-                margin: 5px 10px;
-                height: 60px;
-                .task-title {
-                    color: $darkgray;
-                    h5 {
-                        white-space: nowrap;
-                        width: 110px;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                    p {
-                        white-space: nowrap;
-                        width: 110px;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                    a {
-                        color: $darkgray;
-                    }
-                }
-                .task-selection-github a {
-                    color: $darkgray !important;
-                }
-            }
-        }
-    }
