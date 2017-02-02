@@ -15,7 +15,10 @@ $(document).ready(function() {
 /**
  * Returns the time in the format YYY-MM-DD HH:MM:SS
  */
-function getTimeNow(timeInMills = Date.now()) {
+function getTimeNow(timeInMills) {
+  if(timeInMills === undefined) {
+    timeInMills = Date.now();
+  }
   var t = new Date(timeInMills);
 
   var year = t.getFullYear();

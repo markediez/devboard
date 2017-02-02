@@ -10,7 +10,7 @@
         border-bottom: 1px solid #F0F0F0;
         label {
             width: 80px;
-            margin-right: 80px;
+            margin-right: 40px;
         }
         input {
             border: 1px solid #E2E2E2;
@@ -20,6 +20,7 @@
             outline: none;
             color: #BFBFBF;
             box-shadow: none;
+            width: 600px;
         }
         textarea {
             border: 1px solid #E2E2E2;
@@ -29,6 +30,10 @@
             outline: none;
             color: #BFBFBF;
             box-shadow: none;
+            display: block;
+            float: left;
+            width: 600px;
+            height: 103px;
         }
         .details {
             display: block;
@@ -39,15 +44,63 @@
 
 .info-container {
     width: 95%;
-    margin: 20px;
+    margin: 50px 20px;
     display: flex;
     flex-direction: row;
+    .date {
+        input {
+            width: 150px;
+        }
+    }
+    .selector {
+        width: 285px;
+        position: relative;
+        display: inline-flex;
+        vertical-align: middle;
+        .range-slider-value {
+            width: 40px;
+        }
+    }
     .colm-right {
         margin: 0px 25px;
         flex: 1 1 100%;
+        display: flex;
+        flex-direction: column;
+        .points {
+            button {
+                width: 40px !important;
+            }
+        }
+        .date {
+            button {
+                width: 40px !important;
+            }
+        }
+        .colm-section {
+            button {
+                width: 90px;
+            }
+            flex: 1 0 80px;
+            label {
+                width: 80px;
+                margin-right: 40px;
+            }
+        }
     }
     .colm-left {
         margin: 0px 25px;
         flex: 1 1 100%;
+        display: flex;
+        flex-direction: column;
+        .colm-section {
+            button {
+                width: 90px;
+            }
+            flex: 1 0 80px;
+            label {
+                width: 80px;
+                margin-right: 40px;
+            }
+        }
     }
 }
