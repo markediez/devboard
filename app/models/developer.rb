@@ -85,7 +85,8 @@ class Developer < ActiveRecord::Base
   end
 
   def devboard_account_id
-    self.devboard_account().id
+    return nil unless self.devboard_account.present?
+    return self.devboard_account.id
   end
 
   def create_devboard_developer_account
