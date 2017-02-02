@@ -28,7 +28,6 @@ class Developer < ActiveRecord::Base
 
   def assignments(only_open: false)
     # Grab the developer_account ids of the developer
-    # We need this to get all assignments in one query
     account_ids = []
     DeveloperAccount.where(:developer_id => self.id).each do |da|
       account_ids << da.id
@@ -36,13 +35,15 @@ class Developer < ActiveRecord::Base
 
     # Query all assignments in order
     assignments = []
-    Assignment.where("developer_account_id IN (?)", account_ids).order(:sort_position => "ASC").each do |a|
+    Assignment.where("developer_account_id IN (?)", account_ids).each do |a|
       if only_open
         assignments << a unless a.task.completed_at
       else
         assignments << a
       end
     end
+
+    assignments.sort!{|x, y| x.task.sort_position <=> y.task.sort_position}
 
     return assignments.flatten
   end

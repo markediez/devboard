@@ -131,17 +131,16 @@ class TasksController < ApplicationController
     end
   end
 
-  # POST /assignments/sort
-  # Save the position of assigned tasks
-  def assignments_sort
+  # POST /tasks/sort
+  # Save the position of tasks
+  def sort
     # Grab the developer and tasks
-    dev_id = params["task"]["assignments_attributes"]["developer_account_id"]
-    tasks = params["task"]["assignments_attributes"]["task_ids"]
+    tasks = params["task"]["task_ids"]
 
     # Update each assigned task to new position
     i = 0
     tasks.each do |task|
-      Assignment.where(:developer_account_id => dev_id).where(:task_id => task).update(:sort_position => i)
+      Task.where(:id => task).update(:sort_position => i)
       i = i + 1
     end
 
@@ -166,6 +165,6 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       # :developer_account_id param and :task_id are for unassigning tasks in the overview page
-      params.require(:task).permit(:title, :details, :creator_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points, :assignment, :repository, :developer_account_id, :task_id, assignments_attributes: [:id, :developer_account_id, :_destroy, :task_ids => []])
+      params.require(:task).permit(:title, :details, :creator_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points, :assignment, :repository, :developer_account_id, :task_id, assignments_attributes: [:id, :developer_account_id, :_destroy], :task_ids => [])
     end
 end
