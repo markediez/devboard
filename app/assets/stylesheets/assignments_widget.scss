@@ -221,45 +221,24 @@
                         .hidden-task {
                             display: none;
                         }
-                        .empty-task-wrapper {
-                            //this class help fix the margin issue for empty task
-                            flex: 1 0 180px !important;
-                            height: 62.07px;
-                            .empty-task {
-                                height: 60px;
-                                border: 1.5px dashed $gray;
-                                margin-right: 10px;
-                                margin-left: 10px;
-                                .task-title {
-                                    color: $darkgray;
-                                    h5 {
-                                        white-space: nowrap;
-                                        width: 150px;
-                                        overflow: hidden;
-                                        text-overflow: ellipsis;
-                                    }
-                                    p {
-                                        white-space: nowrap;
-                                        width: 150px;
-                                        overflow: hidden;
-                                        text-overflow: ellipsis;
-                                    }
-                                    a {
-                                        color: $darkgray;
-                                    }
-                                }
-                                .task-selection-github a {
-                                    color: $darkgray !important;
-                                }
+                        .empty-task {
+                            text-align: center;
+                            flex: 1 0 180px;
+                            width: 180px;
+                            vertical-align: top;
+                            height: 60px;
+                            border: 1.5px dashed $gray;
+                            margin-right: 5px;
+                            margin-left: 5px;
+                            i {
+                                margin-top: 25px;
+                                color: $gray;
+                            }
+                            &:hover {
+                                border: 1.5px dashed $darkgray;
+                                cursor: pointer;
                                 i {
-                                    color: $gray;
-                                }
-                                &:hover {
-                                    border: 1.5px dashed $darkgray;
-                                    cursor: pointer;
-                                    i {
-                                        color: $darkgray;
-                                    }
+                                    color: $darkgray;
                                 }
                             }
                         }
