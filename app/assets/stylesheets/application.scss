@@ -22,6 +22,17 @@
     padding-top: 15px;
 }
 
+
+/* input */
+
+input {
+    color: black;
+}
+
+input:focus {
+    border: 1px solid #808080;
+}
+
 h1,
 h2,
 h3,
