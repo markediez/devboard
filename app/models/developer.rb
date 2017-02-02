@@ -35,7 +35,7 @@ class Developer < ActiveRecord::Base
 
     # Query all assignments in order
     assignments = []
-    Assignment.where("developer_account_id IN (?)", account_ids).each do |a|
+    Assignment.where(:developer_account_id => account_ids).each do |a|
       if only_open
         assignments << a unless a.task.completed_at
       else
