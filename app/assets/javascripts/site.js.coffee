@@ -138,10 +138,7 @@ setupDragAndDropForAssignments = () ->
         data:
           task:
             task_ids: taskIds
-        success: () ->
-          console.log "Success"
-        error: () ->
-          console.log "Error"
+
   ).disableSelection().droppable(
     drop: (event, ui) ->
       taskId = $(ui.draggable).data("task-id")
