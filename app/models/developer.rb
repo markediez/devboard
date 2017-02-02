@@ -1,6 +1,7 @@
 # A developer typically owns a task or an issue. Not necessarily able to log into
 # Devboard (that requires a User object).
 class Developer < ActiveRecord::Base
+  after_save :create_devboard_developer_account
   # Tasks this developer created
   has_many :created_tasks, :class_name => "Task", :foreign_key => "creator_id"
 
@@ -26,17 +27,23 @@ class Developer < ActiveRecord::Base
   end
 
   def assignments(only_open: false)
-    assignments = []
+    # Grab the developer_account ids of the developer
+    account_ids = []
+    DeveloperAccount.where(:developer_id => self.id).each do |da|
+      account_ids << da.id
+    end
 
-    accounts.each do |account|
+    # Query all assignments in order
+    assignments = []
+    Assignment.where(:developer_account_id => account_ids).each do |a|
       if only_open
-        account.assignments.each do |assignment|
-          assignments << assignment unless assignment.task.completed_at
-        end
+        assignments << a unless a.task.completed_at
       else
-        assignments << account.assignments
+        assignments << a
       end
     end
+
+    assignments.sort!{|x, y| x.task.sort_position <=> y.task.sort_position}
 
     return assignments.flatten
   end
@@ -74,14 +81,22 @@ class Developer < ActiveRecord::Base
   end
 
   def devboard_account
-    accounts.each do |account|
-      return account if account.account_type == "devboard"
-    end
+    accounts.where(:account_type => "devboard").first
   end
 
   def devboard_account_id
-    accounts.each do |account|
-      return account.id if account.account_type == "devboard"
+    self.devboard_account().id
+  end
+
+  def create_devboard_developer_account
+    unless devboard_account.present?
+      da = DeveloperAccount.new
+      da.developer = self
+      da.email = self.email
+      da.loginid = self.loginid
+      da.name = self.name
+      da.account_type = "devboard"
+      da.save!
     end
   end
 

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/logout' => 'site#logout'
 
   post '/tasks/unassign' => 'tasks#unassign'
+  post '/tasks/sort' => 'tasks#sort'
 
   post 'exception_reports/new_task' => 'exception_reports#new_task'
 
