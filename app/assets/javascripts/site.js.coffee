@@ -5,93 +5,12 @@
 # Global Variables
 
 $(document).ready ->
-  # Get time in seconds
-  time = window.location.search.substr(1).split("=")[1] * 1000
-  console.log time
-  # Set up datepicker
-  $(".date-picker").datepicker
-    format: "DD, M d, yyyy"
-    autoclose: true
-
-  # Set default value
-  if isNaN time
-    time = Date.now()
-
-  $(".date-picker").datepicker('setDate',new Date(time))
-  $(".date-picker").datepicker('update')
-
-  # Need this to detect if we drag tasks between developers / unassigned tasks
-  origin = undefined
-
-  # Set up event listeners
-  $("[data-nav=tomorrow]").on "click", (e) ->
-    currDate = new Date $(".date-picker").val()
-    currDate.setDate(currDate.getDate() + 1)
-    $(".date-picker").datepicker('setDate', currDate)
-    $(".date-picker").datepicker('update')
-
-    window.location.href = window.location.origin + window.location.pathname + "?time_in_seconds=" + (currDate.getTime() / 1000)
-
-  $("[data-nav=yesterday]").on "click", (e) ->
-    currDate = new Date $(".date-picker").val()
-    currDate.setDate(currDate.getDate() - 1)
-    $(".date-picker").datepicker('setDate', currDate)
-    $(".date-picker").datepicker('update')
-
-    window.location.href = window.location.origin + window.location.pathname + "?time_in_seconds=" + (currDate.getTime() / 1000)
+  setupDatePicker()
+  setupDragAndDropForAssignments()
 
   $(".task input:checkbox").on "click", (e) ->
     toggleTaskStatus(this)
 
-  # Set up drag and drop for tasks
-  $(".assignment, .unassigned-task-container").sortable(
-    items: ".assigned-task, .hidden-task"
-    connectWith: ".connected-sortable"
-    start: (e, ui) ->
-      # Set overflow to visible for the dragged task to be seen
-      $(".unassigned-task-container").css("overflow-y", "visible")
-
-      # Set origin of task
-      origin = $(this.closest("[data-developer-id]")).data("developer-id")
-    stop: (e, ui) ->
-      # Reset after dragging
-      $(".unassigned-task-container").css("overflow-y", "auto")
-    update: () ->
-      devId = $(this).closest("[data-developer-id]").data("developer-id")
-      taskIds = []
-      foo = $(".assigned-task, .finished-task", this)
-
-      foo.each () ->
-        taskIds.push $(this).data("task-id")
-
-      # We can only sort assigned tasks
-      if devId != -1
-        $.post
-          url: "/assignments/sort"
-          data:
-            task:
-              assignments_attributes:
-                developer_account_id: devId
-                task_ids: taskIds
-          success: () ->
-            console.log "Success"
-          error: () ->
-            console.log "Error"
-  ).disableSelection().droppable(
-    drop: (event, ui) ->
-      taskId = $(ui.draggable).data("task-id")
-      destination = $(this.closest("[data-developer-id]")).data("developer-id")
-
-      if destination != origin
-        # Assign task to a developer
-        if destination != -1
-          if origin != -1
-            unassignTaskFromDeveloper(origin, taskId)
-
-          assignTaskToDeveloper(destination, taskId)
-        else
-          unassignTaskFromDeveloper(origin, taskId)
-  )
   return
 
 # Assigns a task to a developer
@@ -186,3 +105,88 @@ this.rangeSlider = ->
       return
     return
   return
+
+setupDragAndDropForAssignments = () ->
+  # Set up drag and drop for tasks
+  $(".assignment, .unassigned-task-container").sortable(
+    items: ".assigned-task, .hidden-task"
+    connectWith: ".connected-sortable"
+    start: (e, ui) ->
+      # Set overflow to visible for the dragged task to be seen
+      $(".unassigned-task-container").css("overflow-y", "visible")
+
+      # Set origin of task
+      origin = $(this.closest("[data-developer-id]")).data("developer-id")
+    stop: (e, ui) ->
+      # Reset after dragging
+      $(".unassigned-task-container").css("overflow-y", "auto")
+    update: () ->
+      devId = $(this).closest("[data-developer-id]").data("developer-id")
+      taskIds = []
+      foo = $(".assigned-task, .finished-task", this)
+
+      foo.each () ->
+        taskIds.push $(this).data("task-id")
+
+      # We can only sort assigned tasks
+      if devId != -1
+        $.post
+          url: "/assignments/sort"
+          data:
+            task:
+              assignments_attributes:
+                developer_account_id: devId
+                task_ids: taskIds
+          success: () ->
+            console.log "Success"
+          error: () ->
+            console.log "Error"
+  ).disableSelection().droppable(
+    drop: (event, ui) ->
+      taskId = $(ui.draggable).data("task-id")
+      destination = $(this.closest("[data-developer-id]")).data("developer-id")
+
+      if destination != origin
+        # Assign task to a developer
+        if destination != -1
+          if origin != -1
+            unassignTaskFromDeveloper(origin, taskId)
+
+          assignTaskToDeveloper(destination, taskId)
+        else
+          unassignTaskFromDeveloper(origin, taskId)
+  )
+
+setupDatePicker = () ->
+  # Get time in seconds
+  time = window.location.search.substr(1).split("=")[1] * 1000
+  $(".date-picker").datepicker
+    format: "DD, M d, yyyy"
+    autoclose: true
+
+  # Set default value
+  if isNaN time
+    time = Date.now()
+
+  $(".date-picker").datepicker('setDate',new Date(time))
+  $(".date-picker").datepicker('update')
+
+  $(".date-picker").datepicker().on "changeDate", () ->
+    currDate = new Date $(".date-picker").val()
+    window.location.href = window.location.origin + window.location.pathname + "?time_in_seconds=" + (currDate.getTime() / 1000)
+
+  # Need this to detect if we drag tasks between developers / unassigned tasks
+  origin = undefined
+
+  # Set up event listeners
+  $("[data-nav=tomorrow]").on "click", (e) ->
+    currDate = new Date $(".date-picker").val()
+    currDate.setDate(currDate.getDate() + 1)
+    $(".date-picker").datepicker('setDate', currDate)
+    $(".date-picker").datepicker('update')
+
+  $("[data-nav=yesterday]").on "click", (e) ->
+    currDate = new Date $(".date-picker").val()
+    currDate.setDate(currDate.getDate() - 1)
+    $(".date-picker").datepicker('setDate', currDate)
+    $(".date-picker").datepicker('update')
