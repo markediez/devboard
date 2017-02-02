@@ -1,6 +1,7 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "utilities/variables";
 .form-container {
     width: 95%;
     margin: 20px;
@@ -22,6 +23,9 @@
             box-shadow: none;
             width: 785px;
         }
+        input:focus {
+            border: 1px solid #808080;
+        }
         textarea {
             border: 1px solid #E2E2E2;
             padding: 5px;
@@ -33,7 +37,10 @@
             display: block;
             float: left;
             width: 785px;
-            height: 103px;
+            height: 200px;
+        }
+        textarea:focus {
+            border: 1px solid #808080;
         }
         .details {
             display: block;
@@ -44,12 +51,13 @@
 
 .info-container {
     width: 95%;
-    margin: 50px 20px;
+    margin: 50px 20px 30px 20px;
     display: flex;
     flex-direction: row;
+    border-bottom: 1px solid #F0F0F0;
     .date {
         input {
-            width: 150px;
+            width: 160px;
         }
     }
     .selector {
@@ -86,5 +94,19 @@
                 margin-right: 40px;
             }
         }
+    }
+}
+
+.btn-container {
+    margin: 50px 20px 30px 20px;
+    text-align: center;
+    button {
+        margin-right: 20px;
+    }
+    .btn-update {
+        background-color: $devblue;
+        border: $devblue-dark;
+        color: white;
+        width: 400px;
     }
 }

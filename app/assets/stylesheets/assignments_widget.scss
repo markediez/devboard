@@ -261,7 +261,7 @@
                     }
                     .tools {
                         color: $devblack;
-                        margin: 10px 3px 7px 3px;
+                        margin: 10px 3px 10px 3px;
                         .input-group {
                             width: 100%;
                             button {
@@ -305,15 +305,16 @@
                         background-color: $devblue;
                         border: 1px solid $devblue-dark;
                         margin: 5px 10px;
+                        height: 60px;
                         h5 {
                             white-space: nowrap;
-                            width: 110px;
+                            width: 140px;
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
                         p {
                             white-space: nowrap;
-                            width: 110px;
+                            width: 140px;
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
@@ -328,13 +329,13 @@
                             color: $darkgray;
                             h5 {
                                 white-space: nowrap;
-                                width: 110px;
+                                width: 140px;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                             }
                             p {
                                 white-space: nowrap;
-                                width: 110px;
+                                width: 140px;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                             }
