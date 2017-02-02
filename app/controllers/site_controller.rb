@@ -4,7 +4,7 @@ class SiteController < ApplicationController
 
   # GET /overview
   def overview
-    @tasks = Task.where.not(:id => Assignment.select(:task_id).uniq).where(:completed_at => nil)
+    @tasks = Task.where.not(:id => Assignment.select(:task_id).uniq).where(:completed_at => nil).order(:sort_position => "ASC")
     @time_to_view = params[:time_in_seconds].present? ? Time.at(params[:time_in_seconds].to_i) : Time.now
     # OLD
     # Duration is in days for site#overview (weeks for developer#show)
