@@ -48,19 +48,18 @@ class Developer < ActiveRecord::Base
     return assignments.flatten
   end
 
+  # Returns the assignments open or completed for this developer on the given date
+  # If an assignment was closed before this date or added after this date, it will
+  # not appear.
+  #
+  # Logic:
+  # assignments made this day or before
+  # assignments not completed or completed this day or after
   def assignments_at(date)
     start_of_day = date.change(:hour => 0)
     end_of_day = date.change(:hour => 24)
 
-    assignments_to_view = assignments
-    assignments.each do |a|
-      task = a.task
-      if task.completed_at && (task.completed_at > end_of_day || task.completed_at < start_of_day)
-        assignments_to_view.delete(a)
-      end
-    end
-
-    return assignments_to_view
+    Assignment.joins(:task).where(:developer_account_id => self.accounts.map{|a| a.id} ).where('assigned_at < ?', end_of_day ).where( :tasks => { :completed_at => [nil, start_of_day...end_of_day] } )
   end
 
   def devboard_account
