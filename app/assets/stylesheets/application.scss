@@ -1,21 +1,11 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- *= require bootstrap-datepicker
- */
-
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+
+@import "bootstrap-datepicker";
+
+@import "variables";
+
 .tmp {
     padding-left: 30px;
     padding-right: 15px;
@@ -43,10 +33,6 @@ h5 {
 
 .navbar {
     height: 50px !important;
-}
-
-.btn-default {
-    /*border-color: white;*/
 }
 
 
@@ -372,3 +358,9 @@ a.navbar-brand {
     margin: 15px;
     margin-right: 30px;
 }
+
+@import "assignments";
+@import "exception_reports";
+@import "modal";
+@import "scaffolds";
+@import "tasks";

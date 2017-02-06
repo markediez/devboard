@@ -2,17 +2,6 @@ class SiteController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:credentials]
   skip_before_action :authenticate, only: [:access_denied, :logout]
 
-  # GET /overview
-  def overview
-    @tasks = Task.where.not(:id => Assignment.select(:task_id).uniq).where(:completed_at => nil).order(:sort_position => "ASC")
-    @time_to_view = params[:time_in_seconds].present? ? Time.at(params[:time_in_seconds].to_i) : Time.now
-
-    @developers = Developer.order(created_at: :desc)
-
-    authorize! :manage, @developers
-    authorize! :manage, @activity
-  end
-
   # GET /access_denied
   # Unauthenticated requests are redirected here
   def access_denied
