@@ -65,24 +65,24 @@ body {
 }
 
 .nav-tabs {
-    margin: 10px;
+    margin: 10px !important;
     li {
         a {
-            border-radius: 0;
+            border-radius: 0 !important;
         }
         &.active {
-            background-color: transparent;
+            background-color: transparent !important;
             a,
             a:focus {
-                background-color: rgb(248, 248, 248);
-                color: rgb(51, 51, 51);
-                font-weight: bold;
+                background-color: rgb(248, 248, 248) !important;
+                color: rgb(51, 51, 51) !important;
+                font-weight: bold !important;
             }
         }
         &:hover {
-            background-color: transparent;
+            background-color: transparent !important;
             a {
-                color: #000;
+                color: #000 !important;
             }
         }
     }

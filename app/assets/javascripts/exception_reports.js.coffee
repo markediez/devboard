@@ -1,5 +1,5 @@
 $(document).ready ->
-  $(".notice-regular, .notice-confirm").hide()
+  $(".exceptions-notice-regular, .exceptions-notice-confirm").hide()
 
   # Set Event Listeners
   $(".cb-email").on "click", (e) ->
@@ -46,15 +46,15 @@ deleteMessage = (id) ->
 
 # Briefly flashes a message
 flashMessage = (type, msg) ->
-  $(".notice-regular").fadeIn(400)
-  $(".notice-regular span").html(msg)
+  $(".exceptions-notice-regular").fadeIn(400)
+  $(".exceptions-notice-regular span").html(msg)
   setTimeout ( ->
-    $(".notice-regular").fadeOut(400)
+    $(".exceptions-notice-regular").fadeOut(400)
   ), 1500
 
 # Changes the table styles and event actions for specifying the original exception report
 letUserSelectOriginal = ->
-  $(".notice-confirm").fadeIn(400)
+  $(".exceptions-notice-confirm").fadeIn(400)
   $("input").attr("disabled", "true")
   $("select").attr("disabled", "true")
   $("input:not(:checked).cb-email").closest(".table-row").addClass("option-original")
@@ -82,7 +82,7 @@ letUserSelectOriginal = ->
 
 # Reverts the page back to its original state
 revert = ->
-  $(".notice-confirm").fadeOut(400)
+  $(".exceptions-notice-confirm").fadeOut(400)
   $("input").removeAttr("disabled")
   $("select").removeAttr("disabled")
   $(".table-row.option-original").off "click"
