@@ -4,6 +4,7 @@
 
 .assignments-widget {
   height: calc(100% - 96px);
+
   .date-nav {
     position: absolute;
     top: 12px;
@@ -21,14 +22,18 @@
       border: 1px solid $gray !important;
     }
   }
+
   .date-picker {
     border-color: #d6d6d6;
+
     i {
       margin-left: 6px;
     }
   }
+
   .pagination-button {
     text-align: center;
+
     a {
       color: $devblack;
       cursor: pointer;
@@ -38,9 +43,11 @@
       }
     }
   }
+
   .timeline-header {
     display: flex;
     flex-direction: row;
+
     .developer-assignment-titles {
       /* general styles */
       padding: 10px 20px 10px 20px;
@@ -61,6 +68,7 @@
         text-align: center;
       }
     }
+
     .unassigned-task-title {
       padding: 10px 20px 10px 20px;
       border-top: 1px solid $gray;
@@ -78,6 +86,7 @@
     width: 82%;
     height: 100%;
   }
+
   .task {
     /* general styles */
     display: inline-block;
@@ -85,6 +94,7 @@
     margin: 0px 4px;
     border-radius: 5px;
   }
+  
   .task-title {
     /* general styles */
     flex: 0 1 70%;
@@ -96,6 +106,7 @@
       color: white;
     }
   }
+  
   .task-selection {
     /* general styles */
     flex: 0 1 30%;

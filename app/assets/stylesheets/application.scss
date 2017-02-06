@@ -1,9 +1,10 @@
+// Library includes
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-
 @import "bootstrap-datepicker";
 
+// Our variables
 @import "variables";
 
 .tmp {
@@ -359,6 +360,7 @@ a.navbar-brand {
     margin-right: 30px;
 }
 
+// Other files to include
 @import "assignments";
 @import "exception_reports";
 @import "modal";
