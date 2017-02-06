@@ -1,139 +1,228 @@
-.modal-header_style {
-    border-radius: 5px 5px 0px 0px;
-    .modal-title-bold {
-        font-weight: 700;
+.modal {
+    label {
+        color: $devblack;
     }
-}
-
-.icon-section {
-    flex: 0 1 50%;
-    justify-content: center;
-    border-right: 1px solid $lightgray;
-    a {
-        color: $devblue;
-        &:hover {
-            color: $devblue-dark;
+    .modal-edit-task {
+        width: 75%;
+    }
+    .modal-header_style {
+        border-radius: 5px 5px 0px 0px;
+        .modal-title-bold {
+            font-weight: 700;
         }
     }
-    .add_user_icon {
-        height: 120px;
-        margin-bottom: 20px;
-        width: 100%;
-    }
-}
-
-.user-info-section {
-    flex: 0 1 50%;
-    margin: 0px 60px 0px 60px;
-}
-
-.task-info-section {
-    margin-left: 30px;
-    margin-right: 30px;
-    .form-group {
-        >label {
-            color: $devblack;
+    .icon-section {
+        flex: 0 1 50%;
+        justify-content: center;
+        border-right: 1px solid $lightgray;
+        a {
+            color: $devblue;
+            &:hover {
+                color: $devblue-dark;
+            }
+        }
+        .add_user_icon {
+            height: 120px;
+            margin-bottom: 20px;
+            width: 100%;
         }
     }
-}
-
-.btn-create {
-    background-color: $devblue !important;
-    color: white !important;
-    border-radius: 0;
-    width: 300px;
-    &:hover {
-        background-color: $devblue-dark !important;
-        color: white !important;
+    .user-info-section {
+        flex: 0 1 50%;
+        margin: 0px 60px 0px 60px;
     }
-    &:active {
-        background-color: $devblue-dark !important;
-        color: white !important;
+    .btn-add-user {
+        margin-left: 15px;
+        margin-top: 10px;
     }
-}
-
-.btn-delete {
-    width: 120px !important;
-    margin: 0px 30px 0px 30px;
-    background-color: $warning-red !important;
-    color: white !important;
-    border-radius: 0;
-    width: 300px;
-    &:hover {
-        background-color: $warning-red-dark !important;
-        color: white !important;
+    /* modal body */
+    .modal-body {
+        .task-title {
+            margin-left: 20px;
+            margin-right: 20px;
+            padding-right: 55px;
+            padding-left: 55px;
+        }
+        .difficulties-indicator {
+            flex: 0 1 10%;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+        .difficulties-selection-header {
+            margin-bottom: 20px;
+        }
+        .difficulties-selection {
+            margin: 25px 0px 25px 0px;
+            h5 {
+                font-weight: bold;
+            }
+        }
+        /* silder */
+        .range-slider-range {
+            height: 5px;
+            border-radius: 5px;
+            background: $gray;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            flex: 0 1 65%;
+            align-self: center;
+        }
+        .range-slider-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border: 0;
+            border-radius: 50%;
+            background: $devblue;
+            cursor: pointer;
+            &:hover {
+                background: $devblue-dark;
+            }
+            &:active {
+                background: $devblue-dark;
+            }
+        }
+        .range-slider-value {
+            width: 60px;
+            color: #fff;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 3px;
+            background: $devblue;
+            padding: 5px 10px;
+            margin-left: 8px;
+        }
+         ::-moz-range-track {
+            background: $gray;
+            border: 0;
+        }
+        input::-moz-focus-inner,
+        input::-moz-focus-outer {
+            border: 0;
+        }
+        /* flex components */
+        .flex-auto {
+            flex: 1 1 auto;
+        }
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+        }
+        .flex-center {
+            justify-content: center;
+        }
+        .flex-space {
+            justify-content: space-around;
+        }
+        .task-info-section {
+            width: 95%;
+            margin: 30px 20px 10px 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            .form-group {
+                >label {
+                    color: $devblack;
+                }
+            }
+            .date {
+                input {
+                    width: 160px;
+                }
+            }
+            .selector {
+                width: 285px;
+                position: relative;
+                display: inline-flex;
+                vertical-align: middle;
+                .range-slider-value {
+                    width: 40px;
+                }
+            }
+            .colm {
+                padding: 0px 25px;
+                flex: 0 0 400px;
+                display: flex;
+                flex-direction: column;
+                form {
+                    .form-group {
+                        .btn-group {
+                            display: flex;
+                        }
+                        textarea {
+                            height: 220px;
+                        }
+                    }
+                }
+                .selector {
+                    display: flex;
+                }
+                .points {
+                    button {
+                        width: 40px !important;
+                    }
+                }
+                .date {
+                    button {
+                        width: 40px !important;
+                    }
+                }
+                .colm-section {
+                    button {
+                        width: 90px;
+                    }
+                    flex: 0 0 90px;
+                    label {
+                        width: 100px;
+                        margin-right: 40px;
+                    }
+                }
+            }
+            .colm-left {
+                padding-right: 50px;
+            }
+            .colm-right {
+                border-left: 1px solid #e5e5e5;
+                form {
+                    align-self: center;
+                }
+            }
+        }
     }
-    &:active {
-        background-color: $warning-red-dark !important;
-        color: white !important;
+    /* modal footer */
+    .modal-footer {
+        .btn {
+            border: none !important;
+            justify-content: center;
+        }
+        .btn-create {
+            background-color: $devblue !important;
+            color: white !important;
+            border-radius: 0;
+            width: 300px;
+            &:hover {
+                background-color: $devblue-dark !important;
+                color: white !important;
+            }
+            &:active {
+                background-color: $devblue-dark !important;
+                color: white !important;
+            }
+        }
+        .btn-delete {
+            width: 120px !important;
+            margin: 0px 30px 0px 30px;
+            background-color: $warning-red !important;
+            color: white !important;
+            border-radius: 0;
+            width: 300px;
+            &:hover {
+                background-color: $warning-red-dark !important;
+                color: white !important;
+            }
+            &:active {
+                background-color: $warning-red-dark !important;
+                color: white !important;
+            }
+        }
     }
-}
-
-.difficulties-indicator {
-    flex: 0 1 10%;
-    padding-bottom: 5px;
-    padding-top: 5px;
-}
-
-.difficulties-selection-header {
-    margin-bottom: 20px;
-}
-
-.difficulties-selection {
-    margin: 25px 0px 25px 0px;
-    h5 {
-        font-weight: bold;
-    }
-}
-
-.btn-add-user {
-    margin-left: 15px;
-    margin-top: 10px;
-}
-
-.range-slider-range {
-    height: 5px;
-    border-radius: 5px;
-    background: $gray;
-    outline: none;
-    padding: 0;
-    margin: 0;
-    flex: 0 1 65%;
-    align-self: center;
-}
-
-.range-slider-range::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border: 0;
-    border-radius: 50%;
-    background: $devblue;
-    cursor: pointer;
-    &:hover {
-        background: $devblue-dark;
-    }
-    &:active {
-        background: $devblue-dark;
-    }
-}
-
-.range-slider-value {
-    width: 60px;
-    color: #fff;
-    line-height: 20px;
-    text-align: center;
-    border-radius: 3px;
-    background: $devblue;
-    padding: 5px 10px;
-    margin-left: 8px;
-}
-
- ::-moz-range-track {
-    background: $gray;
-    border: 0;
-}
-
-input::-moz-focus-inner,
-input::-moz-focus-outer {
-    border: 0;
 }

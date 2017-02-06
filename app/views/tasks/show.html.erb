@@ -1,48 +1,60 @@
 <header class="section-title">
-  <div class="pull-right" style="padding-top: 5px; margin-right: 3em;">
-    <%= link_to 'Edit', edit_task_path(@task), :class => 'btn btn-default' %>
-  </div>
-
-  <h3 style="color: #888; margin-top: 0.75em;">Status: <%= @task.completed_at.nil? ? 'Open' : 'Closed' %></h3>
-  <h3><%= @task.title %></h3>
-  <% if @task.project %>
-  <h3 style="color: #666; margin-top: 0;"><%= link_to @task.project.name, @task.project %></h3>
-  <% else %>
-  <h3 style="color: #ccc;">(Not assigned to a project)</h3>
-  <% end %>
-
-  <% if @task.milestone %>
-  <h3 style="color: #666; margin-top: 0;"><%= link_to @task.milestone.title, @task.milestone %></h3>
-  <% else %>
-  <h3 style="color: #ccc;">(Not assigned to a milestone)</h3>
-  <% end %>
-</header>
-
-<div class="tmp">
-  <% if @task.gh_issue_number %>
-    <div style="float: right;">
-      <%= link_to image_tag("GitHub-Mark-120px-plus.png", width: 35, alt: "View on GitHub"), @task.external_url %>
+    <div class="pull-right" style="padding-top: 5px; margin-right: 3em;">
+        <%= link_to 'Edit', edit_task_path(@task), :class => 'btn btn-default' %>
     </div>
-  <% end %>
 
-  <p class="lead" style="margin-bottom: 5px; font-size: 1.5em;">
-    Created by <%= (@task.creator) ? link_to(@task.creator.name, developer_accounts_path) : "no one" %>,
-    assigned to
-    <% if @task.assignments.size > 0 %>
-        <% @task.assignments.each do |assignment| %>
-          <%= assignment.developer.present? ? link_to(assignment.developer.name, assignment.developer) : link_to(assignment.developer_account.name, developer_accounts_path)%>
-          <%= "," unless assignment == @task.assignments.last %>
-        <% end %>
-    <% else %>
-      <%= "no one" %>
-    <% end %>.
-  </p>
-  <p class="lead" style="font-size: 1.0em;">
-    <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>. <%= @task.due.nil? ? 'No due date' : "Due " + time_ago_in_words(@task.due) %>. <%= @task.completed_at.nil? ? 'Not completed yet' : "Completed " + time_ago_in_words(@task.completed_at) %>. <%= @task.points.nil? ? 'Not scored yet' : "Worth " + @task.points.round(1).to_s %> points.
-  </p>
+    <h3 style="color: #888; margin-top: 0.75em;">Status:
+        <%= @task.completed_at.nil? ? 'Open' : 'Closed' %>
+    </h3>
+    <h3>
+        <%= @task.title %>
+    </h3>
+    <% if @task.project %>
+        <h3 style="color: #666; margin-top: 0;">
+            <%= link_to @task.project.name, @task.project %>
+        </h3>
+        <% else %>
+            <h3 style="color: #ccc;">(Not assigned to a project)</h3>
+            <% end %>
+
+                <% if @task.milestone %>
+                    <h3 style="color: #666; margin-top: 0;">
+                        <%= link_to @task.milestone.title, @task.milestone %>
+                    </h3>
+                    <% else %>
+                        <h3 style="color: #ccc;">(Not assigned to a milestone)</h3>
+                        <% end %>
+</header>
+<section>
+    <div class="tmp">
+        <% if @task.gh_issue_number %>
+            <div style="float: right;">
+                <%= link_to image_tag("GitHub-Mark-120px-plus.png", width: 35, alt: "View on GitHub"), @task.external_url %>
+            </div>
+            <% end %>
+
+                <p class="lead" style="margin-bottom: 5px; font-size: 1.5em;">
+                    Created by
+                    <%= (@task.creator) ? link_to(@task.creator.name, developer_accounts_path) : "no one" %>, assigned to
+                        <% if @task.assignments.size > 0 %>
+                            <% @task.assignments.each do |assignment| %>
+                                <%= assignment.developer.present? ? link_to(assignment.developer.name, assignment.developer) : link_to(assignment.developer_account.name, developer_accounts_path)%>
+                                    <%= "," unless assignment == @task.assignments.last %>
+                                        <% end %>
+                                            <% else %>
+                                                <%= "no one" %>
+                                                    <% end %>.
+                </p>
+                <p class="lead" style="font-size: 1.0em;">
+                    <%= @task.priority.to_s.gsub(/_/, ' ').capitalize %>.
+                        <%= @task.due.nil? ? 'No due date' : "Due " + time_ago_in_words(@task.due) %>.
+                            <%= @task.completed_at.nil? ? 'Not completed yet' : "Completed " + time_ago_in_words(@task.completed_at) %>.
+                                <%= @task.points.nil? ? 'Not scored yet' : "Worth " + @task.points.round(1).to_s %> points.
+                </p>
 
 
-  <div style="margin: 1em;">
-    <%= simple_format(@task.details) %>
-  </div>
-</div>
+                <div style="margin: 1em;">
+                    <%= simple_format(@task.details) %>
+                </div>
+    </div>
+</section>
