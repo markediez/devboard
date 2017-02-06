@@ -3,11 +3,12 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "bootstrap-datepicker";
-
 // Our variables
 @import "variables";
 
-.tmp {
+/* page wrapper and replace class 'tmp' */
+
+section {
     padding-left: 30px;
     padding-right: 15px;
     padding-top: 15px;
@@ -65,7 +66,6 @@ body {
 
 .nav-tabs {
     margin: 10px;
-    
     li {
         a {
             border-radius: 0;
