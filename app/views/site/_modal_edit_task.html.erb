@@ -6,18 +6,14 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title modal-title-bold text-center">Edit Task</h4>
             </div>
-            <div class="modal-body" style="display:flex;">
+            <div class="modal-body flex-column">
+                <div class="task-title">
+                    <label>Task title</label>
+                    <input class="form-control">
+                </div>
                 <div class="task-info-section flex-row flex-space" style="border:none;">
                     <div class="colm colm-left">
                         <form>
-                            <div class="form-group">
-                                <label>Task title</label>
-                                <input class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Details</label>
-                                <textarea class="form-control"></textarea>
-                            </div>
                             <div class="form-group">
                                 <label>Assign to</label>
                                 <div class="btn-group" style="display: flex;">
@@ -30,6 +26,10 @@
                                         <li><a>haha</a></li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Details</label>
+                                <textarea class="form-control"></textarea>
                             </div>
                         </form>
                     </div>

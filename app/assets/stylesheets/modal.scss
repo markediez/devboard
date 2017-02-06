@@ -1,4 +1,7 @@
 .modal {
+    label {
+        color: $devblack;
+    }
     .modal-edit-task {
         width: 75%;
     }
@@ -28,149 +31,160 @@
         flex: 0 1 50%;
         margin: 0px 60px 0px 60px;
     }
-    .difficulties-indicator {
-        flex: 0 1 10%;
-        padding-bottom: 5px;
-        padding-top: 5px;
-    }
-    .difficulties-selection-header {
-        margin-bottom: 20px;
-    }
-    .difficulties-selection {
-        margin: 25px 0px 25px 0px;
-        h5 {
-            font-weight: bold;
-        }
-    }
     .btn-add-user {
         margin-left: 15px;
         margin-top: 10px;
     }
-    /* silder */
-    .range-slider-range {
-        height: 5px;
-        border-radius: 5px;
-        background: $gray;
-        outline: none;
-        padding: 0;
-        margin: 0;
-        flex: 0 1 65%;
-        align-self: center;
-    }
-    .range-slider-range::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border: 0;
-        border-radius: 50%;
-        background: $devblue;
-        cursor: pointer;
-        &:hover {
-            background: $devblue-dark;
-        }
-        &:active {
-            background: $devblue-dark;
-        }
-    }
-    .range-slider-value {
-        width: 60px;
-        color: #fff;
-        line-height: 20px;
-        text-align: center;
-        border-radius: 3px;
-        background: $devblue;
-        padding: 5px 10px;
-        margin-left: 8px;
-    }
-     ::-moz-range-track {
-        background: $gray;
-        border: 0;
-    }
-    input::-moz-focus-inner,
-    input::-moz-focus-outer {
-        border: 0;
-    }
-    /* flex components */
-    .flex-auto {
-        flex: 1 1 auto;
-    }
-    .flex-column {
-        display: flex;
-        flex-direction: column;
-    }
-    .flex-center {
-        justify-content: center;
-    }
-    .flex-space {
-        justify-content: space-around;
-    }
     /* modal body */
-    .task-info-section {
-        width: 95%;
-        margin: 30px 20px 10px 20px;
-        padding-left: 30px;
-        padding-right: 30px;
-        .form-group {
-            >label {
-                color: $devblack;
+    .modal-body {
+        .task-title {
+            margin-left: 20px;
+            margin-right: 20px;
+            padding-right: 55px;
+            padding-left: 55px;
+        }
+        .difficulties-indicator {
+            flex: 0 1 10%;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+        .difficulties-selection-header {
+            margin-bottom: 20px;
+        }
+        .difficulties-selection {
+            margin: 25px 0px 25px 0px;
+            h5 {
+                font-weight: bold;
             }
         }
-        .date {
-            input {
-                width: 160px;
+        /* silder */
+        .range-slider-range {
+            height: 5px;
+            border-radius: 5px;
+            background: $gray;
+            outline: none;
+            padding: 0;
+            margin: 0;
+            flex: 0 1 65%;
+            align-self: center;
+        }
+        .range-slider-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border: 0;
+            border-radius: 50%;
+            background: $devblue;
+            cursor: pointer;
+            &:hover {
+                background: $devblue-dark;
+            }
+            &:active {
+                background: $devblue-dark;
             }
         }
-        .selector {
-            width: 285px;
-            position: relative;
-            display: inline-flex;
-            vertical-align: middle;
-            .range-slider-value {
-                width: 40px;
-            }
+        .range-slider-value {
+            width: 60px;
+            color: #fff;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 3px;
+            background: $devblue;
+            padding: 5px 10px;
+            margin-left: 8px;
         }
-        .colm {
-            padding: 0px 25px;
-            flex: 0 0 400px;
+         ::-moz-range-track {
+            background: $gray;
+            border: 0;
+        }
+        input::-moz-focus-inner,
+        input::-moz-focus-outer {
+            border: 0;
+        }
+        /* flex components */
+        .flex-auto {
+            flex: 1 1 auto;
+        }
+        .flex-column {
             display: flex;
             flex-direction: column;
-            form {
-                .form-group {
-                    textarea {
-                        height: 220px;
-                    }
-                }
-            }
-            .selector {
-                display: flex;
-            }
-            .points {
-                button {
-                    width: 40px !important;
+        }
+        .flex-center {
+            justify-content: center;
+        }
+        .flex-space {
+            justify-content: space-around;
+        }
+        .task-info-section {
+            width: 95%;
+            margin: 30px 20px 10px 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            .form-group {
+                >label {
+                    color: $devblack;
                 }
             }
             .date {
-                button {
-                    width: 40px !important;
+                input {
+                    width: 160px;
                 }
             }
-            .colm-section {
-                button {
-                    width: 90px;
-                }
-                flex: 0 0 90px;
-                label {
-                    width: 100px;
-                    margin-right: 40px;
+            .selector {
+                width: 285px;
+                position: relative;
+                display: inline-flex;
+                vertical-align: middle;
+                .range-slider-value {
+                    width: 40px;
                 }
             }
-        }
-        .colm-left {
-            padding-right: 50px;
-        }
-        .colm-right {
-            border-left: 1px solid #e5e5e5;
-            form {
-                align-self: center;
+            .colm {
+                padding: 0px 25px;
+                flex: 0 0 400px;
+                display: flex;
+                flex-direction: column;
+                form {
+                    .form-group {
+                        .btn-group {
+                            display: flex;
+                        }
+                        textarea {
+                            height: 220px;
+                        }
+                    }
+                }
+                .selector {
+                    display: flex;
+                }
+                .points {
+                    button {
+                        width: 40px !important;
+                    }
+                }
+                .date {
+                    button {
+                        width: 40px !important;
+                    }
+                }
+                .colm-section {
+                    button {
+                        width: 90px;
+                    }
+                    flex: 0 0 90px;
+                    label {
+                        width: 100px;
+                        margin-right: 40px;
+                    }
+                }
+            }
+            .colm-left {
+                padding-right: 50px;
+            }
+            .colm-right {
+                border-left: 1px solid #e5e5e5;
+                form {
+                    align-self: center;
+                }
             }
         }
     }
