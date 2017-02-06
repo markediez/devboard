@@ -179,7 +179,7 @@ namespace :github do
       end
 
       # assigned_at could be more accurately found in the issue 'events' stream
-      assignment.assigned_at = Time.now if assignment.assigned_at
+      assignment.assigned_at = Time.now unless assignment.assigned_at.present?
 
       assignment.developer_account = assignee
     else

@@ -48,36 +48,18 @@ class Developer < ActiveRecord::Base
     return assignments.flatten
   end
 
+  # Returns the assignments open or completed for this developer on the given date
+  # If an assignment was closed before this date or added after this date, it will
+  # not appear.
+  #
+  # Logic:
+  # assignments made this day or before
+  # assignments not completed or completed this day or after
   def assignments_at(date)
     start_of_day = date.change(:hour => 0)
     end_of_day = date.change(:hour => 24)
 
-    assignments_to_view = assignments
-    assignments.each do |a|
-      task = a.task
-      logger.debug "~~" + a.task.title
-      if task.completed_at && (task.completed_at > end_of_day || task.completed_at < start_of_day)
-        logger.debug "BOOM"
-        assignments_to_view.delete(a)
-      end
-    end
-
-    return assignments_to_view
-    #
-    # logger.debug "============="
-    # logger.debug start_of_day
-    # logger.debug end_of_day
-    # valid_assignments = assignments
-    # valid_assignments.each do |a|
-    #   logger.debug "~~" + a.task.title
-    #   if a.task.completed_at && (a.task.completed_at < start_of_day || a.task.completed_at > end_of_day)
-    #     logger.debug "yes"
-    #     logger.debug  "::" + a.task.completed_at.to_s
-    #     valid_assignments.delete(a)
-    #   end
-    # end
-    #
-    # return valid_assignments
+    Assignment.joins(:task).where(:developer_account_id => self.accounts.map{|a| a.id} ).where('assigned_at < ?', end_of_day ).where( :tasks => { :completed_at => [nil, start_of_day...end_of_day] } )
   end
 
   def devboard_account
@@ -85,7 +67,8 @@ class Developer < ActiveRecord::Base
   end
 
   def devboard_account_id
-    self.devboard_account().id
+    return nil unless self.devboard_account.present?
+    return self.devboard_account.id
   end
 
   def create_devboard_developer_account
