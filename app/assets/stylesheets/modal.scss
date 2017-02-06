@@ -1,4 +1,7 @@
 .modal {
+    .modal-edit-task {
+        width: 75%;
+    }
     .modal-header_style {
         border-radius: 5px 5px 0px 0px;
         .modal-title-bold {
@@ -97,6 +100,9 @@
     .flex-center {
         justify-content: center;
     }
+    .flex-space {
+        justify-content: space-around;
+    }
     /* modal body */
     .task-info-section {
         width: 95%;
@@ -124,9 +130,19 @@
         }
         .colm {
             padding: 0px 25px;
-            flex: 1 1 100%;
+            flex: 0 0 400px;
             display: flex;
             flex-direction: column;
+            form {
+                .form-group {
+                    textarea {
+                        height: 220px;
+                    }
+                }
+            }
+            .selector {
+                display: flex;
+            }
             .points {
                 button {
                     width: 40px !important;
@@ -146,6 +162,15 @@
                     width: 100px;
                     margin-right: 40px;
                 }
+            }
+        }
+        .colm-left {
+            padding-right: 50px;
+        }
+        .colm-right {
+            border-left: 1px solid #e5e5e5;
+            form {
+                align-self: center;
             }
         }
     }
