@@ -2,7 +2,7 @@ class AssignmentsController < ApplicationController
   # GET /overview
   def index
     @tasks = Task.where.not(:id => Assignment.select(:task_id).uniq).where(:completed_at => nil).order(:sort_position => "ASC")
-    @time_to_view = params[:time_in_seconds].present? ? Time.at(params[:time_in_seconds].to_i) : Time.now
+    @time_to_view = params[:time].present? ? DateTime.parse(params[:date]) : Time.now
 
     @developers = Developer.where(:active => true).order(created_at: :desc)
 
