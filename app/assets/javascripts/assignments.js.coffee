@@ -133,12 +133,19 @@ setupDragAndDropForAssignments = () ->
       tasks.each () ->
         taskIds.push $(this).data("task-id")
 
+      developerId = $($(this).closest("[data-developer-id]")).data("developer-id")
       # Save sort order
-      $.post
-        url: "/tasks/sort"
-        data:
-          task:
+      if developerId == -1
+        $.post
+          url: "/tasks/sort"
+          data:
             task_ids: taskIds
+      else
+        $.post
+          url: "/assignments/sort"
+          data:
+            task_ids: taskIds
+            developer_account_id: developerId
 
   ).disableSelection().droppable(
     drop: (event, ui) ->
