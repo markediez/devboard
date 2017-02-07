@@ -47,6 +47,10 @@
     color: #2A2D32 !important;
 }
 
+.navbar {
+    height: 50px !important;
+}
+
 .navbar-nav {
     list-style-type: none !important;
     >li {
@@ -72,6 +76,9 @@
         padding-bottom: 5px;
     }
 }
+
+
+/* navigation bar and hover effect underline */
 
 .hover-underline {
     display: inline-block;
