@@ -99,28 +99,6 @@ main {
     }
 }
 
-
-/*
- * Placeholder dashboard ideas
- */
-
-.placeholders {
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.placeholders h4 {
-    margin-bottom: 0;
-}
-
-.placeholder {
-    margin-bottom: 20px;
-}
-
-.placeholder img {
-    border-radius: 50%;
-}
-
 a.navbar-brand {
     font-weight: 100;
     font-size: 18pt;
@@ -211,52 +189,6 @@ a.navbar-brand {
     background: #FF8383;
 }
 
-
-/* search bar */
-
-.search {
-    width: 100%;
-    position: relative
-}
-
-.search i {
-    font-size: 11pt;
-}
-
-.search-bar {
-    width: 30%;
-    margin: 10px 0px 10px 20px;
-}
-
-.searchButton {
-    position: absolute;
-    left: 101%;
-    top: 0%;
-    width: 40px;
-    height: 28px;
-    border: 1px solid #BFBFBF;
-    background: #BFBFBF;
-    text-align: center;
-    color: #fff;
-    border-radius: 2px;
-    cursor: pointer;
-}
-
-.input-section {
-    width: 100%;
-    border: 1px solid #E2E2E2;
-    padding: 5px;
-    height: 28px;
-    border-radius: 3px !important;
-    outline: none;
-    color: #BFBFBF;
-    background-color: #FAFAFA;
-    box-shadow: none;
-}
-
-
-/* sidebar */
-
 .padding-0 {
     padding: 0px;
 }
@@ -289,6 +221,15 @@ a.navbar-brand {
     color: #95989A;
 }
 
+table {
+    border: $table-border;
+    thead {
+        background-color: $devblack;
+        color: white;
+        border: 1px solid $devblack;
+    }
+}
+
 // Upper-right button, usually "Edit" or "Show X Weeks"
 .header-btn-right {
     float: right;
@@ -303,3 +244,4 @@ a.navbar-brand {
 @import "scaffolds";
 @import "sidebar";
 @import "tasks";
+@import "developer"
