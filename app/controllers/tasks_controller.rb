@@ -123,11 +123,7 @@ class TasksController < ApplicationController
       developer = developer_account.developer
       task_id = params[:task][:task_id].to_i
 
-      developer.assignments.each do |a|
-        if a.task_id == task_id
-          a.delete
-        end
-      end
+      Assignment.where(:developer_account_id => developer_account.id).where(:task_id => task_id).first.delete
     end
   end
 
@@ -136,14 +132,23 @@ class TasksController < ApplicationController
   def sort
     # Grab the developer and tasks
     tasks = params["task"]["task_ids"]
+    positions = (0...tasks.size).to_a
+
+    # Use raw SQL to update because rails does not support cases
+    sql = "UPDATE tasks SET sort_position = CASE id "
+    where = "WHERE id IN ("
+    positions.each do |i|
+      sql += "WHEN #{tasks[i]} THEN #{i} "
+      where += "#{tasks[i]}"
+      where += (i == positions.last) ? ")" : ", "
+    end
+    sql += "END "
+    sql += where
 
     # Update each assigned task to new position
-    i = 0
-    tasks.each do |task|
-      Task.where(:id => task).update(:sort_position => i)
-      i = i + 1
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute(sql)
     end
-
   end
 
   # DELETE /tasks/1
@@ -165,6 +170,6 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       # :developer_account_id param and :task_id are for unassigning tasks in the overview page
-      params.require(:task).permit(:title, :details, :creator_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points, :assignment, :repository, :developer_account_id, :task_id, assignments_attributes: [:id, :developer_account_id, :_destroy], :task_ids => [])
+      params.require(:task).permit(:title, :details, :creator_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points, :assignment, :repository, :developer_account_id, :task_id, assignments_attributes: [:id, :developer_account_id, :_destroy, :assigned_at], :task_ids => [])
     end
 end
