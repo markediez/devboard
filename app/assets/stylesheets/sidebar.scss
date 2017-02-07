@@ -6,47 +6,15 @@
     font-size: 14px;
 }
 
-
-/* search bar */
-
-.search {
-    width: 100%;
-    position: relative
-}
-
-.search i {
-    font-size: 11pt;
-}
-
-.search-bar {
-    width: 30%;
-    margin: 10px 0px 10px 20px;
-}
-
-.searchButton {
-    position: absolute;
-    left: 101%;
-    top: 0%;
-    width: 40px;
-    height: 28px;
-    border: 1px solid #BFBFBF;
-    background: #BFBFBF;
-    text-align: center;
+.active>.sidebar-icon {
     color: #fff;
-    border-radius: 2px;
-    cursor: pointer;
 }
 
-.input-section {
-    width: 100%;
-    border: 1px solid #E2E2E2;
-    padding: 5px;
-    height: 28px;
-    border-radius: 3px !important;
-    outline: none;
-    color: #BFBFBF;
-    background-color: #FAFAFA;
-    box-shadow: none;
+.sidebar-icon {
+    position: absolute;
+    top: 13px;
+    left: 6px;
+    color: #95989A;
 }
 
 

@@ -99,94 +99,9 @@ main {
     }
 }
 
-a.navbar-brand {
-    font-weight: 100;
-    font-size: 18pt;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-    font-weight: 900;
-    color: #2A2D32 !important;
-}
-
 .flex-row {
     display: flex !important;
     flex-direction: row;
-}
-
-
-/* navigation style */
-
-.nav-flex-row {
-    display: flex;
-    flex-direction: row;
-}
-
-.navbar-nav {
-    list-style-type: none !important;
-    >li {
-        >a {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            &:hover {
-                text-decoration: none;
-            }
-        }
-    }
-}
-
-.navbar-style {
-    box-shadow: -1px -2px 14px -2px rgba(150, 150, 150, 1);
-    z-index: 10;
-    background-color: white !important;
-    border: none !important;
-    li {
-        margin-left: 3em;
-        margin-right: 2em;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-}
-
-.hover-underline {
-    display: inline-block;
-    position: relative;
-}
-
-.hover-underline:after {
-    content: '';
-    display: block;
-    margin: auto;
-    height: 3px;
-    width: 5px;
-    background: transparent;
-    transition: width .3s ease, background-color .3s ease;
-}
-
-.hover-underline:hover:after {
-    width: 100%;
-    background: #2A2D32;
-    ;
-}
-
-.hover-underline-log_out {
-    display: inline-block;
-    position: relative;
-}
-
-.hover-underline-log_out:after {
-    content: '';
-    display: block;
-    margin: auto;
-    height: 3px;
-    width: 5px;
-    background: transparent;
-    transition: width .3s ease, background-color .3s ease;
-}
-
-.hover-underline-log_out:hover:after {
-    width: 100%;
-    background: #FF8383;
 }
 
 .padding-0 {
@@ -208,17 +123,6 @@ a.navbar-brand {
         margin-bottom: 15px !important;
         margin-left: 30px !important;
     }
-}
-
-.active>.sidebar-icon {
-    color: #fff;
-}
-
-.sidebar-icon {
-    position: absolute;
-    top: 13px;
-    left: 6px;
-    color: #95989A;
 }
 
 table {
@@ -244,4 +148,5 @@ table {
 @import "scaffolds";
 @import "sidebar";
 @import "tasks";
-@import "developer"
+@import "developer";
+@import "navbar";
