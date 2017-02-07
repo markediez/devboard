@@ -29,6 +29,7 @@ assignTaskToDeveloper = (developerAccountId, taskId) ->
         assignments_attributes:
           "#{uniqueId}":
             developer_account_id: developerAccountId
+            assigned_at: getTimeNow()
             _destroy: "false"
     success: (data, status, xhr) ->
       # Flash success notice?

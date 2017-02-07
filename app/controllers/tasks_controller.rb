@@ -123,11 +123,7 @@ class TasksController < ApplicationController
       developer = developer_account.developer
       task_id = params[:task][:task_id].to_i
 
-      developer.assignments.each do |a|
-        if a.task_id == task_id
-          a.delete
-        end
-      end
+      Assignment.where(:developer_account_id => developer_account.id).where(:task_id => task_id).first.delete
     end
   end
 
@@ -174,6 +170,6 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       # :developer_account_id param and :task_id are for unassigning tasks in the overview page
-      params.require(:task).permit(:title, :details, :creator_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points, :assignment, :repository, :developer_account_id, :task_id, assignments_attributes: [:id, :developer_account_id, :_destroy], :task_ids => [])
+      params.require(:task).permit(:title, :details, :creator_id, :project_id, :completed_at, :difficulty, :duration, :due, :priority, :points, :assignment, :repository, :developer_account_id, :task_id, assignments_attributes: [:id, :developer_account_id, :_destroy, :assigned_at], :task_ids => [])
     end
 end
