@@ -76,7 +76,6 @@ toggleTaskStatus = (el) ->
       task:
         completed_at: timestamp
     success: (data, status, xhr) ->
-      debugger
       toggleView(el)
     error: (data, status, xhr) ->
       console.log ":("
@@ -167,18 +166,18 @@ setupDragAndDropForAssignments = () ->
 
 setupDatePicker = () ->
   # Get time in seconds
-  time = window.location.search.substr(1).split("=")[1]
+  viewDate = window.location.search.substr(1).split("=")[1]
   $(".date-picker").datepicker
     format: "DD, M d, yyyy"
     autoclose: true
 
   # Set default value
-  if time
-    time = new Date time.split("-").join("/")
+  if viewDate
+    viewDate = new Date viewDate.split("-").join("/")
   else
-    time = new Date Date.now()
+    viewDate = new Date
 
-  $(".date-picker").datepicker('setDate', time)
+  $(".date-picker").datepicker('setDate', viewDate)
   $(".date-picker").datepicker('update')
 
   $(".date-picker").datepicker().on "changeDate", () ->
