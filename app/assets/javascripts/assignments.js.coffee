@@ -143,7 +143,7 @@ setupDragAndDropForAssignments = () ->
               task_ids: taskIds
       else
         $.post
-          url: "/assignments/sort"
+          url: "/assignments/update"
           data:
             task_ids: taskIds
             developer_account_id: developerId
