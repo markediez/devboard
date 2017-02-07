@@ -197,6 +197,9 @@ setupDatePicker = () ->
     $(".date-picker").datepicker('setDate', currDate)
     $(".date-picker").datepicker('update')
 
+# Returns a YYYY-MM-DD format of a date's toLocaleDateString
+# date = date object
+# if date.toLocaleDateString() = "2/7/2017" then this function will return "2017-02-07"
 getDateString = (date) ->
   # [0] = month, [1] = day, [2] = year
   date = date.toLocaleDateString().split("/")
