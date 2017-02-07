@@ -10,8 +10,8 @@ class AssignmentsController < ApplicationController
     authorize! :manage, @activity
   end
 
-  # POST /assignments/sort
-  def sort
+  # POST /assignments/update
+  def update
     # Grab the developer and tasks
     developer_account_id = params["developer_account_id"]
     tasks = params["task_ids"]
