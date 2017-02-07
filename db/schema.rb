@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20170207210258) do
     t.datetime "due_at"
     t.datetime "assigned_at"
     t.integer  "delay_count",          default: 0
-    t.integer  "sort_position",        default: 0, null: false
+    t.integer  "sort_position"
   end
 
   create_table "commits", force: :cascade do |t|
