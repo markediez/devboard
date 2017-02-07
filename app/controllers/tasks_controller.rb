@@ -136,14 +136,23 @@ class TasksController < ApplicationController
   def sort
     # Grab the developer and tasks
     tasks = params["task"]["task_ids"]
+    positions = (0...tasks.size).to_a
+
+    # Use raw SQL to update because rails does not support cases
+    sql = "UPDATE tasks SET sort_position = CASE id "
+    where = "WHERE id IN ("
+    positions.each do |i|
+      sql += "WHEN #{tasks[i]} THEN #{i} "
+      where += "#{tasks[i]}"
+      where += (i == positions.last) ? ")" : ", "
+    end
+    sql += "END "
+    sql += where
 
     # Update each assigned task to new position
-    i = 0
-    tasks.each do |task|
-      Task.where(:id => task).update(:sort_position => i)
-      i = i + 1
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute(sql)
     end
-
   end
 
   # DELETE /tasks/1
