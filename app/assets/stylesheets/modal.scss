@@ -1,6 +1,34 @@
 .modal {
+    input {
+        color: black;
+    }
+    input:focus {
+        border: 1px solid #808080;
+        box-shadow: none;
+    }
+    textarea {
+        color: black;
+    }
+    textarea:focus {
+        border: 1px solid #808080;
+        box-shadow: none;
+    }
     label {
         color: $devblack;
+    }
+    /* flex components */
+    .flex-auto {
+        flex: 1 1 auto;
+    }
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+    .flex-center {
+        justify-content: center;
+    }
+    .flex-space {
+        justify-content: space-around;
     }
     .modal-edit-task {
         width: 75%;
@@ -37,6 +65,11 @@
     }
     /* modal body */
     .modal-body {
+        .add-task {
+            .difficulties-selection {
+                margin: 15px 0px 15px 0px !important;
+            }
+        }
         .task-title {
             margin-left: 20px;
             margin-right: 20px;
@@ -99,20 +132,6 @@
         input::-moz-focus-inner,
         input::-moz-focus-outer {
             border: 0;
-        }
-        /* flex components */
-        .flex-auto {
-            flex: 1 1 auto;
-        }
-        .flex-column {
-            display: flex;
-            flex-direction: column;
-        }
-        .flex-center {
-            justify-content: center;
-        }
-        .flex-space {
-            justify-content: space-around;
         }
         .task-info-section {
             width: 95%;
@@ -198,7 +217,7 @@
             background-color: $devblue !important;
             color: white !important;
             border-radius: 0;
-            width: 300px;
+            width: 50%;
             &:hover {
                 background-color: $devblue-dark !important;
                 color: white !important;
