@@ -157,21 +157,23 @@ setupDragAndDropForAssignments = () ->
 
 setupDatePicker = () ->
   # Get time in seconds
-  time = window.location.search.substr(1).split("=")[1] * 1000
+  time = window.location.search.substr(1).split("=")[1]
   $(".date-picker").datepicker
     format: "DD, M d, yyyy"
     autoclose: true
 
   # Set default value
-  if isNaN time
-    time = Date.now()
+  if time
+    time = new Date time.split("-").join("/")
+  else
+    time = new Date Date.now()
 
-  $(".date-picker").datepicker('setDate',new Date(time))
+  $(".date-picker").datepicker('setDate', time)
   $(".date-picker").datepicker('update')
 
   $(".date-picker").datepicker().on "changeDate", () ->
     currDate = new Date $(".date-picker").val()
-    window.location.href = window.location.origin + window.location.pathname + "?time_in_seconds=" + (currDate.getTime() / 1000)
+    window.location.href = window.location.origin + window.location.pathname + "?date=" + getDateString(currDate)
 
   # Set up event listeners
   $("[data-nav=tomorrow]").on "click", (e) ->
@@ -185,3 +187,10 @@ setupDatePicker = () ->
     currDate.setDate(currDate.getDate() - 1)
     $(".date-picker").datepicker('setDate', currDate)
     $(".date-picker").datepicker('update')
+
+getDateString = (date) ->
+  # [0] = month, [1] = day, [2] = year
+  date = date.toLocaleDateString().split("/")
+  month = "0" + date[0]
+  day = "0" + date[1]
+  return date[2] + "-" + month.substr(month.length - 2) + "-" + day.substr(day.length - 2)
