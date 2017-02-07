@@ -14,6 +14,7 @@ $(document).ready ->
   $(".task input:checkbox").on "click", (e) ->
     toggleTaskStatus(this)
 
+  rangeSlider()
   return
 
 # Assigns a task to a developer
