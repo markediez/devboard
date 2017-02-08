@@ -1,7 +1,33 @@
 <div class="assignments-widget">
+    <script type="text/javascript">
+        window.devboard = {};
+        window.devboard.assignmentsWidget = {};
+
+        /* Set desired date of assignments view */
+        window.devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
+        
+        /* Set information about developers and their developer_account types */
+        window.devboard.developers = [];
+        <% @developers.each do |developer| %>
+            window.devboard.developers.push(
+                {
+                    id: <%= developer.id %>,
+                    accounts: [
+                        <% developer.accounts.each do |da| %>
+                            {
+                                id: <%= da.id %>,
+                                type: '<%= da.account_type %>'
+                            },
+                        <% end %>
+                    ]
+                }
+            )
+        <% end %>
+    </script>
+
     <!-- header -->
     <header class="section-title">
-        <h3>Assignments</h3>
+        <h3>&nbsp;</h3>
         <div class="btn-group date-nav" role="group" aria-label="...">
             <button type="button" class="btn btn-default" data-nav="yesterday"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 
@@ -12,10 +38,10 @@
         <div class="timeline-header">
             <div class="developer-assignment-titles ">
                 <h5>Developers</h5>
-                <h5>Assigned tasks</h5>
+                <h5>Assignments</h5>
             </div>
             <div class="unassigned-task-title">
-                <h5>Unassigned tasks</h5>
+                <h5>Unassigned</h5>
             </div>
         </div>
     </header>
@@ -40,12 +66,12 @@
         <div class="assignment-container">
             <div class="assignment-section">
                 <% @developers.each do |developer| %>
-                    <div class="assignments-row connected-sortable" data-developer-id="<%= developer.devboard_account_id %>">
+                    <div class="assignments-row connected-sortable" data-developer-id="<%= developer.id %>">
 
                         <!-- Show open assigned tasks and tasks closed on the same day -->
                         <% developer.assignments_at(@time_to_view).sort{|x, y| x.sort_position <=> y.sort_position}.each do |assignment| %>
                             <% task = assignment.task %>
-                                <div class="task <%=task.completed_at? ? " finished-task " : "assigned-task " %>" data-task-id="<%= task.id %>">
+                                <div class="task <%=task.completed_at? ? " finished-task " : "assigned-task " %>" data-assignment-id="<%= assignment.id %>" data-task-id="<%= task.id %>">
                                     <div class="flex-row">
                                         <div class="task-title">
                                             <h5>
@@ -98,7 +124,7 @@
                         <li class="divider"></li>
                         <li><a href="#all">Clear</a></li>
                     </ul>
-                    <input class="input-section" name="x" placeholder="Search keyword..." type="text">
+                    <input class="input-section" name="x" placeholder="Search..." type="text">
                 </div>
             </div>
         </div>

@@ -7,42 +7,6 @@ $(document).ready ->
 
   setupRangeSlider()
 
-# Assigns a task to a developer
-# developerAccountId = developer to assign
-# taskId = id of the task
-assignTaskToDeveloper = (developerAccountId, taskId) ->
-  uniqueId = Date.now()
-  $.ajax
-    url: "/tasks/#{taskId}.json"
-    type: "put"
-    data:
-      task:
-        assignments_attributes:
-          "#{uniqueId}":
-            developer_account_id: developerAccountId
-            assigned_at: getTimeNow()
-            _destroy: "false"
-    success: (data, status, xhr) ->
-      # Flash success notice?
-    error: (data, status, xhr) ->
-      # Flash error notice?
-
-# Unassigns a task from a developer
-# developerAccountId = developer currently assigned to task
-# taskId = id of the task
-unassignTaskFromDeveloper = (developerAccountId, taskId) ->
-  $.post
-    url: "/tasks/unassign"
-    data:
-      task:
-        developer_account_id: developerAccountId
-        task_id: taskId
-    success: (data, status, xhr) ->
-      # Flash success notice?
-    error: (data, status, xhr) ->
-      # Flash error notice?
-
-
 # el = checkbox of a task
 toggleView = (el) ->
   task = $(el).closest(".task")
@@ -119,59 +83,78 @@ setupDragAndDropForAssignments = () ->
     # the unassigned area. If it is dropped in a developer that already had it, we ignore this event as
     # it is merely a sort, which is handled in the .sortable() callbacks.
     drop: (event, ui) ->
-      taskOriginalDeveloperId = ui.draggable.parent().data('developer-id')
-      dropAreaDeveloperId = $(this).data('developer-id')
+      originalDeveloperId = ui.draggable.parent().data('developer-id')
+      developerId = $(this).data('developer-id')
+      taskId = $(ui.draggable).data("task-id")
+      assignmentId = $(ui.draggable).data("assignment-id")
 
       # New sort position (Warning: jQuery UI DOM nonsense ahead!)
       # Our new sort position is the location of the 'placeholder' (whitespace) element, except for a few considerations ...
-      newSortPosition = $(this).find('.ui-sortable-placeholder').index()
+      sortPosition = $(this).find('.ui-sortable-placeholder').index()
 
       # ... like if the developer didn't change, the draggable item is attached to the row, so our math is off by one
-      if taskOriginalDeveloperId == dropAreaDeveloperId
-        newSortPosition = newSortPosition - 1
+      if originalDeveloperId == developerId
+        sortPosition = sortPosition - 1
 
         # ... except if we're dropping at the leftmost position, we'll end up with -1, so fix it.
-        if(newSortPosition == -1)
-          newSortPosition = 0
+        sortPosition = 0 if sortPosition == -1
 
-      console.log "TODO: update assignment to be developer_id #{dropAreaDeveloperId} and position #{newSortPosition}"
-
-      # taskId = $(ui.draggable).data("task-id")
+      # sortPosition starts at 0 from the left for developers and 0 from the top for unassigned
+      # developerId will be -1 if it was dropped in the unassigned area
+      console.log "TODO: update assignment (#{assignmentId}) to be developer_id #{developerId} and position #{sortPosition} (task #{taskId})"
+      
+      if developerId == -1
+        # Assignment is being unassigned entirely
+        $.ajax
+          url: Routes.assignment_path(assignmentId)
+          type: 'DELETE'
+          success: (data, textStatus, jqXhr) ->
+            console.log "successfully deleted assignment"
+          error: (jqXHR, textStatus, errorThrown ) ->
+            console.error "unable to delete assignment due to error"
+      else
+        # Assignment is being switched from one developer to another, or being resorted within the same developer
+        $.ajax
+          url: Routes.assignment_path(assignmentId)
+          type: 'PUT'
+          data:
+            assignment_id: assignmentId
+            developer_id: developerId
+            task_id: taskId
+            sort_position: sortPosition
+          success: (data, textStatus, jqXhr) ->
+            console.log "successfully deleted assignment"
+          error: (jqXHR, textStatus, errorThrown ) ->
+            console.error "unable to delete assignment due to error"
   )
 
 setupDatePicker = () ->
   # Get time in seconds
-  viewDate = window.location.search.substr(1).split("=")[1]
+  viewDate = new Date(window.devboard.assignmentsWidget.time_to_view)
 
   $(".date-picker").datepicker
     format: "DD, M d, yyyy"
     autoclose: true
 
-  # Set default value
-  if viewDate
-    viewDate = new Date viewDate.split("-").join("/")
-  else
-    viewDate = new Date
+  $(".assignments-widget .date-picker").datepicker('setDate', viewDate)
+  $(".assignments-widget .date-picker").datepicker('update')
 
-  $(".date-picker").datepicker('setDate', viewDate)
-  $(".date-picker").datepicker('update')
-
-  $(".date-picker").datepicker().on "changeDate", () ->
+  $(".assignments-widget .date-picker").datepicker().on "changeDate", () ->
     currDate = new Date $(".date-picker").val()
     window.location.href = window.location.origin + window.location.pathname + "?date=" + getDateString(currDate)
 
   # Set up event listeners
-  $("[data-nav=tomorrow]").on "click", (e) ->
-    currDate = new Date $(".date-picker").val()
+  $(".assignments-widget [data-nav=tomorrow]").on "click", (e) ->
+    currDate = new Date $(".assignments-widget .date-picker").val()
     currDate.setDate(currDate.getDate() + 1)
-    $(".date-picker").datepicker('setDate', currDate)
-    $(".date-picker").datepicker('update')
+    $(".assignments-widget .date-picker").datepicker('setDate', currDate)
+    $(".assignments-widget .date-picker").datepicker('update')
 
-  $("[data-nav=yesterday]").on "click", (e) ->
-    currDate = new Date $(".date-picker").val()
+  $(".assignments-widget [data-nav=yesterday]").on "click", (e) ->
+    currDate = new Date $(".assignments-widget .date-picker").val()
     currDate.setDate(currDate.getDate() - 1)
-    $(".date-picker").datepicker('setDate', currDate)
-    $(".date-picker").datepicker('update')
+    $(".assignments-widget .date-picker").datepicker('setDate', currDate)
+    $(".assignments-widget .date-picker").datepicker('update')
 
 # Returns a YYYY-MM-DD format of a date's toLocaleDateString
 # date = date object
