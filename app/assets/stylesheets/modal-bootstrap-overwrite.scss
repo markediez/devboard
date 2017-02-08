@@ -1,0 +1,23 @@
+/*
+ * modal-bootstrap-overwrite
+ */
+
+.modal {
+    input {
+        color: black;
+    }
+    input:focus {
+        border: 1px solid #808080;
+        box-shadow: none;
+    }
+    textarea {
+        color: black;
+    }
+    textarea:focus {
+        border: 1px solid #808080;
+        box-shadow: none;
+    }
+    label {
+        color: $devblack;
+    }
+}

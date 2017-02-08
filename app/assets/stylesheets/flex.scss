@@ -1,0 +1,20 @@
+/*
+ * flex-components 
+ */
+
+.flex-auto {
+    flex: 1 1 auto;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    justify-content: center;
+}
+
+.flex-space {
+    justify-content: space-around;
+}

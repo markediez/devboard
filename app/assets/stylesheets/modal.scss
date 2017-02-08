@@ -1,35 +1,10 @@
+/*
+ * modal
+ */
+
+@import "flex";
+@import "modal-bootstrap-overwrite";
 .modal {
-    input {
-        color: black;
-    }
-    input:focus {
-        border: 1px solid #808080;
-        box-shadow: none;
-    }
-    textarea {
-        color: black;
-    }
-    textarea:focus {
-        border: 1px solid #808080;
-        box-shadow: none;
-    }
-    label {
-        color: $devblack;
-    }
-    /* flex components */
-    .flex-auto {
-        flex: 1 1 auto;
-    }
-    .flex-column {
-        display: flex;
-        flex-direction: column;
-    }
-    .flex-center {
-        justify-content: center;
-    }
-    .flex-space {
-        justify-content: space-around;
-    }
     .modal-edit-task {
         width: 75%;
     }
@@ -163,7 +138,7 @@
                             display: flex;
                         }
                         textarea {
-                            height: 220px;
+                            height: 245px;
                         }
                     }
                 }
@@ -191,11 +166,7 @@
                     }
                 }
             }
-            .colm-left {
-                padding-right: 50px;
-            }
             .colm-right {
-                border-left: 1px solid #e5e5e5;
                 form {
                     align-self: center;
                 }
