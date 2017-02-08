@@ -76,15 +76,6 @@ input:focus {
     }
 }
 
-table {
-    border: $table-border;
-    thead {
-        background-color: $devblack;
-        color: white;
-        border: 1px solid $devblack;
-    }
-}
-
 .flex-row {
     display: flex !important;
     flex-direction: row;
