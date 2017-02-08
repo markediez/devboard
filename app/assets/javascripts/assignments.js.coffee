@@ -1,21 +1,11 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
-# Global Variables
-
 $(document).ready ->
-  # Need this to detect if we drag tasks between developers / unassigned tasks
-  origin = undefined
-
   setupDatePicker()
   setupDragAndDropForAssignments()
 
   $(".task input:checkbox").on "click", (e) ->
     toggleTaskStatus(this)
 
-  rangeSlider()
-  return
+  setupRangeSlider()
 
 # Assigns a task to a developer
 # developerAccountId = developer to assign
@@ -94,79 +84,65 @@ this.toggleTaskCompleted = (el) ->
     container.addClass("ipa-task");
 
 # For task modal
-this.rangeSlider = ->
-  slider = $('.range-slider')
+this.setupRangeSlider = ->
   range = $('.range-slider-range')
   value = $('.range-slider-value')
-  slider.each ->
+
+  $('.range-slider').each ->
     value.each ->
       `var value`
       value = $(this).prev().attr('value')
       $(this).html value
-      return
     range.on 'input', ->
       $(this).next(value).html @value
-      return
-    return
-  return
 
 setupDragAndDropForAssignments = () ->
-  # reference the global origin
-  origin = this
+  $el = $(".assignments-row, .unassigned-task-container")
 
-  # Set up drag and drop for tasks
-  $(".assignment, .unassigned-task-container").sortable(
+  $el.disableSelection()
+
+  $el.sortable(
     items: ".assigned-task, .hidden-task"
     connectWith: ".connected-sortable"
+    
     start: (e, ui) ->
       # Set overflow to visible for the dragged task to be seen
       $(".unassigned-task-container").css("overflow-y", "visible")
 
-      # Set origin of task
-      origin = $(this.closest("[data-developer-id]")).data("developer-id")
     stop: (e, ui) ->
       # Reset after dragging
       $(".unassigned-task-container").css("overflow-y", "auto")
-    update: () ->
-      taskIds = []
-      tasks = $(".assigned-task, .finished-task", this)
-      tasks.each () ->
-        taskIds.push $(this).data("task-id")
-
-      developerId = $($(this).closest("[data-developer-id]")).data("developer-id")
-      # Save sort order
-      if developerId == -1
-        $.post
-          url: "/tasks/sort"
-          data:
-            task:
-              task_ids: taskIds
-      else
-        $.post
-          url: "/assignments/update"
-          data:
-            task_ids: taskIds
-            developer_account_id: developerId
-
-  ).disableSelection().droppable(
+  )
+  
+  $el.droppable(
+    # droppable() lets us know if a task was moved from one developer to another, one to/from
+    # the unassigned area. If it is dropped in a developer that already had it, we ignore this event as
+    # it is merely a sort, which is handled in the .sortable() callbacks.
     drop: (event, ui) ->
-      taskId = $(ui.draggable).data("task-id")
-      destination = $(this.closest("[data-developer-id]")).data("developer-id")
+      taskOriginalDeveloperId = ui.draggable.parent().data('developer-id')
+      dropAreaDeveloperId = $(this).data('developer-id')
 
-      if destination != origin
-        # Assign task to a developer
-        if destination != -1
-          if origin != -1
-            unassignTaskFromDeveloper(origin, taskId)
+      # New sort position (Warning: jQuery UI DOM nonsense ahead!)
+      # Our new sort position is the location of the 'placeholder' (whitespace) element, except for a few considerations ...
+      newSortPosition = $(this).find('.ui-sortable-placeholder').index()
 
-          assignTaskToDeveloper(destination, taskId)
-        else
-          unassignTaskFromDeveloper(origin, taskId)
+      # ... like if the developer didn't change, the draggable item is attached to the row, so our math is off by one
+      if taskOriginalDeveloperId == dropAreaDeveloperId
+        newSortPosition = newSortPosition - 1
+
+        # ... except if we're dropping at the leftmost position, we'll end up with -1, so fix it.
+        if(newSortPosition == -1)
+          newSortPosition = 0
+
+      console.log "TODO: update assignment to be developer_id #{dropAreaDeveloperId} and position #{newSortPosition}"
+
+      # taskId = $(ui.draggable).data("task-id")
   )
 
 setupDatePicker = () ->
   # Get time in seconds
   viewDate = window.location.search.substr(1).split("=")[1]
+
   $(".date-picker").datepicker
     format: "DD, M d, yyyy"
     autoclose: true
@@ -203,6 +179,8 @@ setupDatePicker = () ->
 getDateString = (date) ->
   # [0] = month, [1] = day, [2] = year
   date = date.toLocaleDateString().split("/")
+  
   month = "0" + date[0]
   day = "0" + date[1]
+
   return date[2] + "-" + month.substr(month.length - 2) + "-" + day.substr(day.length - 2)

@@ -116,40 +116,40 @@ class TasksController < ApplicationController
 
   # POST /tasks/unassign
   # Unassigns the developer from the task
-  def unassign
-    developer_account = DeveloperAccount.where(:id => params[:task][:developer_account_id]).first
+  # def unassign
+  #   developer_account = DeveloperAccount.where(:id => params[:task][:developer_account_id]).first
 
-    if developer_account
-      developer = developer_account.developer
-      task_id = params[:task][:task_id].to_i
+  #   if developer_account
+  #     developer = developer_account.developer
+  #     task_id = params[:task][:task_id].to_i
 
-      Assignment.where(:developer_account_id => developer_account.id).where(:task_id => task_id).first.delete
-    end
-  end
+  #     Assignment.where(:developer_account_id => developer_account.id).where(:task_id => task_id).first.delete
+  #   end
+  # end
 
   # POST /tasks/sort
   # Save the position of tasks
-  def sort
-    # Grab the developer and tasks
-    tasks = params["task"]["task_ids"]
-    positions = (0...tasks.size).to_a
+  # def sort
+  #   # Grab the developer and tasks
+  #   tasks = params["task"]["task_ids"]
+  #   positions = (0...tasks.size).to_a
 
-    # Use raw SQL to update because rails does not support cases
-    sql = "UPDATE tasks SET sort_position = CASE id "
-    where = "WHERE id IN ("
-    positions.each do |i|
-      sql += "WHEN #{tasks[i]} THEN #{i} "
-      where += "#{tasks[i]}"
-      where += (i == positions.last) ? ")" : ", "
-    end
-    sql += "END "
-    sql += where
+  #   # Use raw SQL to update because rails does not support cases
+  #   sql = "UPDATE tasks SET sort_position = CASE id "
+  #   where = "WHERE id IN ("
+  #   positions.each do |i|
+  #     sql += "WHEN #{tasks[i]} THEN #{i} "
+  #     where += "#{tasks[i]}"
+  #     where += (i == positions.last) ? ")" : ", "
+  #   end
+  #   sql += "END "
+  #   sql += where
 
-    # Update each assigned task to new position
-    ActiveRecord::Base.transaction do
-      ActiveRecord::Base.connection.execute(sql)
-    end
-  end
+  #   # Update each assigned task to new position
+  #   ActiveRecord::Base.transaction do
+  #     ActiveRecord::Base.connection.execute(sql)
+  #   end
+  # end
 
   # DELETE /tasks/1
   # DELETE /tasks/1.json
