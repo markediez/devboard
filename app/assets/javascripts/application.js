@@ -13,7 +13,7 @@ $(document).ready(function() {
 });
 
 /**
- * Returns the time in the format YYY-MM-DD HH:MM:SS
+ * Returns the time in the format YYYY-MM-DD HH:MM:SS
  */
 function getTimeNow(timeInMills) {
   if(timeInMills === undefined) {

@@ -2,11 +2,30 @@
  * Sidebar
  */
 
-.sidebar {
-	font-size: 14px;
+#logo {
+    color: white;
+    text-align: center;
+    margin: 10px 0px 60px 0px;
 }
 
+.sidebar {
+    font-size: 14px;
+}
+
+.active>.sidebar-icon {
+    color: #fff;
+}
+
+.sidebar-icon {
+    position: absolute;
+    top: 13px;
+    left: 6px;
+    color: #95989A;
+}
+
+
 /* Hide for mobile, show later */
+
 .sidebar {
     display: none;
 }
@@ -29,14 +48,12 @@
     margin-right: -20px;
     margin-bottom: 20px;
     margin-left: -20px;
-
     >.active {
         background-color: #428bca;
         >a {
             color: #fff;
         }
     }
-    
     >li {
         padding-left: 20px;
         >i {
@@ -50,7 +67,6 @@
                 color: #fff;
             }
         }
-
         >a {
             font-weight: 400;
             padding-left: 25px;

@@ -1,7 +1,11 @@
+$table-border: 1px solid #ddd;
 $table-row-divider: 1px solid #666;
 $table-row-height: 30px;
 $table-row-selected-bg: #f8f8f8;
 $notice-info: #428bca;
+table {
+    border: $table-border;
+}
 
 .table-project-active {
     thead {
@@ -50,7 +54,6 @@ $notice-info: #428bca;
     @media screen and (min-width: 1920px) {
         top: 6%;
     }
-    
     span {
         padding: 15px;
         background-color: $notice-info;
