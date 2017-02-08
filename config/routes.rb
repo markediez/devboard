@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   post '/tasks/unassign' => 'tasks#unassign'
   post '/tasks/sort' => 'tasks#sort'
 
-  post '/assignments/sort' => 'assignments#sort'
+  post '/assignments/update' => 'assignments#update'
 
   post 'exception_reports/new_task' => 'exception_reports#new_task'
 
