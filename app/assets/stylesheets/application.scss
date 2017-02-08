@@ -28,7 +28,7 @@ body {
 }
 
 section {
-    //page wrapper and replace class 'tmp'
+    //work as a page wrapper and replace class 'tmp'
     padding-left: 30px;
     padding-right: 15px;
     padding-top: 15px;
@@ -46,6 +46,16 @@ input:focus {
 /*
  * Global add-ons
  */
+
+//added border to all tables and make all table header backgorund black
+.table {
+    border: $table-border;
+    thead {
+        background-color: $devblack;
+        border: 1px solid $devblack;
+        color: white;
+    }
+}
 
 .sub-header {
     padding-bottom: 10px;
