@@ -17,8 +17,8 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       ActiveRecord::Base.transaction do
         # Update the sort_position of all assignments for this developer by 1 if they fall after the desired params[:sort_position]
-        account_ids = DeveloperAccount.find_by_id(assignment_params[:developer_account_id]).developer.accounts.ids
-        Assignment.where(:developer_account_id => account_ids).where("sort_position >= ?", assignment_params[:sort_position]).update_all("sort_position = sort_position + 1")
+        da = DeveloperAccount.find_by_id(assignment_params[:developer_account_id])
+        Assignment.where(:developer_account_id => da.linked_accounts).where("sort_position >= ?", assignment_params[:sort_position]).update_all("sort_position = sort_position + 1")
 
         if @assignment.update(assignment_params)
           format.json { render :show, status: :ok, location: @assignment }

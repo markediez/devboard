@@ -15,6 +15,12 @@ class DeveloperAccount < ActiveRecord::Base
     developer.present? ? developer.name : self.name
   end
 
+  # "Linked" accounts are the other DeveloperAccounts also associated with
+  # the same developer.
+  def linked_accounts
+    developer.accounts.ids
+  end
+
   private
 
   def minimum_email_length
