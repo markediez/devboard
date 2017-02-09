@@ -1,5 +1,6 @@
 class ExceptionFilter < ApplicationRecord
-	validates :kind, :inclusion => { :in => [ 'SET_PROJECT', 'CLEAN_SUBJECT' ] }
+	validates :kind, :inclusion => { :in => proc { ExceptionFilter.kinds } }
+	validates :concern, :inclusion => { :in => proc { ExceptionFilter.concerns } }
 
 	# Applies filter to the given 'exception'. Returns true if any data changed in exception.
 	def apply(exception)
@@ -23,5 +24,15 @@ class ExceptionFilter < ApplicationRecord
 		end
 
 		return false
+	end
+
+	# Returns an array of valid ExceptionFilter kinds
+	def self.kinds
+		[ 'SET_PROJECT', 'CLEAN_SUBJECT' ]
+	end
+
+	# Returns an array of valid ExceptionFilter concerns
+	def self.concerns
+		[ 'email_from', 'subject' ]
 	end
 end
