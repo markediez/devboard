@@ -6,6 +6,8 @@ class ExceptionReportsController < ApplicationController
     @exception_reports = ExceptionReport.all
     @projects = Project.all
     @developers = Developer.all
+    @kinds = ExceptionFilter.kinds
+    @concerns = ExceptionFilter.concerns
   end
 
   # GET /exception_reports/1
