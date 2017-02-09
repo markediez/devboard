@@ -1,3 +1,7 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag params[:controller] %>
+<% end %>
+
 <header class="section-title">
     <div class="pull-right" style="padding-top: 5px; margin-right: 3em;">
         <%= link_to 'Edit', edit_task_path(@task), :class => 'btn btn-default' %>

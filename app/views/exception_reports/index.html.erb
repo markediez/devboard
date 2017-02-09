@@ -1,3 +1,7 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag params[:controller] %>
+<% end %>
+
 <header class="section-title">
   <div class="header-btn-right">
     <button id="mark-duplicate" class="btn btn-default"><i class="fa fa-files-o" aria-hidden="true"></i></button>
