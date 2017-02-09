@@ -1,28 +1,45 @@
 //= require jquery
-//= require jquery-ui
 //= require bootstrap
-//= require Chart
 //= require routes
-//= require_tree .
-//= require bootstrap-datepicker
+//= require toastr
 
 $(document).ready(function() {
   $.ajaxSetup({
     headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
   });
+
+  // Configure the Toastr (plug it in, hope there's butter in the fridge, etc.)
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-bottom-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
 });
 
 /**
- * Returns the time in the format YYYY-MM-DD HH:MM:SS
+ * Returns the date as a string in the format YYYY-MM-DD HH:MM:SS
  */
-function getTimeNow(timeInMills) {
+function getFormattedDate(timeInMills) {
   if(timeInMills === undefined) {
     timeInMills = Date.now();
   }
   var t = new Date(timeInMills);
 
   var year = t.getFullYear();
-  var month = ("0" + (t.getMonth() + 1) ).slice(-2);   // "0" + ___ .slice(-2) ensures 2 digit numbers
+  // .slice(-2) ensures 2 digit numbers
+  var month = ("0" + (t.getMonth() + 1) ).slice(-2);
   var day = ("0" + t.getDate()).slice(-2);
 
   var hour = ("0" + t.getHours()).slice(-2);

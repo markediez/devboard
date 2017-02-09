@@ -71,6 +71,8 @@ class Developer < ActiveRecord::Base
     return self.devboard_account.id
   end
 
+  protected
+
   def create_devboard_developer_account
     unless devboard_account.present?
       da = DeveloperAccount.new
@@ -82,8 +84,6 @@ class Developer < ActiveRecord::Base
       da.save!
     end
   end
-
-  protected
 
   # gh_username and gh_personal_token are optional but both must be present if either is specified
   def github_requires_two_fields

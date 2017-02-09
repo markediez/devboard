@@ -1,4 +1,6 @@
 class AssignmentsController < ApplicationController
+  before_action :set_assignment, only: [:update, :destroy]
+
   # GET /overview
   def index
     @tasks = Task.where.not(:id => Assignment.select(:task_id).uniq).where(:completed_at => nil).order(:sort_position => "ASC")
@@ -12,25 +14,36 @@ class AssignmentsController < ApplicationController
 
   # POST /assignments/update
   def update
-    # Grab the developer and tasks
-    developer_account_id = params["developer_account_id"]
-    tasks = params["task_ids"]
-    positions = (0...tasks.size).to_a
+    respond_to do |format|
+      ActiveRecord::Base.transaction do
+        # Update the sort_position of all assignments for this developer by 1 if they fall after the desired params[:sort_position]
+        da = DeveloperAccount.find_by_id(assignment_params[:developer_account_id])
+        Assignment.where(:developer_account_id => da.linked_accounts).where("sort_position >= ?", assignment_params[:sort_position]).update_all("sort_position = sort_position + 1")
 
-    # Use raw SQL to update because rails does not support cases
-    sql = "UPDATE assignments SET sort_position = CASE task_id "
-    where = "WHERE developer_account_id = #{developer_account_id} AND task_id IN ("
-    positions.each do |i|
-      sql += "WHEN #{tasks[i]} THEN #{i} "
-      where += "#{tasks[i]}"
-      where += (i == positions.last) ? ")" : ", "
-    end
-    sql += "END "
-    sql += where
-
-    # Update each assigned task to new position
-    ActiveRecord::Base.transaction do
-      ActiveRecord::Base.connection.execute(sql)
+        if @assignment.update(assignment_params)
+          format.json { render :show, status: :ok, location: @assignment }
+        else
+          format.json { render json: @assignment.errors, status: :unprocessable_entity }
+        end
+      end
     end
   end
+
+  def destroy
+    @assignment.destroy
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_assignment
+      @assignment = Assignment.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def assignment_params
+      params.require(:assignment).permit(:id, :developer_account_id, :task_id, :sort_position)
+    end
 end

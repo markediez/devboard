@@ -15,8 +15,14 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : " Devboard " %>">
 
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+<<<<<<< HEAD
         <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
             <%= csrf_meta_tags %>
+=======
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= yield :javascripts %>
+    <%= csrf_meta_tags %>
+>>>>>>> e2b182cf58dff2d57e19067f01990df70f7fdf4a
 
                 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
                 <!--[if lt IE 9]>

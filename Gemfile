@@ -1,17 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0'
+gem 'rails', '~> 5.0.1'
 
 gem 'sqlite3',        group: [:development, :test]
 
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.0.6'
 
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 3.0.4'
 
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails', '~> 4.2.1'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.7'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
@@ -23,7 +23,7 @@ gem 'jquery-rails'
 # gem 'turbolinks', '~> 5'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.6.1'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc',          group: :doc, require: false
@@ -40,11 +40,11 @@ gem 'capistrano-npm', require: false
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.0.5'
+  gem 'web-console', '>= 3.4.0'
+  gem 'listen', '~> 3.1.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen', '~> 2.0.1'
 end
 
 # Use PostgreSQL in production
@@ -57,7 +57,7 @@ gem 'exception_notification', group: :production
 gem 'byebug', group: [:development, :test], platform: :mri
 
 # For easy Bootstrap integration
-gem 'bootstrap-sass', '~> 3.1.0'
+gem 'bootstrap-sass', '~> 3.3.7'
 gem 'bootstrap-datepicker-rails'
 
 # For CAS authentication
@@ -69,7 +69,7 @@ gem 'rubycas-client', :git => 'https://github.com/cthielen/rubycas-client.git'
 gem 'cancancan'
 
 # For GitHub integration
-gem 'octokit', '~> 4.0'
+gem 'octokit', '~> 4.6.2'
 gem 'faraday-http-cache' # for etag caching with octokit
 
 # For scheduled tasks
