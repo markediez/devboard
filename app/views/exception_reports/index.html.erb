@@ -29,10 +29,10 @@
           <input type="checkbox" class="cb-email" />
         </td>
         <td>
-          <%= form_for exception_report do |f| %>
-            <%= f.fields_for :exception_email_from do |builder| %>
-              <%= builder.select("project_id", @projects.collect {|p| [ p.name, p.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %>
-            <% end %>
+          <% if exception_report.project.present? %>
+            <%= link_to exception_report.project, exception_report.project %>
+          <% else %>
+            N/A
           <% end %>
         </td>
         <td>
