@@ -1,3 +1,7 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag params[:controller] %>
+<% end %>
+
 <div class="assignments-widget">
     <script type="text/javascript">
         window.devboard = {};
@@ -5,7 +9,7 @@
 
         /* Set desired date of assignments view */
         window.devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
-        
+
         /* Set information about developers and their developer_account types */
         window.devboard.developers = [];
         <% @developers.each do |developer| %>
@@ -162,6 +166,6 @@
     </div>
 
     <%= render 'site/modal_add_user' %>
-        <%= render 'site/modal_add_task' %>
+    <%= render 'site/modal_add_task' %>
 
 </div>

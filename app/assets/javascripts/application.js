@@ -7,7 +7,6 @@
 //= require Chart
 //= require routes
 //= require underscore
-//= require_tree .
 //= require bootstrap-datepicker/core
 
 $(document).ready(function() {
