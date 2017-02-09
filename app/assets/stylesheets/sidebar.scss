@@ -2,6 +2,7 @@
  * Sidebar
  */
 
+@import "variables";
 #logo {
     color: white;
     text-align: center;
@@ -10,6 +11,15 @@
 
 .sidebar {
     font-size: 14px;
+    .badge {
+        position: absolute;
+        right: 75px;
+        top: 30%;
+        position: absolute;
+    }
+    .badge-warning {
+        background-color: $warning-red;
+    }
 }
 
 .active>.sidebar-icon {
