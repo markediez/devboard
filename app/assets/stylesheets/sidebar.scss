@@ -2,6 +2,7 @@
  * Sidebar
  */
 
+@import "variables";
 #logo {
     color: white;
     text-align: center;
@@ -10,6 +11,23 @@
 
 .sidebar {
     font-size: 14px;
+    .badge {
+        font-size: 14px !important;
+        position: absolute;
+        right: 35%;
+    }
+    .badge-warning {
+        background-color: $warning-red;
+    }
+    .sidebar-collapse {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        padding-left: 45px;
+        background-color: none !important;
+        border: none;
+        color: #95989A;
+    }
 }
 
 .active>.sidebar-icon {
