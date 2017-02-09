@@ -26,7 +26,7 @@
         </td>
         <td>
           <%= form_for exception_report do |f| %>
-            <%= f.fields_for :exception_from_email do |builder| %>
+            <%= f.fields_for :exception_email_from do |builder| %>
               <%= builder.select("project_id", @projects.collect {|p| [ p.name, p.id ] }, { :include_blank => true }, :onChange => 'javascript:this.form.submit();' ) %>
             <% end %>
           <% end %>
