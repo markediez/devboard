@@ -4,6 +4,7 @@
 
 <header class="section-title">
   <div class="header-btn-right">
+    <button class="btn btn-default" data-toggle="modal" data-target="#add_exception_filter"><i class="fa fa-plus add-user_icon" aria-hidden="true"></i></button>
     <button id="mark-duplicate" class="btn btn-default"><i class="fa fa-files-o" aria-hidden="true"></i></button>
     <button id="delete" class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
   </div>
@@ -61,8 +62,6 @@
   </table>
 </section>
 
-<%= render 'site/modal_add_task' %>
-
 <!-- Start notice for selecting original -->
 <div class="exceptions-notice-regular">
   <span>Please select the original report</span>
@@ -73,3 +72,6 @@
   <button id="cancel" class="btn btn-danger">Cancel</button>
 </div>
 <!-- End notice for selecting original -->
+
+<%= render 'exception_reports/modal_add_exception_filter' %>
+<%= render 'site/modal_add_task' %>

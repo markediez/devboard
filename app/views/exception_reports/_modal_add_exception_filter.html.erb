@@ -1,0 +1,53 @@
+<!-- Modal content add new task-->
+<div id="add_exception_filter" class="modal fade modal-container" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header modal-header_style">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title modal-title-bold text-center">Add Exception Filter</h4>
+            </div>
+            <div class="modal-body flex-column">
+                <div class="exception-project">
+                    <label>Project</label>
+                    <div class="btn-group" style="display: flex;">
+                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
+                    None <span class="caret"></span>
+                </button>
+                        <ul class="dropdown-menu">
+                            <li><a>Time Keeper</a></li>
+                            <li><a>Kitchen Keeper</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="exception-kind">
+                    <label>Kind</label>
+                    <div class="btn-group" style="display: flex;">
+                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
+                    None <span class="caret"></span>
+                </button>
+                        <ul class="dropdown-menu">
+                            <li><a>Set Project</a></li>
+                            <li><a>Clean Subject</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="exception-concern">
+                    <label>Concern</label>
+                    <div class="btn-group" style="display: flex;">
+                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
+                    None <span class="caret"></span>
+                </button>
+                        <ul class="dropdown-menu">
+                            <li><a>email_from</a></li>
+                            <li><a>subject</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="exception-pattern">
+                  <label>Pattern</label>
+                  <input name="Pattern" class="form-control" placeholder="What should we look for?"/>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- Modal content ends-->
