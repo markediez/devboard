@@ -24,6 +24,10 @@ $(document).ready ->
   $(".dropdown-menu li").on "click", (e) ->
     setMenuText($("a", this).html(), this)
 
+  $("button.btn-create").on "click", (e) ->
+    console.log "TODO: Actually save"
+    toastr.success('Exception Filter Saved! (Not Really)')
+
 # Changes the text on a dropdown button
 # text = text to show
 # el = li within a dropdown menu, el.parent() should be ul ".dropdown-menu"
