@@ -1,8 +1,8 @@
 # Duration is an integer in minutes.
 class Task < ActiveRecord::Base
-  scope :open, -> { where(completed_at: nil) }
-  scope :closed, -> { where('completed_at is not null') }
-  scope :unscored, -> { where(points: nil) }
+  scope :is_open, -> { where(completed_at: nil) }
+  scope :is_closed, -> { where('completed_at is not null') }
+  scope :is_unscored, -> { where(points: nil) }
 
   has_many :assignments, :class_name => "Assignment", :dependent => :destroy
   has_one :exception_report
@@ -28,5 +28,11 @@ class Task < ActiveRecord::Base
     end
 
     return false
+  end
+
+  # Returns true if this task is 'GitHub-enabled', e.g. synced with GitHub, as opposed to
+  # a task which exists solely in DevBoard.
+  def github_enabled
+    self.gh_issue_number.blank? == false
   end
 end

@@ -3,6 +3,9 @@ class Assignment < ActiveRecord::Base
   belongs_to :task
   before_create :set_assigned_at
 
+  validates_presence_of :developer_account, :task
+  validates_uniqueness_of :task_id, :scope => :developer_account_id
+
   validate :github_task_must_belong_to_github_account
 
   def developer
@@ -27,9 +30,9 @@ class Assignment < ActiveRecord::Base
   end
 
   def github_task_must_belong_to_github_account
-    if developer_account.present? and task.gh_issue_number > 0
+    if developer_account.present? and task.present? and task.gh_issue_number.present?
       if developer_account.account_type != 'github'
-        errors.add "GitHub-linked task can only be assigned to a GitHub-linked developer account."
+        errors.add :developer_account_id, "GitHub-linked task can only be assigned to a GitHub-linked developer account."
       end
     end
   end

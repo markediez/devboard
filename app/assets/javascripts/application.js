@@ -1,10 +1,14 @@
 //= require jquery
-//= require jquery-ui
+//= require jquery-ui/core
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/widgets/droppable
+//= require jquery-ui/widgets/sortable
 //= require bootstrap
 //= require Chart
 //= require routes
+//= require underscore
 //= require_tree .
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
 
 $(document).ready(function() {
   $.ajaxSetup({
@@ -13,16 +17,17 @@ $(document).ready(function() {
 });
 
 /**
- * Returns the time in the format YYYY-MM-DD HH:MM:SS
+ * Returns the date as a string in the format YYYY-MM-DD HH:MM:SS
  */
-function getTimeNow(timeInMills) {
+function getFormattedDate(timeInMills) {
   if(timeInMills === undefined) {
     timeInMills = Date.now();
   }
   var t = new Date(timeInMills);
 
   var year = t.getFullYear();
-  var month = ("0" + (t.getMonth() + 1) ).slice(-2);   // "0" + ___ .slice(-2) ensures 2 digit numbers
+  // .slice(-2) ensures 2 digit numbers
+  var month = ("0" + (t.getMonth() + 1) ).slice(-2);
   var day = ("0" + t.getDate()).slice(-2);
 
   var hour = ("0" + t.getHours()).slice(-2);

@@ -14,30 +14,33 @@ class AssignmentsController < ApplicationController
 
   # POST /assignments/update
   def update
-    # # Grab the developer and tasks
-    # developer_account_id = params["developer_account_id"]
-    # tasks = params["task_ids"]
-    # positions = (0...tasks.size).to_a
+    respond_to do |format|
+      ActiveRecord::Base.transaction do
+        puts "here1"
+        # Update the sort_position of all assignments for this developer by 1 if they fall after the desired params[:sort_position]
+        account_ids = DeveloperAccount.find_by_id(assignment_params[:developer_account_id]).developer.accounts.ids
+        Assignment.where(:developer_account_id => account_ids).where("sort_position >= ?", assignment_params[:sort_position]).update_all("sort_position = sort_position + 1")
 
-    # # Use raw SQL to update because rails does not support cases
-    # sql = "UPDATE assignments SET sort_position = CASE task_id "
-    # where = "WHERE developer_account_id = #{developer_account_id} AND task_id IN ("
-    # positions.each do |i|
-    #   sql += "WHEN #{tasks[i]} THEN #{i} "
-    #   where += "#{tasks[i]}"
-    #   where += (i == positions.last) ? ")" : ", "
-    # end
-    # sql += "END "
-    # sql += where
+        puts "here2"
 
-    # # Update each assigned task to new position
-    # ActiveRecord::Base.transaction do
-    #   ActiveRecord::Base.connection.execute(sql)
-    # end
+        byebug
+
+        if @assignment.update(assignment_params)
+          puts "here3"
+          format.json { render :show, status: :ok, location: @assignment }
+        else
+          puts "here3 uh oh"
+          format.json { render json: @assignment.errors, status: :unprocessable_entity }
+        end
+      end
+    end
   end
 
   def destroy
-
+    @assignment.destroy
+    respond_to do |format|
+      format.json { head :no_content }
+    end
   end
 
   private
