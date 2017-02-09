@@ -12,7 +12,6 @@ class Project < ActiveRecord::Base
   has_many :commits
   has_many :milestones
   has_many :repositories, :dependent => :destroy
-  has_one :exception_from_email
 
   accepts_nested_attributes_for :repositories, :reject_if => lambda { |a| a[:url].blank? }, :allow_destroy => true
 
