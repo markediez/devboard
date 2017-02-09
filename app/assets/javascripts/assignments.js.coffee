@@ -38,8 +38,9 @@ toggleTaskStatus = (el) ->
         completed_at: timestamp
     success: (data, status, xhr) ->
       toggleView(el)
+      toastr.success('Task status toggled.')
     error: (data, status, xhr) ->
-      console.log ":("
+      toastr.error('Task status not toggled.')
 
 # Toggles the task between finished and unfinished
 # @param el - The checkbox toggled
@@ -117,9 +118,9 @@ setupDragAndDropForAssignments = () ->
           url: Routes.assignment_path(assignmentId)
           type: 'DELETE'
           success: (data, textStatus, jqXhr) ->
-            console.log "successfully deleted assignment"
+            toastr.success('Assignment removed.')
           error: (jqXHR, textStatus, errorThrown ) ->
-            console.error "unable to delete assignment due to error"
+            toastr.error('Unable to remove assignment.')
       else
         # Assignment is being switched from one developer to another, or being resorted within the same developer
         $.ajax
@@ -132,9 +133,9 @@ setupDragAndDropForAssignments = () ->
               task_id: taskId
               sort_position: sortPosition
           success: (data, textStatus, jqXhr) ->
-            console.log "successfully deleted assignment"
+            toastr.success('Assignment updated.')
           error: (jqXHR, textStatus, errorThrown ) ->
-            console.error "unable to delete assignment due to error"
+            toastr.success('Unable to update assignment.')
   )
 
 # Returns the developer_account_id associated with developerId. If useGithub is true

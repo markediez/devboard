@@ -1,11 +1,31 @@
 //= require jquery
 //= require bootstrap
 //= require routes
+//= require toastr
 
 $(document).ready(function() {
   $.ajaxSetup({
     headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
   });
+
+  // Configure the Toastr (plug it in, hope there's butter in the fridge, etc.)
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-bottom-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
 });
 
 /**
