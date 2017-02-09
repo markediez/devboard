@@ -20,6 +20,19 @@ $(document).ready ->
   $("#cancel").on "click", (e) ->
     revert()
 
+  # Set up events for modal
+  $(".dropdown-menu li").on "click", (e) ->
+    setMenuText($("a", this).html(), this)
+
+# Changes the text on a dropdown button
+# text = text to show
+# el = li within a dropdown menu, el.parent() should be ul ".dropdown-menu"
+setMenuText = (text, el) ->
+  # Get the button group of the element
+  group = $(el).parent().parent()
+
+  $(".dropdown-toggle .dropdown-text", group).html(text)
+
 # Changes the background color of a row when selected
 # el = checkbox within the row, el.parent() should be row
 toggleRow = (el) ->
