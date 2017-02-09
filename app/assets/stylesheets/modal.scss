@@ -5,8 +5,8 @@
 @import "flex";
 @import "modal-bootstrap-overwrite";
 .modal {
-    .modal-edit-task {
-        width: 75%;
+    .modal-task {
+        width: 70%;
     }
     .modal-header_style {
         border-radius: 5px 5px 0px 0px;
@@ -40,11 +40,10 @@
     }
     /* modal body */
     .modal-body {
-        .task-title {
-            margin-left: 20px;
-            margin-right: 20px;
-            padding-right: 55px;
-            padding-left: 55px;
+        .modal-task-title {
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-bottom: 50px;
         }
         .difficulties-indicator {
             flex: 0 1 10%;
@@ -105,9 +104,7 @@
         }
         .task-info-section {
             width: 95%;
-            margin: 30px 20px 10px 20px;
-            padding-left: 30px;
-            padding-right: 30px;
+            margin: 0px 20px 10px 20px;
             .form-group {
                 >label {
                     color: $devblack;
@@ -119,7 +116,7 @@
                 }
             }
             .selector {
-                width: 285px;
+                width: 350px;
                 position: relative;
                 display: inline-flex;
                 vertical-align: middle;
@@ -129,7 +126,7 @@
             }
             .colm {
                 padding: 0px 25px;
-                flex: 0 0 400px;
+                flex: 0 0 450px;
                 display: flex;
                 flex-direction: column;
                 form {
@@ -138,6 +135,7 @@
                             display: flex;
                         }
                         textarea {
+                            resize: vertical;
                             height: 245px;
                         }
                     }
@@ -181,9 +179,11 @@
         }
         .btn-create {
             background-color: $devblue !important;
+            margin: 5px 30px 5px 30px;
             color: white !important;
-            border-radius: 0;
             width: 50%;
+            padding-top: 10px;
+            padding-bottom: 10px;
             &:hover {
                 background-color: $devblue-dark !important;
                 color: white !important;
@@ -195,10 +195,11 @@
         }
         .btn-delete {
             width: 120px !important;
-            margin: 0px 30px 0px 30px;
+            margin: 5px 30px 5px 30px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             background-color: $warning-red !important;
             color: white !important;
-            border-radius: 0;
             width: 300px;
             &:hover {
                 background-color: $warning-red-dark !important;

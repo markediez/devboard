@@ -1,83 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><%= content_for?(:title) ? yield(:title) : "Devboard" %></title>
+    <title>
+        <%= content_for?(:title) ? yield(:title) : "Devboard" %>
+    </title>
 
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Devboard" %>">
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : " Devboard " %>">
 
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= yield :javascripts %>
-    <%= csrf_meta_tags %>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+        <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+            <%= yield :javascripts %>
+                <%= csrf_meta_tags %>
+
+                    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-  </head>
-  <body>
+                    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+</head>
+
+<body>
     <header>
-      <%= render 'layouts/navigation' %>
+        <%= render 'layouts/navigation' %>
     </header>
 
     <%= render 'layouts/messages' %>
 
-    <% if authenticated? %>
-      <nav class="col-md-2 sidebar">
-        <header>
-          <div id="logo">
-              <h1>DevBoard</h1>
-          </div>
-        </header>
-        <ul class="nav">
-          <li <%= " class=active" if (controller_name == "assignments") %>>
-            <i class="fa fa-thumb-tack sidebar-icon" aria-hidden="true"></i>
-            <a href="<%= assignments_url %>">Assignments</a>
-          </li>
-          <li <%= " class=active" if (controller_name == "sprints") %>>
-            <i class="fa fa-tasks sidebar-icon" aria-hidden="true"></i>
-            <a href="<%= sprints_url %>">Sprints</a>
-          </li>
-          <li <%= " class=active" if (controller_name == "projects") %>>
-            <i class="fa fa-folder sidebar-icon" aria-hidden="true"></i>
-            <a href="<%= projects_url %>">Projects</a>
-          </li>
-          <li <%= " class=active" if (controller_name == "developers") %>>
-            <i class="fa fa-user sidebar-icon" aria-hidden="true"></i>
-            <a href="<%= developers_url %>">Developers</a>
-          </li>
-          <li <%= " class=active" if (controller_name == "exception_reports") %>>
-            <i class="fa fa-exclamation-triangle sidebar-icon" aria-hidden="true"></i>
-            <a href="<%= exception_reports_url %>">Exceptions</a>
-          </li>
-        </ul>
-        <ul class="nav">
-          <% if controller_name == 'meeting_notes' %>
-            <li class="active"><%= link_to 'Meeting Notes', meeting_notes_url %></li>
-          <% else %>
-            <li><i class="fa fa-sticky-note-o sidebar-icon" aria-hidden="true"></i>
-          <%= link_to 'Meeting Notes', meeting_notes_url %></li>
-          <% end %>
-          <li>
-            <i class="fa fa-calendar sidebar-icon" aria-hidden="true"></i>
-            <a href="">Calendar</a>
-          </li>
-        </ul>
-      </nav>
-    <% end %>
+        <% if authenticated? %>
+            <nav class="col-md-2 sidebar">
+                <header>
+                    <div id="logo">
+                        <h1>DevBoard</h1>
+                    </div>
+                </header>
+                <ul class="nav">
+                    <li <%=" class=active" if (controller_name=="assignments" ) %>>
+                        <i class="fa fa-thumb-tack sidebar-icon" aria-hidden="true"></i>
+                        <a href="<%= assignments_url %>">Assignments</a>
+                    </li>
+                    <li <%=" class=active" if (controller_name=="sprints" ) %>>
+                        <i class="fa fa-tasks sidebar-icon" aria-hidden="true"></i>
+                        <a href="<%= sprints_url %>">Sprints</a>
+                    </li>
+                    <li <%=" class=active" if (controller_name=="projects" ) %>>
+                        <i class="fa fa-folder sidebar-icon" aria-hidden="true"></i>
+                        <a href="<%= projects_url %>">Projects</a>
+                    </li>
+                    <li <%=" class=active" if (controller_name=="developers" ) %>>
+                        <i class="fa fa-user sidebar-icon" aria-hidden="true"></i>
+                        <a href="<%= developers_url %>">Developers</a>
+                    </li>
+                    <li <%=" class=active" if (controller_name=="exception_reports" ) %>>
+                        <i class="fa fa-exclamation-triangle sidebar-icon" aria-hidden="true"></i>
+                        <a href="<%= exception_reports_url %>">Exceptions<span class="badge badge-warning">5</span></a>
+                    </li>
+                    <li>
+                        <i class="fa fa-user sidebar-icon" aria-hidden="true"></i>
+                        <a role="button" data-toggle="collapse" href="#collapseList" aria-expanded="false" aria-controls="collapseExample">collapsesExample</a>
+                    </li>
+                    <div class="collapse" id="collapseList">
+                        <ul class="list-group">
+                            <li class="sidebar-collapse">1 github hahaha</li>
+                            <li class="sidebar-collapse">2 githubs hahaha</li>
+                            <li class="sidebar-collapse">3 githubs hahaha</li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="nav">
+                    <% if controller_name == 'meeting_notes' %>
+                        <li class="active">
+                            <%= link_to 'Meeting Notes', meeting_notes_url %>
+                        </li>
+                        <% else %>
+                            <li><i class="fa fa-sticky-note-o sidebar-icon" aria-hidden="true"></i>
+                                <%= link_to 'Meeting Notes', meeting_notes_url %>
+                            </li>
+                            <% end %>
+                                <li>
+                                    <i class="fa fa-calendar sidebar-icon" aria-hidden="true"></i>
+                                    <a href="">Calendar</a>
+                                </li>
+                </ul>
+            </nav>
+            <% end %>
 
-    <main class="col-md-10 col-md-offset-2 padding-0" style="height: 100%;">
-      <%= yield %>
-    </main>
+                <main class="col-md-10 col-md-offset-2 padding-0" style="height: 100%;">
+                    <%= yield %>
+                </main>
 
-  </body>
+</body>
+
 </html>

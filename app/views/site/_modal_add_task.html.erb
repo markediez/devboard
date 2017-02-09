@@ -1,91 +1,93 @@
 <!-- Modal content add new task-->
 <div id="add_task" class="modal fade modal-container" role="dialog">
-    <div class="modal-dialog modal-edit-task">
+    <div class="modal-dialog modal-task">
         <div class="modal-content">
-            <div class="modal-header modal-header_style">
+            <div class="modal-header modal-header_style row">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title modal-title-bold text-center">Edit Task</h4>
             </div>
             <div class="modal-body flex-column">
-                <div class="task-title">
-                    <label>Task title</label>
-                    <input class="form-control">
-                </div>
-                <div class="task-info-section flex-row flex-space" style="border:none;">
-                    <div class="colm colm-left">
-                        <form>
-                            <div class="form-group">
-                                <label>Assign to</label>
-                                <div class="btn-group" style="display: flex;">
-                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
-                                None <span class="caret"></span>
-                            </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a>haha</a></li>
-                                        <li><a>haha</a></li>
-                                        <li><a>haha</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Details</label>
-                                <textarea class="form-control"></textarea>
-                            </div>
-                        </form>
+                <div class="task-info-section flex-column" style="border:none;">
+                    <div class="modal-task-title">
+                        <label>Task title</label>
+                        <input class="form-control">
                     </div>
-                    <div class="colm colm-right">
-                        <form>
-                            <div class="form-group">
-                                <label>Diffculties</label>
-                                <div class="selector range-slider">
-                                    <input value="0" min="0" max="5" class="range-slider-range" style="flex: 0 1 80%;" type="range">
-                                    <span class="range-slider-value">0</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Priority</label>
-                                <div class="selector">
-                                    <input value="0" min="0" max="5" class="range-slider-range" style="flex: 0 1 80%;" type="range">
-                                    <span class="range-slider-value">0</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Time Requested</label>
-                                <div class="btn-group">
-                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
+                    <div class="flex-row">
+                        <div class="colm colm-left">
+                            <form>
+                                <div class="form-group">
+                                    <label>Assign to</label>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
                                 None <span class="caret"></span>
                             </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a>haha</a></li>
-                                        <li><a>haha</a></li>
-                                        <li><a>haha</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Due Date</label>
-                                <div class="btn-group" role="group" aria-label="..." style="display: flex;">
-                                    <button type="button" class="btn btn-default" data-nav="yesterday" style="width:40px;"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-
-                                    <input class="btn btn-default date-picker">
-
-                                    <button type="button" class="btn btn-default" data-nav="tomorrow" style="width:40px;"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="colm-section points">
-                                    <label>Points</label>
-                                    <div class="btn-group" role="group" aria-label="Third group" style="display: flex;">
-                                        <button type="button" class="btn btn-default">1</button>
-                                        <button type="button" class="btn btn-default">2</button>
-                                        <button type="button" class="btn btn-default">3</button>
-                                        <button type="button" class="btn btn-default">4</button>
-                                        <button type="button" class="btn btn-default">5</button>
+                                        <ul class="dropdown-menu">
+                                            <li><a>haha</a></li>
+                                            <li><a>haha</a></li>
+                                            <li><a>haha</a></li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <label>Details</label>
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="colm colm-right">
+                            <form>
+                                <div class="form-group">
+                                    <label>Diffculties</label>
+                                    <div class="selector range-slider">
+                                        <input value="0" min="0" max="5" class="range-slider-range flex-auto" type="range">
+                                        <span class="range-slider-value">0</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Priority</label>
+                                    <div class="selector">
+                                        <input value="0" min="0" max="5" class="range-slider-range flex-auto" type="range">
+                                        <span class="range-slider-value">0</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Time Requested</label>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
+                                None <span class="caret"></span>
+                            </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a>haha</a></li>
+                                            <li><a>haha</a></li>
+                                            <li><a>haha</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Due Date</label>
+                                    <div class="btn-group" role="group" aria-label="..." style="display: flex;">
+                                        <button type="button" class="btn btn-default" data-nav="yesterday" style="width:40px;"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+
+                                        <input class="btn btn-default date-picker">
+
+                                        <button type="button" class="btn btn-default" data-nav="tomorrow" style="width:40px;"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="colm-section points">
+                                        <label>Points</label>
+                                        <div class="btn-group" role="group" aria-label="Third group" style="display: flex;">
+                                            <button type="button" class="btn btn-default">1</button>
+                                            <button type="button" class="btn btn-default">2</button>
+                                            <button type="button" class="btn btn-default">3</button>
+                                            <button type="button" class="btn btn-default">4</button>
+                                            <button type="button" class="btn btn-default">5</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
                 </div>
             </div>
             <div class="modal-footer flex-row" style="justify-content: center;">
