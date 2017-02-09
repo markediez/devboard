@@ -20,6 +20,15 @@
     .badge-warning {
         background-color: $warning-red;
     }
+    .sidebar-collapse {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        padding-left: 45px;
+        background-color: none !important;
+        border: none;
+        color: #95989A;
+    }
 }
 
 .active>.sidebar-icon {
