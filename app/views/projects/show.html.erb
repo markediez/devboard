@@ -62,7 +62,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @project.tasks.open.order(:created_at => 'DESC').each do |task| %>
+            <% @project.tasks.is_open.order(:created_at => 'DESC').each do |task| %>
             <tr>
               <td>
                 <input type="checkbox" onClick="setTaskCompleted(<%= task.id %>, this)" <%= 'checked' unless task.completed_at.blank? %> />
