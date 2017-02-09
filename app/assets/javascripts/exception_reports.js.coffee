@@ -1,5 +1,3 @@
-console.log "exceptions coffee"
-
 $(document).ready ->
   $(".exceptions-notice-regular, .exceptions-notice-confirm").hide()
 

@@ -1,5 +1,3 @@
-console.log "assignments coffee"
-
 $(document).ready ->
   setupDatePicker()
   setupDragAndDropForAssignments()
