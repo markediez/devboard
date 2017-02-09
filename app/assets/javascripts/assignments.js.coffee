@@ -1,3 +1,10 @@
+//= require jquery-ui/core
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/widgets/droppable
+//= require jquery-ui/widgets/sortable
+//= require bootstrap-datepicker/core
+//= require underscore
+
 $(document).ready ->
   setupDatePicker()
   setupDragAndDropForAssignments()

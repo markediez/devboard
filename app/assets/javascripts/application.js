@@ -1,13 +1,6 @@
 //= require jquery
-//= require jquery-ui/core
-//= require jquery-ui/widgets/datepicker
-//= require jquery-ui/widgets/droppable
-//= require jquery-ui/widgets/sortable
 //= require bootstrap
-//= require Chart
 //= require routes
-//= require underscore
-//= require bootstrap-datepicker/core
 
 $(document).ready(function() {
   $.ajaxSetup({

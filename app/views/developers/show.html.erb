@@ -1,3 +1,7 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag params[:controller] %>
+<% end %>
+
 <div class="header-btn-right">
   <%= link_to 'Edit', edit_developer_path(@developer), :class => 'btn btn-default' %>
 </div>
