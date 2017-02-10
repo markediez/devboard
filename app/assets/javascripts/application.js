@@ -30,7 +30,10 @@ $(document).ready(function() {
     $('[data-toggle=offcanvas]').click(function() {
         $('.row-offcanvas').toggleClass('active');
         $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
-        $('.badge').toggleClass("badge-test");
+        $('.badge').toggleClass('badge-test');
+        $('.assignments-test').toggleClass('assignmentExpand');
+        $('.timeline-body').toggleClass('timelineBodyExpand');
+        $('.developer-assignment-titles').toggleClass('developer-assignment-test');
     });
 });
 

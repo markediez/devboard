@@ -2,6 +2,19 @@
     margin: 0px;
 }
 
+.developer-assignment-test {
+    flex: 0 1 84.2% !important;
+}
+
+.timelineBodyExpand {
+    width: 84% !important;
+}
+
+.assignmentExpand {
+    margin-left: 5% !important;
+    width: 95%;
+}
+
 .assignments-widget {
     height: calc(100% - 96px);
     .date-nav {
@@ -67,7 +80,6 @@
             background-color: white;
             flex: 1;
             align-self: center;
-
             h5 {
                 text-align: center;
                 font-weight: bold;
