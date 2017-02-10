@@ -250,7 +250,7 @@ setupDatePicker = () ->
 
   $(".assignments-widget .date-picker").datepicker().on "changeDate", () ->
     currDate = new Date $(".date-picker").val()
-    window.location.href = window.location.origin + window.location.pathname + "?date=" + getDateString(currDate)
+    window.location.href = window.location.origin + Routes.assignments_path() + "/" + getDateString(currDate)
 
   # Set up event listeners
   $(".assignments-widget [data-nav=tomorrow]").on "click", (e) ->

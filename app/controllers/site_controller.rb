@@ -2,6 +2,11 @@ class SiteController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:credentials]
   skip_before_action :authenticate, only: [:access_denied, :logout]
 
+  # Simple redirect so our root URL becomes /assignments
+  def root
+    redirect_to assignments_url
+  end
+
   # GET /access_denied
   # Unauthenticated requests are redirected here
   def access_denied
