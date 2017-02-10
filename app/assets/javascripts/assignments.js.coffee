@@ -113,15 +113,18 @@ setupDragAndDropForAssignments = () ->
         sortRightBound = null # .new-task or .hidden-task will cause this
 
       if sortLeftBound? and sortRightBound?
-        sortPosition = (sortLeftBound + sortRightBound) / 2
+        sortPosition = (parseFloat(sortLeftBound) + parseFloat(sortRightBound)) / 2.0
       else if sortLeftBound == null and sortRightBound?
         sortPosition = sortRightBound - 1
       else if sortLeftBound? and sortRightBound == null
         sortPosition = sortLeftBound + 1
 
-      if developerId == -1
-        # Assignment is being unassigned entirely or unassigned task is being reordered
+      console.debug "sortPosition is #{sortPosition}"
+
+      if developerId == undefined
+        # Assignment is being unassigned or unassigned task is being reordered
         if assignmentId?
+          console.debug "assignment is being unassigned"
           $.ajax
             url: Routes.assignment_path(assignmentId) + ".json"
             type: 'DELETE'
@@ -135,12 +138,19 @@ setupDragAndDropForAssignments = () ->
                     id: taskId
                     sort_position: sortPosition
                 success: (data, textStatus, jqXhr) ->
+                  # Update sort_position
+                  ui.draggable.data('sort-position', sortPosition)
+                  ui.draggable.attr('data-sort-position', sortPosition)
+                  # Unassign the assignmentId
+                  ui.draggable.removeAttr('data-assignment-id')
+                  ui.draggable.removeData('assignment-id')
                   toastr.success('Task updated.')
                 error: (jqXHR, textStatus, errorThrown ) ->
                   toastr.error('Unable to update task.')
             error: (jqXHR, textStatus, errorThrown ) ->
               toastr.error('Unable to remove assignment.')
         else
+          console.debug "unassigned task is being reordered"
           $.ajax
             url: Routes.task_path(taskId) + ".json"
             type: 'PUT'
@@ -149,12 +159,16 @@ setupDragAndDropForAssignments = () ->
                 id: taskId
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
+              # Update sort_position
+              ui.draggable.data('sort-position', sortPosition)
+              ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Task updated.')
             error: (jqXHR, textStatus, errorThrown ) ->
               toastr.error('Unable to update task.')
       else
         if assignmentId == undefined
           # Assignment is being created
+          console.debug "assignment is being created"
           $.ajax
             url: Routes.assignments_path() + ".json"
             type: 'POST'
@@ -164,11 +178,18 @@ setupDragAndDropForAssignments = () ->
                 task_id: taskId
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
+              # Set assignment-id
+              ui.draggable.data('assignment-id', data.assignment.id)
+              ui.draggable.attr('data-assignment-id', data.assignment.id)
+              # Update sort_position
+              ui.draggable.data('sort-position', sortPosition)
+              ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Assignment created.')
             error: (jqXHR, textStatus, errorThrown ) ->
               toastr.error('Unable to create assignment.')
         else
           # Assignment is being switched from one developer to another, or being resorted within the same developer
+          console.debug "assignment is being reordered or switched to another developer"
           $.ajax
             url: Routes.assignment_path(assignmentId) + ".json"
             type: 'PUT'
@@ -179,6 +200,9 @@ setupDragAndDropForAssignments = () ->
                 task_id: taskId
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
+              # Update sort_position
+              ui.draggable.data('sort-position', sortPosition)
+              ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Assignment updated.')
             error: (jqXHR, textStatus, errorThrown ) ->
               toastr.error('Unable to update assignment.')

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210013953) do
+ActiveRecord::Schema.define(version: 20170210021339) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(version: 20170210013953) do
     t.integer  "milestone_id"
     t.float    "points"
     t.integer  "repository_id"
-    t.decimal  "sort_position",               precision: 10, scale: 5, default: "0.0"
+    t.decimal  "sort_position",               precision: 10, scale: 5, default: "0.0", null: false
   end
 
   create_table "users", force: :cascade do |t|

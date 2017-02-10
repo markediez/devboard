@@ -119,8 +119,8 @@
             <div class="tools">
                 <div class="input-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    	    <i class="fa fa-filter" aria-hidden="true"></i>
-                        </button>
+                	    <i class="fa fa-filter" aria-hidden="true"></i>
+                    </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#contains">IPA</a></li>
                         <li><a href="#its_equal">Devboard</a></li>
@@ -133,10 +133,10 @@
                 </div>
             </div>
         </div>
-        <div class="unassigned-task-container connected-sortable" data-developer-id="-1">
+        <div class="unassigned-task-container connected-sortable">
             <div class="margin-fix">
                 <!-- this class fix bottom space issue in unassigned task container(Firefox only) -->
-                <% @tasks.each do |task| %>
+                <% @tasks.sort{ |x, y| x.sort_position <=> y.sort_position }.each do |task| %>
                     <div class="task assigned-task" data-task-id="<%= task.id %>" data-task-github="<%= task.github_enabled %>" data-sort-position="<%= task.sort_position %>">
                         <div class="flex-row">
                             <div class="task-title">
@@ -153,13 +153,13 @@
                                 </div>
                                 <div class="task-selection-github">
                                     <% if task.repository_id && task.gh_issue_number %>
-                                        <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
-                                            <% end %>
+                                      <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
+                                    <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <% end %>
+                <% end %>
             </div>
             <!-- unassigned task ends -->
         </div>
@@ -168,5 +168,4 @@
 
     <%= render 'site/modal_add_user' %>
     <%= render 'site/modal_add_task' %>
-
 </div>
