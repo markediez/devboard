@@ -241,29 +241,29 @@ setupDatePicker = () ->
   # Get time in seconds
   viewDate = new Date(window.devboard.assignmentsWidget.time_to_view)
 
-  $(".date-picker").datepicker
+  $(".date-nav .date-picker").datepicker
     format: "DD, M d, yyyy"
     autoclose: true
 
-  $(".assignments-widget .date-picker").datepicker('setDate', viewDate)
-  $(".assignments-widget .date-picker").datepicker('update')
+  $(".date-nav .date-picker").datepicker('setDate', viewDate)
+  $(".date-nav .date-picker").datepicker('update')
 
-  $(".assignments-widget .date-picker").datepicker().on "changeDate", () ->
-    currDate = new Date $(".date-picker").val()
+  $(".date-nav .date-picker").datepicker().on "changeDate", () ->
+    currDate = new Date $(".date-nav .date-picker").val()
     window.location.href = window.location.origin + Routes.assignments_path() + "/" + getDateString(currDate)
 
   # Set up event listeners
-  $(".assignments-widget [data-nav=tomorrow]").on "click", (e) ->
-    currDate = new Date $(".assignments-widget .date-picker").val()
+  $(".date-nav [data-nav=tomorrow]").on "click", (e) ->
+    currDate = new Date $(".date-nav .date-picker").val()
     currDate.setDate(currDate.getDate() + 1)
-    $(".assignments-widget .date-picker").datepicker('setDate', currDate)
-    $(".assignments-widget .date-picker").datepicker('update')
+    $(".date-nav .date-picker").datepicker('setDate', currDate)
+    $(".date-nav .date-picker").datepicker('update')
 
-  $(".assignments-widget [data-nav=yesterday]").on "click", (e) ->
-    currDate = new Date $(".assignments-widget .date-picker").val()
+  $(".date-nav [data-nav=yesterday]").on "click", (e) ->
+    currDate = new Date $(".date-nav .date-picker").val()
     currDate.setDate(currDate.getDate() - 1)
-    $(".assignments-widget .date-picker").datepicker('setDate', currDate)
-    $(".assignments-widget .date-picker").datepicker('update')
+    $(".date-nav .date-picker").datepicker('setDate', currDate)
+    $(".date-nav .date-picker").datepicker('update')
 
 # Returns a YYYY-MM-DD format of a date's toLocaleDateString
 # date = date object
