@@ -37,61 +37,65 @@
     <%= render 'layouts/messages' %>
 
         <% if authenticated? %>
-            <nav class="col-md-2 sidebar">
-                <header>
-                    <div id="logo">
-                        <h1>DevBoard</h1>
-                    </div>
-                </header>
-                <ul class="nav">
-                    <li <%=" class=active" if (controller_name=="assignments" ) %>>
-                        <i class="fa fa-thumb-tack sidebar-icon" aria-hidden="true"></i>
-                        <a href="<%= assignments_url %>">Assignments</a>
-                    </li>
-                    <li <%=" class=active" if (controller_name=="sprints" ) %>>
-                        <i class="fa fa-tasks sidebar-icon" aria-hidden="true"></i>
-                        <a href="<%= sprints_url %>">Sprints</a>
-                    </li>
-                    <li <%=" class=active" if (controller_name=="projects" ) %>>
-                        <i class="fa fa-folder sidebar-icon" aria-hidden="true"></i>
-                        <a href="<%= projects_url %>">Projects</a>
-                    </li>
-                    <li <%=" class=active" if (controller_name=="developers" ) %>>
-                        <i class="fa fa-user sidebar-icon" aria-hidden="true"></i>
-                        <a href="<%= developers_url %>">Developers</a>
-                    </li>
-                    <li <%=" class=active" if (controller_name=="exception_reports" ) %>>
-                        <i class="fa fa-exclamation-triangle sidebar-icon" aria-hidden="true"></i>
-                        <a href="<%= exception_reports_url %>">Exceptions<span class="badge badge-warning">5</span></a>
-                    </li>
-                    <li>
-                        <i class="fa fa-user sidebar-icon" aria-hidden="true"></i>
-                        <a role="button" data-toggle="collapse" href="#collapseList" aria-expanded="false" aria-controls="collapseExample">collapsesExample</a>
-                    </li>
-                    <div class="collapse" id="collapseList">
-                        <ul class="list-group">
-                            <li class="sidebar-collapse">1 github hahaha</li>
-                            <li class="sidebar-collapse">2 githubs hahaha</li>
-                            <li class="sidebar-collapse">3 githubs hahaha</li>
-                        </ul>
-                    </div>
-                </ul>
-                <ul class="nav">
-                    <% if controller_name == 'meeting_notes' %>
-                        <li class="active">
-                            <%= link_to 'Meeting Notes', meeting_notes_url %>
-                        </li>
-                        <% else %>
-                            <li><i class="fa fa-sticky-note-o sidebar-icon" aria-hidden="true"></i>
-                                <%= link_to 'Meeting Notes', meeting_notes_url %>
+            <div class="wrapper">
+                <div class="row row-offcanvas row-offcanvas-left">
+                    <nav class="column col-sm-3 col-xs-1 sidebar-offcanvas col-md-2 sidebar sidebar-offcanvas" id="sidebar">
+                        <header>
+                            <div id="logo">
+                                <h1 class="collapse in <hidden-xs></hidden-xs>">DevBoard</h1>
+                            </div>
+                        </header>
+                        <ul class="nav" id="menu">
+                            <li class="collapseIcon">
+                                <a href="#" data-toggle="offcanvas"><i class="fa fa-navicon fa-1x"></i></a>
                             </li>
-                            <% end %>
-                                <li>
-                                    <i class="fa fa-calendar sidebar-icon" aria-hidden="true"></i>
-                                    <a href="">Calendar</a>
+                            <li <%=" class=active" if (controller_name=="assignments" ) %>>
+
+                                <a href="<%= assignments_url %>"> <i class="fa fa-thumb-tack sidebar-icon" aria-hidden="true"></i><span class="collapse in hidden-xs sidebar-page">Assignments</span></a>
+                            </li>
+                            <li <%=" class=active" if (controller_name=="sprints" ) %>>
+                                <a href="<%= sprints_url %>"><i class="fa fa-tasks sidebar-icon" aria-hidden="true"></i><span class="collapse in hidden-xs sidebar-page">Sprints</span></a>
+                            </li>
+                            <li <%=" class=active" if (controller_name=="projects" ) %>>
+                                <a href="<%= projects_url %>"><i class="fa fa-folder sidebar-icon" aria-hidden="true"></i><span class="collapse in hidden-xs sidebar-page">Projects</span></a>
+                            </li>
+                            <li <%=" class=active" if (controller_name=="developers" ) %>>
+
+                                <a href="<%= developers_url %>"> <i class="fa fa-user sidebar-icon" aria-hidden="true"></i><span class="collapse in hidden-xs sidebar-page">Developers</span></a>
+                            </li>
+                            <li <%=" class=active" if (controller_name=="exception_reports" ) %>>
+
+                                <a href="<%= exception_reports_url %>"><i class="fa fa-exclamation-triangle sidebar-icon" aria-hidden="true"></i><span class="badge badge-warning">5</span><span class="collapse in hidden-xs sidebar-page"><span class="collapse in hidden-xs">Exceptions</span></a>
+                            </li>
+                            <li>
+
+                                <a role="button" data-toggle="collapse" href="#collapseList" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-user sidebar-icon" aria-hidden="true"></i><span class="collapse in hidden-xs sidebar-page">collapsesExample</span></a>
+                            </li>
+                            <div class="collapse" id="collapseList">
+                                <ul class="list-group">
+                                    <li class="sidebar-collapse">1 github hahaha</li>
+                                    <li class="sidebar-collapse">2 githubs hahaha</li>
+                                    <li class="sidebar-collapse">3 githubs hahaha</li>
+                                </ul>
+                            </div>
+                        </ul>
+                        <ul class="nav">
+                            <% if controller_name == 'meeting_notes' %>
+                                <li class="active">
+                                    <%= link_to 'Meeting Notes', meeting_notes_url %>
                                 </li>
-                </ul>
-            </nav>
+                                <% else %>
+                                    <li><i class="fa fa-sticky-note-o sidebar-icon" aria-hidden="true"></i>
+                                        <%= link_to 'Meeting Notes', meeting_notes_url %>
+                                    </li>
+                                    <% end %>
+                                        <li>
+                                            <a href=""><i class="fa fa-calendar sidebar-icon" aria-hidden="true"></i><span class="collapse in hidden-xs sidebar-page">Calendar</span></a>
+                                        </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
             <% end %>
 
                 <main class="col-md-10 col-md-offset-2 padding-0" style="height: 100%;">
