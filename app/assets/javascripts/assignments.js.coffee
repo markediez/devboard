@@ -97,45 +97,91 @@ setupDragAndDropForAssignments = () ->
       taskIsGithub = $(ui.draggable).data("task-github")
       assignmentId = $(ui.draggable).data("assignment-id")
 
-      # New sort position (Warning: jQuery UI DOM nonsense ahead!)
-      # Our new sort position is the location of the 'placeholder' (whitespace) element, except for a few considerations ...
-      sortPosition = $(this).find('.ui-sortable-placeholder').index()
+      $placeholder = $(this).find('.ui-sortable-placeholder')
 
-      # ... like if the developer didn't change, the draggable item is attached to the row, so our math is off by one
-      if originalDeveloperId == developerId
-        sortPosition = sortPosition - 1
+      # Use .length > 0 as .prev() will always return an object, so checking for null won't work
+      sortLeftBound = null
+      if $placeholder.prev().length > 0
+        # Use assignment to the left
+        sortLeftBound = $placeholder.prev().data('sort-position')
 
-        # ... except if we're dropping at the leftmost position, we'll end up with -1, so fix it.
-        sortPosition = 0 if sortPosition == -1
+      sortRightBound = null
+      if $placeholder.next().length > 0
+        # No assignment to the left, so use any value less than the lowest
+        sortRightBound = $placeholder.next().data('sort-position')
+      if sortRightBound == undefined
+        sortRightBound = null # .new-task or .hidden-task will cause this
 
-      # sortPosition starts at 0 from the left for developers and 0 from the top for unassigned
-      # developerId will be -1 if it was dropped in the unassigned area
-      console.log "TODO: update assignment (#{assignmentId}) to be developer_id #{developerId} and position #{sortPosition} (task #{taskId})"
+      if sortLeftBound? and sortRightBound?
+        sortPosition = (sortLeftBound + sortRightBound) / 2
+      else if sortLeftBound == null and sortRightBound?
+        sortPosition = sortRightBound - 1
+      else if sortLeftBound? and sortRightBound == null
+        sortPosition = sortLeftBound + 1
 
       if developerId == -1
-        # Assignment is being unassigned entirely
-        $.ajax
-          url: Routes.assignment_path(assignmentId)
-          type: 'DELETE'
-          success: (data, textStatus, jqXhr) ->
-            toastr.success('Assignment removed.')
-          error: (jqXHR, textStatus, errorThrown ) ->
-            toastr.error('Unable to remove assignment.')
+        # Assignment is being unassigned entirely or unassigned task is being reordered
+        if assignmentId?
+          $.ajax
+            url: Routes.assignment_path(assignmentId) + ".json"
+            type: 'DELETE'
+            success: (data, textStatus, jqXhr) ->
+              toastr.success('Assignment removed.')
+              $.ajax
+                url: Routes.task_path(taskId) + ".json"
+                type: 'PUT'
+                data:
+                  task:
+                    id: taskId
+                    sort_position: sortPosition
+                success: (data, textStatus, jqXhr) ->
+                  toastr.success('Task updated.')
+                error: (jqXHR, textStatus, errorThrown ) ->
+                  toastr.error('Unable to update task.')
+            error: (jqXHR, textStatus, errorThrown ) ->
+              toastr.error('Unable to remove assignment.')
+        else
+          $.ajax
+            url: Routes.task_path(taskId) + ".json"
+            type: 'PUT'
+            data:
+              task:
+                id: taskId
+                sort_position: sortPosition
+            success: (data, textStatus, jqXhr) ->
+              toastr.success('Task updated.')
+            error: (jqXHR, textStatus, errorThrown ) ->
+              toastr.error('Unable to update task.')
       else
-        # Assignment is being switched from one developer to another, or being resorted within the same developer
-        $.ajax
-          url: Routes.assignment_path(assignmentId)
-          type: 'PUT'
-          data:
-            assignment:
-              id: assignmentId
-              developer_account_id: pickDeveloperAccount(developerId, taskIsGithub)
-              task_id: taskId
-              sort_position: sortPosition
-          success: (data, textStatus, jqXhr) ->
-            toastr.success('Assignment updated.')
-          error: (jqXHR, textStatus, errorThrown ) ->
-            toastr.success('Unable to update assignment.')
+        if assignmentId == undefined
+          # Assignment is being created
+          $.ajax
+            url: Routes.assignments_path() + ".json"
+            type: 'POST'
+            data:
+              assignment:
+                developer_account_id: pickDeveloperAccount(developerId, taskIsGithub)
+                task_id: taskId
+                sort_position: sortPosition
+            success: (data, textStatus, jqXhr) ->
+              toastr.success('Assignment created.')
+            error: (jqXHR, textStatus, errorThrown ) ->
+              toastr.error('Unable to create assignment.')
+        else
+          # Assignment is being switched from one developer to another, or being resorted within the same developer
+          $.ajax
+            url: Routes.assignment_path(assignmentId) + ".json"
+            type: 'PUT'
+            data:
+              assignment:
+                id: assignmentId
+                developer_account_id: pickDeveloperAccount(developerId, taskIsGithub)
+                task_id: taskId
+                sort_position: sortPosition
+            success: (data, textStatus, jqXhr) ->
+              toastr.success('Assignment updated.')
+            error: (jqXHR, textStatus, errorThrown ) ->
+              toastr.error('Unable to update assignment.')
   )
 
 # Returns the developer_account_id associated with developerId. If useGithub is true

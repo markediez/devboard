@@ -27,15 +27,10 @@ class Developer < ActiveRecord::Base
   end
 
   def assignments(only_open: false)
-    # Grab the developer_account ids of the developer
-    account_ids = []
-    DeveloperAccount.where(:developer_id => self.id).each do |da|
-      account_ids << da.id
-    end
-
     # Query all assignments in order
     assignments = []
-    Assignment.where(:developer_account_id => account_ids).each do |a|
+
+    Assignment.where(:developer_account_id => accounts.ids).each do |a|
       if only_open
         assignments << a unless a.task.completed_at
       else
@@ -43,7 +38,7 @@ class Developer < ActiveRecord::Base
       end
     end
 
-    assignments.sort!{|x, y| x.task.sort_position <=> y.task.sort_position}
+    #assignments.sort!{|x, y| x.task.sort_position <=> y.task.sort_position}
 
     return assignments.flatten
   end
