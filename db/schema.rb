@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209175626) do
+ActiveRecord::Schema.define(version: 20170210021339) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -33,12 +33,12 @@ ActiveRecord::Schema.define(version: 20170209175626) do
     t.integer  "task_id"
     t.integer  "developer_account_id"
     t.integer  "priority"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.datetime "due_at"
     t.datetime "assigned_at"
-    t.integer  "delay_count",          default: 0
-    t.integer  "sort_position",        default: 0, null: false
+    t.integer  "delay_count",                                   default: 0
+    t.decimal  "sort_position",        precision: 10, scale: 5, default: "0.0", null: false
   end
 
   create_table "commits", force: :cascade do |t|
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 20170209175626) do
     t.datetime "updated_at"
     t.datetime "due"
     t.string   "link",            limit: 255
-    t.integer  "priority",                    default: 1
+    t.integer  "priority",                                             default: 1
     t.integer  "difficulty"
     t.integer  "duration"
     t.string   "gh_issue_number", limit: 255
@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(version: 20170209175626) do
     t.integer  "milestone_id"
     t.float    "points"
     t.integer  "repository_id"
-    t.integer  "sort_position",               default: 0
+    t.decimal  "sort_position",               precision: 10, scale: 5, default: "0.0", null: false
   end
 
   create_table "users", force: :cascade do |t|

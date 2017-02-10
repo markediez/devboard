@@ -25,7 +25,7 @@ class Assignment < ActiveRecord::Base
   # date without conflating it with when the SQL record was created in our system (created_at)
   def set_assigned_at
     if assigned_at == nil
-      assigned_at = Time.now
+      self.assigned_at = Time.now
     end
   end
 

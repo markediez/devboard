@@ -15,12 +15,5 @@ Rails.application.routes.draw do
   post '/credentials' => 'site#credentials'
   get '/logout' => 'site#logout'
 
-  # post '/tasks/unassign' => 'tasks#unassign'
-  # post '/tasks/sort' => 'tasks#sort'
-
-  # post '/assignments/update' => 'assignments#update'
-
-  # post 'exception_reports/new_task' => 'exception_reports#new_task'
-
   root 'assignments#index'
 end

@@ -16,17 +16,17 @@
 
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 
-        <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-            <%= yield :javascripts %>
-                <%= csrf_meta_tags %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= yield :javascripts %>
+    <%= csrf_meta_tags %>
 
-                    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-                    <!--[if lt IE 9]>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-                    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
 </head>
 
 <body>
