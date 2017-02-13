@@ -7,12 +7,12 @@ class Assignment < ActiveRecord::Base
   validates_uniqueness_of :task_id, :scope => :developer_account_id
 
   validate :github_task_must_belong_to_github_account
+  validate :sort_position_must_be_unique_with_developer_id
 
   validates_presence_of :sort_position
-  validates_uniqueness_of :sort_position
 
   def developer
-    developer_account.present? ? developer_account.developer : nil
+    developer_account.developer.present? ? developer_account.developer : nil
   end
 
   # Returns the number of days left for the assignment.
@@ -37,6 +37,18 @@ class Assignment < ActiveRecord::Base
       if developer_account.account_type != 'github'
         errors.add :developer_account_id, "GitHub-linked task can only be assigned to a GitHub-linked developer account."
       end
+    end
+  end
+
+  def sort_position_must_be_unique_with_developer_id
+    if developer
+      count = Assignment.includes(:developer_account).includes(:task).where.not( id: self.id ).where(:sort_position => self.sort_position).where(:tasks => { completed_at: nil }).where(:developer_accounts => { :developer_id => self.developer.id }).count
+    else
+      count = Assignment.includes(:developer_account).includes(:task).where.not( id: self.id ).where(:sort_position => self.sort_position).where(:tasks => { completed_at: nil }).where(:developer_account_id => self.developer_account_id).count
+    end
+
+    if count > 0
+      errors.add(:sort_position, "Must be unique for this developer")
     end
   end
 end
