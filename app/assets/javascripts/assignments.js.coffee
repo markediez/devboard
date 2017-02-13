@@ -91,11 +91,20 @@ setupDragAndDropForAssignments = () ->
     # the unassigned area. If it is dropped in a developer that already had it, we ignore this event as
     # it is merely a sort, which is handled in the .sortable() callbacks.
     drop: (event, ui) ->
+      console.debug "===================="
+      console.debug "drop event detected."
+
       originalDeveloperId = ui.draggable.parent().data('developer-id')
       developerId = $(this).data('developer-id')
       taskId = $(ui.draggable).data("task-id")
       taskIsGithub = $(ui.draggable).data("task-github")
       assignmentId = $(ui.draggable).data("assignment-id")
+
+      console.debug "originalDeveloperId: #{originalDeveloperId}"
+      console.debug "developerId: #{developerId}"
+      console.debug "taskId: #{taskId}"
+      console.debug "taskIsGithub: #{taskIsGithub}"
+      console.debug "assignmentId: #{assignmentId}"
 
       $placeholder = $(this).find('.ui-sortable-placeholder')
 
@@ -115,11 +124,20 @@ setupDragAndDropForAssignments = () ->
       if sortLeftBound? and sortRightBound?
         sortPosition = (parseFloat(sortLeftBound) + parseFloat(sortRightBound)) / 2.0
       else if sortLeftBound == null and sortRightBound?
-        sortPosition = sortRightBound - 1
+        sortPosition = sortRightBound - 10
       else if sortLeftBound? and sortRightBound == null
-        sortPosition = sortLeftBound + 1
+        sortPosition = sortLeftBound + 10
+      else
+        sortPosition = 0
+      
+      console.debug "sortLeftBound: #{sortLeftBound}"
+      console.debug "sortRightBound: #{sortRightBound}"
+      console.debug "sortPosition: #{sortPosition}"
 
-      console.debug "sortPosition is #{sortPosition}"
+      debugger
+
+      if sortPosition? == false
+        debugger
 
       if developerId == undefined
         # Assignment is being unassigned or unassigned task is being reordered
@@ -138,6 +156,7 @@ setupDragAndDropForAssignments = () ->
                     id: taskId
                     sort_position: sortPosition
                 success: (data, textStatus, jqXhr) ->
+                  console.debug "success"
                   # Update sort_position
                   ui.draggable.data('sort-position', sortPosition)
                   ui.draggable.attr('data-sort-position', sortPosition)
@@ -146,6 +165,7 @@ setupDragAndDropForAssignments = () ->
                   ui.draggable.removeData('assignment-id')
                   toastr.success('Task updated.')
                 error: (jqXHR, textStatus, errorThrown ) ->
+                  console.debug "error"
                   toastr.error('Unable to update task.')
             error: (jqXHR, textStatus, errorThrown ) ->
               toastr.error('Unable to remove assignment.')
@@ -160,10 +180,12 @@ setupDragAndDropForAssignments = () ->
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
               # Update sort_position
+              console.debug "success"
               ui.draggable.data('sort-position', sortPosition)
               ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Task updated.')
             error: (jqXHR, textStatus, errorThrown ) ->
+              console.debug "error"
               toastr.error('Unable to update task.')
       else
         if assignmentId == undefined
@@ -179,6 +201,7 @@ setupDragAndDropForAssignments = () ->
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
               # Set assignment-id
+              console.debug "success"
               ui.draggable.data('assignment-id', data.assignment.id)
               ui.draggable.attr('data-assignment-id', data.assignment.id)
               # Update sort_position
@@ -186,6 +209,7 @@ setupDragAndDropForAssignments = () ->
               ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Assignment created.')
             error: (jqXHR, textStatus, errorThrown ) ->
+              console.debug "error"
               toastr.error('Unable to create assignment.')
         else
           # Assignment is being switched from one developer to another, or being resorted within the same developer
@@ -201,10 +225,12 @@ setupDragAndDropForAssignments = () ->
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
               # Update sort_position
+              console.debug "success"
               ui.draggable.data('sort-position', sortPosition)
               ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Assignment updated.')
             error: (jqXHR, textStatus, errorThrown ) ->
+              console.debug "error"
               toastr.error('Unable to update assignment.')
   )
 
