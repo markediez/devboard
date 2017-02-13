@@ -8,6 +8,9 @@ class Assignment < ActiveRecord::Base
 
   validate :github_task_must_belong_to_github_account
 
+  validates_presence_of :sort_position
+  validates_uniqueness_of :sort_position
+
   def developer
     developer_account.present? ? developer_account.developer : nil
   end
