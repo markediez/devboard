@@ -27,6 +27,9 @@ $(document).ready(function() {
         "hideMethod": "fadeOut"
     }
 
+    /**
+     * Sidebar collapse 
+     */
     $('[data-toggle=offcanvas]').click(function() {
         $('.row-offcanvas').toggleClass('active');
         $('sidebar-offcanvas').toggleClass('collapse-group');
