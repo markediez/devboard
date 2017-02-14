@@ -2,34 +2,49 @@
   <%= javascript_include_tag params[:controller] %>
 <% end %>
 
+<!-- Data loader -->
+<script type="text/json" id="bootstrap">
+  {
+    "tasks" : <%= @tasks.to_json %>
+  }
+</script>
+
+<script type="text/javascript">
+  // Load tasks JSON into Backbone collection 'Devboard.tasks'
+  var div = $('<div></div>');
+  div.html($('#bootstrap').text());
+  var data = JSON.parse(div.text());
+
+  Devboard.tasks = new Devboard.Collections.Tasks(data.tasks);
+
+  // Set up data specific to the assignments widget
+  window.Devboard.assignmentsWidget = {};
+
+  /* Set desired date of assignments view */
+  window.Devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
+
+  /* Set information about developers and their developer_account types */
+  window.Devboard.developers = [];
+  <% @developers.each do |developer| %>
+    window.Devboard.developers.push(
+      {
+        id: <%= developer.id %>,
+        accounts: [
+          <% developer.accounts.each_with_index do |da, i| %>
+            {
+              id: <%= da.id %>,
+              type: '<%= da.account_type %>'
+            }<%= ',' unless i >= developer.accounts.length - 1 %>
+          <% end %>
+        ]
+      }
+    )
+  <% end %>
+</script>
+
 <div class="assignments-widget">
-    <script type="text/javascript">
-        window.Devboard.assignmentsWidget = {};
-
-        /* Set desired date of assignments view */
-        window.Devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
-
-        /* Set information about developers and their developer_account types */
-        window.Devboard.developers = [];
-        <% @developers.each do |developer| %>
-            window.Devboard.developers.push(
-                {
-                    id: <%= developer.id %>,
-                    accounts: [
-                        <% developer.accounts.each_with_index do |da, i| %>
-                            {
-                                id: <%= da.id %>,
-                                type: '<%= da.account_type %>'
-                            }<%= ',' unless i >= developer.accounts.length - 1 %>
-                        <% end %>
-                    ]
-                }
-            )
-        <% end %>
-    </script>
-
     <header class="section-title">
-        <h3>&nbsp;</h3> <!-- sssh, don't tell -->
+        <h3>&nbsp;</h3>
         <div class="btn-group date-nav" role="group" aria-label="...">
             <button type="button" class="btn btn-default" data-nav="yesterday"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
 

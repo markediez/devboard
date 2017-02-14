@@ -6,6 +6,7 @@
 //= require underscore
 //= require backbone
 
+//= require models/task
 //= require templates/task_form_modal
 //= require views/task_form_modal
 

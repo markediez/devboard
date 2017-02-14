@@ -7,10 +7,11 @@ Devboard.Views.TaskFormModal = Backbone.View.extend(
     "hidden.bs.modal" : "cleanUpModal"
 
   initialize: ->
+    debugger
     console.debug "TaskFormModal view initialized."
 
   render: ->
-    @$el.html @template({ id: 5 })
+    @$el.html @template({ model: @model })
     @
 
   cleanUpModal: ->
