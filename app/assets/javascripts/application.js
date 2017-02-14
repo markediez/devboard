@@ -34,8 +34,10 @@ $(document).ready(function() {
         $('.row-offcanvas').toggleClass('active');
         $('sidebar-offcanvas').toggleClass('collapse-group');
         $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
-        $('.col-md-offset-2').toggleClass('nav-collapse');
+        $('.navheader').toggleClass('nav-collapse');
+        $('.navheader').toggleClass('col-md-11');
         $('.assignments-test').toggleClass('assigned-collapse');
+        $('.date-nav').toggleClass('date-nav-collapse');
 
     });
 });

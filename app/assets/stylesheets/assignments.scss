@@ -22,6 +22,7 @@
     height: calc(100% - 96px);
     .date-nav {
         position: absolute;
+        width: 24%;
         top: 12px;
         left: 37%;
         input {
@@ -36,6 +37,10 @@
         button {
             border: 1px solid $gray !important;
         }
+    }
+    .date-nav-collapse {
+        width: 21%;
+        left: 39.5%;
     }
     .date-picker {
         border-color: #d6d6d6;
