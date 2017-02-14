@@ -1,0 +1,42 @@
+<header class="section-title">
+  <div class="header-btn-right">
+    <button id="delete" class="btn btn-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+  </div>
+
+  <h3>Exception Filters</h3>
+</header>
+
+<section>
+  <table id="exception-table" class="table" style="margin-top: 15px;">
+    <thead>
+      <tr style="color: #fff; background-color: #373a3c;">
+        <th><!-- selected checkbox --></th>
+        <th>Project</th>
+        <th>Type</th>
+        <th>Concern</th>
+        <th>Pattern</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @exception_filters.each do |filter| %>
+      <tr class="table-row">
+        <td>
+          <input type="checkbox" class="cb-email" />
+        </td>
+        <td>
+          <%= filter.value %>
+        </td>
+        <td>
+          <%= filter.kind %>
+        </td>
+        <td>
+          <%= filter.concern %>
+        </td>
+        <td>
+          <%= filter.pattern %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
