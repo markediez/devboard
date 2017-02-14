@@ -29,11 +29,11 @@ $(document).ready(function() {
 
     $('[data-toggle=offcanvas]').click(function() {
         $('.row-offcanvas').toggleClass('active');
+        $('sidebar-offcanvas').toggleClass('collapse-group');
         $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
-        $('.badge').toggleClass('badge-test');
-        $('.assignments-test').toggleClass('assignmentExpand');
-        $('.timeline-body').toggleClass('timelineBodyExpand');
-        $('.developer-assignment-titles').toggleClass('developer-assignment-test');
+        $('.col-md-offset-2').toggleClass('nav-collapse');
+        $('.assignments-test').toggleClass('assigned-collapse');
+
     });
 });
 

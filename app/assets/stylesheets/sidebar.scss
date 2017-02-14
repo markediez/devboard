@@ -2,9 +2,11 @@
  * Sidebar
  */
     
-    .badge-test {
-        right: 18px !important;
-        top: 0px;
+    .collapse-group {
+        .badge {
+            right: 18px !important;
+            top: 0px;
+        }
     }
     
     .offcanvas {
@@ -19,13 +21,15 @@
     .nav>li {
         padding-right: 20px;
         padding-left: 0px !important;
+        i:hover {
+            color: white;
+        }
     }
     
     .sidebar-icon {
         position: static !important;
         top: 13px;
         left: 6px;
-        color: #95989A;
     }
     
     @import "variables";
@@ -64,7 +68,6 @@
         position: absolute;
         top: 13px;
         left: 6px;
-        color: #95989A;
     }
     /* Hide for mobile, show later */
     

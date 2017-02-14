@@ -1,18 +1,21 @@
+/* assignment collapse */
+
+.assigned-collapse {
+    margin-left: 5% !important;
+    width: 95% !important;
+    .developer-assignment-titles {
+        flex: 0 1 84.2% !important;
+    }
+    .timeline-body {
+        width: 84.2% !important;
+    }
+}
+
+
+/* .assigned collapse */
+
 .row {
     margin: 0px;
-}
-
-.developer-assignment-test {
-    flex: 0 1 84.2% !important;
-}
-
-.timelineBodyExpand {
-    width: 84% !important;
-}
-
-.assignmentExpand {
-    margin-left: 5% !important;
-    width: 95%;
 }
 
 .assignments-widget {

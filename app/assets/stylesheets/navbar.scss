@@ -2,6 +2,12 @@
  * navigation
  */
 
+.nav-collapse {
+    .col-md-offset-2 {
+        margin-left: 5% !important;
+    }
+}
+
 .search {
     width: 100%;
     position: relative
