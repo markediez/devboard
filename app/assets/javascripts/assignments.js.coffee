@@ -4,15 +4,37 @@
 //= require jquery-ui/widgets/sortable
 //= require bootstrap-datepicker/core
 //= require underscore
+//= require backbone
+
+//= require templates/task_form_modal
+//= require views/task_form_modal
 
 $(document).ready ->
   setupDatePicker()
   setupDragAndDropForAssignments()
 
-  $(".task input:checkbox").on "click", (e) ->
+  $(".task input:checkbox").on "click", () ->
     toggleTaskStatus(this)
 
+  $("#new-task-btn").on "click", () ->
+    new Devboard.Views.TaskFormModal(model: { id: 512 }).render().$el.modal()
+
   setupRangeSlider()
+
+# Returns the date as a string in the format YYYY-MM-DD HH:MM:SS
+getFormattedDate = (timeInMills) ->
+  t = if timeInMills? then new Date(timeInMills) else new Date()
+
+  year = t.getFullYear()
+  # .slice(-2) ensures 2 digit numbers
+  month = ("0" + (t.getMonth() + 1) ).slice(-2)
+  day = ("0" + t.getDate()).slice(-2)
+
+  hour = ("0" + t.getHours()).slice(-2)
+  minute = ("0" + t.getMinutes()).slice(-2)
+  second = ("0" + t.getSeconds()).slice(-2)
+
+  return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second
 
 # el = checkbox of a task
 toggleView = (el) ->
@@ -44,7 +66,7 @@ toggleTaskStatus = (el) ->
 
 # Toggles the task between finished and unfinished
 # @param el - The checkbox toggled
-this.toggleTaskCompleted = (el) ->
+toggleTaskCompleted = (el) ->
   container = $(el).closest(".task")
 
   # Gray out if the task is finished
@@ -56,7 +78,7 @@ this.toggleTaskCompleted = (el) ->
     container.addClass("ipa-task");
 
 # For task modal
-this.setupRangeSlider = ->
+setupRangeSlider = ->
   range = $('.range-slider-range')
   value = $('.range-slider-value')
 
@@ -129,15 +151,10 @@ setupDragAndDropForAssignments = () ->
         sortPosition = sortLeftBound + 10
       else
         sortPosition = 0
-      
+
       console.debug "sortLeftBound: #{sortLeftBound}"
       console.debug "sortRightBound: #{sortRightBound}"
       console.debug "sortPosition: #{sortPosition}"
-
-      debugger
-
-      if sortPosition? == false
-        debugger
 
       if developerId == undefined
         # Assignment is being unassigned or unassigned task is being reordered
@@ -147,7 +164,7 @@ setupDragAndDropForAssignments = () ->
             url: Routes.assignment_path(assignmentId) + ".json"
             type: 'DELETE'
             success: (data, textStatus, jqXhr) ->
-              toastr.success('Assignment removed.')
+              console.debug "success on assignment delete"
               $.ajax
                 url: Routes.task_path(taskId) + ".json"
                 type: 'PUT'
@@ -156,18 +173,19 @@ setupDragAndDropForAssignments = () ->
                     id: taskId
                     sort_position: sortPosition
                 success: (data, textStatus, jqXhr) ->
-                  console.debug "success"
+                  console.debug "success on task update"
                   # Update sort_position
                   ui.draggable.data('sort-position', sortPosition)
                   ui.draggable.attr('data-sort-position', sortPosition)
                   # Unassign the assignmentId
                   ui.draggable.removeAttr('data-assignment-id')
                   ui.draggable.removeData('assignment-id')
-                  toastr.success('Task updated.')
+                  toastr.success('Assignment removed and task updated.')
                 error: (jqXHR, textStatus, errorThrown ) ->
-                  console.debug "error"
-                  toastr.error('Unable to update task.')
+                  console.debug "error on task update"
+                  toastr.error('Assignment removed but unable to update task.')
             error: (jqXHR, textStatus, errorThrown ) ->
+              console.debug "error on assignment delete"
               toastr.error('Unable to remove assignment.')
         else
           console.debug "unassigned task is being reordered"
@@ -238,12 +256,12 @@ setupDragAndDropForAssignments = () ->
 # it will return the github developer_account if available, else null. If useGithub is
 # false, it will prefer the devboard-type developer_account.
 pickDeveloperAccount = (developerId, useGithub) ->
-  if window.devboard == null
-    console.error("Cannot pickDeveloperAccount(), window.devboard does not exist.")
+  if window.Devboard == null
+    console.error("Cannot pickDeveloperAccount(), window.Devboard does not exist.")
     return null
 
   # Fetch all developer_accounts for developerId
-  developer = _.find(window.devboard.developers, (developer) ->
+  developer = _.find(window.Devboard.developers, (developer) ->
     developer.id == developerId
   )
 
@@ -265,7 +283,7 @@ pickDeveloperAccount = (developerId, useGithub) ->
 
 setupDatePicker = () ->
   # Get time in seconds
-  viewDate = new Date(window.devboard.assignmentsWidget.time_to_view)
+  viewDate = new Date(window.Devboard.assignmentsWidget.time_to_view)
 
   $(".date-nav .date-picker").datepicker
     format: "DD, M d, yyyy"

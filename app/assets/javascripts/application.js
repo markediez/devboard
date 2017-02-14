@@ -3,6 +3,8 @@
 //= require routes
 //= require toastr
 
+//= require devboard
+
 $(document).ready(function() {
   $.ajaxSetup({
     headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
@@ -27,27 +29,6 @@ $(document).ready(function() {
     "hideMethod": "fadeOut"
   }
 });
-
-/**
- * Returns the date as a string in the format YYYY-MM-DD HH:MM:SS
- */
-function getFormattedDate(timeInMills) {
-  if(timeInMills === undefined) {
-    timeInMills = Date.now();
-  }
-  var t = new Date(timeInMills);
-
-  var year = t.getFullYear();
-  // .slice(-2) ensures 2 digit numbers
-  var month = ("0" + (t.getMonth() + 1) ).slice(-2);
-  var day = ("0" + t.getDate()).slice(-2);
-
-  var hour = ("0" + t.getHours()).slice(-2);
-  var minute = ("0" + t.getMinutes()).slice(-2);
-  var second = ("0" + t.getSeconds()).slice(-2);
-
-  return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
-}
 
 /**
  * Renders new fields (e.g. more repositories or more assignees)

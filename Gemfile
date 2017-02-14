@@ -19,6 +19,9 @@ gem 'puma', '~> 3.7'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+# Use the ECO JS templating engine
+gem 'eco'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks', '~> 5'
 

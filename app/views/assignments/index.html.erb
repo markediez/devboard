@@ -4,16 +4,15 @@
 
 <div class="assignments-widget">
     <script type="text/javascript">
-        window.devboard = {};
-        window.devboard.assignmentsWidget = {};
+        window.Devboard.assignmentsWidget = {};
 
         /* Set desired date of assignments view */
-        window.devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
+        window.Devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
 
         /* Set information about developers and their developer_account types */
-        window.devboard.developers = [];
+        window.Devboard.developers = [];
         <% @developers.each do |developer| %>
-            window.devboard.developers.push(
+            window.Devboard.developers.push(
                 {
                     id: <%= developer.id %>,
                     accounts: [
@@ -97,7 +96,7 @@
                   <div class="task hidden-task">
                       <!-- This is required for sorting developers with empty tasks -->
                   </div>
-                  <div class="task empty-task" data-toggle="modal" data-target="#add_task">
+                  <div class="task empty-task" id="new-task-btn">
                       <i class="fa fa-plus add-user_icon" aria-hidden="true"></i>
                   </div>
                   <!-- End add new task -->
@@ -157,7 +156,4 @@
         </div>
         <!-- timeline body ends -->
     </div>
-
-    <%= render 'site/modal_add_user' %>
-    <%= render 'site/modal_add_task' %>
 </div>
