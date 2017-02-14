@@ -24,7 +24,7 @@ $(document).ready ->
   $(".dropdown-menu li").on "click", (e) ->
     setMenuText($("a", this).html(), this)
 
-  $("button.btn-create").on "click", (e) ->
+  $("#save-exception-filter").on "click", (e) ->
     console.log "TODO: Actually save"
     toastr.success('Exception Filter Saved! (Not Really)')
 
