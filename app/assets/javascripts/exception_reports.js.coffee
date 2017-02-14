@@ -34,7 +34,7 @@ saveFilter = () ->
   project = $("#add_exception_filter .exception-project .dropdown-toggle .dropdown-text").html()
 
   $.post
-    url: "/exception_filters"
+    url: "/exception_filters.json"
     data:
       exception_filter:
         concern: concern

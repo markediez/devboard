@@ -16,7 +16,16 @@ class ExceptionFiltersController < ApplicationController
   # POST /exception_filter.json
   def create
     @exception_filter = ExceptionFilter.new(exception_filter_params)
-    @exception_filter.save
+
+    respond_to do |format|
+      if @exception_filter.save
+        format.html { redirect_to @exception_filter, notice: 'Meeting note was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @exception_filter }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @exception_filter.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
 
