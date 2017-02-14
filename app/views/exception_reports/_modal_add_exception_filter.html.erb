@@ -11,8 +11,8 @@
       <div class="modal-body flex-column">
         <div class="exception-project">
           <label>Project</label>
-          <div class="btn-group" style="display: flex;">
-            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
+          <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="dropdown-text">None</span><i class="caret"></i>
             </button>
 
@@ -25,9 +25,9 @@
         </div>
 
         <div class="exception-kind">
-          <label>Kind</label>
-          <div class="btn-group" style="display: flex;">
-            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
+          <label>Type</label>
+          <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="dropdown-text">None</span><i class="caret"></i>
             </button>
             <ul class="dropdown-menu">
@@ -40,8 +40,8 @@
 
         <div class="exception-concern">
           <label>Concern</label>
-          <div class="btn-group" style="display: flex;">
-            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 130px;">
+          <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="dropdown-text">None</span><i class="caret"></i>
             </button>
             <ul class="dropdown-menu">
@@ -54,12 +54,12 @@
 
         <div class="exception-pattern">
           <label>Pattern</label>
-          <input name="Pattern" class="form-control" placeholder="What should we look for?"/>
+          <input name="Pattern" class="form-control" placeholder="Regular expression ..."/>
         </div>
       </div>
 
-      <div class="modal-footer flex-row" style="justify-content: center;">
-          <button type="button" class="btn btn-default btn-create " data-dismiss="modal">Save<i class="fa fa-check" aria-hidden="true" style="margin-left:5px;"></i></button>
+      <div class="modal-footer flex-row">
+          <button id="save-exception-filter" type="button" class="btn btn-default btn-create " data-dismiss="modal">Save<i class="fa fa-check" aria-hidden="true"></i></button>
       </div>
     </div>
   </div>
