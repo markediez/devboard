@@ -62,7 +62,7 @@
                     </li>
                     <li <%=" class=active" if (controller_name=="exception_reports" ) %>>
                         <i class="fa fa-exclamation-triangle sidebar-icon" aria-hidden="true"></i>
-                        <a href="<%= exception_reports_url %>">Exceptions<span class="badge badge-warning">5</span></a>
+                        <a href="<%= exception_reports_url %>">Exceptions<span class="badge badge-warning"><%= ExceptionReport.where(:duplicated_id => nil).size %></span></a>
                     </li>
                     <li>
                         <i class="fa fa-user sidebar-icon" aria-hidden="true"></i>
