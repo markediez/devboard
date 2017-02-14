@@ -1,0 +1,28 @@
+<header class="section-title">
+  <h3>
+      <%= @exception_report.subject %>
+  </h3>
+
+  <% if @exception_report.project.present? %>
+    <h3>
+        <%= link_to @exception_report.project.name, @exception_report.project %>
+    </h3>
+  <% end %>
+
+  <% if @exception_report.task.present? %>
+    <h3>
+        <%= link_to "Task", @exception_report.task %> assigned to
+        <% @exception_report.task.assignments.each do |assignment| %>
+          <%= link_to assignment.developer.name, assignment.developer %>
+          <%= ", " unless assignment == @exception_report.task.assignments.last %>
+        <% end %>
+    </h3>
+  <% end %>
+</header>
+<section>
+    <div class="tmp">
+        <p>
+            <%= @exception_report.body %>
+        </p>
+    </div>
+</section>
