@@ -24,7 +24,7 @@
           </div>
         </div>
 
-        <div class="exception-kind">
+        <div class="exception-type">
           <label>Type</label>
           <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,7 +42,7 @@
           <label>Concern</label>
           <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="dropdown-text">None</span><i class="caret"></i>
+              <span id="concern" class="dropdown-text">None</span><i class="caret"></i>
             </button>
             <ul class="dropdown-menu">
               <% @concerns.each do |concern| %>
@@ -54,7 +54,7 @@
 
         <div class="exception-pattern">
           <label>Pattern</label>
-          <input name="Pattern" class="form-control" placeholder="Regular expression ..."/>
+          <input id="pattern" name="Pattern" class="form-control" placeholder="Regular expression ..."/>
         </div>
       </div>
 

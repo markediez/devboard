@@ -25,8 +25,26 @@ $(document).ready ->
     setMenuText($("a", this).html(), this)
 
   $("#save-exception-filter").on "click", (e) ->
-    console.log "TODO: Actually save"
-    toastr.success('Exception Filter Saved! (Not Really)')
+    saveFilter()
+
+saveFilter = () ->
+  concern = $("#add_exception_filter .exception-concern .dropdown-toggle .dropdown-text").html()
+  pattern = $("#add_exception_filter .exception-pattern #pattern").val()
+  type = $("#add_exception_filter .exception-type .dropdown-toggle .dropdown-text").html()
+  project = $("#add_exception_filter .exception-project .dropdown-toggle .dropdown-text").html()
+
+  $.post
+    url: "/exception_filters"
+    data:
+      exception_filter:
+        concern: concern
+        pattern: pattern
+        kind: type
+        value: project
+    success: (data, status, xhr) ->
+      toastr.success('Exception filter saved.')
+    error: (data, status, xhr) ->
+      toastr.error('Unable to save exception filter')
 
 # Changes the text on a dropdown button
 # text = text to show

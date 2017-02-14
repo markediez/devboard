@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :developer_accounts
   resources :projects
   resources :sprints
+  resources :exception_filters
 
   resources :exception_reports
   post '/exception_reports/new_task' => 'exception_reports#new_task'
