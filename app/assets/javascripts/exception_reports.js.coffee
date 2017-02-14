@@ -55,10 +55,10 @@ deleteMessage = (id) ->
     method: "DELETE"
     success: (data, status, xhr) ->
       $('[data-exception-report-id="' + id + '"]').hide(500)
+      toastr.success("Reports deleted.")
     error: (data, status, xhr) ->
       # Should send exception email?
-      # Should flash?
-      console.log "something went wrong"
+      toastr.error("Unable to delete the report(s).")
 
 
 # Briefly flashes a message
@@ -92,8 +92,9 @@ letUserSelectOriginal = ->
             duplicated_id: originalId
         success: (data, status, xhr) ->
           $('[data-exception-report-id="' + duplicateId + '"]').hide()
+          toastr.success("Reports sucessfully marked as duplicate.")
         error: (data, status, xhr) ->
-          console.log ":("
+          toastr.error("Unable to mark the report(s) as duplicate.")
 
     revert()
 
