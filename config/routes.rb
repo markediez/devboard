@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :exception_reports
   resources :sprints
   resources :milestones
   resources :meeting_notes
@@ -8,6 +7,9 @@ Rails.application.routes.draw do
   resources :developer_accounts
   resources :projects
   resources :sprints
+
+  resources :exception_reports
+  post '/exception_reports/new_task' => 'exception_reports#new_task'
 
   resources :assignments, :except => [:show]
   get '/assignments/:date' => 'assignments#index'

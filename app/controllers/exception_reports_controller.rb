@@ -25,10 +25,15 @@ class ExceptionReportsController < ApplicationController
     end
   end
 
-  # POST /exception_report/new_task
+  # POST /exception_reports/new_task
   def new_task
+    # Ensure unique position
+    curr_max_pos = Task.maximum(:sort_position)
+    # Add by its fraction to make sure we do not go above the range
+    position = curr_max_pos + 1 / curr_max_pos
+
     # Create a task with the report's details
-    @task = Task.new(:title => params[:new_task][:title], :details => params[:new_task][:details])
+    @task = Task.new(:title => params[:new_task][:title], :details => params[:new_task][:details], :sort_position => position)
     @task.save!
 
     # Reference the task created for the report
