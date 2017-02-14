@@ -3,13 +3,30 @@ class AssignmentsController < ApplicationController
 
   # GET /overview
   def index
-    @tasks = Task.where.not(:id => Assignment.select(:task_id).uniq).where(:completed_at => nil).order(:sort_position => "ASC")
-    @time_to_view = params[:time].present? ? DateTime.parse(params[:date]) : Time.now
-
-    @developers = Developer.where(:active => true).order(created_at: :desc)
-
     authorize! :manage, @developers
     authorize! :manage, @activity
+
+    unless params[:date].present?
+      redirect_to assignments_url + "/" + Time.now.strftime("%Y-%m-%d")
+      return
+    end
+
+    @tasks = Task.where.not(:id => Assignment.select(:task_id).distinct).where(:completed_at => nil).order(:sort_position => "ASC")
+    @time_to_view = Time.zone.parse(params[:date])
+
+    @developers = Developer.where(:active => true).order(created_at: :desc)
+  end
+
+  def create
+    @assignment = Assignment.new(assignment_params)
+
+    respond_to do |format|
+      if @assignment.save
+        format.json { render :show, status: :created, location: @assignment }
+      else
+        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /assignments/update
@@ -17,7 +34,8 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       ActiveRecord::Base.transaction do
         # Update the sort_position of all assignments for this developer by 1 if they fall after the desired params[:sort_position]
-        da = DeveloperAccount.find_by_id(assignment_params[:developer_account_id])
+        da = DeveloperAccount.find_by_id(params[:assignment][:developer_account_id])
+        Assignment.where(:developer_account_id => da.linked_accounts).where("sort_position < ?", assignment_params[:sort_position]).update_all("sort_position = sort_position - 1")
         Assignment.where(:developer_account_id => da.linked_accounts).where("sort_position >= ?", assignment_params[:sort_position]).update_all("sort_position = sort_position + 1")
 
         if @assignment.update(assignment_params)

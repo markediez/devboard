@@ -12,6 +12,9 @@ class Task < ActiveRecord::Base
   belongs_to :repository
   belongs_to :milestone
 
+  validates_presence_of :sort_position
+  validates_uniqueness_of :sort_position, conditions: -> { where( completed_at: nil ) }
+
   accepts_nested_attributes_for :assignments, :reject_if => lambda { |a| a[:developer_account_id].blank? }, :allow_destroy => true
 
   enum priority: [ :low_priority, :normal_priority, :high_priority ]
