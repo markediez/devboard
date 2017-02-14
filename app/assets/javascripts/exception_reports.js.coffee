@@ -21,7 +21,7 @@ $(document).ready ->
     revert()
 
   # Set up events for modal
-  $(".dropdown-menu li").on "click", (e) ->
+  $("#add_exception_filter .dropdown-menu li").on "click", (e) ->
     setMenuText($("a", this).html(), this)
 
   $("#save-exception-filter").on "click", (e) ->
