@@ -49,10 +49,9 @@ toggleRow = (el) ->
 # Deletes an exception report
 # id = exception report id to delete
 deleteMessage = (id) ->
-  debugger
-  $.post
+  $.ajax
     url: "/exception_reports/#{id}"
-    method: "DELETE"
+    type: 'DELETE'
     success: (data, status, xhr) ->
       $('[data-exception-report-id="' + id + '"]').hide(500)
       toastr.success("Reports deleted.")

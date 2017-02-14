@@ -25,7 +25,7 @@
     </thead>
     <tbody>
       <% @exception_reports.order(:created_at => 'DESC').each do |exception_report| %>
-      <tr>
+      <tr class="table-row" data-exception-report-id="<%=exception_report.id%>">
         <td>
           <input type="checkbox" class="cb-email" />
         </td>
