@@ -3,7 +3,7 @@ class ExceptionReportsController < ApplicationController
 
   # GET /exception_reports
   def index
-    @exception_reports = ExceptionReport.all
+    @exception_reports = ExceptionReport.where(:duplicated_id => nil)
     @projects = Project.all
     @developers = Developer.all
     @kinds = ExceptionFilter.kinds
