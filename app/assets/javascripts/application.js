@@ -32,7 +32,8 @@ $(document).ready(function() {
      */
     $('[data-toggle=offcanvas]').click(function() {
         $('.row-offcanvas').toggleClass('active');
-        $('.wrapper').toggleClass('collapse-offset');
+        $('.wrapper , col-md-offset-2').toggleClass('collapse-offset col-md-offset-2');
+        $('.navheader , .navheader-collapse').toggleClass('navheader navheader-collapse');
     });
 });
 

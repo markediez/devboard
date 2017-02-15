@@ -1,6 +1,13 @@
 /* assignment collapse */
 
 .collapse-offset {
+    .unassigned-task-container {
+        .assigned-task {
+            p {
+                width: 150px !important;
+            }
+        }
+    }
     .tool-bar {
         width: 17.1% !important;
     }
@@ -28,7 +35,7 @@
 }
 
 .col-md-offset-2 {
-    padding-left: 16.66666667%;
+    margin-left: 16.66666667% !important;
 }
 
 .date-picker-container {
@@ -59,10 +66,17 @@
             border: 1px solid $gray !important;
         }
     }
-    .date-picker {
-        border-color: #d6d6d6;
-        i {
-            margin-left: 6px;
+    .date-picker-container {
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+        margin-left: 30px !important;
+        text-align: center;
+        margin-right: 30px;
+        .date-picker {
+            border-color: #d6d6d6;
+            i {
+                margin-left: 6px;
+            }
         }
     }
     .pagination-button {

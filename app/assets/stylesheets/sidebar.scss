@@ -8,12 +8,17 @@
                 display: none;
             }
         }
+        .collapse-group {
+            .badge {
+                right: 18px !important;
+                top: 0px;
+            }
+        }
     }
     
     .collapse-group {
         .badge {
             right: 18px !important;
-            top: 0px;
         }
     }
     
