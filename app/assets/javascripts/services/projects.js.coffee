@@ -1,6 +1,7 @@
 Devboard.Services.ProjectsService =
   _projects: null
 
+  # To be called before using ProjectsService
   initialize: () ->
     console.debug "ProjectsService initialize."
     this._projects = new Devboard.Collections.Projects();
@@ -9,6 +10,7 @@ Devboard.Services.ProjectsService =
       this._projects.add(projects)
     )
 
+  # Fetches the list of projects from the server
   fetchAll: () ->
     console.debug "ProjectsService fetchAll."
     return Q(jQuery.ajax(
