@@ -37,7 +37,12 @@
     <%= render 'layouts/messages' %>
 
         <% if authenticated? %>
-            <div class="wrapper">
+            <div class="wrapper col-md-offset-2">
+            <div class="container-fluid" style="padding-left: 0px;padding-right: 0px;">
+                    <main class="padding-0 assignments-test" style="height: 100%;">
+                        <%= yield %>
+                    </main>
+                </div>
                 <div class="row row-offcanvas row-offcanvas-left">
                     <nav class="column col-sm-3 col-xs-1 sidebar-offcanvas col-md-2 sidebar sidebar-offcanvas collapse-group" id="sidebar">
                         <header>
@@ -101,10 +106,6 @@
                 </div>
             </div>
             <% end %>
-
-                <main class="col-md-10 col-md-offset-2 padding-0 assignments-test" style="height: 100%;">
-                    <%= yield %>
-                </main>
 
 </body>
 

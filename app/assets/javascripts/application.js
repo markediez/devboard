@@ -34,10 +34,11 @@ $(document).ready(function() {
         $('.row-offcanvas').toggleClass('active');
         $('sidebar-offcanvas').toggleClass('collapse-group');
         $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
-        $('.navheader').toggleClass('nav-collapse');
-        $('.navheader').toggleClass('col-md-11');
-        $('.assignments-test').toggleClass('assigned-collapse');
-        $('.date-nav').toggleClass('date-nav-collapse');
+        $('.wrapper').toggleClass('collapse-offset');
+        //$('.navheader').toggleClass('nav-collapse');
+        //$('.navheader').toggleClass('col-md-11');
+        //$('.assignments-test').toggleClass('test123');
+        //$('.date-nav').toggleClass('date-nav-collapse');
 
     });
 });

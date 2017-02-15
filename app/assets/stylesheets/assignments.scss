@@ -14,6 +14,22 @@
 
 /* .assigned collapse */
 
+.collapse-offset {
+    padding-left: 5% !important;
+}
+
+.col-md-offset-2 {
+    padding-left: 16.66666667%;
+}
+
+.date-picker-container {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+    margin-left: 30px !important;
+    text-align: center;
+    margin-right: 30px;
+}
+
 .row {
     margin: 0px;
 }
@@ -21,10 +37,6 @@
 .assignments-widget {
     height: calc(100% - 96px);
     .date-nav {
-        position: absolute;
-        width: 24%;
-        top: 12px;
-        left: 37%;
         input {
             min-width: 180px;
         }
@@ -37,10 +49,6 @@
         button {
             border: 1px solid $gray !important;
         }
-    }
-    .date-nav-collapse {
-        width: 21%;
-        left: 39.5%;
     }
     .date-picker {
         border-color: #d6d6d6;
