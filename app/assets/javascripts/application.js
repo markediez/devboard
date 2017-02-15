@@ -31,7 +31,7 @@ $(document).ready(function() {
      * Sidebar collapse 
      */
     $('[data-toggle=offcanvas]').click(function() {
-        $('.row-offcanvas').toggleClass('active');
+        $('.collapse-sidebar').toggleClass('active');
         $('.wrapper , col-md-offset-2').toggleClass('collapse-offset col-md-offset-2');
         $('.navheader , .navheader-collapse').toggleClass('navheader navheader-collapse');
     });
