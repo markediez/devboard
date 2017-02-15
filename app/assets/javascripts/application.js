@@ -32,14 +32,7 @@ $(document).ready(function() {
      */
     $('[data-toggle=offcanvas]').click(function() {
         $('.row-offcanvas').toggleClass('active');
-        $('sidebar-offcanvas').toggleClass('collapse-group');
-        $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
         $('.wrapper').toggleClass('collapse-offset');
-        //$('.navheader').toggleClass('nav-collapse');
-        //$('.navheader').toggleClass('col-md-11');
-        //$('.assignments-test').toggleClass('test123');
-        //$('.date-nav').toggleClass('date-nav-collapse');
-
     });
 });
 

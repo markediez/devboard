@@ -2,6 +2,14 @@
  * Sidebar
  */
     
+    .active {
+        #logo {
+            h1 {
+                display: none;
+            }
+        }
+    }
+    
     .collapse-group {
         .badge {
             right: 18px !important;
