@@ -7,6 +7,10 @@
 //= require backbone
 
 //= require models/task
+//= require models/project
+
+//= require services/projects
+
 //= require templates/task_form_modal
 //= require views/task_form_modal
 

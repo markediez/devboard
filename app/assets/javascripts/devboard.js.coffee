@@ -3,3 +3,4 @@ window.Devboard =
   Collections: {}
   Views: {}
   Routers: {}
+  Services: {}
