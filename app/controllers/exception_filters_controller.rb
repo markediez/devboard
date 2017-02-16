@@ -36,6 +36,6 @@ class ExceptionFiltersController < ApplicationController
     end
 
     def exception_filter_params
-      params.require(:exception_filter).permit(:concern, :pattern, :kind, :value);
+      params.require(:exception_filter).permit(:concern, :pattern, :kind, :value)
     end
 end
