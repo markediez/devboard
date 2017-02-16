@@ -3,13 +3,30 @@ class AssignmentsController < ApplicationController
 
   # GET /overview
   def index
-    @tasks = Task.where.not(:id => Assignment.select(:task_id).uniq).where(:completed_at => nil).order(:sort_position => "ASC")
-    @time_to_view = params[:time].present? ? DateTime.parse(params[:date]) : Time.now
-
-    @developers = Developer.where(:active => true).order(created_at: :desc)
-
     authorize! :manage, @developers
     authorize! :manage, @activity
+
+    unless params[:date].present?
+      redirect_to assignments_url + "/" + Time.now.strftime("%Y-%m-%d")
+      return
+    end
+
+    @tasks = Task.where.not(:id => Assignment.select(:task_id).distinct).where(:completed_at => nil).order(:sort_position => "ASC")
+    @time_to_view = Time.zone.parse(params[:date])
+
+    @developers = Developer.where(:active => true).order(created_at: :desc)
+  end
+
+  def create
+    @assignment = Assignment.new(assignment_params)
+
+    respond_to do |format|
+      if @assignment.save
+        format.json { render :show, status: :created, location: @assignment }
+      else
+        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def create

@@ -119,6 +119,7 @@
             background-color: white;
             flex: 1;
             align-self: center;
+
             h5 {
                 text-align: center;
                 font-weight: bold;
@@ -293,7 +294,8 @@
             }
         }
     }
-    .tool-bar {
+
+    .toolbar {
         position: fixed;
         margin-left: 0px;
         margin-right: 0px;

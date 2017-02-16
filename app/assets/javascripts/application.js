@@ -2,6 +2,9 @@
 //= require bootstrap
 //= require routes
 //= require toastr
+//= require q
+
+//= require devboard
 
 $(document).ready(function() {
     $.ajaxSetup({
@@ -38,6 +41,7 @@ $(document).ready(function() {
 });
 
 /**
+<<<<<<< HEAD
  * Returns the date as a string in the format YYYY-MM-DD HH:MM:SS
  */
 function getFormattedDate(timeInMills) {
@@ -59,6 +63,8 @@ function getFormattedDate(timeInMills) {
 }
 
 /**
+=======
+>>>>>>> 2eaa8cba73d5c7fd44568bbd2634ab50e4c793c1
  * Renders new fields (e.g. more repositories or more assignees)
  * @param association - model created
  * @param content - html to render

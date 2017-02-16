@@ -2,34 +2,51 @@
   <%= javascript_include_tag params[:controller] %>
 <% end %>
 
+<!-- Data loader -->
+<script type="text/json" id="bootstrap">
+  {
+    "tasks" : <%= @tasks.to_json %>
+  }
+</script>
+
+<script type="text/javascript">
+  Devboard.Services.ProjectsService.initialize();
+  Devboard.Services.TasksService.initialize();
+  Devboard.Services.DevelopersService.initialize();
+
+  // Load tasks JSON into Backbone collection 'Devboard.tasks'
+  var div = $('<div></div>');
+  div.html($('#bootstrap').text());
+  var data = JSON.parse(div.text());
+
+  Devboard.tasks = new Devboard.Collections.Tasks(data.tasks);
+
+  // Set up data specific to the assignments widget
+  window.Devboard.assignmentsWidget = {};
+
+  /* Set desired date of assignments view */
+  window.Devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
+
+  /* Set information about developers and their developer_account types */
+  window.Devboard.developers = [];
+  <% @developers.each do |developer| %>
+    window.Devboard.developers.push(
+      {
+        id: <%= developer.id %>,
+        accounts: [
+          <% developer.accounts.each_with_index do |da, i| %>
+            {
+              id: <%= da.id %>,
+              type: '<%= da.account_type %>'
+            }<%= ',' unless i >= developer.accounts.length - 1 %>
+          <% end %>
+        ]
+      }
+    )
+  <% end %>
+</script>
+
 <div class="assignments-widget">
-    <script type="text/javascript">
-        window.devboard = {};
-        window.devboard.assignmentsWidget = {};
-
-        /* Set desired date of assignments view */
-        window.devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
-
-        /* Set information about developers and their developer_account types */
-        window.devboard.developers = [];
-        <% @developers.each do |developer| %>
-            window.devboard.developers.push(
-                {
-                    id: <%= developer.id %>,
-                    accounts: [
-                        <% developer.accounts.each_with_index do |da, i| %>
-                            {
-                                id: <%= da.id %>,
-                                type: '<%= da.account_type %>'
-                            }<%= ',' unless i >= developer.accounts.length - 1 %>
-                        <% end %>
-                    ]
-                }
-            )
-        <% end %>
-    </script>
-
-    <!-- header -->
     <header class="section-title">
         <div class="date-picker-container">
             <div class="btn-group date-nav" role="group" aria-label="...">
@@ -48,7 +65,7 @@
             </div>
         </div>
     </header>
-    <!-- header ends -->
+
     <!-- timeline body -->
     <div class="timeline-body">
         <!-- developers -->
@@ -64,57 +81,51 @@
                     <% end %>
             </div>
         </div>
-        <!-- developers ends -->
+
         <!-- assignment -->
         <div class="assignment-container">
-            <div class="assignment-section">
-                <% @developers.each do |developer| %>
-                    <div class="assignments-row connected-sortable" data-developer-id="<%= developer.id %>">
+          <div class="assignment-section">
+            <% @developers.each do |developer| %>
+              <div class="assignments-row connected-sortable" data-developer-id="<%= developer.id %>">
 
-                        <!-- Show open assigned tasks and tasks closed on the same day -->
-                        <% developer.assignments_at(@time_to_view).sort{ |x, y| x.sort_position <=> y.sort_position }.each do |assignment| %>
-                            <% task = assignment.task %>
-                                <div class="task <%=task.completed_at? ? " finished-task " : "assigned-task " %>" data-assignment-id="<%= assignment.id %>" data-task-id="<%= task.id %>" data-task-github="<%= task.github_enabled %>" data-sort-position="<%= assignment.sort_position %>">
-                                    <div class="flex-row">
-                                        <div class="task-title">
-                                            <h5>
-                                                <%= task.project.present? ? link_to(task.project.name, task.project) : "No Project" %>
-                                            </h5>
-                                            <p>
-                                                <%= link_to task.title, task %>
-                                            </p>
-                                        </div>
-                                        <div class="task-selection">
-                                            <div class="task-selection-check-mark">
+                  <% developer.assignments_at(@time_to_view).sort{ |x, y| x.sort_position <=> y.sort_position }.each do |assignment| %>
+                      <% task = assignment.task %>
+                      <div class="task <%= task.completed_at? ? " finished-task " : "assigned-task " %>" data-assignment-id="<%= assignment.id %>" data-task-id="<%= task.id %>" data-task-github="<%= task.github_enabled %>" data-sort-position="<%= assignment.sort_position %>">
+                          <div class="flex-row">
+                              <div class="task-title">
+                                  <h5><%= task.project.present? ? link_to(task.project.name, task.project) : "No Project" %></h5>
+                                  <p><%= link_to task.title, task %></p>
+                              </div>
+                              <div class="task-selection">
+                                  <div class="task-selection-check-mark">
+                                      <input type="checkbox" <%=task.completed_at? ? "checked" : "" %> / >
+                                  </div>
+                                  <div class="task-selection-github">
+                                      <% if task.repository_id && task.gh_issue_number %>
+                                        <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
+                                      <% end %>
+                                  </div>
+                              </div>
+                          </div>
+                      </div> <!-- .task -->
+                  <% end %>
 
-                                                <input type="checkbox" <%=task.completed_at? ? "checked" : "" %> >
-                                            </div>
-                                            <div class="task-selection-github">
-                                                <% if task.repository_id && task.gh_issue_number %>
-                                                    <%= link_to raw('<i class="fa fa-github-alt" aria-hidden="true"></i>'), link_to_github_issue(task.repository.url, task.gh_issue_number), :target => "_blank" %>
-                                                        <% end %>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <% end %>
-
-                                    <!-- Start add new task -->
-                                    <div class="task hidden-task">
-                                        <!-- This is required for sorting developers with empty tasks -->
-                                    </div>
-                                    <div class="task empty-task" data-toggle="modal" data-target="#add_task">
-                                        <i class="fa fa-plus add-user_icon" aria-hidden="true"></i>
-                                    </div>
-                                    <!-- End add new task -->
-                    </div>
-                    <% end %>
-            </div>
+                  <!-- Start add new task -->
+                  <div class="task hidden-task">
+                      <!-- This is required for sorting developers with empty tasks -->
+                  </div>
+                  <div class="task empty-task" id="new-task-btn">
+                      <i class="fa fa-plus add-user_icon" aria-hidden="true"></i>
+                  </div>
+                  <!-- End add new task -->
+              </div>
+            <% end %>
+          </div>
         </div>
         <!-- assignments end -->
 
         <!-- unassigned task -->
-        <div class="tool-bar">
+        <div class="toolbar">
             <div class="tools">
                 <div class="input-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -132,6 +143,7 @@
                 </div>
             </div>
         </div>
+
         <div class="unassigned-task-container connected-sortable">
             <div class="margin-fix">
                 <!-- this class fix bottom space issue in unassigned task container(Firefox only) -->
@@ -139,9 +151,7 @@
                     <div class="task assigned-task" data-task-id="<%= task.id %>" data-task-github="<%= task.github_enabled %>" data-sort-position="<%= task.sort_position %>">
                         <div class="flex-row">
                             <div class="task-title">
-                                <h5>
-                                    <%= task.project.present? ? link_to(task.project.name, task.project) : ""%>
-                                </h5>
+                                <h5><%= task.project.present? ? link_to(task.project.name, task.project) : "No Project" %></h5>
                                 <p>
                                     <%= link_to task.title, task %>
                                 </p>
@@ -164,7 +174,4 @@
         </div>
         <!-- timeline body ends -->
     </div>
-
-    <%= render 'site/modal_add_user' %>
-    <%= render 'site/modal_add_task' %>
 </div>
