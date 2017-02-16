@@ -12,15 +12,15 @@
   <% if @exception_report.task.present? %>
     <h3>
         <%= link_to "Task", @exception_report.task %> assigned to
-        <% @exception_report.task.assignments.each do |assignment| %>
-          <%= link_to assignment.developer.name, assignment.developer %>
-          <%= ", " unless assignment == @exception_report.task.assignments.last %>
-        <% end %>
+        <%= @exception_report.task.assignments.map{|a| a.developer_account.developer_name}.join(', ') %>
     </h3>
   <% end %>
 </header>
 <section>
     <div class="tmp">
+        <p>
+          <strong>Email from <%= @exception_report.email_from %> </strong>
+        </p>
         <p>
             <%= @exception_report.body %>
         </p>
