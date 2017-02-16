@@ -10,6 +10,10 @@
 </script>
 
 <script type="text/javascript">
+  Devboard.Services.ProjectsService.initialize();
+  Devboard.Services.TasksService.initialize();
+  Devboard.Services.DevelopersService.initialize();
+
   // Load tasks JSON into Backbone collection 'Devboard.tasks'
   var div = $('<div></div>');
   div.html($('#bootstrap').text());

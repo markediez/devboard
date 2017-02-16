@@ -2,6 +2,7 @@
 //= require bootstrap
 //= require routes
 //= require toastr
+//= require q
 
 //= require devboard
 
