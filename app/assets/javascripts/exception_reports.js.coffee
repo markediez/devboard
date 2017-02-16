@@ -102,13 +102,11 @@ letUserSelectOriginal = ->
       $.ajax
         url: "/exception_reports/#{duplicateId}.json"
         type: "put"
-        # dataType: "script"
-        # contentType: 'application/json'
         data:
           exception_report:
             duplicated_id: originalId
         success: (data, status, xhr) ->
-          $('[data-exception-report-id="' + duplicateId + '"]').hide()
+          $('[data-exception-report-id="' + duplicateId + '"]').remove()
           toastr.success("Reports sucessfully marked as duplicate.")
         error: (data, status, xhr) ->
           toastr.error("Unable to mark the report(s) as duplicate.")
