@@ -60,10 +60,10 @@ class ExceptionReportsController < ApplicationController
   # DELETE /exception_reports/1
   def destroy
     @exception_report.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to exception_reports_url }
-    #   format.json { head :no_content }
-    # end
+    respond_to do |format|
+      format.html { redirect_to exception_reports_url }
+      format.json { head :no_content }
+    end
   end
 
   private
