@@ -29,8 +29,7 @@ class ExceptionReportsController < ApplicationController
   def new_task
     # Ensure unique position
     curr_max_pos = Task.maximum(:sort_position)
-    # Add by its fraction to make sure we do not go above the range
-    position = curr_max_pos + 1 / curr_max_pos
+    position = (curr_max_pos == nil) ? 0 : curr_max_pos + 1
 
     # Create a task with the report's details
     @task = Task.new(:title => params[:new_task][:title], :details => params[:new_task][:details], :sort_position => position)
