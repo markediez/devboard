@@ -44,7 +44,7 @@
         </td>
         <td>
           <% if exception_report.task.present? %>
-            <%= exception_report.task.assignments.map{|a| a.developer_account.developer_name}.join(',') %>
+            <%= exception_report.task.assignments.map{|a| a.developer_account.developer_name}.join(', ') %>
             <%= "None" if exception_report.task.assignments.empty? %>
             <%= link_to "(Edit)", edit_task_path(exception_report.task) %>
           <% else %>
