@@ -8,7 +8,7 @@
             }
         }
     }
-    .tool-bar {
+    .collapse-sidebar {
         width: 17.1% !important;
     }
     .unassigned-task-container {
@@ -119,7 +119,6 @@
             background-color: white;
             flex: 1;
             align-self: center;
-
             h5 {
                 text-align: center;
                 font-weight: bold;
@@ -294,7 +293,6 @@
             }
         }
     }
-
     .toolbar {
         position: fixed;
         margin-left: 0px;
