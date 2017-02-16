@@ -33,7 +33,7 @@ namespace :exception_report do
       er = ExceptionReport.new
       er.subject = mail.subject
       er.body = mail.body.decoded
-      er.duplicated_id = false
+      er.duplicated_id = nil
       er.email_from = mail.from[0]
 
       # Apply any filters
