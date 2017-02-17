@@ -47,10 +47,8 @@ class DevelopersController < ApplicationController
       @recent_commits_graph[idx] += 1
       @recent_lines_graph[idx] += commit.total
 
-      if commit.project
-        @recent_commits_by_project[commit.project.name] = @recent_commits_by_project[commit.project.name].to_i + 1
-        @recent_lines_by_project[commit.project.name] = @recent_lines_by_project[commit.project.name].to_i + commit.total
-      end
+      @recent_commits_by_project[commit.repository.project.name] = @recent_commits_by_project[commit.repository.project.name].to_i + 1
+      @recent_lines_by_project[commit.repository.project.name] = @recent_lines_by_project[commit.repository.project.name].to_i + commit.total
     end
 
     @recent_commits_graph = @recent_commits_graph.sort_by { |timestamp, commits| timestamp }
