@@ -65,7 +65,15 @@ namespace :github do
           status.last_attempt = Time.now
           status.save!
 
-          commits = GitHubService.find_commits_by_project(repository.url, branch)
+          if (status.new_record? == false) && (status.last_success != nil)
+            # We subject 3.days to be save on the overlap - it's unclear what timezone GitHub wants and what
+            # timezone Devboard may be using in its database. We could research this, or we could subtract
+            # 3.days like a proper lazy person.
+            commits = GitHubService.find_commits_by_project_since(repository.url, status.last_success - 3.days, branch)
+          else
+            # We've never imported (or successfully imported) commits, so we cannot be selective. Grab all of them.
+            commits = GitHubService.find_commits_by_project(repository.url, branch)
+          end
 
           Rails.logger.debug "Found #{commits.count} commits on GitHub for branch '#{branch}'."
 

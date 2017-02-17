@@ -43,6 +43,12 @@ class GitHubService
     self.client.commits(url, branch)
   end
 
+  # Return all commits given a project URL, e.g. 'dssit/devboard' since a given date.
+  # Optionally pass a branch, defaults to 'master'.
+  def self.find_commits_by_project_since(url, since, branch = 'master')
+    self.client.commits_since(url, since.strftime("%Y-%m-%d"), branch)
+  end
+
   # Returns a single commit given a project URL, e.g. 'dssit/devboard' and SHA1.
   def self.find_commit_by_project_and_sha(url, sha)
     self.client.commit(url, sha)
