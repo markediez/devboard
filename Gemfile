@@ -4,8 +4,6 @@ gem 'rails', '~> 5.0.1'
 
 gem 'sqlite3',        group: [:test]
 
-gem 'mysql2',        group: [:development, :production]
-
 gem 'sass-rails', '~> 5.0.6'
 
 gem 'uglifier', '>= 3.0.4'
