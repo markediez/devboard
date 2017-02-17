@@ -9,6 +9,5 @@ class Commit < ActiveRecord::Base
   validates_presence_of :account
 
   belongs_to :account, class_name: "DeveloperAccount", foreign_key: "developer_account_id"
-  belongs_to :project
   belongs_to :repository
 end
