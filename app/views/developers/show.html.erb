@@ -195,7 +195,7 @@
           <tbody>
             <% @commits.each do |commit| %>
             <tr>
-              <td><%= time_ago_in_words(commit.committed_at) %> ago</td>
+              <td><%= commit.committed_at.strftime("%a %b %d, %Y %H:%M") %> ago</td>
               <td><%= commit.project.name %></td>
               <% if commit.project.present? and commit.project.repositories.first.present? %>
                 <% link = "https://github.com/" + commit.project.repositories.first.url + "/commit/" + commit.sha %>
