@@ -43,6 +43,12 @@ class GitHubService
     self.client.commits(url, branch)
   end
 
+  # Return all commits given a project URL, e.g. 'dssit/devboard' since a given date.
+  # Optionally pass a branch, defaults to 'master'.
+  def self.find_commits_by_project_since(url, since, branch = 'master')
+    self.client.commits_since(url, since.strftime("%Y-%m-%d"), branch)
+  end
+
   # Returns a single commit given a project URL, e.g. 'dssit/devboard' and SHA1.
   def self.find_commit_by_project_and_sha(url, sha)
     self.client.commit(url, sha)
@@ -51,6 +57,17 @@ class GitHubService
   # Return all milestones (opened and closed) given a project URL, e.g. 'dssit/devboard'.
   def self.find_milestones_by_project(url)
     self.client.list_milestones(url, { :state => 'all' })
+  end
+
+  # Return all branches for given a project URL, e.g. 'dssit/devboard'.
+  # Returns false on error.
+  def self.find_branches_by_project(url)
+    branches = self.client.branches(url)
+    if branches
+      return branches.map{|b| b.name}
+    else
+      return false
+    end
   end
 
   private

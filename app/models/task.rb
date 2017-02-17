@@ -12,6 +12,8 @@ class Task < ActiveRecord::Base
   belongs_to :repository
   belongs_to :milestone
 
+  before_validation :set_sort_position_if_necessary
+
   validates_presence_of :sort_position
   validates_uniqueness_of :sort_position, conditions: -> { where( completed_at: nil ) }
 
@@ -37,5 +39,13 @@ class Task < ActiveRecord::Base
   # a task which exists solely in DevBoard.
   def github_enabled
     self.gh_issue_number.blank? == false
+  end
+
+  private
+
+  def set_sort_position_if_necessary
+    unless self.sort_position && self.sort_position > 0
+      self.sort_position = Task.maximum(:sort_position).present? ? Task.maximum(:sort_position) + 1 : 1
+    end
   end
 end

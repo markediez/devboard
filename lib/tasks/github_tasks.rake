@@ -23,6 +23,10 @@ namespace :github do
     # Check for updates to local tasks in GitHub
     projects.each do |project|
       project.repositories.each do |repository|
+        status = ImportStatus.find_or_create_by(task: 'github_tasks', metadata: "#{repository.url}")
+        status.last_attempt = Time.now
+        status.save!
+
         Rails.logger.debug "Pulling tasks (issues) for project '#{project.name}'."
 
         issues = GitHubService.find_issues_by_project(repository.url)
@@ -32,6 +36,9 @@ namespace :github do
         issues.each do |issue|
           sync_issue(issue, project, repository)
         end
+
+        status.last_success = Time.now
+        status.save!
       end
     end
   end
@@ -51,42 +58,61 @@ namespace :github do
       Rails.logger.debug "Pulling commits for project '#{project.name}'."
 
       project.repositories.each do |repository|
-        commits = GitHubService.find_commits_by_project(repository.url)
+        branches = GitHubService.find_branches_by_project(repository.url)
 
-        Rails.logger.debug "Found #{commits.count} commits on GitHub."
+        branches.each do |branch|
+          status = ImportStatus.find_or_create_by(task: 'github_commits', metadata: "#{repository.url}/#{branch}")
+          status.last_attempt = Time.now
+          status.save!
 
-        commits.each do |gh_commit|
-          commit = project.commits.find_by_sha(gh_commit[:sha])
+          if (status.new_record? == false) && (status.last_success != nil)
+            # We subject 3.days to be save on the overlap - it's unclear what timezone GitHub wants and what
+            # timezone Devboard may be using in its database. We could research this, or we could subtract
+            # 3.days like a proper lazy person.
+            commits = GitHubService.find_commits_by_project_since(repository.url, status.last_success - 3.days, branch)
+          else
+            # We've never imported (or successfully imported) commits, so we cannot be selective. Grab all of them.
+            commits = GitHubService.find_commits_by_project(repository.url, branch)
+          end
 
-          unless commit
-            Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
+          Rails.logger.debug "Found #{commits.count} commits on GitHub for branch '#{branch}'."
 
-            commit = Commit.new
-            commit.sha = gh_commit[:sha]
-            commit.project = project
+          commits.each do |gh_commit|
+            commit = repository.commits.find_by_sha(gh_commit[:sha])
 
-            commit.account = find_or_create_developer_account_for_commit(gh_commit)
-            commit.message = gh_commit[:commit][:message]
+            unless commit
+              Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
 
-            if gh_commit[:commit][:committer]
-              commit.committed_at = gh_commit[:commit][:committer][:date]
-            elsif gh_commit[:commit][:author]
-              commit.committed_at = gh_commit[:commit][:author][:date]
+              commit = Commit.new
+              commit.sha = gh_commit[:sha]
+              commit.repository = repository
+
+              commit.account = find_or_create_developer_account_for_commit(gh_commit)
+              commit.message = gh_commit[:commit][:message]
+
+              if gh_commit[:commit][:committer]
+                commit.committed_at = gh_commit[:commit][:committer][:date]
+              elsif gh_commit[:commit][:author]
+                commit.committed_at = gh_commit[:commit][:author][:date]
+              end
+
+              commit.save!
             end
 
-            commit.save!
+            # Fill in commit statistics
+            if commit.total.nil?
+              gh_commit_details = GitHubService.find_commit_by_project_and_sha(repository.url, commit.sha)
+
+              commit.total = gh_commit_details[:stats][:total]
+              commit.additions = gh_commit_details[:stats][:additions]
+              commit.deletions = gh_commit_details[:stats][:deletions]
+
+              commit.save!
+            end
           end
 
-          # Fill in commit statistics
-          if commit.total.nil?
-            gh_commit_details = GitHubService.find_commit_by_project_and_sha(repository.url, commit.sha)
-
-            commit.total = gh_commit_details[:stats][:total]
-            commit.additions = gh_commit_details[:stats][:additions]
-            commit.deletions = gh_commit_details[:stats][:deletions]
-
-            commit.save!
-          end
+          status.last_success = Time.now
+          status.save!
         end
       end
     end
@@ -106,14 +132,21 @@ namespace :github do
     projects.each do |project|
       Rails.logger.debug "Pulling milestones for project '#{project.name}'."
 
-      project.repositories.each do |repo|
-        milestones = GitHubService.find_milestones_by_project(repo.url)
+      project.repositories.each do |repository|
+        status = ImportStatus.find_or_create_by(task: 'github_milestones', metadata: "#{repository.url}")
+        status.last_attempt = Time.now
+        status.save!
+
+        milestones = GitHubService.find_milestones_by_project(repository.url)
         Rails.logger.debug "Found #{milestones.count} milestones on GitHub."
 
         # Pull milestones (open & closed) from GitHub
         milestones.each do |milestone|
           sync_milestone(project, milestone)
         end
+
+        status.last_success = Time.now
+        status.save!
       end
     end
   end
@@ -137,7 +170,8 @@ namespace :github do
       Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
     end
 
-    task.title = issue[:title]
+    task.title = issue[:title][0..251] # truncate long titles
+    task.title = task.title + "..." if issue[:title].length > 250
     task.details = issue[:body]
     task.completed_at = issue[:closed_at]
     task.created_at = issue[:created_at]

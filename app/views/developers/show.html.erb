@@ -41,6 +41,8 @@
       <small><a href="mailto:<%= @developer.email %>"><%= @developer.email %></a> (<%= @developer.loginid %>)</small>
     </h1>
 
+    <br /><br />
+
     <style text="text/css">
       #progress {
         position: relative;
@@ -109,7 +111,7 @@
                 <% end %>
                 <li style="padding: 0; margin: 0;">
                   <div style="text-align: center;">
-                    <span><b>Total</b> (<%= @total_commit_count %>)</span>
+                    <span><b>Total</b> (<%= @total_lines_count %>)</span>
                   </div>
                 </li>
               </ul>
@@ -193,9 +195,14 @@
           <tbody>
             <% @commits.each do |commit| %>
             <tr>
-              <td><%= time_ago_in_words(commit.committed_at) %> ago</td>
+              <td><%= commit.committed_at.strftime("%a %b %d, %Y %H:%M") %> ago</td>
               <td><%= commit.project.name %></td>
-              <td><%= commit.message %></td>
+              <% if commit.project.present? and commit.project.repositories.first.present? %>
+                <% link = "https://github.com/" + commit.project.repositories.first.url + "/commit/" + commit.sha %>
+                <td><a href="<%= link %>"><%= commit.message %></a></td>
+              <% else %>
+                <td><%= commit.message %></td>
+              <% end %>
             </tr>
             <% end %>
           </tbody>
