@@ -2,7 +2,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :developer_account
   belongs_to :task
 
-  before_validate :set_sort_position_if_necessary
+  before_validation :set_sort_position_if_necessary
   before_create :set_assigned_at
 
   validates_presence_of :developer_account, :task
