@@ -14,6 +14,10 @@ class Assignment < ActiveRecord::Base
   validates_presence_of :sort_position
 
   def developer
+    # Though 'developer_account' is required to be present, this method may be called before validation,
+    # so we have to be defensive.
+    return nil unless developer_account.present?
+
     developer_account.developer.present? ? developer_account.developer : nil
   end
 
