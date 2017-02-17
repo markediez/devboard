@@ -17,6 +17,10 @@
 //= require templates/task_form_modal
 //= require views/task_form_modal
 
+Devboard.Services.ProjectsService.initialize()
+Devboard.Services.TasksService.initialize()
+Devboard.Services.DevelopersService.initialize()
+
 $(document).ready ->
   setupDatePicker()
   setupDragAndDropForAssignments()
@@ -25,7 +29,7 @@ $(document).ready ->
     toggleTaskStatus(this)
 
   $("#new-task-btn").on "click", () ->
-    new Devboard.Views.TaskFormModal(model: { id: 512 }).render().$el.modal()
+    new Devboard.Views.TaskFormModal(model: { id: 512 } ).render().$el.modal()
 
   setupRangeSlider()
 
@@ -289,9 +293,7 @@ pickDeveloperAccount = (developerId, useGithub) ->
     return null
 
   # Fetch all developer_accounts for developerId
-  developer = _.find(window.Devboard.developers, (developer) ->
-    developer.id == developerId
-  )
+  developer = Devboard.Services.DevelopersService.findByDeveloperId(developerId)
 
   if developer == undefined
     console.error("Cannot pickDeveloperAccount(), no developer with developerId #{developerId}.")
@@ -299,9 +301,7 @@ pickDeveloperAccount = (developerId, useGithub) ->
 
   accountType = if useGithub then 'github' else 'devboard'
 
-  account = _.find(developer.accounts, (account) ->
-    return account.type == accountType
-  )
+  account = developer.findAccountByType(accountType)
 
   if account == undefined
     console.error("Cannot pickDeveloperAccount(), could not find account with type '#{accountType}'.")

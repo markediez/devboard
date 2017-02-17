@@ -22,3 +22,8 @@ Devboard.Services.DevelopersService =
       console.debug 'Unable to DevelopersService.fetchAll, server returned error.'
       console.debug xhr
       return null
+
+  # Searches client-side data for a developer with ID 'developerId'.
+  # Ensure fetchAll() has been called to load client-side data.
+  findByDeveloperId: (developerId) ->
+    return this._developers.get(developerId)
