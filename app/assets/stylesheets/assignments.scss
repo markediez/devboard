@@ -38,14 +38,6 @@
     margin-left: 16.66666667% !important;
 }
 
-.date-picker-container {
-    margin-top: 15px !important;
-    margin-bottom: 15px !important;
-    margin-left: 30px !important;
-    text-align: center;
-    margin-right: 30px;
-}
-
 .row {
     margin: 0px;
 }
@@ -69,9 +61,9 @@
     .date-picker-container {
         margin-top: 15px !important;
         margin-bottom: 15px !important;
-        margin-left: 30px !important;
+        margin-left: 16.5% !important;
+        margin-right: 18%;
         text-align: center;
-        margin-right: 30px;
         .date-picker {
             border-color: #d6d6d6;
             i {
@@ -93,25 +85,25 @@
     .timeline-header {
         display: flex;
         flex-direction: row;
-        .developer-assignment-titles {
-            /* general styles */
+        .developer-title {
             padding: 10px 20px 10px 20px;
             border-top: 1px solid $gray;
             border-right: 1px solid $gray;
             display: flex;
-            flex: 0 0 82%;
+            flex: 0 0 16.4%;
+            justify-content: center;
             background-color: white;
-            h5 {
-                font-weight: bold;
-            }
-            h5:first-child {
-                flex: 1;
-                text-align: center;
-            }
-            h5:nth-child(2) {
-                flex: 4;
-                text-align: center;
-            }
+                h5 {
+                    font-weight: bold;
+                }
+        }
+        .assignment-title {
+            flex: 0 0 65.6%;
+            @extend .developer-title;
+                h5 {
+                    font-weight: bold;
+                }
+
         }
         .unassigned-task-title {
             padding: 10px 20px 10px 20px;
