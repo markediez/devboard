@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213185501) do
+ActiveRecord::Schema.define(version: 20170217012017) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -97,6 +97,14 @@ ActiveRecord::Schema.define(version: 20170213185501) do
     t.integer  "exception_from_email_id"
     t.string   "email_from"
     t.integer  "project_id"
+  end
+
+  create_table "import_statuses", force: :cascade do |t|
+    t.string   "task",         null: false
+    t.date     "last_attempt", null: false
+    t.date     "last_success"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "meeting_notes", force: :cascade do |t|

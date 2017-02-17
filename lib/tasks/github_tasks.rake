@@ -15,6 +15,10 @@ namespace :github do
   task :sync_tasks => :environment do
     require 'github'
 
+    status = ImportStatus.find_or_create_by(task: 'github_tasks')
+    status.last_attempt = Time.now
+    status.save!
+
     # List of projects which have repositories
     projects = Project.joins(:repositories)
 
@@ -34,12 +38,19 @@ namespace :github do
         end
       end
     end
+
+    status.last_success = Time.now
+    status.save!
   end
 
   # Loop through GitHub-linked projects and import the commit history
   desc 'Pull commits from GitHub.'
   task :sync_commits => :environment do
     require 'github'
+
+    status = ImportStatus.find_or_create_by(task: 'github_commits')
+    status.last_attempt = Time.now
+    status.save!
 
     # List of projects which have repositories
     projects = Project.joins(:repositories)
@@ -51,51 +62,62 @@ namespace :github do
       Rails.logger.debug "Pulling commits for project '#{project.name}'."
 
       project.repositories.each do |repository|
-        commits = GitHubService.find_commits_by_project(repository.url)
+        branches = GitHubService.find_branches_by_project(repository.url)
 
-        Rails.logger.debug "Found #{commits.count} commits on GitHub."
+        branches.each do |branch|
+          commits = GitHubService.find_commits_by_project(repository.url, branch)
 
-        commits.each do |gh_commit|
-          commit = project.commits.find_by_sha(gh_commit[:sha])
+          Rails.logger.debug "Found #{commits.count} commits on GitHub for branch '#{branch}'."
 
-          unless commit
-            Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
+          commits.each do |gh_commit|
+            commit = project.commits.find_by_sha(gh_commit[:sha])
 
-            commit = Commit.new
-            commit.sha = gh_commit[:sha]
-            commit.project = project
+            unless commit
+              Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
 
-            commit.account = find_or_create_developer_account_for_commit(gh_commit)
-            commit.message = gh_commit[:commit][:message]
+              commit = Commit.new
+              commit.sha = gh_commit[:sha]
+              commit.project = project
 
-            if gh_commit[:commit][:committer]
-              commit.committed_at = gh_commit[:commit][:committer][:date]
-            elsif gh_commit[:commit][:author]
-              commit.committed_at = gh_commit[:commit][:author][:date]
+              commit.account = find_or_create_developer_account_for_commit(gh_commit)
+              commit.message = gh_commit[:commit][:message]
+
+              if gh_commit[:commit][:committer]
+                commit.committed_at = gh_commit[:commit][:committer][:date]
+              elsif gh_commit[:commit][:author]
+                commit.committed_at = gh_commit[:commit][:author][:date]
+              end
+
+              commit.save!
             end
 
-            commit.save!
-          end
+            # Fill in commit statistics
+            if commit.total.nil?
+              gh_commit_details = GitHubService.find_commit_by_project_and_sha(repository.url, commit.sha)
 
-          # Fill in commit statistics
-          if commit.total.nil?
-            gh_commit_details = GitHubService.find_commit_by_project_and_sha(repository.url, commit.sha)
+              commit.total = gh_commit_details[:stats][:total]
+              commit.additions = gh_commit_details[:stats][:additions]
+              commit.deletions = gh_commit_details[:stats][:deletions]
 
-            commit.total = gh_commit_details[:stats][:total]
-            commit.additions = gh_commit_details[:stats][:additions]
-            commit.deletions = gh_commit_details[:stats][:deletions]
-
-            commit.save!
+              commit.save!
+            end
           end
         end
       end
     end
+
+    status.last_success = Time.now
+    status.save!
   end
 
   # For each project linked to GitHub, pulls all milestones.
   desc 'Sync milestones from GitHub.'
   task :sync_milestones => :environment do
     require 'github'
+
+    status = ImportStatus.find_or_create_by(task: 'github_milestones')
+    status.last_attempt = Time.now
+    status.save!
 
     # List of projects which have repositories
     projects = Project.joins(:repositories)
@@ -116,6 +138,9 @@ namespace :github do
         end
       end
     end
+
+    status.last_success = Time.now
+    status.save!
   end
 
   private

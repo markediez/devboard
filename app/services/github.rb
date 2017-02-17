@@ -53,6 +53,17 @@ class GitHubService
     self.client.list_milestones(url, { :state => 'all' })
   end
 
+  # Return all branches for given a project URL, e.g. 'dssit/devboard'.
+  # Returns false on error.
+  def self.find_branches_by_project(url)
+    branches = self.client.branches(url)
+    if branches
+      return branches.map{|b| b.name}
+    else
+      return false
+    end
+  end
+
   private
 
     def self.client
