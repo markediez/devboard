@@ -15,10 +15,6 @@ namespace :github do
   task :sync_tasks => :environment do
     require 'github'
 
-    status = ImportStatus.find_or_create_by(task: 'github_tasks')
-    status.last_attempt = Time.now
-    status.save!
-
     # List of projects which have repositories
     projects = Project.joins(:repositories)
 
@@ -27,6 +23,10 @@ namespace :github do
     # Check for updates to local tasks in GitHub
     projects.each do |project|
       project.repositories.each do |repository|
+        status = ImportStatus.find_or_create_by(task: 'github_tasks', metadata: "#{repository.url}")
+        status.last_attempt = Time.now
+        status.save!
+
         Rails.logger.debug "Pulling tasks (issues) for project '#{project.name}'."
 
         issues = GitHubService.find_issues_by_project(repository.url)
@@ -36,21 +36,17 @@ namespace :github do
         issues.each do |issue|
           sync_issue(issue, project, repository)
         end
+
+        status.last_success = Time.now
+        status.save!
       end
     end
-
-    status.last_success = Time.now
-    status.save!
   end
 
   # Loop through GitHub-linked projects and import the commit history
   desc 'Pull commits from GitHub.'
   task :sync_commits => :environment do
     require 'github'
-
-    status = ImportStatus.find_or_create_by(task: 'github_commits')
-    status.last_attempt = Time.now
-    status.save!
 
     # List of projects which have repositories
     projects = Project.joins(:repositories)
@@ -65,19 +61,23 @@ namespace :github do
         branches = GitHubService.find_branches_by_project(repository.url)
 
         branches.each do |branch|
+          status = ImportStatus.find_or_create_by(task: 'github_commits', metadata: "#{repository.url}/#{branch}")
+          status.last_attempt = Time.now
+          status.save!
+
           commits = GitHubService.find_commits_by_project(repository.url, branch)
 
           Rails.logger.debug "Found #{commits.count} commits on GitHub for branch '#{branch}'."
 
           commits.each do |gh_commit|
-            commit = project.commits.find_by_sha(gh_commit[:sha])
+            commit = repository.commits.find_by_sha(gh_commit[:sha])
 
             unless commit
               Rails.logger.debug "Importing commit ##{gh_commit[:sha]} ('#{gh_commit[:commit][:message]}') from GitHub."
 
               commit = Commit.new
               commit.sha = gh_commit[:sha]
-              commit.project = project
+              commit.repository = repository
 
               commit.account = find_or_create_developer_account_for_commit(gh_commit)
               commit.message = gh_commit[:commit][:message]
@@ -102,22 +102,18 @@ namespace :github do
               commit.save!
             end
           end
+
+          status.last_success = Time.now
+          status.save!
         end
       end
     end
-
-    status.last_success = Time.now
-    status.save!
   end
 
   # For each project linked to GitHub, pulls all milestones.
   desc 'Sync milestones from GitHub.'
   task :sync_milestones => :environment do
     require 'github'
-
-    status = ImportStatus.find_or_create_by(task: 'github_milestones')
-    status.last_attempt = Time.now
-    status.save!
 
     # List of projects which have repositories
     projects = Project.joins(:repositories)
@@ -128,19 +124,23 @@ namespace :github do
     projects.each do |project|
       Rails.logger.debug "Pulling milestones for project '#{project.name}'."
 
-      project.repositories.each do |repo|
-        milestones = GitHubService.find_milestones_by_project(repo.url)
+      project.repositories.each do |repository|
+        status = ImportStatus.find_or_create_by(task: 'github_milestones', metadata: "#{repository.url}")
+        status.last_attempt = Time.now
+        status.save!
+
+        milestones = GitHubService.find_milestones_by_project(repository.url)
         Rails.logger.debug "Found #{milestones.count} milestones on GitHub."
 
         # Pull milestones (open & closed) from GitHub
         milestones.each do |milestone|
           sync_milestone(project, milestone)
         end
+
+        status.last_success = Time.now
+        status.save!
       end
     end
-
-    status.last_success = Time.now
-    status.save!
   end
 
   private
@@ -157,6 +157,7 @@ namespace :github do
       task.gh_issue_number = issue[:number]
       task.project = project
       task.repository_id = repository.id
+      task.sort_position = Task.maximum(:sort_position) + 1
       Rails.logger.debug "Importing issue ##{issue[:number]} ('#{issue[:title]}') from GitHub."
     else
       Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
@@ -199,6 +200,7 @@ namespace :github do
       if task.new_record? || !existing_assignment
         assignment = Assignment.new
         assignment.task = task
+        assignment.sort_position = Assignment.maximum(:sort_position) + 1
       else
         assignment = existing_assignment
       end

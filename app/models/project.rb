@@ -9,7 +9,6 @@ class Project < ActiveRecord::Base
 
   has_many :tasks
   has_many :meeting_notes
-  has_many :commits
   has_many :milestones
   has_many :repositories, :dependent => :destroy
   has_one :exception_from_email
