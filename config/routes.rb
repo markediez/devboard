@@ -17,5 +17,7 @@ Rails.application.routes.draw do
   post '/credentials' => 'site#credentials'
   get '/logout' => 'site#logout'
 
+
   root 'site#root'
+
 end

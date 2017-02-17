@@ -1,3 +1,51 @@
+/* assignment collapse */
+
+.collapse-offset {
+    .unassigned-task-container {
+        .assigned-task {
+            p {
+                width: 150px !important;
+            }
+        }
+    }
+    .toolbar {
+        width: 17.1% !important;
+    }
+    .unassigned-task-container {
+        width: 17.1% !important;
+    }
+}
+
+.assigned-collapse {
+    margin-left: 5% !important;
+    width: 95% !important;
+    .developer-assignment-titles {
+        flex: 0 1 84.2% !important;
+    }
+    .timeline-body {
+        width: 84.2% !important;
+    }
+}
+
+
+/* .assigned collapse */
+
+.collapse-offset {
+    padding-left: 5% !important;
+}
+
+.col-md-offset-2 {
+    margin-left: 16.66666667% !important;
+}
+
+.date-picker-container {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+    margin-left: 30px !important;
+    text-align: center;
+    margin-right: 30px;
+}
+
 .row {
     margin: 0px;
 }
@@ -5,9 +53,6 @@
 .assignments-widget {
     height: calc(100% - 96px);
     .date-nav {
-        position: absolute;
-        top: 12px;
-        left: 37%;
         input {
             min-width: 180px;
         }
@@ -21,10 +66,17 @@
             border: 1px solid $gray !important;
         }
     }
-    .date-picker {
-        border-color: #d6d6d6;
-        i {
-            margin-left: 6px;
+    .date-picker-container {
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+        margin-left: 30px !important;
+        text-align: center;
+        margin-right: 30px;
+        .date-picker {
+            border-color: #d6d6d6;
+            i {
+                margin-left: 6px;
+            }
         }
     }
     .pagination-button {
@@ -67,7 +119,6 @@
             background-color: white;
             flex: 1;
             align-self: center;
-
             h5 {
                 text-align: center;
                 font-weight: bold;
@@ -166,7 +217,6 @@
                 padding-left: 5px;
                 padding-right: 5px;
                 width: 100%;
-                border-bottom: 1px solid $gray;
                 .assigned-task {
                     flex: 1 0 180px;
                     background-color: $devblue;
@@ -243,7 +293,6 @@
             }
         }
     }
-
     .toolbar {
         position: fixed;
         margin-left: 0px;
