@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217012017) do
+ActiveRecord::Schema.define(version: 20170217043900) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170217012017) do
     t.integer  "additions"
     t.integer  "deletions"
     t.integer  "total"
+    t.integer  "repository_id",                    default: 0, null: false
   end
 
   create_table "developer_accounts", force: :cascade do |t|
