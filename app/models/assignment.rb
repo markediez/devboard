@@ -1,6 +1,8 @@
 class Assignment < ActiveRecord::Base
   belongs_to :developer_account
   belongs_to :task
+
+  before_validate :set_sort_position_if_necessary
   before_create :set_assigned_at
 
   validates_presence_of :developer_account, :task
@@ -22,6 +24,10 @@ class Assignment < ActiveRecord::Base
   end
 
   private
+
+  def set_sort_position_if_necessary
+    self.sort_position = Assignment.maximum(:sort_position) + 1 unless self.sort_position
+  end
 
   # assigned_at is essentially created_at but we allow it to differ in case
   # we import an assignment from an external system and need to change the assigned_at
