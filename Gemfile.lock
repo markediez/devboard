@@ -148,6 +148,7 @@ GEM
     minitest (5.10.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    mysql2 (0.4.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.0.1)
@@ -268,6 +269,7 @@ DEPENDENCIES
   jquery-ui-rails
   js-routes
   listen (~> 3.1.5)
+  mysql2
   octokit (~> 4.6.2)
   pg
   puma (~> 3.7)
