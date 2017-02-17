@@ -195,7 +195,12 @@
             <tr>
               <td><%= time_ago_in_words(commit.committed_at) %> ago</td>
               <td><%= commit.project.name %></td>
-              <td><%= commit.message %></td>
+              <% if commit.project.present? and commit.project.repositories.first.present? %>
+                <% link = "https://github.com/" + commit.project.repositories.first.url + "/commit/" + commit.sha %>
+                <td><a href="<%= link %>"><%= commit.message %></a></td>
+              <% else %>
+                <td><%= commit.message %></td>
+              <% end %>
             </tr>
             <% end %>
           </tbody>
