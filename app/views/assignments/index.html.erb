@@ -10,10 +10,6 @@
 </script>
 
 <script type="text/javascript">
-  Devboard.Services.ProjectsService.initialize();
-  Devboard.Services.TasksService.initialize();
-  Devboard.Services.DevelopersService.initialize();
-
   // Load tasks JSON into Backbone collection 'Devboard.tasks'
   var div = $('<div></div>');
   div.html($('#bootstrap').text());
@@ -26,24 +22,6 @@
 
   /* Set desired date of assignments view */
   window.Devboard.assignmentsWidget.time_to_view = '<%= @time_to_view.rfc822 %>';
-
-  /* Set information about developers and their developer_account types */
-  window.Devboard.developers = [];
-  <% @developers.each do |developer| %>
-    window.Devboard.developers.push(
-      {
-        id: <%= developer.id %>,
-        accounts: [
-          <% developer.accounts.each_with_index do |da, i| %>
-            {
-              id: <%= da.id %>,
-              type: '<%= da.account_type %>'
-            }<%= ',' unless i >= developer.accounts.length - 1 %>
-          <% end %>
-        ]
-      }
-    )
-  <% end %>
 </script>
 
 <div class="assignments-widget">
