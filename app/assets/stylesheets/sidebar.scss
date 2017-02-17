@@ -7,6 +7,9 @@
             h1 {
                 visibility: hidden;
             }
+            .collapseIcon {
+                left: 5% !important;
+            }
         }
         .collapse-group {
             .badge {
@@ -47,9 +50,20 @@
     
     @import "variables";
     #logo {
+        position: relative;
         color: white;
         text-align: center;
-        margin: 10px 0px 60px 0px;
+        margin: 10px 0px 66px 0px;
+        h1 {
+            font-size: 25pt;
+            text-align: right;
+        }
+        .collapseIcon {
+            position: absolute;
+            top: 0;
+            top: 22%;
+            left: 3%;
+        }
     }
     
     .sidebar {
@@ -157,7 +171,6 @@
         white-space: nowrap;
         overflow: hidden;
     }
-    
     .collapse-sidebar {
         position: relative;
     }
