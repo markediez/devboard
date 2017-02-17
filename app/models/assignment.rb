@@ -26,7 +26,9 @@ class Assignment < ActiveRecord::Base
   private
 
   def set_sort_position_if_necessary
-    self.sort_position = Assignment.maximum(:sort_position) + 1 unless self.sort_position
+    unless self.sort_position && self.sort_position > 0
+      self.sort_position = Assignment.maximum(:sort_position).present? ? Assignment.maximum(:sort_position) + 1 : 1
+    end
   end
 
   # assigned_at is essentially created_at but we allow it to differ in case

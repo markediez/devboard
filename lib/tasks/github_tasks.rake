@@ -165,13 +165,13 @@ namespace :github do
       task.gh_issue_number = issue[:number]
       task.project = project
       task.repository_id = repository.id
-      task.sort_position = Task.maximum(:sort_position) + 1
       Rails.logger.debug "Importing issue ##{issue[:number]} ('#{issue[:title]}') from GitHub."
     else
       Rails.logger.debug "Updating existing issue ##{issue[:number]} ('#{issue[:title]}') with GitHub."
     end
 
-    task.title = issue[:title]
+    task.title = issue[:title][0..251] # truncate long titles
+    task.title = task.title + "..." if issue[:title].length > 250
     task.details = issue[:body]
     task.completed_at = issue[:closed_at]
     task.created_at = issue[:created_at]
@@ -208,7 +208,6 @@ namespace :github do
       if task.new_record? || !existing_assignment
         assignment = Assignment.new
         assignment.task = task
-        assignment.sort_position = Assignment.maximum(:sort_position) + 1
       else
         assignment = existing_assignment
       end
