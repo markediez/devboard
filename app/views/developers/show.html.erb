@@ -41,6 +41,8 @@
       <small><a href="mailto:<%= @developer.email %>"><%= @developer.email %></a> (<%= @developer.loginid %>)</small>
     </h1>
 
+    <br /><br />
+
     <style text="text/css">
       #progress {
         position: relative;
@@ -109,7 +111,7 @@
                 <% end %>
                 <li style="padding: 0; margin: 0;">
                   <div style="text-align: center;">
-                    <span><b>Total</b> (<%= @total_commit_count %>)</span>
+                    <span><b>Total</b> (<%= @total_lines_count %>)</span>
                   </div>
                 </li>
               </ul>
