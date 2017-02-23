@@ -69,7 +69,7 @@ saveFilter = () ->
   project = $("#add_exception_filter .exception-project .dropdown-toggle .dropdown-text").html()
 
   $.post
-    url: "/exception_filters.json"
+    url: Routes.exception_filters_path() + ".json"
     data:
       exception_filter:
         concern: concern
@@ -103,10 +103,10 @@ toggleRow = (el) ->
 # id = exception report id to delete
 deleteMessage = (id) ->
   $.ajax
-    url: "/exception_reports/#{id}.json"
+    url: Routes.exception_report_path(id) + ".json"
     type: 'DELETE'
     success: (data, status, xhr) ->
-      $('[data-exception-report-id="' + id + '"]').hide(500)
+      $('[data-exception-report-id="' + id + '"]').remove()
       toastr.success("Reports deleted.")
     error: (data, status, xhr) ->
       # Should send exception email?
@@ -135,8 +135,8 @@ letUserSelectOriginal = ->
       duplicateId = $(this).closest(".table-row").data("exception-report-id")
       # Update exception report and remove from DOM
       $.ajax
-        url: "/exception_reports/#{duplicateId}.json"
-        type: "put"
+        url: Routes.exception_report_path(duplicateId) + ".json"
+        type: "PUT"
         data:
           exception_report:
             duplicated_id: originalId
