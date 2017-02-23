@@ -1,4 +1,4 @@
-json.array!(@exception_filters) do |ef|
-  json.extract! ef, :id, :concern, :pattern, :kind, :value
-  json.url ef_url(ef, format: :json)
+json.array!(@exception_filters) do |filter|
+  json.extract! filter, :id, :concern, :pattern, :kind, :value
+  json.url filter_url(filter, format: :json)
 end
