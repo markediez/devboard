@@ -25,7 +25,7 @@
     </thead>
     <tbody>
       <% @exception_reports.order(:created_at => 'DESC').each do |exception_report| %>
-      <tr class="table-row" data-exception-report-id="<%=exception_report.id%>">
+      <tr class="table-row" data-exception-report-id="<%= exception_report.id %>">
         <td>
           <input type="checkbox" class="cb-email" />
         </td>
@@ -36,7 +36,7 @@
             N/A
           <% end %>
         </td>
-        <td>
+        <td class="exception-report-subject">
           <%= link_to exception_report.subject, exception_report %>
         </td>
         <td>
@@ -48,12 +48,8 @@
             <%= "None" if exception_report.task.assignments.empty? %>
             <%= link_to "(Edit)", edit_task_path(exception_report.task) %>
           <% else %>
-            <%= form_for :new_task, :url => 'exception_reports/new_task' do |form| %>
-              <%= form.hidden_field :title, :value => exception_report.subject %>
-              <%= form.hidden_field :details, :value => exception_report.body %>
-              <%= form.hidden_field :id, :value => exception_report.id %>
-              <%= form.submit "Convert To Task" %>
-            <% end %>
+            <button class="btn convert-to-task">Convert To Task</button>
+            <input type="hidden" name="exception-report-body" value="<%= exception_report.body %>" />
           <% end %>
         </td>
       </tr>

@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   resources :exception_filters
 
   resources :exception_reports
-  post '/exception_reports/new_task' => 'exception_reports#new_task'
 
   resources :assignments, :except => [:show]
   get '/assignments/:date' => 'assignments#index'

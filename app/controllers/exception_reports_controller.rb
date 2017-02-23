@@ -25,25 +25,6 @@ class ExceptionReportsController < ApplicationController
     end
   end
 
-  # POST /exception_reports/new_task
-  def new_task
-    # Ensure unique position
-    curr_max_pos = Task.maximum(:sort_position)
-    position = (curr_max_pos == nil) ? 0 : curr_max_pos + 1
-
-    # Create a task with the report's details
-    @task = Task.new(:title => params[:new_task][:title], :details => params[:new_task][:details], :sort_position => position)
-    @task.save!
-
-    # Reference the task created for the report
-    @exception_report = ExceptionReport.where(:id => params[:new_task][:id]).first
-    @exception_report.task = @task
-    @exception_report.save!
-
-    # Flash notice
-    redirect_to exception_reports_url, notice: 'Exception report was successfully updated.'
-  end
-
   # PATCH/PUT /exception_reports/1
   def update
     respond_to do |format|
@@ -74,6 +55,6 @@ class ExceptionReportsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def exception_report_params
-      params.require(:exception_report).permit(:project_id, :subject, :body, :gh_issue_id, :duplicated_id, new_task: [:title, :details, :id])
+      params.require(:exception_report).permit(:project_id, :subject, :task_id, :body, :gh_issue_id, :duplicated_id, new_task: [:title, :details, :id])
     end
 end

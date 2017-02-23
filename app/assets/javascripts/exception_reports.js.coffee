@@ -2,6 +2,41 @@ $(document).ready ->
   $(".exceptions-notice-regular, .exceptions-notice-confirm").hide()
 
   # Set Event Listeners
+  $(".convert-to-task").on "click", (e) ->
+    # Retrieve data from DOM
+    button = $(this)
+    exceptionReport = button.closest("[data-exception-report-id]")
+    subject = $(".exception-report-subject a", exceptionReport).html() 
+    body = $("input[name=exception-report-body]", exceptionReport).val()
+    id = $(exceptionReport).data("exception-report-id")
+    
+    # Create new task
+    $.post
+      url: Routes.tasks_path() + ".json"
+      data:
+        task:
+          title: subject
+          details: body
+      success: (data, status, xhr) ->
+        toastr.success("Created a task for the exception.")
+        taskId = data.id
+        # Link Exception Report to new task
+        $.ajax
+          url: Routes.exception_report_path(id) + ".json"
+          type: "PATCH"
+          data:
+            exception_report:
+              task_id: taskId
+          success: (data, status, xhr) ->
+            toastr.success("Linked exception to created task.")
+            url = Routes.task_path(taskId)
+            $("<span>None </span><a href=#{url}>(Edit)</a>").insertBefore( $(button) )
+            $(button).remove()
+          error: (data, status, xhr) ->
+            toastr.error("Unable to link exception to task.")
+      error: (data, status, xhr) ->
+        toastr.error("Unable to create a task for the exception.")
+    
   $(".cb-email").on "click", (e) ->
     toggleRow(this)
 
