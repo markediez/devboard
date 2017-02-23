@@ -5,22 +5,6 @@
 @import "flex";
 @import "modal-bootstrap-overwrite";
 
-.btn-group {
-    display: flex;
-
-    .dropdown-toggle {
-      width: 130px;
-
-      button.fa-check {
-        margin-left:5px;
-      }
-    }
-
-    ul.dropdown-menu li {
-      cursor: pointer;
-    }
-}
-
 .modal {
     .modal-task {
         width: 70%;
@@ -57,6 +41,22 @@
     }
     /* modal body */
     .modal-body {
+        .btn-group {
+            display: flex;
+
+            .dropdown-toggle {
+            width: 130px;
+
+            button.fa-check {
+                margin-left:5px;
+            }
+            }
+
+            ul.dropdown-menu li {
+            cursor: pointer;
+            }
+        }
+
         .modal-task-title {
             padding-left: 25px;
             padding-right: 25px;
