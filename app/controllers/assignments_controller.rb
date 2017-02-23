@@ -29,6 +29,18 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  def create
+    @assignment = Assignment.new(assignment_params)
+
+    respond_to do |format|
+      if @assignment.save
+        format.json { render :show, status: :created, location: @assignment }
+      else
+        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /assignments/update
   def update
     respond_to do |format|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213185501) do
+ActiveRecord::Schema.define(version: 20170217045443) do
 
   create_table "activity_logs", force: :cascade do |t|
     t.integer  "developer_id"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 20170213185501) do
   create_table "commits", force: :cascade do |t|
     t.string   "sha",                  limit: 255
     t.integer  "developer_account_id"
-    t.integer  "project_id"
     t.string   "message",              limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -52,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170213185501) do
     t.integer  "additions"
     t.integer  "deletions"
     t.integer  "total"
+    t.integer  "repository_id",                    default: 0, null: false
   end
 
   create_table "developer_accounts", force: :cascade do |t|
@@ -96,6 +96,15 @@ ActiveRecord::Schema.define(version: 20170213185501) do
     t.integer  "task_id"
     t.string   "email_from"
     t.integer  "project_id"
+  end
+
+  create_table "import_statuses", force: :cascade do |t|
+    t.string   "task",         null: false
+    t.datetime "last_attempt", null: false
+    t.datetime "last_success"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "metadata"
   end
 
   create_table "meeting_notes", force: :cascade do |t|

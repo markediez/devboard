@@ -17,6 +17,10 @@
 //= require templates/task_form_modal
 //= require views/task_form_modal
 
+Devboard.Services.ProjectsService.initialize()
+Devboard.Services.TasksService.initialize()
+Devboard.Services.DevelopersService.initialize()
+
 $(document).ready ->
   setupDatePicker()
   setupDragAndDropForAssignments()
@@ -25,7 +29,7 @@ $(document).ready ->
     toggleTaskStatus(this)
 
   $("#new-task-btn").on "click", () ->
-    new Devboard.Views.TaskFormModal(model: { id: 512 }).render().$el.modal()
+    new Devboard.Views.TaskFormModal(model: { id: 512 } ).render().$el.modal()
 
   setupRangeSlider()
 
@@ -130,11 +134,13 @@ setupDragAndDropForAssignments = () ->
       taskIsGithub = $(ui.draggable).data("task-github")
       assignmentId = $(ui.draggable).data("assignment-id")
 
+
       console.debug "originalDeveloperId: #{originalDeveloperId}"
       console.debug "developerId: #{developerId}"
       console.debug "taskId: #{taskId}"
       console.debug "taskIsGithub: #{taskIsGithub}"
       console.debug "assignmentId: #{assignmentId}"
+
 
       $placeholder = $(this).find('.ui-sortable-placeholder')
 
@@ -154,6 +160,7 @@ setupDragAndDropForAssignments = () ->
       if sortLeftBound? and sortRightBound?
         sortPosition = (parseFloat(sortLeftBound) + parseFloat(sortRightBound)) / 2.0
       else if sortLeftBound == null and sortRightBound?
+
         sortPosition = sortRightBound - 10
       else if sortLeftBound? and sortRightBound == null
         sortPosition = sortLeftBound + 10
@@ -164,6 +171,7 @@ setupDragAndDropForAssignments = () ->
       console.debug "sortRightBound: #{sortRightBound}"
       console.debug "sortPosition: #{sortPosition}"
 
+
       if developerId == undefined
         # Assignment is being unassigned or unassigned task is being reordered
         if assignmentId?
@@ -172,7 +180,9 @@ setupDragAndDropForAssignments = () ->
             url: Routes.assignment_path(assignmentId) + ".json"
             type: 'DELETE'
             success: (data, textStatus, jqXhr) ->
+
               console.debug "success on assignment delete"
+
               $.ajax
                 url: Routes.task_path(taskId) + ".json"
                 type: 'PUT'
@@ -181,19 +191,23 @@ setupDragAndDropForAssignments = () ->
                     id: taskId
                     sort_position: sortPosition
                 success: (data, textStatus, jqXhr) ->
+
                   console.debug "success on task update"
+
                   # Update sort_position
                   ui.draggable.data('sort-position', sortPosition)
                   ui.draggable.attr('data-sort-position', sortPosition)
                   # Unassign the assignmentId
                   ui.draggable.removeAttr('data-assignment-id')
                   ui.draggable.removeData('assignment-id')
+
                   toastr.success('Assignment removed and task updated.')
                 error: (jqXHR, textStatus, errorThrown ) ->
                   console.debug "error on task update"
                   toastr.error('Assignment removed but unable to update task.')
             error: (jqXHR, textStatus, errorThrown ) ->
               console.debug "error on assignment delete"
+
               toastr.error('Unable to remove assignment.')
         else
           console.debug "unassigned task is being reordered"
@@ -206,12 +220,16 @@ setupDragAndDropForAssignments = () ->
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
               # Update sort_position
+
               console.debug "success"
+
               ui.draggable.data('sort-position', sortPosition)
               ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Task updated.')
             error: (jqXHR, textStatus, errorThrown ) ->
+
               console.debug "error"
+
               toastr.error('Unable to update task.')
       else
         if assignmentId == undefined
@@ -227,7 +245,9 @@ setupDragAndDropForAssignments = () ->
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
               # Set assignment-id
+
               console.debug "success"
+
               ui.draggable.data('assignment-id', data.assignment.id)
               ui.draggable.attr('data-assignment-id', data.assignment.id)
               # Update sort_position
@@ -235,7 +255,9 @@ setupDragAndDropForAssignments = () ->
               ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Assignment created.')
             error: (jqXHR, textStatus, errorThrown ) ->
+
               console.debug "error"
+
               toastr.error('Unable to create assignment.')
         else
           # Assignment is being switched from one developer to another, or being resorted within the same developer
@@ -251,11 +273,13 @@ setupDragAndDropForAssignments = () ->
                 sort_position: sortPosition
             success: (data, textStatus, jqXhr) ->
               # Update sort_position
+
               console.debug "success"
               ui.draggable.data('sort-position', sortPosition)
               ui.draggable.attr('data-sort-position', sortPosition)
               toastr.success('Assignment updated.')
             error: (jqXHR, textStatus, errorThrown ) ->
+
               console.debug "error"
               toastr.error('Unable to update assignment.')
   )
@@ -269,9 +293,7 @@ pickDeveloperAccount = (developerId, useGithub) ->
     return null
 
   # Fetch all developer_accounts for developerId
-  developer = _.find(window.Devboard.developers, (developer) ->
-    developer.id == developerId
-  )
+  developer = Devboard.Services.DevelopersService.findByDeveloperId(developerId)
 
   if developer == undefined
     console.error("Cannot pickDeveloperAccount(), no developer with developerId #{developerId}.")
@@ -279,9 +301,7 @@ pickDeveloperAccount = (developerId, useGithub) ->
 
   accountType = if useGithub then 'github' else 'devboard'
 
-  account = _.find(developer.accounts, (account) ->
-    return account.type == accountType
-  )
+  account = developer.findAccountByType(accountType)
 
   if account == undefined
     console.error("Cannot pickDeveloperAccount(), could not find account with type '#{accountType}'.")

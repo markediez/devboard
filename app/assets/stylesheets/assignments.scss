@@ -1,3 +1,43 @@
+/* assignment collapse */
+
+.collapse-offset {
+    .unassigned-task-container {
+        .assigned-task {
+            p {
+                width: 150px !important;
+            }
+        }
+    }
+    .toolbar {
+        width: 17.1% !important;
+    }
+    .unassigned-task-container {
+        width: 17.1% !important;
+    }
+}
+
+.assigned-collapse {
+    margin-left: 5% !important;
+    width: 95% !important;
+    .developer-assignment-titles {
+        flex: 0 1 84.2% !important;
+    }
+    .timeline-body {
+        width: 84.2% !important;
+    }
+}
+
+
+/* .assigned collapse */
+
+.collapse-offset {
+    padding-left: 5% !important;
+}
+
+.col-md-offset-2 {
+    margin-left: 16.66666667% !important;
+}
+
 .row {
     margin: 0px;
 }
@@ -5,26 +45,30 @@
 .assignments-widget {
     height: calc(100% - 96px);
     .date-nav {
-        position: absolute;
-        top: 12px;
-        left: 37%;
         input {
             min-width: 180px;
         }
         @media screen and (min-width: 1290px) {
-            left: 37%;
+            /*left: 37%;*/
         }
         @media screen and (min-width: 1920px) {
-            left: 41%;
+            /*left: 41%;*/
         }
         button {
             border: 1px solid $gray !important;
         }
     }
-    .date-picker {
-        border-color: #d6d6d6;
-        i {
-            margin-left: 6px;
+    .date-picker-container {
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+        margin-left: 16.5% !important;
+        margin-right: 18%;
+        text-align: center;
+        .date-picker {
+            border-color: #d6d6d6;
+            i {
+                margin-left: 6px;
+            }
         }
     }
     .pagination-button {
@@ -41,25 +85,25 @@
     .timeline-header {
         display: flex;
         flex-direction: row;
-        .developer-assignment-titles {
-            /* general styles */
+        .developer-title {
             padding: 10px 20px 10px 20px;
             border-top: 1px solid $gray;
             border-right: 1px solid $gray;
             display: flex;
-            flex: 0 0 82%;
+            flex: 0 0 16.4%;
+            justify-content: center;
             background-color: white;
-            h5 {
-                font-weight: bold;
-            }
-            h5:first-child {
-                flex: 1;
-                text-align: center;
-            }
-            h5:nth-child(2) {
-                flex: 4;
-                text-align: center;
-            }
+                h5 {
+                    font-weight: bold;
+                }
+        }
+        .assignment-title {
+            flex: 0 0 65.6%;
+            @extend .developer-title;
+                h5 {
+                    font-weight: bold;
+                }
+
         }
         .unassigned-task-title {
             padding: 10px 20px 10px 20px;
@@ -67,7 +111,6 @@
             background-color: white;
             flex: 1;
             align-self: center;
-
             h5 {
                 text-align: center;
                 font-weight: bold;
@@ -166,7 +209,6 @@
                 padding-left: 5px;
                 padding-right: 5px;
                 width: 100%;
-                border-bottom: 1px solid $gray;
                 .assigned-task {
                     flex: 1 0 180px;
                     background-color: $devblue;
@@ -243,7 +285,6 @@
             }
         }
     }
-
     .toolbar {
         position: fixed;
         margin-left: 0px;

@@ -4,9 +4,15 @@
 @import "font-awesome";
 @import "bootstrap-datepicker";
 @import "toastr";
-
 // Our variables
 @import "variables";
+.test123 {
+    margin-left: 16.6%;
+}
+
+.assignment-test {
+    width: 100% !important;
+}
 
 /*
  * Base structure
@@ -49,13 +55,21 @@ input:focus {
  * Global add-ons
  */
 
-//added border to all tables and make all table header backgorund black
 .table {
     border: $table-border;
+
     thead {
         background-color: $devblack;
         border: 1px solid $devblack;
         color: white;
+
+        tr > th {
+          border-bottom: none !important;
+        }
+    }
+
+    tbody > tr:first-child > td {
+      border-top: none !important;
     }
 }
 

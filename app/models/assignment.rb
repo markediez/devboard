@@ -1,6 +1,8 @@
 class Assignment < ActiveRecord::Base
   belongs_to :developer_account
   belongs_to :task
+
+  before_validation :set_sort_position_if_necessary
   before_create :set_assigned_at
   before_validation :set_unqiue_sort_position
 
@@ -13,6 +15,10 @@ class Assignment < ActiveRecord::Base
   validates_presence_of :sort_position
 
   def developer
+    # Though 'developer_account' is required to be present, this method may be called before validation,
+    # so we have to be defensive.
+    return nil unless developer_account.present?
+
     developer_account.developer.present? ? developer_account.developer : nil
   end
 
@@ -23,6 +29,12 @@ class Assignment < ActiveRecord::Base
   end
 
   private
+
+  def set_sort_position_if_necessary
+    unless self.sort_position && self.sort_position > 0
+      self.sort_position = Assignment.maximum(:sort_position).present? ? Assignment.maximum(:sort_position) + 1 : 1
+    end
+  end
 
   # assigned_at is essentially created_at but we allow it to differ in case
   # we import an assignment from an external system and need to change the assigned_at

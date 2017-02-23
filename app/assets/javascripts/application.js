@@ -7,28 +7,37 @@
 //= require devboard
 
 $(document).ready(function() {
-  $.ajaxSetup({
-    headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
-  });
+    $.ajaxSetup({
+        headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
+    });
 
-  // Configure the Toastr (plug it in, hope there's butter in the fridge, etc.)
-  toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-bottom-center",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-  }
+    // Configure the Toastr (plug it in, hope there's butter in the fridge, etc.)
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    /**
+     * Sidebar collapse 
+     */
+    $('[data-toggle=offcanvas]').click(function() {
+        $('.collapse-sidebar').toggleClass('active');
+        $('.wrapper , col-md-offset-2').toggleClass('collapse-offset col-md-offset-2');
+        $('.navheader , .navheader-collapse').toggleClass('navheader navheader-collapse');
+    });
 });
 
 /**
@@ -37,10 +46,10 @@ $(document).ready(function() {
  * @param content - html to render
  */
 function rails_nested_form_add_fields(association, content) {
-  var new_id = new Date().getTime();
-  var regexp = new RegExp("new_" + association, "g")
-  $(content.replace(regexp, new_id)).insertBefore(".add-field");
-  return false;
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g")
+    $(content.replace(regexp, new_id)).insertBefore(".add-field");
+    return false;
 }
 
 /**
@@ -49,7 +58,7 @@ function rails_nested_form_add_fields(association, content) {
  * @param link - the button / link clicked by user
  */
 function rails_nested_form_remove_fields(link) {
-  $(link).prev('input[type=hidden]').val("true");
-  $(link).closest('.fields').hide();
-  return false;
+    $(link).prev('input[type=hidden]').val("true");
+    $(link).closest('.fields').hide();
+    return false;
 }

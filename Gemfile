@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.1'
 
-gem 'sqlite3',        group: [:development, :test]
+gem 'sqlite3',        group: [:test]
+
+gem 'mysql2',         group: [:development]
 
 gem 'sass-rails', '~> 5.0.6'
 

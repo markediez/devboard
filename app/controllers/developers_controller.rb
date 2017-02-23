@@ -47,10 +47,8 @@ class DevelopersController < ApplicationController
       @recent_commits_graph[idx] += 1
       @recent_lines_graph[idx] += commit.total
 
-      if commit.project
-        @recent_commits_by_project[commit.project.name] = @recent_commits_by_project[commit.project.name].to_i + 1
-        @recent_lines_by_project[commit.project.name] = @recent_lines_by_project[commit.project.name].to_i + commit.total
-      end
+      @recent_commits_by_project[commit.repository.project.name] = @recent_commits_by_project[commit.repository.project.name].to_i + 1
+      @recent_lines_by_project[commit.repository.project.name] = @recent_lines_by_project[commit.repository.project.name].to_i + commit.total
     end
 
     @recent_commits_graph = @recent_commits_graph.sort_by { |timestamp, commits| timestamp }
@@ -58,6 +56,7 @@ class DevelopersController < ApplicationController
     @recent_commits_by_project = @recent_commits_by_project.sort_by { |name, commits| -1 * commits }
     @recent_lines_by_project = @recent_lines_by_project.sort_by { |name, lines| -1 * lines }
     @total_commit_count = @commits.count
+    @total_lines_count = @recent_lines_graph.map{|e| e[1]}.reduce(:+)
 
     # Gather current assignments
     @assignments = @developer.assignments(only_open: true)

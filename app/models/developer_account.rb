@@ -37,7 +37,7 @@ class DeveloperAccount < ActiveRecord::Base
   # user to ask which of the developer's GitHub accounts they want, and we do not currently
   # support that feature.
   def support_only_one_github_per_developer
-    if account_type == 'github'
+    if account_type == 'github' and self.developer.present?
       if DeveloperAccount.where(account_type: 'github', developer_id: self.developer_id).count > 0
         errors.add(:developer_id, "Only one GitHub account per developer_id is permitted.")
       end

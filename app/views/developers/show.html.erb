@@ -2,44 +2,82 @@
   <%= javascript_include_tag params[:controller] %>
 <% end %>
 
-<div class="header-btn-right">
-  <%= link_to 'Edit', edit_developer_path(@developer), :class => 'btn btn-default' %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      var target = $(e.target).attr("href");
+
+      var duration_selector_on = false;
+      var edit_btn_on = false;
+
+      switch(target) {
+        case '#activity':
+          duration_selector_on = true;
+          edit_btn_on = false;
+        break;
+        case '#commits':
+          duration_selector_on = true;
+          edit_btn_on = false;
+        break;
+        case '#assignment':
+          duration_selector_on = false;
+          edit_btn_on = false;
+        break;
+        case '#calendar':
+          duration_selector_on = false;
+          edit_btn_on = false;
+        break;
+        case '#profile':
+          duration_selector_on = false;
+          edit_btn_on = true;
+        break;
+      }
+
+      if(duration_selector_on) {
+        $("#toolbar-controls #duration-selector").show();
+      } else {
+        $("#toolbar-controls #duration-selector").hide();
+      }
+      if(edit_btn_on) {
+        $("#toolbar-controls #edit-btn").show();
+      } else {
+        $("#toolbar-controls #edit-btn").hide();
+      }
+    });
+  });
+</script>
+
+<div class="header-btn-right" id="toolbar-controls">
+  <div class="dropdown" style="float: left; padding-right: 10px;" id="duration-selector">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+      Show <%= @duration %> weeks
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <% [12, 24, 48, 96].each do |duration| %>
+      <li role="presentation"><a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= developer_path(@developer) %>?duration=<%= duration %>">Show <%= duration %> weeks</a></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= link_to 'Edit', edit_developer_path(@developer), :class => 'btn btn-default', id: 'edit-btn', style: 'display: none;' %>
 </div>
 
 <header class="section-title">
-  <h3><%= @developer.name %></h3>
+  <h3><%= image_tag gravatar_image_url(@developer.email, filetype: :png, rating: 'pg', size: 40, secure: true ), style: 'border-radius: 50%; float: left; margin-right: 1.0em; margin-top: -0.25em;', alt: @developer.name %> <%= @developer.name %></h3>
 </header>
 
 <ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#summary" aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+  <li role="presentation" class="active"><a href="#activity" aria-controls="home" role="tab" data-toggle="tab">Activity</a></li>
   <li role="presentation"><a href="#commits" aria-controls="profile" role="tab" data-toggle="tab">Commits</a></li>
   <li role="presentation"><a href="#assignments" aria-controls="profile" role="tab" data-toggle="tab">Assignments</a></li>
   <li role="presentation"><a href="#calendar" aria-controls="settings" role="tab" data-toggle="tab">Calendar</a></li>
+  <li role="presentation"><a href="#profile" aria-controls="settings" role="tab" data-toggle="tab">Profile</a></li>
 </ul>
 
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="summary">
+  <div role="tabpanel" class="tab-pane active" id="activity">
     <section>
-    <div class="pull-right" style="padding-top: 20px;">
-
-      <div class="dropdown" style="float: left; padding-right: 10px;">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-          Show <%= @duration %> weeks
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-          <% [12, 24, 48, 96].each do |duration| %>
-          <li role="presentation"><a style="<%= duration == @duration ? 'font-weight: bold;' : '' %>" role="menuitem" tabindex="-1" href="<%= developer_path(@developer) %>?duration=<%= duration %>">Show <%= duration %> weeks</a></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-
-    <%= gravatar_image_tag(@developer.email, :alt => @developer.name, :style => 'border-radius: 50%; float: left; margin-right: 1.0em; margin-top: 1.0em;') %>
-    <h1>
-      <%= @developer.name %><br />
-      <small><a href="mailto:<%= @developer.email %>"><%= @developer.email %></a> (<%= @developer.loginid %>)</small>
-    </h1>
 
     <style text="text/css">
       #progress {
@@ -109,7 +147,7 @@
                 <% end %>
                 <li style="padding: 0; margin: 0;">
                   <div style="text-align: center;">
-                    <span><b>Total</b> (<%= @total_commit_count %>)</span>
+                    <span><b>Total</b> (<%= @total_lines_count %>)</span>
                   </div>
                 </li>
               </ul>
@@ -177,7 +215,7 @@
         });
     </script>
     </section>
-  </div> <!-- #summary -->
+  </div> <!-- #activity -->
 
   <div role="tabpanel" class="tab-pane" id="commits">
     <section>
@@ -191,12 +229,18 @@
             </tr>
           </thead>
           <tbody>
-            <% @commits.each do |commit| %>
-            <tr>
-              <td><%= time_ago_in_words(commit.committed_at) %> ago</td>
-              <td><%= commit.project.name %></td>
-              <td><%= commit.message %></td>
-            </tr>
+            <% @commits.group_by{ |c| c.committed_at.beginning_of_day }.each do |date, commits| %>
+              <tr>
+                <td colspan="3"><b><%= date.strftime("%A %B %d, %Y") %></b></td>
+              </tr>
+              <% commits.each do |commit| %>
+                <tr>
+                  <td style="border: none;"><%= commit.committed_at.strftime("%l:%M %p") %></td>
+                  <td style="border: none;"><%= link_to commit.repository.project.name, commit.repository.project %></td>
+                  <% link = "https://github.com/" + commit.repository.project.repositories.first.url + "/commit/" + commit.sha %>
+                  <td style="border: none;"><a href="<%= link %>"><%= commit.message %></a></td>
+                </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>
@@ -230,6 +274,11 @@
   <div role="tabpanel" class="tab-pane" id="calendar">
     <section>
       Calendar goes here
+    </section>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="profile">
+    <section>
+      Profile goes here
     </section>
   </div>
 </div>

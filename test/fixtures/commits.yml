@@ -2,10 +2,8 @@
 
 one:
   sha: MyString
-  project_id: 1
   message: MyString
 
 two:
   sha: MyString
-  project_id: 1
   message: MyString
