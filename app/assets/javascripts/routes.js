@@ -453,6 +453,9 @@ Based on Rails routes of Devboard::Application
 // edit_developer_account => /developer_accounts/:id/edit(.:format)
   // function(id, options)
   edit_developer_account_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"developer_accounts",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
+// edit_exception_filter => /exception_filters/:id/edit(.:format)
+  // function(id, options)
+  edit_exception_filter_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"exception_filters",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
 // edit_exception_report => /exception_reports/:id/edit(.:format)
   // function(id, options)
   edit_exception_report_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"exception_reports",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
@@ -471,6 +474,12 @@ Based on Rails routes of Devboard::Application
 // edit_task => /tasks/:id/edit(.:format)
   // function(id, options)
   edit_task_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"tasks",false],[2,[7,"/",false],[2,[3,"id",false],[2,[7,"/",false],[2,[6,"edit",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]]]], {}),
+// exception_filter => /exception_filters/:id(.:format)
+  // function(id, options)
+  exception_filter_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"exception_filters",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// exception_filters => /exception_filters(.:format)
+  // function(options)
+  exception_filters_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"exception_filters",false],[1,[2,[8,".",false],[3,"format",false]],false]]], {}),
 // exception_report => /exception_reports/:id(.:format)
   // function(id, options)
   exception_report_path: Utils.route(["id"], ["format"], [2,[7,"/",false],[2,[6,"exception_reports",false],[2,[7,"/",false],[2,[3,"id",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
@@ -501,6 +510,9 @@ Based on Rails routes of Devboard::Application
 // new_developer_account => /developer_accounts/new(.:format)
   // function(options)
   new_developer_account_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"developer_accounts",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
+// new_exception_filter => /exception_filters/new(.:format)
+  // function(options)
+  new_exception_filter_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"exception_filters",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
 // new_exception_report => /exception_reports/new(.:format)
   // function(options)
   new_exception_report_path: Utils.route([], ["format"], [2,[7,"/",false],[2,[6,"exception_reports",false],[2,[7,"/",false],[2,[6,"new",false],[1,[2,[8,".",false],[3,"format",false]],false]]]]], {}),
