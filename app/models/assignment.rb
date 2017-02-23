@@ -4,7 +4,6 @@ class Assignment < ActiveRecord::Base
 
   before_validation :set_sort_position_if_necessary
   before_create :set_assigned_at
-  before_validation :set_unqiue_sort_position
 
   validates_presence_of :developer_account, :task
   validates_uniqueness_of :task_id, :scope => :developer_account_id
@@ -54,22 +53,14 @@ class Assignment < ActiveRecord::Base
   end
 
   def sort_position_must_be_unique_with_developer_id
-      errors.add(:sort_position, "Must be unique for this developer") unless sort_position_unique?
-  end
-
-  def set_unqiue_sort_position
-    # Default value of self.sort_position = 0.0, not nil
-    self.sort_position = Assignment.maximum(:sort_position) + 1 unless sort_position_unique?
-  end
-
-  def sort_position_unique?
     if developer
       count = Assignment.includes(:developer_account).includes(:task).where.not( id: self.id ).where(:sort_position => self.sort_position).where(:tasks => { completed_at: nil }).where(:developer_accounts => { :developer_id => self.developer.id }).count
     else
       count = Assignment.includes(:developer_account).includes(:task).where.not( id: self.id ).where(:sort_position => self.sort_position).where(:tasks => { completed_at: nil }).where(:developer_account_id => self.developer_account_id).count
     end
 
-    return count > 0
+    if count > 0
+      errors.add(:sort_position, "Must be unique for this developer") unless sort_position_unique?
+    end
   end
-  
 end
