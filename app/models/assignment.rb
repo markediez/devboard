@@ -30,7 +30,7 @@ class Assignment < ActiveRecord::Base
   private
 
   def set_sort_position_if_necessary
-    unless self.sort_position && self.sort_position > 0
+    unless self.sort_position
       self.sort_position = Assignment.maximum(:sort_position).present? ? Assignment.maximum(:sort_position) + 1 : 1
     end
   end
